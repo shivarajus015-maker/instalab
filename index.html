@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InstaLab | ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್ - ವಿಷಯವಾರು ವಿಜ್ಞಾನ ಪ್ರಯೋಗಾಲಯ</title>
+    <style>
+        :root { --primary: #1e3a8a; --secondary: #0284c7; --accent: #f59e0b; --bg: #f1f5f9; --card: #ffffff; --text: #1e293b; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: var(--bg); color: var(--text); line-height: 1.6; }
+        header { background: linear-gradient(135deg, #0f172a, var(--primary)); color: white; padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .logo { font-size: 1.6rem; font-weight: 800; }
+        .logo span { color: var(--accent); }
+        nav { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        nav a { color: white; text-decoration: none; font-weight: 600; font-size: 0.92rem; padding: 6px 12px; border-radius: 6px; }
+        .insta-top-btn { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; padding: 7px 16px; border-radius: 20px; text-decoration: none; font-weight: bold; }
+        .hero { text-align: center; padding: 2.5rem 5%; background: linear-gradient(180deg, #dbeafe 0%, var(--bg) 100%); }
+        .hero h1 { font-size: 2rem; color: var(--primary); margin-bottom: 8px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 4%; }
+        .section-title { font-size: 1.6rem; color: var(--primary); margin-bottom: 1.2rem; border-left: 6px solid var(--accent); padding-left: 12px; }
+        .filter-bar { background: white; padding: 16px; border-radius: 14px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 12px; }
+        .topic-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tab-btn { padding: 8px 14px; border: 2px solid var(--primary); background: white; color: var(--primary); border-radius: 25px; font-weight: 700; cursor: pointer; font-size: 0.88rem; }
+        .tab-btn.active, .tab-btn:hover { background: var(--primary); color: white; }
+        .search-box { padding: 10px 16px; border: 2px solid #cbd5e1; border-radius: 25px; width: 100%; max-width: 400px; font-size: 0.95rem; }
+        .exp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 18px; }
+        .exp-card { background: var(--card); border-radius: 14px; padding: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-top: 5px solid var(--secondary); display: flex; flex-direction: column; justify-content: space-between; }
+        .topic-badge { display: inline-block; background: #e0f2fe; color: var(--primary); padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
+        .exp-card h3 { font-size: 1.1rem; color: #0f172a; margin-bottom: 8px; }
+        .exp-info { font-size: 0.9rem; color: #334155; margin-bottom: 6px; }
+        .exp-sci { background: #f0f9ff; border-left: 4px solid var(--secondary); padding: 8px 10px; border-radius: 6px; font-size: 0.86rem; margin-top: 8px; color: #0c4a6e; }
+        .act-link-btn { display: inline-block; margin-top: 12px; text-align: center; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-decoration: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; font-size: 0.88rem; }
+        .sim-box { background: var(--card); border-radius: 16px; padding: 22px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; }
+        @media (max-width: 768px) { .sim-box { grid-template-columns: 1fr; } }
+        canvas { background: #0f172a; border-radius: 12px; width: 100%; height: 260px; display: block; }
+        .controls { display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+        .control-group { background: #f8fafc; padding: 12px; border-radius: 10px; border: 1px solid #e2e8f0; }
+        .control-group label { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 6px; }
+        input[type="range"] { width: 100%; cursor: pointer; }
+        .live-result { background: #dbeafe; border-left: 5px solid var(--primary); padding: 12px; border-radius: 8px; font-weight: bold; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+        .scientist-card { background: white; border-radius: 14px; padding: 20px; text-align: center; cursor: pointer; border-top: 4px solid var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+        .sci-avatar { width: 75px; height: 75px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; font-weight: bold; background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+        .sci-details { display: none; margin-top: 12px; text-align: left; font-size: 0.9rem; background: #fffbeb; padding: 12px; border-radius: 8px; }
+        .scientist-card.active .sci-details { display: block; }
+        .quiz-container { background: var(--card); border-radius: 16px; padding: 24px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+        .q-item { margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #e2e8f0; }
+        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .opt-btn { padding: 10px 14px; border: 2px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer; text-align: left; font-weight: 600; }
+        .opt-btn.correct { background: #dcfce7; border-color: #16a34a; color: #15803d; }
+        .opt-btn.wrong { background: #fee2e2; border-color: #dc2626; color: #b91c1c; }
+        .score-board { display: flex; justify-content: space-between; align-items: center; background: #0f172a; color: white; padding: 15px 20px; border-radius: 12px; margin-top: 15px; }
+        .reset-btn { background: var(--accent); border: none; padding: 8px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        footer { text-align: center; padding: 20px; background: #0f172a; color: #94a3b8; margin-top: 30px; }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">🔬 Insta<span>Lab</span> | ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್</div>
+    <nav>
+        <a href="#experiments">🧪 24 ವಿಷಯವಾರು ಪ್ರಯೋಗಗಳು</a>
+        <a href="#simulation">⚡ ಸಿಮ್ಯುಲೇಶನ್</a>
+        <a href="#scientists">🇮🇳 ವಿಜ್ಞಾನಿಗಳು</a>
+        <a href="#quiz">🏆 ಕ್ವಿಜ್</a>
+        <a href="https://www.instagram.com/" target="_blank" class="insta-top-btn">📸 InstaLab Instagram</a>
+    </nav>
+</header>
+<section class="hero">
+    <h1>ವಿಷಯವಾರು ವಿಜ್ಞಾನ ಪ್ರಯೋಗಾಲಯ (Topic-Wise Science Lab)</h1>
+    <p>ವಿಜ್ಞಾನದ ಪ್ರಮುಖ ಪರಿಕಲ್ಪನೆಗಳ ಆಧಾರದ ಮೇಲೆ 24 ಪ್ರಯೋಗಗಳು, ಚಟುವಟಿಕೆ ಲಿಂಕ್‌ಗಳು, ಸಿಮ್ಯುಲೇಶನ್, ಭಾರತೀಯ ವಿಜ್ಞಾನಿಗಳು ಮತ್ತು ಕ್ವಿಜ್.</p>
+</section>
+<div class="container">
+    <section id="experiments" style="margin-bottom: 3rem;">
+        <h2 class="section-title">🧪 ವಿಷಯವಾರು ವಿಜ್ಞಾನ ಪ್ರಯೋಗಗಳು (Topic-Wise Experiments)</h2>
+        <div class="filter-bar">
+            <div class="topic-tabs">
+                <button class="tab-btn active" onclick="filterTopic('all', this)">🌟 ಎಲ್ಲಾ (All 24)</button>
+                <button class="tab-btn" onclick="filterTopic('electricity', this)">⚡ ವಿದ್ಯುತ್ ಮತ್ತು ಕಾಂತೀಯತೆ</button>
+                <button class="tab-btn" onclick="filterTopic('light', this)">🔦 ಬೆಳಕು ಮತ್ತು ಧ್ವನಿ</button>
+                <button class="tab-btn" onclick="filterTopic('force', this)">⚙️ ಬಲ ಮತ್ತು ಒತ್ತಡ</button>
+                <button class="tab-btn" onclick="filterTopic('chemistry', this)">🧪 ರಸಾಯನಶಾಸ್ತ್ರ</button>
+                <button class="tab-btn" onclick="filterTopic('matter', this)">🌡️ ದ್ರವ್ಯ ಮತ್ತು ಶಾಖ</button>
+                <button class="tab-btn" onclick="filterTopic('biology', this)">🌱 ಜೀವಶಾಸ್ತ್ರ</button>
+            </div>
+            <input type="text" id="expSearch" class="search-box" placeholder="🔍 ಪ್ರಯೋಗ ಹುಡುಕಿ..." onkeyup="renderExperiments()">
+        </div>
+        <div class="exp-grid" id="expContainer"></div>
+    </section>
+
+    <section id="simulation" style="margin-bottom: 3rem;">
+        <h2 class="section-title">⚡ ಸಂವಾದಾತ್ಮಕ ಸಿಮ್ಯುಲೇಶನ್: ಓಮ್ ನಿಯಮ (Ohm's Law Lab)</h2>
+        <div class="sim-box">
+            <canvas id="circuitCanvas" width="500" height="260"></canvas>
+            <div class="controls">
+                <div class="control-group">
+                    <label><span>🔋 ವೋಲ್ಟೇಜ್ (V):</span> <span id="vVal">6 V</span></label>
+                    <input type="range" id="vSlider" min="1" max="12" step="0.5" value="6">
+                </div>
+                <div class="control-group">
+                    <label><span>🚧 ರೋಧ (R):</span> <span id="rVal">3 Ω</span></label>
+                    <input type="range" id="rSlider" min="1" max="10" step="0.5" value="3">
+                </div>
+                <div class="live-result">⚡ ವಿದ್ಯುತ್ ಪ್ರವಾಹ (I = V/R): <span id="iVal" style="color:#d97706;">2.00 A</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="scientists" style="margin-bottom: 3rem;">
+        <h2 class="section-title">🇮🇳 ಭಾರತೀಯ ವಿಜ್ಞಾನಿಗಳು (ಕಾರ್ಡ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ!)</h2>
+        <div class="grid-3">
+            <div class="scientist-card" onclick="this.classList.toggle('active')">
+                <div class="sci-avatar">CVR</div><h3>ಸರ್ ಸಿ. ವಿ. ರಾಮನ್</h3><p>ಭೌತಶಾಸ್ತ್ರಜ್ಞ</p>
+                <div class="sci-details"><b>ಸಂಶೋಧನೆ:</b> ಬೆಳಕಿನ ಚದುರುವಿಕೆಯ 'ರಾಮನ್ ಪರಿಣಾಮ'. 1930 ರಲ್ಲಿ ನೊಬೆಲ್ ಪ್ರಶಸ್ತಿ.</div>
+            </div>
+            <div class="scientist-card" onclick="this.classList.toggle('active')">
+                <div class="sci-avatar">APJ</div><h3>ಡಾ. ಎ.ಪಿ.ಜೆ. ಅಬ್ದುಲ್ ಕಲಾಂ</h3><p>ಬಾಹ್ಯಾಕಾಶ ವಿಜ್ಞಾನಿ</p>
+                <div class="sci-details"><b>ಸಾಧನೆ:</b> SLV-III ಹಾಗೂ ಅಗ್ನಿ, ಪೃಥ್ವಿ ಕ್ಷಿಪಣಿಗಳ ಅಭಿವೃದ್ಧಿ (ಮಿಸೈಲ್ ಮ್ಯಾನ್ ಆಫ್ ಇಂಡಿಯಾ).</div>
+            </div>
+            <div class="scientist-card" onclick="this.classList.toggle('active')">
+                <div class="sci-avatar">JCB</div><h3>ಸರ್ ಜಗದೀಶ್ ಚಂದ್ರ ಬೋಸ್</h3><p>ಸಸ್ಯಶಾಸ್ತ್ರ ಮತ್ತು ಭೌತಶಾಸ್ತ್ರಜ್ಞ</p>
+                <div class="sci-details"><b>ಸಾಧನೆ:</b> ಸಸ್ಯಗಳ ಸಂವೇದನೆ ಅಳೆಯುವ 'ಕ್ರೆಸ್ಕೋಗ್ರಾಫ್' (Crescograph) ಆವಿಷ್ಕಾರ.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz">
+        <h2 class="section-title">🏆 ವಿಜ್ಞಾನ ಕ್ವಿಜ್ (Science Quiz)</h2>
+        <div class="quiz-container">
+            <div class="q-item" data-correct="1">
+                <h4>1. ಆಹಾರದಲ್ಲಿ ಪಿಷ್ಟವನ್ನು (Starch) ಪತ್ತೆಹಚ್ಚಲು ಬಳಸುವ ದ್ರಾವಣ ಯಾವುದು?</h4>
+                <div class="options">
+                    <button class="opt-btn" onclick="checkAns(this,0)">ಎ) ಕಾಪರ್ ಸಲ್ಫೇಟ್</button>
+                    <button class="opt-btn" onclick="checkAns(this,1)">ಬಿ) ಅಯೋಡಿನ್ ದ್ರಾವಣ</button>
+                </div>
+            </div>
+            <div class="q-item" data-correct="0">
+                <h4>2. ನೀಲಿ ಲಿಟ್ಮಸ್ ಅನ್ನು ಕೆಂಪು ಬಣ್ಣಕ್ಕೆ ತಿರುಗಿಸುವ ವಸ್ತುಗಳು ಯಾವುವು?</h4>
+                <div class="options">
+                    <button class="opt-btn" onclick="checkAns(this,0)">ಎ) ಆಮ್ಲಗಳು (Acids)</button>
+                    <button class="opt-btn" onclick="checkAns(this,1)">ಬಿ) ಪ್ರತ್ಯಾಮ್ಲಗಳು (Bases)</button>
+                </div>
+            </div>
+            <div class="score-board">
+                <div>🎯 ಒಟ್ಟು ಅಂಕ (Score): <span id="scoreText" style="color:var(--accent);">0 / 2</span></div>
+                <button class="reset-btn" onclick="resetQuiz()">🔄 Reset</button>
+            </div>
+        </div>
+    </section>
+</div>
+<footer><p>© 2026 InstaLab (ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್) | Interactive Science Hub</p></footer>
+
+<script>
+const experiments = [
+    { topic:"electricity", topicLabel:"⚡ ವಿದ್ಯುತ್ ಮತ್ತು ಕಾಂತೀಯತೆ", title:"1. ವಿದ್ಯುತ್ ವಾಹಕ ಮತ್ತು ಅವಾಹಕಗಳ ಪರೀಕ್ಷೆ", materials:"ಬ್ಯಾಟರಿ, ಬಲ್ಬ್, ಕಬ್ಬಿಣದ ಮೊಳೆ, ಪ್ಲಾಸ್ಟಿಕ್, ತಾಮ್ರದ ತಂತಿ.", procedure:"ಮಂಡಲದಲ್ಲಿ ವಸ್ತುಗಳನ್ನಿಟ್ಟು ಬಲ್ಬ್ ಉರಿಯುತ್ತದೆಯೇ ಪರೀಕ್ಷಿಸಿ.", science:"ಲೋಹಗಳು ವಿದ್ಯುತ್ ವಾಹಕಗಳು, ಪ್ಲಾಸ್ಟಿಕ್ ಅವಾಹಕ.", link:"https://www.instagram.com/" },
+    { topic:"electricity", topicLabel:"⚡ ವಿದ್ಯುತ್ ಮತ್ತು ಕಾಂತೀಯತೆ", title:"2. ದಂಡಕಾಂತದ ಕಾಂತೀಯ ಬಲರೇಖೆಗಳು", materials:"ದಂಡಕಾಂತ, ಬಿಳಿ ರಟ್ಟು, ಕಬ್ಬಿಣದ ರಜ.", procedure:"ರಟ್ಟಿನ ಕೆಳಗೆ ಕಾಂತವಿಟ್ಟು ಮೇಲೆ ಕಬ್ಬಿಣದ ರಜ ಉದುರಿಸಿ ಕುಟ್ಟಿರಿ.", science:"ಕಾಂತೀಯ ಬಲರೇಖೆಗಳು ಉತ್ತರ ಧ್ರುವದಿಂದ ದಕ್ಷಿಣ ಧ್ರುವಕ್ಕೆ ಚಲಿಸುತ್ತವೆ.", link:"https://www.instagram.com/" },
+    { topic:"electricity", topicLabel:"⚡ ವಿದ್ಯುತ್ ಮತ್ತು ಕಾಂತೀಯತೆ", title:"3. ವಿದ್ಯುತ್ ಕಾಂತದ ತಯಾರಿಕೆ (Electromagnet)", materials:"ಕಬ್ಬಿಣದ ಮೊಳೆ, ತಾಮ್ರದ ತಂತಿ, ಬ್ಯಾಟರಿ, ಗುಂಡುಪಿನ್.", procedure:"ಮೊಳೆಗೆ ತಂತಿ ಸುತ್ತಿ ಬ್ಯಾಟರಿಗೆ ಜೋಡಿಸಿ ಪಿನ್ ಆಕರ್ಷಿಸಿ.", science:"ವಿದ್ಯುತ್ ಪ್ರವಾಹದಿಂದ ಕಾಂತೀಯ ಕ್ಷೇತ್ರ ಉಂಟಾಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"electricity", topicLabel:"⚡ ವಿದ್ಯುತ್ ಮತ್ತು ಕಾಂತೀಯತೆ", title:"4. ದ್ರವಗಳಲ್ಲಿ ವಿದ್ಯುತ್ ವಾಹಕತೆ", materials:"ಎಲ್ಇಡಿ, ಬ್ಯಾಟರಿ, ನಿಂಬೆ ರಸ, ಉಪ್ಪು ನೀರು.", procedure:"ದ್ರವದಲ್ಲಿ ತಂತಿ ಅದ್ದಿ ಎಲ್ಇಡಿ ಉರಿಯುವುದನ್ನು ಗಮನಿಸಿ.", science:"ಅಯಾನುಗಳಿರುವ ದ್ರವಗಳ ಮೂಲಕ ವಿದ್ಯುತ್ ಹರಿಯುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"light", topicLabel:"🔦 ಬೆಳಕು ಮತ್ತು ಧ್ವನಿ", title:"5. ಬೆಳಕಿನ ಸರಳರೇಖೆಯ ಚಲನೆ (Pinhole Camera)", materials:"ಮೂರು ರಟ್ಟುಗಳು, ಮೇಣದಬತ್ತಿ.", procedure:"ರಟ್ಟುಗಳ ರಂಧ್ರ ಒಂದೇ ನೇರದಲ್ಲಿಟ್ಟು ಜ್ವಾಲೆ ವೀಕ್ಷಿಸಿ.", science:"ಬೆಳಕು ಯಾವಾಗಲೂ ಸರಳರೇಖೆಯಲ್ಲಿ ಚಲಿಸುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"light", topicLabel:"🔦 ಬೆಳಕು ಮತ್ತು ಧ್ವನಿ", title:"6. ಬೆಳಕಿನ ಪ್ರತಿಫಲನದ ನಿಯಮಗಳು", materials:"ಸಮತಲ ದರ್ಪಣ, ಲೇಸರ್ ಲೈಟ್, ಕೋನಮಾಪಕ.", procedure:"ದರ್ಪಣದ ಮೇಲೆ ಬೆಳಕು ಬಿಟ್ಟು ಪತನ ಮತ್ತು ಪ್ರತಿಫಲನ ಕೋನ ಅಳೆಯಿರಿ.", science:"ಪತನ ಕೋನವು ಪ್ರತಿಫಲನ ಕೋನಕ್ಕೆ ಸಮನಾಗಿರುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"light", topicLabel:"🔦 ಬೆಳಕು ಮತ್ತು ಧ್ವನಿ", title:"7. ಬೆಳಕಿನ ವಕ್ರೀಭವನ ಮತ್ತು ಪಟ್ಟಕದಲ್ಲಿ ವರ್ಣವಿಭಜನೆ", materials:"ಗಾಜಿನ ಲೋಟ, ನೀರು, ಪೆನ್ಸಿಲ್, ಗಾಜಿನ ಪಟ್ಟಕ.", procedure:"ಪಟ್ಟಕದ ಮೂಲಕ ಬೆಳಕು ಹಾಯಿಸಿ 7 ಬಣ್ಣಗಳನ್ನು ಗಮನಿಸಿ.", science:"ಬಿಳಿ ಬೆಳಕು 7 ಬಣ್ಣಗಳಾಗಿ (VIBGYOR) ವಿಭಜನೆಯಾಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"light", topicLabel:"🔦 ಬೆಳಕು ಮತ್ತು ಧ್ವನಿ", title:"8. ಕಂಪನದಿಂದ ಧ್ವನಿ ಉತ್ಪತ್ತಿ", materials:"ಕವೆಯಚ್ಚು (Tuning Fork), ನೀರಿನ ಬೀಕರ್.", procedure:"ಕವೆಯಚ್ಚನ್ನು ಬಡಿದು ನೀರಿನ ಮೇಲ್ಮೈಗೆ ತಾಗಿಸಿ.", science:"ವಸ್ತುಗಳ ಕಂಪನದಿಂದ ಧ್ವನಿ ಉತ್ಪತ್ತಿಯಾಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"force", topicLabel:"⚙️ ಬಲ ಮತ್ತು ಒತ್ತಡ", title:"9. ಸರಳ ಲೋಲಕದ ಆವರ್ತಕಾಲ (Simple Pendulum)", materials:"ಲೋಹದ ಗುಂಡು, ದಾರ, ಸ್ಟಾಪ್‌ವಾಚ್.", procedure:"ದಾರದ ಉದ್ದ ಬದಲಿಸಿ 20 ಆಂದೋಲನಗಳ ಸಮಯ ಅಳೆಯಿರಿ.", science:"ಆವರ್ತಕಾಲವು ದಾರದ ಉದ್ದವನ್ನು ಅವಲಂಬಿಸಿರುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"force", topicLabel:"⚙️ ಬಲ ಮತ್ತು ಒತ್ತಡ", title:"10. ವಿವಿಧ ಮೇಲ್ಮೈಗಳಲ್ಲಿ ಘರ್ಷಣೆ ಬಲ", materials:"ಇಳಿಜಾರು ಹಲಗೆ, ಆಟಿಕೆ ಕಾರು, ಮರಳಿನ ಕಾಗದ.", procedure:"ಇಳಿಜಾರಿನಿಂದ ಕಾರು ಬಿಟ್ಟು ಚಲಿಸಿದ ದೂರ ಅಳೆಯಿರಿ.", science:"ಒರಟು ಮೇಲ್ಮೈಯಲ್ಲಿ ಘರ್ಷಣೆ ಬಲ ಹೆಚ್ಚಿರುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"force", topicLabel:"⚙️ ಬಲ ಮತ್ತು ಒತ್ತಡ", title:"11. ಆರ್ಕಿಮಿಡೀಸ್ ತತ್ವ ಮತ್ತು ಪ್ಲವನಶೀಲತೆ", materials:"ಸ್ಪ್ರಿಂಗ್ ತಕ್ಕಡಿ, ಕಲ್ಲು, ನೀರಿನ ಬೀಕರ್.", procedure:"ಕಲ್ಲನ್ನು ನೀರಿನಲ್ಲಿ ಮುಳುಗಿಸಿ ತೂಕದ ಇಳಿಕೆ ಗಮನಿಸಿ.", science:"ವಸ್ತು ಕಳೆದುಕೊಳ್ಳುವ ತೂಕ ಹೊರಚೆಲ್ಲಿದ ನೀರಿನ ತೂಕಕ್ಕೆ ಸಮ.", link:"https://www.instagram.com/" },
+    { topic:"force", topicLabel:"⚙️ ಬಲ ಮತ್ತು ಒತ್ತಡ", title:"12. ದ್ರವದ ಆಳ ಮತ್ತು ಒತ್ತಡ", materials:"ಪ್ಲಾಸ್ಟಿಕ್ ಬಾಟಲಿ, ನೀರು, ಮೊಳೆ.", procedure:"ಬಾಟಲಿಯ ಬೇರೆ ಎತ್ತರದಲ್ಲಿ ರಂಧ್ರ ಮಾಡಿ ನೀರು ಚಿಮ್ಮುವುದನ್ನು ನೋಡಿ.", science:"ಆಳ ಹೆಚ್ಚಾದಂತೆ ದ್ರವದ ಒತ್ತಡ ಹೆಚ್ಚಾಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"chemistry", topicLabel:"🧪 ರಸಾಯನಶಾಸ್ತ್ರ", title:"13. ಅರಿಶಿನ ಮತ್ತು ದಾಸವಾಳದ ನೈಸರ್ಗಿಕ ಸೂಚಕ", materials:"ಅರಿಶಿನ, ದಾಸವಾಳ ರಸ, ನಿಂಬೆ ರಸ, ಸಾಬೂನು ನೀರು.", procedure:"ಆಮ್ಲ ಮತ್ತು ಪ್ರತ್ಯಾಮ್ಲ ಹಾಕಿ ಬಣ್ಣ ಬದಲಾವಣೆ ಗಮನಿಸಿ.", science:"ಅರಿಶಿನ ಪ್ರತ್ಯಾಮ್ಲದಲ್ಲಿ ಕೆಂಪು ಬಣ್ಣಕ್ಕೆ ತಿರುಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"chemistry", topicLabel:"🧪 ರಸಾಯನಶಾಸ್ತ್ರ", title:"14. ಲೋಹಗಳ ಸ್ಥಾನಪಲ್ಲಟ ಕ್ರಿಯೆ", materials:"ಕಾಪರ್ ಸಲ್ಫೇಟ್ ದ್ರಾವಣ, ಕಬ್ಬಿಣದ ಮೊಳೆ.", procedure:"ನೀಲಿ ದ್ರಾವಣದಲ್ಲಿ ಮೊಳೆಯನ್ನು 20 ನಿಮಿಷ ಇಡಿ.", science:"ಕಬ್ಬಿಣವು ತಾಮ್ರವನ್ನು ಸ್ಥಾನಪಲ್ಲಟಗೊಳಿಸಿ ದ್ರಾವಣ ಹಸಿರಾಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"chemistry", topicLabel:"🧪 ರಸಾಯನಶಾಸ್ತ್ರ", title:"15. ದಹನ ಕ್ರಿಯೆಗೆ ಆಮ್ಲಜನಕ ಅವಶ್ಯಕ", materials:"ಮೇಣದಬತ್ತಿ, ಗಾಜಿನ ಲೋಟ.", procedure:"ಉರಿಯುವ ಮೇಣದಬತ್ತಿ ಮೇಲೆ ಲೋಟ ಬೋರಲು ಹಾಕಿ.", science:"ಆಮ್ಲಜನಕ ಮುಗಿದ ತಕ್ಷಣ ಜ್ವಾಲೆ ಆರಿಹೋಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"chemistry", topicLabel:"🧪 ರಸಾಯನಶಾಸ್ತ್ರ", title:"16. ಹೈಡ್ರೋಜನ್ ಅನಿಲದ ಪಾಪ್ ಶಬ್ದ ಪರೀಕ್ಷೆ", materials:"ಸತು ಚೂರು, ದುರ್ಬಲ ಆಮ್ಲ, ಪ್ರನಾಳ.", procedure:"ಲೋಹಕ್ಕೆ ಆಮ್ಲ ಹಾಕಿ ಬರುವ ಅನಿಲದ ಬಳಿ ಬೆಂಕಿಕಡ್ಡಿ ಹಿಡಿಯಿರಿ.", science:"ಹೈಡ್ರೋಜನ್ ಅನಿಲ 'ಪಾಪ್' ಶಬ್ದದೊಂದಿಗೆ ಉರಿಯುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"matter", topicLabel:"🌡️ ದ್ರವ್ಯ ಮತ್ತು ಶಾಖ", title:"17. ಲೋಹಗಳಲ್ಲಿ ಶಾಖದ ವಹನ (Conduction)", materials:"ಲೋಹದ ಕಡ್ಡಿ, ಮೇಣ, ಗುಂಡುಪಿನ್, ಬರ್ನರ್.", procedure:"ಕಡ್ಡಿಗೆ ಮೇಣದಿಂದ ಪಿನ್ ಅಂಟಿಸಿ ಒಂದು ತುದಿ ಕಾಯಿಸಿ.", science:"ಶಾಖವು ಬಿಸಿಯಾದ ತುದಿಯಿಂದ ತಣ್ಣಗಿನ ತುದಿಗೆ ಚಲಿಸುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"matter", topicLabel:"🌡️ ದ್ರವ್ಯ ಮತ್ತು ಶಾಖ", title:"18. ಸೋಸುವಿಕೆ ಮತ್ತು ಆವಿಯಾಗಿಸುವಿಕೆ", materials:"ಮರಳು, ಉಪ್ಪು, ನೀರು, ಫಿಲ್ಟರ್ ಪೇಪರ್.", procedure:"ಮರಳು ಸೋಸಿ ನಂತರ ನೀರನ್ನು ಕಾಯಿಸಿ ಉಪ್ಪು ಪಡೆಯಿರಿ.", science:"ಕರಗದ ವಸ್ತು ಸೋಸುವಿಕೆಯಿಂದ, ಕರಗಿದ ವಸ್ತು ಆವಿಯಾಗಿಸುವಿಕೆಯಿಂದ ಬೇರ್ಪಡುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"matter", topicLabel:"🌡️ ದ್ರವ್ಯ ಮತ್ತು ಶಾಖ", title:"19. ದ್ರವಗಳಲ್ಲಿ ವಿಸರಣೆ (Diffusion)", materials:"ತಣ್ಣೀರು, ಬಿಸಿನೀರು, ಶಾಯಿ ಅಥವಾ KMnO4.", procedure:"ತಣ್ಣೀರು ಮತ್ತು ಬಿಸಿನೀರಿಗೆ ಒಂದು ಹನಿ ಶಾಯಿ ಹಾಕಿ.", science:"ತಾಪಮಾನ ಹೆಚ್ಚಿದಂತೆ ಕಣಗಳ ಚಲನೆ ಮತ್ತು ವಿಸರಣೆ ವೇಗ ಹೆಚ್ಚುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"matter", topicLabel:"🌡️ ದ್ರವ್ಯ ಮತ್ತು ಶಾಖ", title:"20. ದ್ರವ್ಯದ ಸ್ಥಿತಿ ಬದಲಾವಣೆ ಮತ್ತು ಗುಪ್ತೋಷ್ಣ", materials:"ಮಂಜುಗಡ್ಡೆ, ಬೀಕರ್, ಥರ್ಮಾಮೀಟರ್.", procedure:"ಮಂಜುಗಡ್ಡೆ ಕರಗಿ ಕುದಿಯುವವರೆಗೆ ತಾಪಮಾನ ಅಳೆಯಿರಿ.", science:"ಸ್ಥಿತಿ ಬದಲಾವಣೆ ವೇಳೆ ತಾಪಮಾನ ಸ್ಥಿರವಾಗಿರುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"biology", topicLabel:"🌱 ಜೀವಶಾಸ್ತ್ರ", title:"21. ಆಹಾರದಲ್ಲಿ ಪಿಷ್ಟದ ಪರೀಕ್ಷೆ (Iodine Test)", materials:"ಆಲೂಗಡ್ಡೆ, ಅನ್ನ, ಅಯೋಡಿನ್ ದ್ರಾವಣ.", procedure:"ಆಹಾರದ ಮೇಲೆ 2 ಹನಿ ಅಯೋಡಿನ್ ಹಾಕಿ.", science:"ಪಿಷ್ಟವು ಅಯೋಡಿನ್ ಜೊತೆ ಕಪ್ಪು-ನೀಲಿ ಬಣ್ಣ ನೀಡುತ್ತದೆ.", link:"https://www.instagram.com/" },
+    { topic:"biology", topicLabel:"🌱 ಜೀವಶಾಸ್ತ್ರ", title:"22. ಸಸ್ಯಗಳಲ್ಲಿ ಬಾಷ್ಪವಿಸರ್ಜನೆ (Transpiration)", materials:"ಕುಂಡದ ಸಸ್ಯ, ಪ್ಲಾಸ್ಟಿಕ್ ಕವರ್, ದಾರ.", procedure:"ಎಲೆಯ ರೆಂಬೆಗೆ ಪ್ಲಾಸ್ಟಿಕ್ ಕವರ್ ಕಟ್ಟಿ ಬಿಸಿಲಿನಲ್ಲಿಡಿ.", science:"ಪತ್ರರಂಧ್ರಗಳ ಮೂಲಕ ನೀರು ಆವಿಯಾಗಿ ಹನಿಗಳು ಸಂಗ್ರಹವಾಗುತ್ತವೆ.", link:"https://www.instagram.com/" },
+    { topic:"biology", topicLabel:"🌱 ಜೀವಶಾಸ್ತ್ರ", title:"23. ಈರುಳ್ಳಿ ಪೊರೆಯ ಜೀವಕೋಶ ವೀಕ್ಷಣೆ", materials:"ಈರುಳ್ಳಿ ಪೊರೆ, ಸ್ಲೈಡ್, ಸಫ್ರಾನಿನ್, ಸೂಕ್ಷ್ಮದರ್ಶಕ.", procedure:"ಪೊರೆಗೆ ಬಣ್ಣ ಹಾಕಿ ಸೂಕ್ಷ್ಮದರ್ಶಕದಲ್ಲಿ ವೀಕ್ಷಿಸಿ.", science:"ಸಸ್ಯ ಜೀವಕೋಶದ ಕೋಶಭಿತ್ತಿ ಮತ್ತು ಕೋಶಕೇಂದ್ರ ಕಾಣಿಸುತ್ತವೆ.", link:"https://www.instagram.com/" },
+    { topic:"biology", topicLabel:"🌱 ಜೀವಶಾಸ್ತ್ರ", title:"24. ಉಸಿರಿನಲ್ಲಿ ಕಾರ್ಬನ್ ಡೈಆಕ್ಸೈಡ್ ಪರೀಕ್ಷೆ", materials:"ಸುಣ್ಣದ ತಿಳಿ ನೀರು, ಪ್ರನಾಳ, ಸ್ಟ್ರಾ.", procedure:"ಸ್ಟ್ರಾ ಮೂಲಕ ಸುಣ್ಣದ ನೀರಿಗೆ ಉಸಿರು ಊದಿರಿ.", science:"CO2 ಅನಿಲವು ಸುಣ್ಣದ ನೀರನ್ನು ಹಾಲಿನಂತೆ ಬೆಳ್ಳಗೆ ಮಾಡುತ್ತದೆ.", link:"https://www.instagram.com/" }
+];
+
+let currentTopic = 'all';
+function renderExperiments() {
+    const container = document.getElementById('expContainer');
+    const q = document.getElementById('expSearch').value.toLowerCase();
+    container.innerHTML = '';
+    experiments.filter(e => (currentTopic==='all' || e.topic===currentTopic) && (e.title.toLowerCase().includes(q) || e.materials.toLowerCase().includes(q))).forEach(e => {
+        container.innerHTML += `<div class="exp-card"><div><span class="topic-badge">${e.topicLabel}</span><h3>${e.title}</h3><p class="exp-info"><b>🧰 ಸಾಮಗ್ರಿಗಳು:</b> ${e.materials}</p><p class="exp-info"><b>📋 ವಿಧಾನ:</b> ${e.procedure}</p></div><div><div class="exp-sci"><b>💡 ವಿಜ್ಞಾನ:</b> ${e.science}</div><a href="${e.link}" target="_blank" class="act-link-btn">🔗 ಚಟುವಟಿಕೆಯ ಲಿಂಕ್ ನೋಡಿ (Activity Link)</a></div></div>`;
+    });
+}
+function filterTopic(t, btn) { currentTopic=t; document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderExperiments(); }
+renderExperiments();
+
+const canvas = document.getElementById('circuitCanvas'), ctx = canvas.getContext('2d');
+const vSlider = document.getElementById('vSlider'), rSlider = document.getElementById('rSlider');
+let offset = 0;
+function drawCircuit() {
+    const V = parseFloat(vSlider.value), R = parseFloat(rSlider.value), I = V/R;
+    document.getElementById('vVal').textContent = V+" V"; document.getElementById('rVal').textContent = R+" Ω"; document.getElementById('iVal').textContent = I.toFixed(2)+" A";
+    ctx.clearRect(0,0,500,260); ctx.strokeStyle="#64748b"; ctx.lineWidth=6; ctx.strokeRect(70,50,360,160);
+    ctx.strokeStyle="#38bdf8"; ctx.lineWidth=4; ctx.setLineDash([10,18]); offset-=I*1.2; ctx.lineDashOffset=offset; ctx.strokeRect(70,50,360,160); ctx.setLineDash([]);
+    ctx.fillStyle="#f59e0b"; ctx.fillRect(45,105,50,50); ctx.fillStyle="#000"; ctx.font="bold 13px sans-serif"; ctx.fillText(V+"V",58,135);
+    ctx.fillStyle="#ef4444"; ctx.fillRect(210,192,80,36); ctx.fillStyle="#fff"; ctx.fillText(R+" Ω",235,215);
+    ctx.save(); ctx.beginPath(); ctx.arc(250,50,22,0,Math.PI*2); ctx.shadowColor="#fde047"; ctx.shadowBlur=Math.min(I*12,45); ctx.fillStyle=I>0.5?"#facc15":"#ca8a04"; ctx.fill(); ctx.restore();
+    requestAnimationFrame(drawCircuit);
+}
+drawCircuit();
+
+let score = 0;
+function checkAns(btn, idx) {
+    const p = btn.closest('.q-item'); if(p.dataset.ans) return; p.dataset.ans="1";
+    const c = parseInt(p.dataset.correct);
+    if(idx===c){ btn.classList.add('correct'); score++; } else { btn.classList.add('wrong'); p.querySelectorAll('.opt-btn')[c].classList.add('correct'); }
+    document.getElementById('scoreText').textContent = score+" / 2";
+}
+function resetQuiz() { score=0; document.getElementById('scoreText').textContent="0 / 2"; document.querySelectorAll('.q-item').forEach(q=>{delete q.dataset.ans; q.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('correct','wrong'));}); }
+</script>
+</body>
+</html>
