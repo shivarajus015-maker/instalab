@@ -3,215 +3,847 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InstaLab | ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್ - ವಿಷಯವಾರು ವಿಜ್ಞಾನ ಪ್ರಯೋಗಾಲಯ</title>
+    <title>InstaLab | Science Made Simple. Curiosity Made Powerful.</title>
     <style>
-        :root { --primary: #1e3a8a; --secondary: #0284c7; --accent: #f59e0b; --bg: #f1f5f9; --card: #ffffff; --text: #1e293b; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        body { background: var(--bg); color: var(--text); line-height: 1.6; }
-        header { background: linear-gradient(135deg, #0f172a, var(--primary)); color: white; padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .logo { font-size: 1.6rem; font-weight: 800; }
-        .logo span { color: var(--accent); }
-        nav { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-        nav a { color: white; text-decoration: none; font-weight: 600; font-size: 0.92rem; padding: 6px 12px; border-radius: 6px; }
-        .insta-top-btn { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; padding: 7px 16px; border-radius: 20px; text-decoration: none; font-weight: bold; }
-        .hero { text-align: center; padding: 2.5rem 5%; background: linear-gradient(180deg, #dbeafe 0%, var(--bg) 100%); }
-        .hero h1 { font-size: 2rem; color: var(--primary); margin-bottom: 8px; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 4%; }
-        .section-title { font-size: 1.6rem; color: var(--primary); margin-bottom: 1.2rem; border-left: 6px solid var(--accent); padding-left: 12px; }
-        .filter-bar { background: white; padding: 16px; border-radius: 14px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 12px; }
-        .topic-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
-        .tab-btn { padding: 8px 14px; border: 2px solid var(--primary); background: white; color: var(--primary); border-radius: 25px; font-weight: 700; cursor: pointer; font-size: 0.88rem; }
-        .tab-btn.active, .tab-btn:hover { background: var(--primary); color: white; }
-        .search-box { padding: 10px 16px; border: 2px solid #cbd5e1; border-radius: 25px; width: 100%; max-width: 400px; font-size: 0.95rem; }
-        .exp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 18px; }
-        .exp-card { background: var(--card); border-radius: 14px; padding: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-top: 5px solid var(--secondary); display: flex; flex-direction: column; justify-content: space-between; }
-        .topic-badge { display: inline-block; background: #e0f2fe; color: var(--primary); padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
-        .exp-card h3 { font-size: 1.1rem; color: #0f172a; margin-bottom: 8px; }
-        .exp-info { font-size: 0.9rem; color: #334155; margin-bottom: 6px; }
-        .exp-sci { background: #f0f9ff; border-left: 4px solid var(--secondary); padding: 8px 10px; border-radius: 6px; font-size: 0.86rem; margin-top: 8px; color: #0c4a6e; }
-        .act-link-btn { display: inline-block; margin-top: 12px; text-align: center; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-decoration: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; font-size: 0.88rem; }
-        .sim-box { background: var(--card); border-radius: 16px; padding: 22px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; }
-        @media (max-width: 768px) { .sim-box { grid-template-columns: 1fr; } }
-        canvas { background: #0f172a; border-radius: 12px; width: 100%; height: 260px; display: block; }
-        .controls { display: flex; flex-direction: column; justify-content: center; gap: 14px; }
-        .control-group { background: #f8fafc; padding: 12px; border-radius: 10px; border: 1px solid #e2e8f0; }
-        .control-group label { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 6px; }
-        input[type="range"] { width: 100%; cursor: pointer; }
-        .live-result { background: #dbeafe; border-left: 5px solid var(--primary); padding: 12px; border-radius: 8px; font-weight: bold; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
-        .scientist-card { background: white; border-radius: 14px; padding: 20px; text-align: center; cursor: pointer; border-top: 4px solid var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-        .sci-avatar { width: 75px; height: 75px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; font-weight: bold; background: linear-gradient(135deg, var(--primary), var(--secondary)); }
-        .sci-details { display: none; margin-top: 12px; text-align: left; font-size: 0.9rem; background: #fffbeb; padding: 12px; border-radius: 8px; }
-        .scientist-card.active .sci-details { display: block; }
-        .quiz-container { background: var(--card); border-radius: 16px; padding: 24px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
-        .q-item { margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #e2e8f0; }
-        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .opt-btn { padding: 10px 14px; border: 2px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer; text-align: left; font-weight: 600; }
-        .opt-btn.correct { background: #dcfce7; border-color: #16a34a; color: #15803d; }
-        .opt-btn.wrong { background: #fee2e2; border-color: #dc2626; color: #b91c1c; }
-        .score-board { display: flex; justify-content: space-between; align-items: center; background: #0f172a; color: white; padding: 15px 20px; border-radius: 12px; margin-top: 15px; }
-        .reset-btn { background: var(--accent); border: none; padding: 8px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        footer { text-align: center; padding: 20px; background: #0f172a; color: #94a3b8; margin-top: 30px; }
+        :root {
+            --bg-dark: #0a1128;
+            --bg-panel: #111d40;
+            --bg-card: #16244f;
+            --electric-blue: #00d2ff;
+            --royal-blue: #3a7bd5;
+            --accent-amber: #ffb703;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --text-white: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(0, 210, 255, 0.22);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-white); line-height: 1.65; scroll-behavior: smooth; }
+        
+        /* Header & Navigation */
+        header {
+            background: rgba(10, 17, 40, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.9rem 4%;
+            position: sticky; top: 0; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+        }
+        .brand-box { display: flex; flex-direction: column; }
+        .logo { font-size: 1.55rem; font-weight: 800; color: var(--text-white); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .logo span { color: var(--electric-blue); }
+        .tagline-mini { font-size: 0.75rem; color: var(--accent-amber); letter-spacing: 0.4px; }
+        nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        nav a { color: var(--text-white); text-decoration: none; font-size: 0.88rem; font-weight: 600; padding: 6px 11px; border-radius: 8px; transition: 0.2s; }
+        nav a:hover { background: rgba(0, 210, 255, 0.15); color: var(--electric-blue); }
+        .btn-lang { background: var(--accent-amber); color: #000; border: none; padding: 6px 13px; border-radius: 20px; font-weight: 800; cursor: pointer; font-size: 0.85rem; }
+        .btn-insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff; text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; }
+
+        /* Hero Section */
+        .hero {
+            padding: 3.5rem 5%; text-align: center;
+            background: radial-gradient(circle at top, #1d3557 0%, var(--bg-dark) 75%);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .hero-identity { color: var(--electric-blue); font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.9rem; margin-bottom: 8px; }
+        .hero h1 { font-size: 2.3rem; margin-bottom: 12px; line-height: 1.25; }
+        .hero p { max-width: 820px; margin: 0 auto 24px; color: #cbd5e1; font-size: 1.05rem; }
+        .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .cta-btn {
+            padding: 11px 20px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 0.92rem;
+            transition: transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 6px;
+        }
+        .cta-primary { background: linear-gradient(135deg, var(--electric-blue), var(--royal-blue)); color: #000; }
+        .cta-secondary { background: var(--bg-card); color: var(--text-white); border: 1px solid var(--electric-blue); }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0, 210, 255, 0.3); }
+
+        /* Containers & Headings */
+        .container { max-width: 1240px; margin: 0 auto; padding: 2.5rem 4%; }
+        .sec-header { margin-bottom: 1.5rem; border-left: 5px solid var(--electric-blue); padding-left: 14px; }
+        .sec-header h2 { font-size: 1.65rem; color: var(--text-white); }
+        .sec-header p { color: var(--text-muted); font-size: 0.92rem; }
+
+        /* Tabs & Pills */
+        .pill-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+        .pill-btn {
+            background: var(--bg-panel); color: var(--text-white); border: 1px solid var(--border-color);
+            padding: 8px 15px; border-radius: 25px; cursor: pointer; font-weight: 600; font-size: 0.86rem; transition: 0.2s;
+        }
+        .pill-btn.active, .pill-btn:hover { background: var(--electric-blue); color: #000; border-color: var(--electric-blue); font-weight: 800; }
+        .search-input {
+            width: 100%; max-width: 420px; padding: 10px 16px; border-radius: 25px;
+            border: 1px solid var(--border-color); background: var(--bg-panel); color: var(--text-white); margin-bottom: 18px; outline: none;
+        }
+
+        /* Cards & Grids */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px;
+            padding: 18px; display: flex; flex-direction: column; justify-content: space-between;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25); transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-4px); border-color: var(--electric-blue); }
+        .badge { display: inline-block; background: rgba(0, 210, 255, 0.15); color: var(--electric-blue); padding: 3px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 700; margin-bottom: 8px; }
+        .badge-warn { background: rgba(255, 183, 3, 0.2); color: var(--accent-amber); }
+
+        /* Module B: Interactive Virtual Lab */
+        .lab-workspace {
+            background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 16px;
+            padding: 22px; display: grid; grid-template-columns: 1.35fr 1fr; gap: 22px;
+        }
+        @media (max-width: 850px) { .lab-workspace { grid-template-columns: 1fr; } }
+        canvas { background: #050a18; border-radius: 12px; width: 100%; height: 310px; border: 1px solid var(--border-color); display: block; }
+        .lab-controls { display: flex; flex-direction: column; gap: 12px; }
+        .ctrl-box { background: var(--bg-card); padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08); }
+        .ctrl-box label { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; color: var(--electric-blue); }
+        input[type="range"], select, input[type="text"], textarea {
+            width: 100%; padding: 8px 10px; border-radius: 8px; background: var(--bg-dark);
+            color: var(--text-white); border: 1px solid var(--border-color); font-size: 0.9rem;
+        }
+        .readout-box { background: rgba(16, 185, 129, 0.12); border-left: 4px solid var(--accent-green); padding: 12px; border-radius: 8px; font-size: 0.92rem; }
+        .pedagogy-cycle { margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+        .ped-step { background: var(--bg-card); padding: 12px; border-radius: 10px; font-size: 0.86rem; border-top: 3px solid var(--accent-amber); }
+
+        /* Module D: Video Studio */
+        .studio-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; }
+        @media (max-width: 850px) { .studio-grid { grid-template-columns: 1fr; } }
+        .script-output { background: #060b19; border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; max-height: 540px; overflow-y: auto; font-size: 0.9rem; }
+        .script-block { margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px dashed rgba(255,255,255,0.12); }
+        .script-block h4 { color: var(--accent-amber); margin-bottom: 4px; font-size: 0.95rem; }
+
+        /* Quiz */
+        .opt-btn {
+            width: 100%; text-align: left; padding: 10px 14px; margin-top: 8px; border-radius: 8px;
+            background: var(--bg-panel); color: var(--text-white); border: 1px solid var(--border-color); cursor: pointer; font-weight: 600;
+        }
+        .opt-btn.correct { background: rgba(16, 185, 129, 0.25); border-color: var(--accent-green); }
+        .opt-btn.wrong { background: rgba(239, 68, 68, 0.25); border-color: var(--accent-red); }
+
+        footer { background: #050914; padding: 2.5rem 5%; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.9rem; }
+        footer a { color: var(--electric-blue); text-decoration: none; font-weight: 700; }
     </style>
 </head>
 <body>
+
+<!-- HEADER -->
 <header>
-    <div class="logo">🔬 Insta<span>Lab</span> | ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್</div>
+    <div class="brand-box">
+        <a href="#" class="logo">🔬 Insta<span>Lab</span> | ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್</a>
+        <span class="tagline-mini">Science Made Simple. Curiosity Made Powerful.</span>
+    </div>
     <nav>
-        <a href="#experiments">🧪 24 ವಿಷಯವಾರು ಪ್ರಯೋಗಗಳು</a>
-        <a href="#simulation">⚡ ಸಿಮ್ಯುಲೇಶನ್</a>
-        <a href="#scientists">🇮🇳 ವಿಜ್ಞಾನಿಗಳು</a>
-        <a href="#quiz">🏆 ಕ್ವಿಜ್</a>
-        <a href="https://www.instagram.com/" target="_blank" class="insta-top-btn">📸 InstaLab Instagram</a>
+        <a href="#explorer">🧭 Explorer</a>
+        <a href="#virtual-lab">⚡ Virtual Lab</a>
+        <a href="#experiments">🧪 Experiments</a>
+        <a href="#reel-studio">🎬 Reel Studio</a>
+        <a href="#library">📚 Library</a>
+        <a href="#quiz">🏆 Quiz</a>
+        <button class="btn-lang" onclick="toggleLanguage()" id="langBtn">ಕನ್ನಡ / EN</button>
+        <a href="https://www.instagram.com/shivaraju_learner/" target="_blank" rel="noopener" class="btn-insta">📸 @shivaraju_learner</a>
     </nav>
 </header>
+
+<!-- HERO HOMEPAGE -->
 <section class="hero">
-    <h1>ವಿಷಯವಾರು ವಿಜ್ಞಾನ ಪ್ರಯೋಗಾಲಯ (Topic-Wise Science Lab)</h1>
-    <p>ವಿಜ್ಞಾನದ ಪ್ರಮುಖ ಪರಿಕಲ್ಪನೆಗಳ ಆಧಾರದ ಮೇಲೆ 24 ಪ್ರಯೋಗಗಳು, ಚಟುವಟಿಕೆ ಲಿಂಕ್‌ಗಳು, ಸಿಮ್ಯುಲೇಶನ್, ಭಾರತೀಯ ವಿಜ್ಞಾನಿಗಳು ಮತ್ತು ಕ್ವಿಜ್.</p>
+    <div class="hero-identity">See It. Explore It. Understand Science.</div>
+    <h1 id="heroTitle">Welcome to InstaLab — ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್‌ಗೆ ಸ್ವಾಗತ</h1>
+    <p id="heroDesc">
+        Welcome to InstaLab — a place where curiosity becomes discovery. Explore science through interactive experiments, virtual laboratories, real-world demonstrations, and simple explanations in Kannada and English.<br>
+        <span style="color:var(--accent-amber); font-size:0.95rem;">ಕುತೂಹಲವೇ ಆವಿಷ್ಕಾರವಾಗುವ ತಾಣ! ಸಂವಾದಾತ್ಮಕ ಪ್ರಯೋಗಗಳು, ವರ್ಚುವಲ್ ಪ್ರಯೋಗಾಲಯ ಮತ್ತು ಸರಳ ಕನ್ನಡ-ಇಂಗ್ಲಿಷ್ ವಿವರಣೆಗಳ ಮೂಲಕ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ.</span>
+    </p>
+    <div class="hero-actions">
+        <a href="#explorer" class="cta-btn cta-primary">🧭 Explore Science</a>
+        <a href="#experiments" class="cta-btn cta-secondary">🧪 Start an Experiment</a>
+        <a href="#virtual-lab" class="cta-btn cta-primary">🔬 Open Virtual Lab</a>
+        <a href="#reel-studio" class="cta-btn cta-secondary">🎬 Create a Science Reel</a>
+        <a href="https://www.instagram.com/shivaraju_learner/" target="_blank" rel="noopener" class="cta-btn btn-insta">📸 Follow on Instagram</a>
+    </div>
 </section>
+
 <div class="container">
-    <section id="experiments" style="margin-bottom: 3rem;">
-        <h2 class="section-title">🧪 ವಿಷಯವಾರು ವಿಜ್ಞಾನ ಪ್ರಯೋಗಗಳು (Topic-Wise Experiments)</h2>
-        <div class="filter-bar">
-            <div class="topic-tabs">
-                <button class="tab-btn active" onclick="filterTopic('all', this)">🌟 ಎಲ್ಲಾ (All 24)</button>
-                <button class="tab-btn" onclick="filterTopic('electricity', this)">⚡ ವಿದ್ಯುತ್ ಮತ್ತು ಕಾಂತೀಯತೆ</button>
-                <button class="tab-btn" onclick="filterTopic('light', this)">🔦 ಬೆಳಕು ಮತ್ತು ಧ್ವನಿ</button>
-                <button class="tab-btn" onclick="filterTopic('force', this)">⚙️ ಬಲ ಮತ್ತು ಒತ್ತಡ</button>
-                <button class="tab-btn" onclick="filterTopic('chemistry', this)">🧪 ರಸಾಯನಶಾಸ್ತ್ರ</button>
-                <button class="tab-btn" onclick="filterTopic('matter', this)">🌡️ ದ್ರವ್ಯ ಮತ್ತು ಶಾಖ</button>
-                <button class="tab-btn" onclick="filterTopic('biology', this)">🌱 ಜೀವಶಾಸ್ತ್ರ</button>
-            </div>
-            <input type="text" id="expSearch" class="search-box" placeholder="🔍 ಪ್ರಯೋಗ ಹುಡುಕಿ..." onkeyup="renderExperiments()">
+
+    <!-- MODULE B: INTERACTIVE VIRTUAL SCIENCE LAB (3 Functional Simulations) -->
+    <section id="virtual-lab" style="margin-bottom: 3.5rem;">
+        <div class="sec-header">
+            <h2>🔬 Interactive Virtual Science Lab (ಸಂವಾದಾತ್ಮಕ ವರ್ಚುವಲ್ ಪ್ರಯೋಗಾಲಯ)</h2>
+            <p>Ask → Predict → Experiment → Observe → Explain → Apply → Challenge | Simulated vs Theoretical Data Clearly Distinguished</p>
         </div>
-        <div class="exp-grid" id="expContainer"></div>
+
+        <div class="pill-bar">
+            <button class="pill-btn active" onclick="switchSim('thermometer', this)">🌡️ 1. Thermometer Lab (ತಾಪಮಾನ ಮಾಪಕ)</button>
+            <button class="pill-btn" onclick="switchSim('electricity', this)">⚡ 2. Electricity & Circuit Lab (ವಿದ್ಯುತ್ ಮಂಡಲ)</button>
+            <button class="pill-btn" onclick="switchSim('density', this)">⚖️ 3. Density & Buoyancy Lab (ಸಾಂದ್ರತೆ ಪ್ರಯೋಗ)</button>
+        </div>
+
+        <div class="lab-workspace">
+            <div>
+                <canvas id="simCanvas" width="600" height="310"></canvas>
+                <div style="display:flex; justify-content:space-between; margin-top:10px; gap:8px;">
+                    <button class="pill-btn" onclick="toggleSimPlay()" id="playPauseBtn">⏸️ Pause / Play</button>
+                    <button class="pill-btn" onclick="resetCurrentSim()">🔄 Reset Simulation</button>
+                    <span style="font-size:0.8rem; color:var(--text-muted); align-self:center;">*Simulated physical model based on standard equations</span>
+                </div>
+            </div>
+            <div class="lab-controls" id="simControls"></div>
+        </div>
+
+        <div class="pedagogy-cycle" id="simPedagogy"></div>
     </section>
 
-    <section id="simulation" style="margin-bottom: 3rem;">
-        <h2 class="section-title">⚡ ಸಂವಾದಾತ್ಮಕ ಸಿಮ್ಯುಲೇಶನ್: ಓಮ್ ನಿಯಮ (Ohm's Law Lab)</h2>
-        <div class="sim-box">
-            <canvas id="circuitCanvas" width="500" height="260"></canvas>
-            <div class="controls">
-                <div class="control-group">
-                    <label><span>🔋 ವೋಲ್ಟೇಜ್ (V):</span> <span id="vVal">6 V</span></label>
-                    <input type="range" id="vSlider" min="1" max="12" step="0.5" value="6">
+    <!-- MODULE A: SCIENCE EXPLORER (10 Categories) -->
+    <section id="explorer" style="margin-bottom: 3.5rem;">
+        <div class="sec-header">
+            <h2>🧭 Science Explorer (10 ವಿಜ್ಞಾನ ವಿಭಾಗಗಳ ಅನ್ವೇಷಣೆ)</h2>
+            <p>Explore concepts across Physics, Chemistry, Biology, Space, Environment, Human Body, Everyday Science, Discoveries, STEM & Myths vs Facts.</p>
+        </div>
+        <input type="text" id="explorerSearch" class="search-input" placeholder="🔍 Search 10 categories or topics (ವಿಷಯ ಹುಡುಕಿ)..." onkeyup="renderExplorer()">
+        <div class="pill-bar" id="explorerTabs"></div>
+        <div class="grid-3" id="explorerGrid"></div>
+    </section>
+
+    <!-- MODULE C: HANDS-ON EXPERIMENT GENERATOR & LIBRARY -->
+    <section id="experiments" style="margin-bottom: 3.5rem;">
+        <div class="sec-header">
+            <h2>🧪 Low-Cost Hands-On Experiment Library (ಸರಳ ಪ್ರಾಯೋಗಿಕ ಚಟುವಟಿಕೆಗಳು)</h2>
+            <p>Safe, affordable classroom and home STEM experiments for Grades 6–8 with step-by-step procedures, safety notes & troubleshooting.</p>
+        </div>
+        <div class="grid-3" id="expGrid"></div>
+    </section>
+
+    <!-- MODULE D: INSTAGRAM REEL & SCIENCE VIDEO STUDIO (18-Point Package) -->
+    <section id="reel-studio" style="margin-bottom: 3.5rem;">
+        <div class="sec-header">
+            <h2>🎬 Instagram Reel & Science Video Studio (@shivaraju_learner)</h2>
+            <p>Generate complete 18-point science video packages (9:16 Reels & 16:9 Classroom Videos) with Kannada/English scripts, storyboards & AI prompts.</p>
+        </div>
+
+        <div class="studio-grid">
+            <div class="card">
+                <span class="badge">Content Package Generator</span>
+                <div class="ctrl-box" style="margin-bottom:10px;">
+                    <label>Select Science Concept (ವಿಷಯ ಆಯ್ಕೆಮಾಡಿ):</label>
+                    <select id="studioTopic" onchange="generateReelPackage()">
+                        <option value="refraction">Light Refraction: Reversing Arrow (ಬೆಳಕಿನ ವಕ್ರೀಭವನ)</option>
+                        <option value="turmeric">Turmeric Natural pH Indicator (ಅರಿಶಿನ ನೈಸರ್ಗಿಕ ಸೂಚಕ)</option>
+                        <option value="density">Floating Lemon & Water Density (ಸಾಂದ್ರತೆ ಮತ್ತು ತೇಲುವ ನಿಂಬೆ)</option>
+                        <option value="pressure">Atmospheric Pressure Water Lock (ವಾಯು ಒತ್ತಡದ ಪವಾಡ)</option>
+                    </select>
                 </div>
-                <div class="control-group">
-                    <label><span>🚧 ರೋಧ (R):</span> <span id="rVal">3 Ω</span></label>
-                    <input type="range" id="rSlider" min="1" max="10" step="0.5" value="3">
+                <div class="ctrl-box" style="margin-bottom:10px;">
+                    <label>Video Format (ವಿಡಿಯೋ ಅನುಪಾತ):</label>
+                    <select id="studioFormat" onchange="generateReelPackage()">
+                        <option value="9:16 Vertical (Instagram Reel - 60-90s)">📱 9:16 Vertical (Instagram Reel - 60–90 sec)</option>
+                        <option value="16:9 Landscape (YouTube / Classroom)">🖥️ 16:9 Landscape (Classroom / YouTube)</option>
+                    </select>
                 </div>
-                <div class="live-result">⚡ ವಿದ್ಯುತ್ ಪ್ರವಾಹ (I = V/R): <span id="iVal" style="color:#d97706;">2.00 A</span></div>
+                <div class="ctrl-box" style="margin-bottom:12px;">
+                    <label>Publication Status (ಸ್ಥಿತಿ):</label>
+                    <select id="studioStatus">
+                        <option value="Script Ready">Script Ready</option>
+                        <option value="Idea">Idea</option>
+                        <option value="Researching">Researching</option>
+                        <option value="Production">Production</option>
+                        <option value="Published">Published</option>
+                    </select>
+                </div>
+                <button class="cta-btn cta-primary" style="width:100%; justify-content:center; border:none; cursor:pointer;" onclick="saveToLibrary()">
+                    💾 Save Package to Content Library
+                </button>
+                <p style="font-size:0.78rem; color:var(--text-muted); margin-top:8px;">
+                    🔒 <b>AI API Security Note:</b> Secret API keys (like Gemini API) must never be placed in public frontend HTML/JS on GitHub Pages. Connect via a secure serverless backend proxy when automating dynamic LLM calls.
+                </p>
             </div>
+
+            <div class="script-output" id="reelOutput"></div>
         </div>
     </section>
 
-    <section id="scientists" style="margin-bottom: 3rem;">
-        <h2 class="section-title">🇮🇳 ಭಾರತೀಯ ವಿಜ್ಞಾನಿಗಳು (ಕಾರ್ಡ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ!)</h2>
-        <div class="grid-3">
-            <div class="scientist-card" onclick="this.classList.toggle('active')">
-                <div class="sci-avatar">CVR</div><h3>ಸರ್ ಸಿ. ವಿ. ರಾಮನ್</h3><p>ಭೌತಶಾಸ್ತ್ರಜ್ಞ</p>
-                <div class="sci-details"><b>ಸಂಶೋಧನೆ:</b> ಬೆಳಕಿನ ಚದುರುವಿಕೆಯ 'ರಾಮನ್ ಪರಿಣಾಮ'. 1930 ರಲ್ಲಿ ನೊಬೆಲ್ ಪ್ರಶಸ್ತಿ.</div>
-            </div>
-            <div class="scientist-card" onclick="this.classList.toggle('active')">
-                <div class="sci-avatar">APJ</div><h3>ಡಾ. ಎ.ಪಿ.ಜೆ. ಅಬ್ದುಲ್ ಕಲಾಂ</h3><p>ಬಾಹ್ಯಾಕಾಶ ವಿಜ್ಞಾನಿ</p>
-                <div class="sci-details"><b>ಸಾಧನೆ:</b> SLV-III ಹಾಗೂ ಅಗ್ನಿ, ಪೃಥ್ವಿ ಕ್ಷಿಪಣಿಗಳ ಅಭಿವೃದ್ಧಿ (ಮಿಸೈಲ್ ಮ್ಯಾನ್ ಆಫ್ ಇಂಡಿಯಾ).</div>
-            </div>
-            <div class="scientist-card" onclick="this.classList.toggle('active')">
-                <div class="sci-avatar">JCB</div><h3>ಸರ್ ಜಗದೀಶ್ ಚಂದ್ರ ಬೋಸ್</h3><p>ಸಸ್ಯಶಾಸ್ತ್ರ ಮತ್ತು ಭೌತಶಾಸ್ತ್ರಜ್ಞ</p>
-                <div class="sci-details"><b>ಸಾಧನೆ:</b> ಸಸ್ಯಗಳ ಸಂವೇದನೆ ಅಳೆಯುವ 'ಕ್ರೆಸ್ಕೋಗ್ರಾಫ್' (Crescograph) ಆವಿಷ್ಕಾರ.</div>
+    <!-- MODULE E & 4: SCIENCE VIDEO CONTENT LIBRARY & INSTAGRAM INTEGRATION -->
+    <section id="library" style="margin-bottom: 3.5rem;">
+        <div class="sec-header">
+            <h2>📚 Science Video Content Library & Instagram Hub</h2>
+            <p>Manage your scripts, production status, and published @shivaraju_learner Instagram Reels (Saved locally in browser localStorage).</p>
+        </div>
+
+        <div class="card" style="margin-bottom:18px;">
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                <input type="text" id="customReelTitle" placeholder="Add Custom Topic / Reel Title..." style="flex:1; min-width:200px;">
+                <input type="text" id="customReelUrl" placeholder="Paste Instagram Reel URL (https://www.instagram.com/p/...)" style="flex:1; min-width:240px;">
+                <button class="pill-btn active" onclick="addCustomReel()">➕ Add to Library</button>
             </div>
         </div>
+
+        <div class="grid-3" id="libraryGrid"></div>
     </section>
 
-    <section id="quiz">
-        <h2 class="section-title">🏆 ವಿಜ್ಞಾನ ಕ್ವಿಜ್ (Science Quiz)</h2>
-        <div class="quiz-container">
-            <div class="q-item" data-correct="1">
-                <h4>1. ಆಹಾರದಲ್ಲಿ ಪಿಷ್ಟವನ್ನು (Starch) ಪತ್ತೆಹಚ್ಚಲು ಬಳಸುವ ದ್ರಾವಣ ಯಾವುದು?</h4>
-                <div class="options">
-                    <button class="opt-btn" onclick="checkAns(this,0)">ಎ) ಕಾಪರ್ ಸಲ್ಫೇಟ್</button>
-                    <button class="opt-btn" onclick="checkAns(this,1)">ಬಿ) ಅಯೋಡಿನ್ ದ್ರಾವಣ</button>
-                </div>
-            </div>
-            <div class="q-item" data-correct="0">
-                <h4>2. ನೀಲಿ ಲಿಟ್ಮಸ್ ಅನ್ನು ಕೆಂಪು ಬಣ್ಣಕ್ಕೆ ತಿರುಗಿಸುವ ವಸ್ತುಗಳು ಯಾವುವು?</h4>
-                <div class="options">
-                    <button class="opt-btn" onclick="checkAns(this,0)">ಎ) ಆಮ್ಲಗಳು (Acids)</button>
-                    <button class="opt-btn" onclick="checkAns(this,1)">ಬಿ) ಪ್ರತ್ಯಾಮ್ಲಗಳು (Bases)</button>
-                </div>
-            </div>
-            <div class="score-board">
-                <div>🎯 ಒಟ್ಟು ಅಂಕ (Score): <span id="scoreText" style="color:var(--accent);">0 / 2</span></div>
-                <button class="reset-btn" onclick="resetQuiz()">🔄 Reset</button>
-            </div>
+    <!-- MODULE F: INTERACTIVE SCIENCE QUIZ & CHALLENGE -->
+    <section id="quiz" style="margin-bottom: 2rem;">
+        <div class="sec-header">
+            <h2>🏆 Interactive Science Quiz & Daily Challenge (ವಿಜ್ಞಾನ ರಸಪ್ರಶ್ನೆ)</h2>
+            <p>Test your conceptual understanding with instant feedback and scientific explanations.</p>
         </div>
+        <div class="card" id="quizBox"></div>
     </section>
+
 </div>
-<footer><p>© 2026 InstaLab (ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್) | Interactive Science Hub</p></footer>
+
+<!-- FOOTER -->
+<footer>
+    <p style="font-size:1.1rem; color:var(--text-white); font-weight:700; margin-bottom:6px;">
+        🔬 InstaLab — Science Made Simple. Curiosity Made Powerful.
+    </p>
+    <p>See It. Explore It. Understand Science. | Primary Creator Hub: <a href="https://www.instagram.com/shivaraju_learner/" target="_blank" rel="noopener">@shivaraju_learner</a></p>
+    <p style="margin-top:10px; font-size:0.8rem;">© 2026 InstaLab (ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್) | Hosted on GitHub Pages | Built for Grades 6–8, Teachers & Curious Learners</p>
+</footer>
 
 <script>
-const experiments = [
-    { topic:"electricity", topicLabel:"⚡ ವಿದ್ಯುತ್ ಮತ್ತು ಕಾಂತೀಯತೆ", title:"1. ವಿದ್ಯುತ್ ವಾಹಕ ಮತ್ತು ಅವಾಹಕಗಳ ಪರೀಕ್ಷೆ", materials:"ಬ್ಯಾಟರಿ, ಬಲ್ಬ್, ಕಬ್ಬಿಣದ ಮೊಳೆ, ಪ್ಲಾಸ್ಟಿಕ್, ತಾಮ್ರದ ತಂತಿ.", procedure:"ಮಂಡಲದಲ್ಲಿ ವಸ್ತುಗಳನ್ನಿಟ್ಟು ಬಲ್ಬ್ ಉರಿಯುತ್ತದೆಯೇ ಪರೀಕ್ಷಿಸಿ.", science:"ಲೋಹಗಳು ವಿದ್ಯುತ್ ವಾಹಕಗಳು, ಪ್ಲಾಸ್ಟಿಕ್ ಅವಾಹಕ.", link:"https://www.instagram.com/" },
-    { topic:"electricity", topicLabel:"⚡ ವಿದ್ಯುತ್ ಮತ್ತು ಕಾಂತೀಯತೆ", title:"2. ದಂಡಕಾಂತದ ಕಾಂತೀಯ ಬಲರೇಖೆಗಳು", materials:"ದಂಡಕಾಂತ, ಬಿಳಿ ರಟ್ಟು, ಕಬ್ಬಿಣದ ರಜ.", procedure:"ರಟ್ಟಿನ ಕೆಳಗೆ ಕಾಂತವಿಟ್ಟು ಮೇಲೆ ಕಬ್ಬಿಣದ ರಜ ಉದುರಿಸಿ ಕುಟ್ಟಿರಿ.", science:"ಕಾಂತೀಯ ಬಲರೇಖೆಗಳು ಉತ್ತರ ಧ್ರುವದಿಂದ ದಕ್ಷಿಣ ಧ್ರುವಕ್ಕೆ ಚಲಿಸುತ್ತವೆ.", link:"https://www.instagram.com/" },
-    { topic:"electricity", topicLabel:"⚡ ವಿದ್ಯುತ್ ಮತ್ತು ಕಾಂತೀಯತೆ", title:"3. ವಿದ್ಯುತ್ ಕಾಂತದ ತಯಾರಿಕೆ (Electromagnet)", materials:"ಕಬ್ಬಿಣದ ಮೊಳೆ, ತಾಮ್ರದ ತಂತಿ, ಬ್ಯಾಟರಿ, ಗುಂಡುಪಿನ್.", procedure:"ಮೊಳೆಗೆ ತಂತಿ ಸುತ್ತಿ ಬ್ಯಾಟರಿಗೆ ಜೋಡಿಸಿ ಪಿನ್ ಆಕರ್ಷಿಸಿ.", science:"ವಿದ್ಯುತ್ ಪ್ರವಾಹದಿಂದ ಕಾಂತೀಯ ಕ್ಷೇತ್ರ ಉಂಟಾಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"electricity", topicLabel:"⚡ ವಿದ್ಯುತ್ ಮತ್ತು ಕಾಂತೀಯತೆ", title:"4. ದ್ರವಗಳಲ್ಲಿ ವಿದ್ಯುತ್ ವಾಹಕತೆ", materials:"ಎಲ್ಇಡಿ, ಬ್ಯಾಟರಿ, ನಿಂಬೆ ರಸ, ಉಪ್ಪು ನೀರು.", procedure:"ದ್ರವದಲ್ಲಿ ತಂತಿ ಅದ್ದಿ ಎಲ್ಇಡಿ ಉರಿಯುವುದನ್ನು ಗಮನಿಸಿ.", science:"ಅಯಾನುಗಳಿರುವ ದ್ರವಗಳ ಮೂಲಕ ವಿದ್ಯುತ್ ಹರಿಯುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"light", topicLabel:"🔦 ಬೆಳಕು ಮತ್ತು ಧ್ವನಿ", title:"5. ಬೆಳಕಿನ ಸರಳರೇಖೆಯ ಚಲನೆ (Pinhole Camera)", materials:"ಮೂರು ರಟ್ಟುಗಳು, ಮೇಣದಬತ್ತಿ.", procedure:"ರಟ್ಟುಗಳ ರಂಧ್ರ ಒಂದೇ ನೇರದಲ್ಲಿಟ್ಟು ಜ್ವಾಲೆ ವೀಕ್ಷಿಸಿ.", science:"ಬೆಳಕು ಯಾವಾಗಲೂ ಸರಳರೇಖೆಯಲ್ಲಿ ಚಲಿಸುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"light", topicLabel:"🔦 ಬೆಳಕು ಮತ್ತು ಧ್ವನಿ", title:"6. ಬೆಳಕಿನ ಪ್ರತಿಫಲನದ ನಿಯಮಗಳು", materials:"ಸಮತಲ ದರ್ಪಣ, ಲೇಸರ್ ಲೈಟ್, ಕೋನಮಾಪಕ.", procedure:"ದರ್ಪಣದ ಮೇಲೆ ಬೆಳಕು ಬಿಟ್ಟು ಪತನ ಮತ್ತು ಪ್ರತಿಫಲನ ಕೋನ ಅಳೆಯಿರಿ.", science:"ಪತನ ಕೋನವು ಪ್ರತಿಫಲನ ಕೋನಕ್ಕೆ ಸಮನಾಗಿರುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"light", topicLabel:"🔦 ಬೆಳಕು ಮತ್ತು ಧ್ವನಿ", title:"7. ಬೆಳಕಿನ ವಕ್ರೀಭವನ ಮತ್ತು ಪಟ್ಟಕದಲ್ಲಿ ವರ್ಣವಿಭಜನೆ", materials:"ಗಾಜಿನ ಲೋಟ, ನೀರು, ಪೆನ್ಸಿಲ್, ಗಾಜಿನ ಪಟ್ಟಕ.", procedure:"ಪಟ್ಟಕದ ಮೂಲಕ ಬೆಳಕು ಹಾಯಿಸಿ 7 ಬಣ್ಣಗಳನ್ನು ಗಮನಿಸಿ.", science:"ಬಿಳಿ ಬೆಳಕು 7 ಬಣ್ಣಗಳಾಗಿ (VIBGYOR) ವಿಭಜನೆಯಾಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"light", topicLabel:"🔦 ಬೆಳಕು ಮತ್ತು ಧ್ವನಿ", title:"8. ಕಂಪನದಿಂದ ಧ್ವನಿ ಉತ್ಪತ್ತಿ", materials:"ಕವೆಯಚ್ಚು (Tuning Fork), ನೀರಿನ ಬೀಕರ್.", procedure:"ಕವೆಯಚ್ಚನ್ನು ಬಡಿದು ನೀರಿನ ಮೇಲ್ಮೈಗೆ ತಾಗಿಸಿ.", science:"ವಸ್ತುಗಳ ಕಂಪನದಿಂದ ಧ್ವನಿ ಉತ್ಪತ್ತಿಯಾಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"force", topicLabel:"⚙️ ಬಲ ಮತ್ತು ಒತ್ತಡ", title:"9. ಸರಳ ಲೋಲಕದ ಆವರ್ತಕಾಲ (Simple Pendulum)", materials:"ಲೋಹದ ಗುಂಡು, ದಾರ, ಸ್ಟಾಪ್‌ವಾಚ್.", procedure:"ದಾರದ ಉದ್ದ ಬದಲಿಸಿ 20 ಆಂದೋಲನಗಳ ಸಮಯ ಅಳೆಯಿರಿ.", science:"ಆವರ್ತಕಾಲವು ದಾರದ ಉದ್ದವನ್ನು ಅವಲಂಬಿಸಿರುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"force", topicLabel:"⚙️ ಬಲ ಮತ್ತು ಒತ್ತಡ", title:"10. ವಿವಿಧ ಮೇಲ್ಮೈಗಳಲ್ಲಿ ಘರ್ಷಣೆ ಬಲ", materials:"ಇಳಿಜಾರು ಹಲಗೆ, ಆಟಿಕೆ ಕಾರು, ಮರಳಿನ ಕಾಗದ.", procedure:"ಇಳಿಜಾರಿನಿಂದ ಕಾರು ಬಿಟ್ಟು ಚಲಿಸಿದ ದೂರ ಅಳೆಯಿರಿ.", science:"ಒರಟು ಮೇಲ್ಮೈಯಲ್ಲಿ ಘರ್ಷಣೆ ಬಲ ಹೆಚ್ಚಿರುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"force", topicLabel:"⚙️ ಬಲ ಮತ್ತು ಒತ್ತಡ", title:"11. ಆರ್ಕಿಮಿಡೀಸ್ ತತ್ವ ಮತ್ತು ಪ್ಲವನಶೀಲತೆ", materials:"ಸ್ಪ್ರಿಂಗ್ ತಕ್ಕಡಿ, ಕಲ್ಲು, ನೀರಿನ ಬೀಕರ್.", procedure:"ಕಲ್ಲನ್ನು ನೀರಿನಲ್ಲಿ ಮುಳುಗಿಸಿ ತೂಕದ ಇಳಿಕೆ ಗಮನಿಸಿ.", science:"ವಸ್ತು ಕಳೆದುಕೊಳ್ಳುವ ತೂಕ ಹೊರಚೆಲ್ಲಿದ ನೀರಿನ ತೂಕಕ್ಕೆ ಸಮ.", link:"https://www.instagram.com/" },
-    { topic:"force", topicLabel:"⚙️ ಬಲ ಮತ್ತು ಒತ್ತಡ", title:"12. ದ್ರವದ ಆಳ ಮತ್ತು ಒತ್ತಡ", materials:"ಪ್ಲಾಸ್ಟಿಕ್ ಬಾಟಲಿ, ನೀರು, ಮೊಳೆ.", procedure:"ಬಾಟಲಿಯ ಬೇರೆ ಎತ್ತರದಲ್ಲಿ ರಂಧ್ರ ಮಾಡಿ ನೀರು ಚಿಮ್ಮುವುದನ್ನು ನೋಡಿ.", science:"ಆಳ ಹೆಚ್ಚಾದಂತೆ ದ್ರವದ ಒತ್ತಡ ಹೆಚ್ಚಾಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"chemistry", topicLabel:"🧪 ರಸಾಯನಶಾಸ್ತ್ರ", title:"13. ಅರಿಶಿನ ಮತ್ತು ದಾಸವಾಳದ ನೈಸರ್ಗಿಕ ಸೂಚಕ", materials:"ಅರಿಶಿನ, ದಾಸವಾಳ ರಸ, ನಿಂಬೆ ರಸ, ಸಾಬೂನು ನೀರು.", procedure:"ಆಮ್ಲ ಮತ್ತು ಪ್ರತ್ಯಾಮ್ಲ ಹಾಕಿ ಬಣ್ಣ ಬದಲಾವಣೆ ಗಮನಿಸಿ.", science:"ಅರಿಶಿನ ಪ್ರತ್ಯಾಮ್ಲದಲ್ಲಿ ಕೆಂಪು ಬಣ್ಣಕ್ಕೆ ತಿರುಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"chemistry", topicLabel:"🧪 ರಸಾಯನಶಾಸ್ತ್ರ", title:"14. ಲೋಹಗಳ ಸ್ಥಾನಪಲ್ಲಟ ಕ್ರಿಯೆ", materials:"ಕಾಪರ್ ಸಲ್ಫೇಟ್ ದ್ರಾವಣ, ಕಬ್ಬಿಣದ ಮೊಳೆ.", procedure:"ನೀಲಿ ದ್ರಾವಣದಲ್ಲಿ ಮೊಳೆಯನ್ನು 20 ನಿಮಿಷ ಇಡಿ.", science:"ಕಬ್ಬಿಣವು ತಾಮ್ರವನ್ನು ಸ್ಥಾನಪಲ್ಲಟಗೊಳಿಸಿ ದ್ರಾವಣ ಹಸಿರಾಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"chemistry", topicLabel:"🧪 ರಸಾಯನಶಾಸ್ತ್ರ", title:"15. ದಹನ ಕ್ರಿಯೆಗೆ ಆಮ್ಲಜನಕ ಅವಶ್ಯಕ", materials:"ಮೇಣದಬತ್ತಿ, ಗಾಜಿನ ಲೋಟ.", procedure:"ಉರಿಯುವ ಮೇಣದಬತ್ತಿ ಮೇಲೆ ಲೋಟ ಬೋರಲು ಹಾಕಿ.", science:"ಆಮ್ಲಜನಕ ಮುಗಿದ ತಕ್ಷಣ ಜ್ವಾಲೆ ಆರಿಹೋಗುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"chemistry", topicLabel:"🧪 ರಸಾಯನಶಾಸ್ತ್ರ", title:"16. ಹೈಡ್ರೋಜನ್ ಅನಿಲದ ಪಾಪ್ ಶಬ್ದ ಪರೀಕ್ಷೆ", materials:"ಸತು ಚೂರು, ದುರ್ಬಲ ಆಮ್ಲ, ಪ್ರನಾಳ.", procedure:"ಲೋಹಕ್ಕೆ ಆಮ್ಲ ಹಾಕಿ ಬರುವ ಅನಿಲದ ಬಳಿ ಬೆಂಕಿಕಡ್ಡಿ ಹಿಡಿಯಿರಿ.", science:"ಹೈಡ್ರೋಜನ್ ಅನಿಲ 'ಪಾಪ್' ಶಬ್ದದೊಂದಿಗೆ ಉರಿಯುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"matter", topicLabel:"🌡️ ದ್ರವ್ಯ ಮತ್ತು ಶಾಖ", title:"17. ಲೋಹಗಳಲ್ಲಿ ಶಾಖದ ವಹನ (Conduction)", materials:"ಲೋಹದ ಕಡ್ಡಿ, ಮೇಣ, ಗುಂಡುಪಿನ್, ಬರ್ನರ್.", procedure:"ಕಡ್ಡಿಗೆ ಮೇಣದಿಂದ ಪಿನ್ ಅಂಟಿಸಿ ಒಂದು ತುದಿ ಕಾಯಿಸಿ.", science:"ಶಾಖವು ಬಿಸಿಯಾದ ತುದಿಯಿಂದ ತಣ್ಣಗಿನ ತುದಿಗೆ ಚಲಿಸುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"matter", topicLabel:"🌡️ ದ್ರವ್ಯ ಮತ್ತು ಶಾಖ", title:"18. ಸೋಸುವಿಕೆ ಮತ್ತು ಆವಿಯಾಗಿಸುವಿಕೆ", materials:"ಮರಳು, ಉಪ್ಪು, ನೀರು, ಫಿಲ್ಟರ್ ಪೇಪರ್.", procedure:"ಮರಳು ಸೋಸಿ ನಂತರ ನೀರನ್ನು ಕಾಯಿಸಿ ಉಪ್ಪು ಪಡೆಯಿರಿ.", science:"ಕರಗದ ವಸ್ತು ಸೋಸುವಿಕೆಯಿಂದ, ಕರಗಿದ ವಸ್ತು ಆವಿಯಾಗಿಸುವಿಕೆಯಿಂದ ಬೇರ್ಪಡುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"matter", topicLabel:"🌡️ ದ್ರವ್ಯ ಮತ್ತು ಶಾಖ", title:"19. ದ್ರವಗಳಲ್ಲಿ ವಿಸರಣೆ (Diffusion)", materials:"ತಣ್ಣೀರು, ಬಿಸಿನೀರು, ಶಾಯಿ ಅಥವಾ KMnO4.", procedure:"ತಣ್ಣೀರು ಮತ್ತು ಬಿಸಿನೀರಿಗೆ ಒಂದು ಹನಿ ಶಾಯಿ ಹಾಕಿ.", science:"ತಾಪಮಾನ ಹೆಚ್ಚಿದಂತೆ ಕಣಗಳ ಚಲನೆ ಮತ್ತು ವಿಸರಣೆ ವೇಗ ಹೆಚ್ಚುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"matter", topicLabel:"🌡️ ದ್ರವ್ಯ ಮತ್ತು ಶಾಖ", title:"20. ದ್ರವ್ಯದ ಸ್ಥಿತಿ ಬದಲಾವಣೆ ಮತ್ತು ಗುಪ್ತೋಷ್ಣ", materials:"ಮಂಜುಗಡ್ಡೆ, ಬೀಕರ್, ಥರ್ಮಾಮೀಟರ್.", procedure:"ಮಂಜುಗಡ್ಡೆ ಕರಗಿ ಕುದಿಯುವವರೆಗೆ ತಾಪಮಾನ ಅಳೆಯಿರಿ.", science:"ಸ್ಥಿತಿ ಬದಲಾವಣೆ ವೇಳೆ ತಾಪಮಾನ ಸ್ಥಿರವಾಗಿರುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"biology", topicLabel:"🌱 ಜೀವಶಾಸ್ತ್ರ", title:"21. ಆಹಾರದಲ್ಲಿ ಪಿಷ್ಟದ ಪರೀಕ್ಷೆ (Iodine Test)", materials:"ಆಲೂಗಡ್ಡೆ, ಅನ್ನ, ಅಯೋಡಿನ್ ದ್ರಾವಣ.", procedure:"ಆಹಾರದ ಮೇಲೆ 2 ಹನಿ ಅಯೋಡಿನ್ ಹಾಕಿ.", science:"ಪಿಷ್ಟವು ಅಯೋಡಿನ್ ಜೊತೆ ಕಪ್ಪು-ನೀಲಿ ಬಣ್ಣ ನೀಡುತ್ತದೆ.", link:"https://www.instagram.com/" },
-    { topic:"biology", topicLabel:"🌱 ಜೀವಶಾಸ್ತ್ರ", title:"22. ಸಸ್ಯಗಳಲ್ಲಿ ಬಾಷ್ಪವಿಸರ್ಜನೆ (Transpiration)", materials:"ಕುಂಡದ ಸಸ್ಯ, ಪ್ಲಾಸ್ಟಿಕ್ ಕವರ್, ದಾರ.", procedure:"ಎಲೆಯ ರೆಂಬೆಗೆ ಪ್ಲಾಸ್ಟಿಕ್ ಕವರ್ ಕಟ್ಟಿ ಬಿಸಿಲಿನಲ್ಲಿಡಿ.", science:"ಪತ್ರರಂಧ್ರಗಳ ಮೂಲಕ ನೀರು ಆವಿಯಾಗಿ ಹನಿಗಳು ಸಂಗ್ರಹವಾಗುತ್ತವೆ.", link:"https://www.instagram.com/" },
-    { topic:"biology", topicLabel:"🌱 ಜೀವಶಾಸ್ತ್ರ", title:"23. ಈರುಳ್ಳಿ ಪೊರೆಯ ಜೀವಕೋಶ ವೀಕ್ಷಣೆ", materials:"ಈರುಳ್ಳಿ ಪೊರೆ, ಸ್ಲೈಡ್, ಸಫ್ರಾನಿನ್, ಸೂಕ್ಷ್ಮದರ್ಶಕ.", procedure:"ಪೊರೆಗೆ ಬಣ್ಣ ಹಾಕಿ ಸೂಕ್ಷ್ಮದರ್ಶಕದಲ್ಲಿ ವೀಕ್ಷಿಸಿ.", science:"ಸಸ್ಯ ಜೀವಕೋಶದ ಕೋಶಭಿತ್ತಿ ಮತ್ತು ಕೋಶಕೇಂದ್ರ ಕಾಣಿಸುತ್ತವೆ.", link:"https://www.instagram.com/" },
-    { topic:"biology", topicLabel:"🌱 ಜೀವಶಾಸ್ತ್ರ", title:"24. ಉಸಿರಿನಲ್ಲಿ ಕಾರ್ಬನ್ ಡೈಆಕ್ಸೈಡ್ ಪರೀಕ್ಷೆ", materials:"ಸುಣ್ಣದ ತಿಳಿ ನೀರು, ಪ್ರನಾಳ, ಸ್ಟ್ರಾ.", procedure:"ಸ್ಟ್ರಾ ಮೂಲಕ ಸುಣ್ಣದ ನೀರಿಗೆ ಉಸಿರು ಊದಿರಿ.", science:"CO2 ಅನಿಲವು ಸುಣ್ಣದ ನೀರನ್ನು ಹಾಲಿನಂತೆ ಬೆಳ್ಳಗೆ ಮಾಡುತ್ತದೆ.", link:"https://www.instagram.com/" }
+// ================= GLOBAL STATE & LANGUAGE SWITCHER =================
+let currentLang = 'bilingual';
+let activeSim = 'thermometer';
+let simRunning = true;
+
+function toggleLanguage() {
+    currentLang = currentLang === 'bilingual' ? 'en' : 'bilingual';
+    document.getElementById('langBtn').textContent = currentLang === 'bilingual' ? 'ಕನ್ನಡ + EN (Active)' : 'English Only';
+    renderExplorer();
+    renderExperiments();
+    generateReelPackage();
+}
+
+// ================= MODULE B: 3 INTERACTIVE CANVAS SIMULATIONS =================
+const canvas = document.getElementById('simCanvas');
+const ctx = canvas.getContext('2d');
+
+let simState = {
+    // 1. Thermometer state
+    liquid: 'mercury', // mercury, alcohol, water
+    tempC: 25,
+    // 2. Electricity state
+    voltage: 6,
+    resistance: 3,
+    switchClosed: true,
+    electronOffset: 0,
+    // 3. Density state
+    objectType: 'wood', // wood (0.6), ice (0.92), aluminum (2.7), gold (19.3)
+    fluidDensity: 1.0, // water 1.0, oil 0.8, honey 1.4
+    blockY: 80
+};
+
+const liquids = {
+    mercury: { name: "Mercury (ಪಾದರಸ)", color: "#94a3b8", freeze: -38.8, boil: 356.7, coeff: "0.00018 /°C" },
+    alcohol: { name: "Ethanol Alcohol (ಆಲ್ಕೋಹಾಲ್)", color: "#ef4444", freeze: -114.1, boil: 78.37, coeff: "0.00109 /°C" },
+    water: { name: "Water (ನೀರು)", color: "#00d2ff", freeze: 0, boil: 100, coeff: "0.00021 /°C" }
+};
+
+const objects = {
+    wood: { name: "Wood Block (ಮರದ ತುಂಡು)", density: 0.60, mass: 60, volume: 100, color: "#d97706" },
+    ice: { name: "Ice Cube (ಮಂಜುಗಡ್ಡೆ)", density: 0.92, mass: 92, volume: 100, color: "#bae6fd" },
+    aluminum: { name: "Aluminum (ಅಲ್ಯೂಮಿನಿಯಂ)", density: 2.70, mass: 270, volume: 100, color: "#94a3b8" },
+    gold: { name: "Gold Bar (ಚಿನ್ನ)", density: 19.30, mass: 1930, volume: 100, color: "#facc15" }
+};
+
+function switchSim(simName, btn) {
+    activeSim = simName;
+    document.querySelectorAll('#virtual-lab .pill-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderSimControls();
+}
+
+function toggleSimPlay() { simRunning = !simRunning; }
+function resetCurrentSim() {
+    simState.tempC = 25; simState.voltage = 6; simState.resistance = 3;
+    simState.switchClosed = true; simState.objectType = 'wood'; simState.fluidDensity = 1.0;
+    renderSimControls();
+}
+
+function renderSimControls() {
+    const ctrl = document.getElementById('simControls');
+    const ped = document.getElementById('simPedagogy');
+
+    if (activeSim === 'thermometer') {
+        const liq = liquids[simState.liquid];
+        const tempF = (simState.tempC * 9/5 + 32).toFixed(1);
+        const tempK = (simState.tempC + 273.15).toFixed(2);
+        let phase = "Liquid (ದ್ರವ ಸ್ಥಿತಿ)";
+        if (simState.tempC <= liq.freeze) phase = "Solid / Frozen (ಘನ ಸ್ಥಿತಿ)";
+        if (simState.tempC >= liq.boil) phase = "Gas / Boiling (ಅನಿಲ / ಕುದಿಯುವ ಸ್ಥಿತಿ)";
+
+        ctrl.innerHTML = `
+            <div class="ctrl-box">
+                <label>Select Thermometric Liquid (ದ್ರವ ಆಯ್ಕೆ):</label>
+                <select onchange="simState.liquid=this.value; renderSimControls()">
+                    <option value="mercury" ${simState.liquid==='mercury'?'selected':''}>Mercury (ಪಾದರಸ: -38.8°C to 356.7°C)</option>
+                    <option value="alcohol" ${simState.liquid==='alcohol'?'selected':''}>Alcohol (ಆಲ್ಕೋಹಾಲ್: -114°C to 78.4°C)</option>
+                    <option value="water" ${simState.liquid==='water'?'selected':''}>Water (ನೀರು: 0°C to 100°C)</option>
+                </select>
+            </div>
+            <div class="ctrl-box">
+                <label><span>Adjust Temperature (ತಾಪಮಾನ):</span> <span>${simState.tempC} °C</span></label>
+                <input type="range" min="-50" max="150" value="${simState.tempC}" oninput="simState.tempC=parseFloat(this.value); renderSimControls()">
+            </div>
+            <div class="readout-box">
+                <b>📊 Live Readings:</b> ${simState.tempC} °C | ${tempF} °F | ${tempK} K<br>
+                <b>State of ${liq.name}:</b> <span style="color:var(--accent-amber)">${phase}</span><br>
+                <b>Expansion Coeff:</b> ${liq.coeff}
+            </div>
+        `;
+        ped.innerHTML = `
+            <div class="ped-step"><b>🤔 Predict (ಊಹಿಸಿ):</b> Why is alcohol used instead of water in polar thermometers, and why does alcohol boil at 78.4°C?</div>
+            <div class="ped-step"><b>🔬 Explain (ವಿವರಣೆ):</b> Liquids expand uniformly when heated (ಉಷ್ಣ ವಿಸ್ತರಣೆ). Alcohol freezes at -114°C, whereas water freezes at 0°C.</div>
+            <div class="ped-step"><b>🌍 Real-Life Application:</b> Clinical and laboratory thermometers use uniform thermal expansion to measure body and chemical temperatures.</div>
+            <div class="ped-step"><b>🏆 Challenge Question:</b> At what temperature do Celsius and Fahrenheit scales read the exact same value? (Answer: -40°)</div>
+        `;
+    } else if (activeSim === 'electricity') {
+        const I = simState.switchClosed ? (simState.voltage / simState.resistance) : 0;
+        const P = (simState.voltage * I).toFixed(2);
+        ctrl.innerHTML = `
+            <div class="ctrl-box">
+                <label><span>Circuit Switch (ಸ್ವಿಚ್):</span> <span>${simState.switchClosed ? 'CLOSED (ON)' : 'OPEN (OFF)'}</span></label>
+                <button class="pill-btn ${simState.switchClosed?'active':''}" style="width:100%" onclick="simState.switchClosed=!simState.switchClosed; renderSimControls()">
+                    ${simState.switchClosed ? '🔌 Switch is ON (Click to Turn OFF)' : '⭕ Switch is OFF (Click to Turn ON)'}
+                </button>
+            </div>
+            <div class="ctrl-box">
+                <label><span>Battery Voltage (ವೋಲ್ಟೇಜ್ V):</span> <span>${simState.voltage} V</span></label>
+                <input type="range" min="1.5" max="12" step="0.5" value="${simState.voltage}" oninput="simState.voltage=parseFloat(this.value); renderSimControls()">
+            </div>
+            <div class="ctrl-box">
+                <label><span>Bulb Resistance (ರೋಧ R):</span> <span>${simState.resistance} Ω</span></label>
+                <input type="range" min="1" max="10" step="0.5" value="${simState.resistance}" oninput="simState.resistance=parseFloat(this.value); renderSimControls()">
+            </div>
+            <div class="readout-box">
+                <b>⚡ Current (I = V / R):</b> <span style="color:var(--accent-amber); font-size:1.1rem;">${I.toFixed(2)} A</span><br>
+                <b>💡 Power (P = V × I):</b> ${P} Watts
+            </div>
+        `;
+        ped.innerHTML = `
+            <div class="ped-step"><b>🤔 Predict (ಊಹಿಸಿ):</b> If you double the resistance while keeping voltage constant at 6V, what happens to the bulb brightness?</div>
+            <div class="ped-step"><b>🔬 Explain (ವಿವರಣೆ):</b> By Ohm's Law (I = V/R), current is directly proportional to voltage and inversely proportional to resistance.</div>
+            <div class="ped-step"><b>🌍 Real-Life Application:</b> Household fan regulators and circuit breakers manage resistance and current flow safely.</div>
+            <div class="ped-step"><b>🏆 Challenge Question:</b> Why does opening the switch stop current everywhere in a series circuit simultaneously?</div>
+        `;
+    } else if (activeSim === 'density') {
+        const obj = objects[simState.objectType];
+        const floats = obj.density <= simState.fluidDensity;
+        const submergedPct = floats ? Math.round((obj.density / simState.fluidDensity) * 100) : 100;
+        ctrl.innerHTML = `
+            <div class="ctrl-box">
+                <label>Select Test Object (ವಸ್ತು ಆಯ್ಕೆ):</label>
+                <select onchange="simState.objectType=this.value; renderSimControls()">
+                    <option value="wood" ${simState.objectType==='wood'?'selected':''}>Wood (ಮರ: 0.60 g/cm³)</option>
+                    <option value="ice" ${simState.objectType==='ice'?'selected':''}>Ice (ಮಂಜುಗಡ್ಡೆ: 0.92 g/cm³)</option>
+                    <option value="aluminum" ${simState.objectType==='aluminum'?'selected':''}>Aluminum (ಅಲ್ಯೂಮಿನಿಯಂ: 2.70 g/cm³)</option>
+                    <option value="gold" ${simState.objectType==='gold'?'selected':''}>Gold (ಚಿನ್ನ: 19.30 g/cm³)</option>
+                </select>
+            </div>
+            <div class="ctrl-box">
+                <label><span>Liquid Density (ದ್ರವದ ಸಾಂದ್ರತೆ):</span> <span>${simState.fluidDensity.toFixed(2)} g/cm³</span></label>
+                <input type="range" min="0.80" max="1.40" step="0.10" value="${simState.fluidDensity}" oninput="simState.fluidDensity=parseFloat(this.value); renderSimControls()">
+                <small style="color:var(--text-muted)">0.8 = Oil | 1.0 = Water | 1.4 = Honey</small>
+            </div>
+            <div class="readout-box">
+                <b>⚖️ Object Density (ρ = m/V):</b> ${obj.density} g/cm³ (${obj.mass}g / ${obj.volume}cm³)<br>
+                <b>🌊 Outcome:</b> <span style="color:var(--accent-amber)">${floats ? `FLOATS (${submergedPct}% submerged - ತೇಲುತ್ತದೆ)` : 'SINKS to bottom (ಮುಳುಗುತ್ತದೆ)'}</span>
+            </div>
+        `;
+        ped.innerHTML = `
+            <div class="ped-step"><b>🤔 Predict (ಊಹಿಸಿ):</b> Ice floats in water (1.0 g/cm³), but what happens if you place ice in cooking oil (0.80 g/cm³)?</div>
+            <div class="ped-step"><b>🔬 Explain (ವಿವರಣೆ):</b> An object floats if its density is less than the fluid's density (Archimedes' Principle of Buoyancy).</div>
+            <div class="ped-step"><b>🌍 Real-Life Application:</b> Steel ships float because their hollow hull lowers average density below that of seawater.</div>
+            <div class="ped-step"><b>🏆 Challenge Question:</b> Test Ice in Oil (0.80 g/cm³) using the slider above—why does it sink in oil but float in water?</div>
+        `;
+    }
+}
+
+function animateSim() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (activeSim === 'thermometer') {
+        const liq = liquids[simState.liquid];
+        // Draw Beaker
+        ctx.strokeStyle = "#94a3b8"; ctx.lineWidth = 3;
+        ctx.strokeRect(210, 140, 180, 140);
+        ctx.fillStyle = "rgba(0, 210, 255, 0.15)";
+        ctx.fillRect(212, 170, 176, 108);
+
+        // Draw Thermometer stem & bulb
+        ctx.fillStyle = "#1e293b";
+        ctx.fillRect(285, 30, 30, 200);
+        ctx.beginPath(); ctx.arc(300, 240, 24, 0, Math.PI * 2);
+        ctx.fillStyle = liq.color; ctx.fill();
+
+        // Calculate column height from -50 to 150
+        const clamped = Math.max(-50, Math.min(150, simState.tempC));
+        const ratio = (clamped + 50) / 200;
+        const colHeight = ratio * 180;
+        ctx.fillStyle = liq.color;
+        ctx.fillRect(293, 220 - colHeight, 14, colHeight + 10);
+
+        // Scale markings
+        ctx.fillStyle = "#f8fafc"; ctx.font = "12px sans-serif";
+        for (let t = -50; t <= 150; t += 50) {
+            let y = 220 - ((t + 50) / 200) * 180;
+            ctx.fillText(t + "°C", 325, y + 4);
+            ctx.beginPath(); ctx.moveTo(315, y); ctx.lineTo(322, y); ctx.strokeStyle="#fff"; ctx.stroke();
+        }
+        ctx.font = "bold 15px sans-serif";
+        ctx.fillStyle = "#00d2ff";
+        ctx.fillText(`${liq.name}: ${simState.tempC} °C`, 30, 45);
+    } 
+    else if (activeSim === 'electricity') {
+        const I = simState.switchClosed ? (simState.voltage / simState.resistance) : 0;
+        ctx.strokeStyle = "#475569"; ctx.lineWidth = 6;
+        ctx.strokeRect(90, 55, 420, 195);
+
+        if (simState.switchClosed && simRunning) {
+            ctx.strokeStyle = "#00d2ff"; ctx.lineWidth = 4;
+            ctx.setLineDash([10, 16]);
+            simState.electronOffset -= I * 1.1;
+            ctx.lineDashOffset = simState.electronOffset;
+            ctx.strokeRect(90, 55, 420, 195);
+            ctx.setLineDash([]);
+        }
+
+        // Battery
+        ctx.fillStyle = "#ffb703"; ctx.fillRect(65, 125, 50, 55);
+        ctx.fillStyle = "#000"; ctx.font = "bold 13px sans-serif";
+        ctx.fillText(simState.voltage + "V", 76, 157);
+
+        // Switch on top-left
+        ctx.fillStyle = "#050a18"; ctx.fillRect(150, 45, 55, 20);
+        ctx.strokeStyle = simState.switchClosed ? "#10b981" : "#ef4444"; ctx.lineWidth = 4;
+        ctx.beginPath(); ctx.moveTo(150, 55);
+        ctx.lineTo(205, simState.switchClosed ? 55 : 30); ctx.stroke();
+
+        // Resistor
+        ctx.fillStyle = "#ef4444"; ctx.fillRect(255, 232, 90, 34);
+        ctx.fillStyle = "#fff"; ctx.fillText(simState.resistance + " Ω", 282, 254);
+
+        // Bulb
+        ctx.save();
+        ctx.beginPath(); ctx.arc(320, 55, 24, 0, Math.PI * 2);
+        if (simState.switchClosed) {
+            ctx.shadowColor = "#fde047"; ctx.shadowBlur = Math.min(I * 14, 50);
+            ctx.fillStyle = "#facc15";
+        } else {
+            ctx.fillStyle = "#334155";
+        }
+        ctx.fill(); ctx.restore();
+    } 
+    else if (activeSim === 'density') {
+        const obj = objects[simState.objectType];
+        // Fluid Tank
+        ctx.strokeStyle = "#94a3b8"; ctx.lineWidth = 3;
+        ctx.strokeRect(160, 50, 280, 230);
+        ctx.fillStyle = simState.fluidDensity > 1.1 ? "rgba(245, 158, 11, 0.35)" : "rgba(0, 210, 255, 0.25)";
+        ctx.fillRect(162, 110, 276, 168);
+
+        const surfaceY = 110;
+        const blockSize = 64;
+        let targetY;
+        if (obj.density <= simState.fluidDensity) {
+            const subRatio = obj.density / simState.fluidDensity;
+            targetY = surfaceY - blockSize * (1 - subRatio);
+        } else {
+            targetY = 278 - blockSize;
+        }
+        if (simRunning) {
+            simState.blockY += (targetY - simState.blockY) * 0.08;
+        }
+        ctx.fillStyle = obj.color;
+        ctx.fillRect(268, simState.blockY, blockSize, blockSize);
+        ctx.strokeStyle = "#fff"; ctx.lineWidth = 2;
+        ctx.strokeRect(268, simState.blockY, blockSize, blockSize);
+
+        ctx.fillStyle = "#000"; ctx.font = "bold 12px sans-serif";
+        ctx.fillText(obj.density + "g/cm³", 271, simState.blockY + 36);
+    }
+
+    requestAnimationFrame(animateSim);
+}
+
+// ================= MODULE A: 10 SCIENCE EXPLORER CATEGORIES =================
+const explorerData = [
+    { cat: "Physics", kn: "ಭೌತಶಾಸ್ತ್ರ", title: "Ohm's Law & Simple Circuits (ಓಮ್ ನಿಯಮ ಮತ್ತು ವಿದ್ಯುತ್ ಮಂಡಲ)", desc: "Relationship between Voltage (V), Current (I), and Resistance (R) in electrical conductors.", sim: "electricity" },
+    { cat: "Chemistry", kn: "ರಸಾಯನಶಾಸ್ತ್ರ", title: "Natural Acid-Base Indicators (ನೈಸರ್ಗಿಕ ಆಮ್ಲ-ಪ್ರತ್ಯಾಮ್ಲ ಸೂಚಕಗಳು)", desc: "Using turmeric and hibiscus extracts to test pH changes in household solutions.", sim: "thermometer" },
+    { cat: "Biology", kn: "ಜೀವಶಾಸ್ತ್ರ", title: "Photosynthesis & Stomatal Transpiration (ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ ಮತ್ತು ಬಾಷ್ಪವಿಸರ್ಜನೆ)", desc: "How plants synthesize food using sunlight, chlorophyll, water, and CO₂.", sim: "thermometer" },
+    { cat: "Space and Astronomy", kn: "ಬಾಹ್ಯಾಕಾಶ ಮತ್ತು ಖಗೋಳಶಾಸ್ತ್ರ", title: "Solar System Orbits & Gravity (ಸೌರವ್ಯೂಹ ಮತ್ತು ಗುರುತ್ವಾಕರ್ಷಣೆ)", desc: "Understanding planetary distances, orbital speeds, and India's ISRO space missions.", sim: "density" },
+    { cat: "Earth and Environmental Science", kn: "ಭೂ ಮತ್ತು ಪರಿಸರ ವಿಜ್ಞಾನ", title: "Water Cycle & Rainwater Harvesting (ಜಲಚಕ್ರ ಮತ್ತು ಮಳೆನೀರು ಕೊಯ್ಲು)", desc: "Evaporation, condensation, precipitation, and groundwater recharge.", sim: "thermometer" },
+    { cat: "Human Body", kn: "ಮಾನವ ಶರೀರ", title: "Respiratory System & Lime Water CO₂ Test (ಉಸಿರಾಟ ವ್ಯವಸ್ಥೆ)", desc: "Demonstrating that exhaled air contains carbon dioxide turning lime water milky.", sim: "thermometer" },
+    { cat: "Everyday Science", kn: "ದೈನಂದಿನ ವಿಜ್ಞಾನ", title: "Why Ice Floats on Water (ಮಂಜುಗಡ್ಡೆ ನೀರಿನ ಮೇಲೆ ಏಕೆ ತೇಲುತ್ತದೆ?)", desc: "Anomalous expansion of water and density differences in everyday kitchen science.", sim: "density" },
+    { cat: "Scientific Discoveries", kn: "ವೈಜ್ಞಾನಿಕ ಆವಿಷ್ಕಾರಗಳು", title: "Sir C.V. Raman & The Raman Effect (ಸಿ.ವಿ. ರಾಮನ್ ಪರಿಣಾಮ)", desc: "Scattering of light molecules discovered in India on February 28, 1928.", sim: "electricity" },
+    { cat: "STEM Activities for School Students", kn: "ಶಾಲಾ ವಿದ್ಯಾರ್ಥಿಗಳ STEM ಚಟುವಟಿಕೆಗಳು", title: " DIY Pinhole Camera & Periscope (ಪಿನ್‌ಹೋಲ್ ಕ್ಯಾಮೆರಾ ತಯಾರಿಕೆ)", desc: "Low-cost cardboard optics projects aligned with Grades 6–8 learning outcomes.", sim: "electricity" },
+    { cat: "Science Myths vs Facts", kn: "ವಿಜ್ಞಾನ ಮಿಥ್ಯೆ ಮತ್ತು ಸತ್ಯ", title: "Myth vs Fact: Do Heavy Objects Fall Faster? (ಭಾರವಾದ ವಸ್ತು ಬೇಗ ಬೀಳುತ್ತದೆಯೇ?)", desc: "Galileo's principle: In the absence of air resistance, all objects fall at the same acceleration.", sim: "density" }
 ];
 
-let currentTopic = 'all';
+let selectedCategory = 'All';
+function renderExplorer() {
+    const tabs = document.getElementById('explorerTabs');
+    const cats = ['All', ...new Set(explorerData.map(d => d.cat))];
+    tabs.innerHTML = cats.map(c => `<button class="pill-btn ${selectedCategory===c?'active':''}" onclick="selectedCategory='${c}'; renderExplorer()">${c}</button>`).join('');
+
+    const q = document.getElementById('explorerSearch').value.toLowerCase();
+    const grid = document.getElementById('explorerGrid');
+    grid.innerHTML = explorerData.filter(d => (selectedCategory === 'All' || d.cat === selectedCategory) && (d.title.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q) || d.kn.includes(q))).map(d => `
+        <div class="card">
+            <div>
+                <span class="badge">${d.cat} | ${d.kn}</span>
+                <h3 style="margin-bottom:8px;">${d.title}</h3>
+                <p style="font-size:0.9rem; color:#cbd5e1;">${d.desc}</p>
+            </div>
+            <div style="margin-top:14px; display:flex; gap:8px;">
+                <a href="#virtual-lab" onclick="switchSim('${d.sim}')" class="pill-btn active" style="text-decoration:none; font-size:0.8rem;">🔬 Open Linked Lab</a>
+                <a href="https://www.instagram.com/shivaraju_learner/" target="_blank" rel="noopener" class="pill-btn" style="text-decoration:none; font-size:0.8rem;">🎬 Watch Reel</a>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ================= MODULE C: SAFE LOW-COST EXPERIMENTS =================
+const handsOnExperiments = [
+    {
+        title: "1. Turmeric Natural Acid-Base Indicator (ಅರಿಶಿನ ನೈಸರ್ಗಿಕ ಸೂಚಕ)",
+        concept: "Acids, Bases & pH Indicators (ಆಮ್ಲ ಮತ್ತು ಪ್ರತ್ಯಾಮ್ಲ)",
+        duration: "15 Mins | Grade 6–8",
+        supervision: "Safe Classroom / Home Activity",
+        materials: "Turmeric powder (ಅರಿಶಿನ), white paper, soap water (ಸಾಬೂನು ನೀರು), lemon juice (ನಿಂಬೆ ರಸ), cotton buds.",
+        procedure: "1. Make a paste of turmeric with water and coat a strip of paper.\n2. Apply a drop of soap solution—observe it turn deep red.\n3. Add lemon juice on the red spot—observe it return to yellow.",
+        knExplain: "ಅರಿಶಿನದಲ್ಲಿರುವ ಕರ್ಕ್ಯೂಮಿನ್ ಪ್ರತ್ಯಾಮ್ಲದೊಂದಿಗೆ (ಸಾಬೂನು ನೀರು) ವರ್ತಿಸಿದಾಗ ಕೆಂಪು ಬಣ್ಣಕ್ಕೆ ತಿರುಗುತ್ತದೆ ಮತ್ತು ಆಮ್ಲದೊಂದಿಗೆ (ನಿಂಬೆ ರಸ) ಹಳದಿಯಾಗಿಯೇ ಇರುತ್ತದೆ.",
+        safety: "Do not ingest soap water. Wash hands after the experiment.",
+        troubleshoot: "If colour change is faint, use concentrated soap solution rather than diluted handwash."
+    },
+    {
+        title: "2. Reversing Arrow Light Refraction (ಬೆಳಕಿನ ವಕ್ರೀಭವನದ ಪವಾಡ)",
+        concept: "Refraction of Light through a Cylindrical Lens (ಬೆಳಕಿನ ವಕ್ರೀಭವನ)",
+        duration: "10 Mins | Grade 7–8",
+        supervision: "Safe No-Flame Activity",
+        materials: "Clear cylindrical glass tumbler (ಗಾಜಿನ ಲೋಟ), clean water, white card with a bold horizontal arrow.",
+        procedure: "1. Place the arrow card 15 cm behind the empty glass.\n2. Slowly pour water into the glass.\n3. Look through the water—the arrow flips direction!",
+        knExplain: "ನೀರು ತುಂಬಿದ ಗಾಜಿನ ಲೋಟವು ಪೀನ ಮಸೂರದಂತೆ (Convex lens) ವರ್ತಿಸಿ ಬೆಳಕಿನ ಕಿರಣಗಳನ್ನು ಬಾಗಿಸುವುದರಿಂದ ಬಾಣದ ಗುರುತು ವಿರುದ್ಧ ದಿಕ್ಕಿಗೆ ತಿರುಗಿದಂತೆ ಕಾಣುತ್ತದೆ.",
+        safety: "Handle glass tumbler carefully on a flat table.",
+        troubleshoot: "Hold the paper beyond the focal length (10–15 cm behind the glass) for the inversion to occur clearly."
+    },
+    {
+        title: "3. Floating Lemon Density Test (ತೇಲುವ ನಿಂಬೆಹಣ್ಣು ಮತ್ತು ಸಾಂದ್ರತೆ)",
+        concept: "Density & Archimedes' Principle (ಸಾಂದ್ರತೆ ಮತ್ತು ಪ್ಲವನಶೀಲತೆ)",
+        duration: "10 Mins | Grade 6–8",
+        supervision: "Safe Kitchen Science",
+        materials: "2 transparent glasses, water, 1 lemon, 3 tablespoons of common salt (ಉಪ್ಪು).",
+        procedure: "1. Drop a lemon in plain tap water—it sinks to the bottom.\n2. Dissolve 3 spoons of salt in the second glass and drop the lemon—it floats!",
+        knExplain: "ನೀರಿಗೆ ಉಪ್ಪು ಬೆರೆಸಿದಾಗ ನೀರಿನ ಸಾಂದ್ರತೆಯು ನಿಂಬೆಹಣ್ಣಿನ ಸಾಂದ್ರತೆಗಿಂತ ಹೆಚ್ಚಾಗುತ್ತದೆ, ಆದ್ದರಿಂದ ನಿಂಬೆಹಣ್ಣು ತೇಲುತ್ತದೆ.",
+        safety: "Completely safe classroom demonstration.",
+        troubleshoot: "Stir salt thoroughly until dissolved to increase liquid density sufficiently."
+    }
+];
+
 function renderExperiments() {
-    const container = document.getElementById('expContainer');
-    const q = document.getElementById('expSearch').value.toLowerCase();
-    container.innerHTML = '';
-    experiments.filter(e => (currentTopic==='all' || e.topic===currentTopic) && (e.title.toLowerCase().includes(q) || e.materials.toLowerCase().includes(q))).forEach(e => {
-        container.innerHTML += `<div class="exp-card"><div><span class="topic-badge">${e.topicLabel}</span><h3>${e.title}</h3><p class="exp-info"><b>🧰 ಸಾಮಗ್ರಿಗಳು:</b> ${e.materials}</p><p class="exp-info"><b>📋 ವಿಧಾನ:</b> ${e.procedure}</p></div><div><div class="exp-sci"><b>💡 ವಿಜ್ಞಾನ:</b> ${e.science}</div><a href="${e.link}" target="_blank" class="act-link-btn">🔗 ಚಟುವಟಿಕೆಯ ಲಿಂಕ್ ನೋಡಿ (Activity Link)</a></div></div>`;
+    const grid = document.getElementById('expGrid');
+    grid.innerHTML = handsOnExperiments.map(e => `
+        <div class="card">
+            <div>
+                <span class="badge">${e.duration}</span>
+                <span class="badge badge-warn">🛡️ ${e.supervision}</span>
+                <h3 style="margin-bottom:8px;">${e.title}</h3>
+                <p style="font-size:0.86rem; margin-bottom:6px;"><b>🎯 Concept:</b> ${e.concept}</p>
+                <p style="font-size:0.86rem; margin-bottom:6px;"><b>🧰 Materials:</b> ${e.materials}</p>
+                <p style="font-size:0.86rem; margin-bottom:6px; white-space:pre-line;"><b>📋 Procedure:</b>\n${e.procedure}</p>
+                ${currentLang === 'bilingual' ? `<p style="font-size:0.86rem; background:rgba(0,210,255,0.1); padding:8px; border-radius:8px; margin:8px 0;"><b>🇰🇳 ಕನ್ನಡ ವಿವರಣೆ:</b> ${e.knExplain}</p>` : ''}
+                <p style="font-size:0.82rem; color:var(--accent-amber);"><b>⚠️ Safety & Troubleshooting:</b> ${e.safety} | ${e.troubleshoot}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ================= MODULE D: 18-POINT REEL & VIDEO STUDIO =================
+const reelPackages = {
+    refraction: {
+        topic: "Refraction of Light — Reversing Arrow (Grades 6–8)",
+        hook: "ಒಂದು ಹನಿ ಗಾಜಿನ ಲೋಟಕ್ಕೆ ನೀರು ಹಾಕಿದ ತಕ್ಷಣ ಈ ಬಾಣದ ಗುರುತು ಉಲ್ಟಾ ತಿರುಗುತ್ತೆ! ಇದು ಮ್ಯಾಜಿಕ್ ಅಲ್ಲ, ವಿಜ್ಞಾನ!",
+        question: "Why does the arrow flip direction as soon as water fills the glass?",
+        explanation: "Light travels at different speeds in air and water. The curved water-filled glass acts like a convex lens, bending light rays past a focal point to invert the image.",
+        knScript: "ನಮಸ್ಕಾರ ಸ್ನೇಹಿತರೇ! ಈ ಗಾಜಿನ ಲೋಟದ ಹಿಂದೆ ಇರುವ ಬಾಣದ ಗುರುತನ್ನು ನೋಡಿ. ನಾನು ಇದಕ್ಕೆ ನೀರು ಹಾಕಿದ ತಕ್ಷಣ ಬಾಣ ವಿರುದ್ಧ ದಿಕ್ಕಿಗೆ ತಿರುಗಿತು! ಏಕೆ ಗೊತ್ತಾ? ಬೆಳಕು ಗಾಳಿಯಿಂದ ನೀರಿನೊಳಗೆ ಚಲಿಸುವಾಗ ಬಾಗುತ್ತದೆ. ಇದನ್ನು 'ಬೆಳಕಿನ ವಕ್ರೀಭವನ' (Refraction of Light) ಎನ್ನುತ್ತೇವೆ.",
+        enScript: "Look at the arrow behind this empty glass. Watch what happens when I pour water—it flips completely! This happens because water inside a curved glass acts like a magnifying convex lens, bending light rays through a focal point.",
+        storyboard: "Scene 1 (0-3s): Close-up hook pouring water & arrow flipping.\nScene 2 (4-20s): Moving paper closer and further to show focal point.\nScene 3 (21-45s): Ray diagram overlay showing light bending.\nScene 4 (46-60s): Real-life lens connection + Question for comments.",
+        aiPrompt: "3D educational animation showing parallel light rays passing through a cylindrical glass of water, converging at a focal point and crossing over to invert an arrow image, dark navy background, glowing cyan rays.",
+        hashtags: "#InstaLab #ScienceInKannada #RefractionOfLight #STEMEducation #KarnatakaSchools #shivaraju_learner"
+    },
+    turmeric: {
+        topic: "Turmeric Natural Acid-Base Indicator (Grades 6–8)",
+        hook: "ನಿಮ್ಮ ಅಡುಗೆಮನೆಯ ಅರಿಶಿನ ಪುಡಿ ಬಣ್ಣ ಬದಲಿಸುವ ವಿಜ್ಞಾನಿಯಾಗಬಲ್ಲದು ಗೊತ್ತಾ?",
+        question: "Why do curry stains on clothes turn red when washed with soap?",
+        explanation: "Turmeric contains curcumin, a natural pH indicator that stays yellow in neutral/acidic media and turns reddish-brown in basic (alkaline) soap solutions.",
+        knScript: "ಅರಿಶಿನದ ಹಳದಿ ಕಾಗದದ ಮೇಲೆ ಸಾಬೂನು ನೀರು ಹಾಕಿದ ತಕ್ಷಣ ಕೆಂಪು ಬಣ್ಣಕ್ಕೆ ತಿರುಗುತ್ತದೆ! ಮತ್ತೆ ನಿಂಬೆ ರಸ ಹಾಕಿದರೆ ಹಳದಿ ಬಣ್ಣ ಮರಳುತ್ತದೆ! ಏಕೆಂದರೆ ಅರಿಶಿನವು ನೈಸರ್ಗಿಕ ಆಮ್ಲ-ಪ್ರತ್ಯಾಮ್ಲ ಸೂಚಕವಾಗಿದೆ.",
+        enScript: "When soap water touches yellow turmeric paper, it instantly turns deep red! Add lemon juice, and it turns back to yellow. Curcumin in turmeric is a natural pH indicator.",
+        storyboard: "Scene 1 (0-3s): Instant red colour change on turmeric sheet.\nScene 2 (4-25s): Testing soap (base) vs lemon juice (acid).\nScene 3 (26-50s): Molecular explanation of pH indicator.\nScene 4 (51-65s): Comment challenge + Follow @shivaraju_learner.",
+        aiPrompt: "Macro close-up video of a yellow turmeric paper strip turning vibrant crimson red as a clear droplet of alkaline soap solution lands on it, studio lighting.",
+        hashtags: "#InstaLab #KitchenScience #AcidBaseIndicator #KannadaScience #HandsOnSTEM #shivaraju_learner"
+    },
+    density: {
+        topic: "Floating Lemon & Density Lab (Grades 6–8)",
+        hook: "ಸಾದಾ ನೀರಿನಲ್ಲಿ ಮುಳುಗುವ ನಿಂಬೆಹಣ್ಣು ಉಪ್ಪು ನೀರಿನಲ್ಲಿ ಹೇಗೆ ತೇಲುತ್ತದೆ?",
+        question: "How does dissolving salt make a sinking lemon float to the top?",
+        explanation: "Dissolving salt increases the mass per unit volume (density) of water. When water density exceeds lemon density, upward buoyant force makes it float.",
+        knScript: "ಮೊದಲ ಲೋಟದ ನೀರಿನಲ್ಲಿ ನಿಂಬೆಹಣ್ಣು ಮುಳುಗಿತು. ಆದರೆ ಎರಡನೇ ಲೋಟಕ್ಕೆ ಉಪ್ಪು ಬೆರೆಸಿದಾಗ ನಿಂಬೆಹಣ್ಣು ಮೇಲಕ್ಕೆ ತೇಲುತ್ತದೆ! ಇದಕ್ಕೆ ಕಾರಣ 'ಸಾಂದ್ರತೆ' (Density).",
+        enScript: "A lemon sinks in tap water because it is denser than water. Dissolving salt increases the water's density, allowing upward buoyancy to float the lemon!",
+        storyboard: "Scene 1 (0-4s): Side-by-side glasses—one lemon sinks, one floats.\nScene 2 (5-30s): Adding salt and watching the lemon rise.\nScene 3 (31-55s): Dead Sea real-world example & density formula.",
+        aiPrompt: "3D split-screen animation comparing water molecule packing in fresh water versus dense salt water lifting a yellow lemon upward.",
+        hashtags: "#InstaLab #DensityExperiment #ArchimedesPrinciple #ScienceReels #shivaraju_learner"
+    },
+    pressure: {
+        topic: "Atmospheric Pressure Water Lock (Grades 6–8)",
+        hook: "ನೀರು ತುಂಬಿದ ಗಾಜಿನ ಲೋಟವನ್ನು ಉಲ್ಟಾ ಹಿಡಿದರೂ ಒಂದು ಹನಿ ನೀರೂ ಕೆಳಗೆ ಬೀಳುವುದಿಲ್ಲ!",
+        question: "What invisible force holds the cardboard against gravity?",
+        explanation: "Upward atmospheric pressure (~101.3 kPa) pushing against the cardboard from below is greater than the downward weight of the water inside the glass.",
+        knScript: "ನೀರು ತುಂಬಿದ ಲೋಟಕ್ಕೆ ರಟ್ಟು ಮುಚ್ಚಿ ತಲೆಕೆಳಗು ಮಾಡಿದರೂ ನೀರು ಚೆಲ್ಲುವುದಿಲ್ಲ! ಏಕೆಂದರೆ ನಮ್ಮ ಸುತ್ತಲಿನ ಗಾಳಿಯ ಒತ್ತಡ (Atmospheric Pressure) ಕೆಳಗಿನಿಂದ ರಟ್ಟನ್ನು ಬಲವಾಗಿ ತಳ್ಳಿ ಹಿಡಿದಿರುತ್ತದೆ.",
+        enScript: "Flip a water-filled glass covered with a card, and the water stays locked inside! Upward atmospheric air pressure is stronger than the water's weight.",
+        storyboard: "Scene 1 (0-3s): Dramatic flip of water glass over a tray.\nScene 2 (4-25s): Removing hand from card—water stays suspended.\nScene 3 (26-55s): Force arrows showing upward air pressure vs gravity.",
+        aiPrompt: "Educational diagram animation of an inverted glass of water held by glowing blue upward arrows representing atmospheric pressure.",
+        hashtags: "#InstaLab #AtmosphericPressure #PhysicsExperiments #KannadaSTEM #shivaraju_learner"
+    }
+};
+
+function generateReelPackage() {
+    const key = document.getElementById('studioTopic').value;
+    const fmt = document.getElementById('studioFormat').value;
+    const p = reelPackages[key];
+    document.getElementById('reelOutput').innerHTML = `
+        <div class="script-block"><h4>1. Topic & Format</h4><p>${p.topic} | <b>${fmt}</b></p></div>
+        <div class="script-block"><h4>2 & 3. 3-Second Hook & Curiosity Question</h4><p><b>🔥 Hook:</b> ${p.hook}<br><b>❓ Question:</b> ${p.question}</p></div>
+        <div class="script-block"><h4>4 & 5. Scientific Explanation & Demo</h4><p>${p.explanation}</p></div>
+        <div class="script-block"><h4>6 & 7. Scene-by-Scene Storyboard & Camera</h4><p style="white-space:pre-line;">${p.storyboard}</p></div>
+        <div class="script-block"><h4>8 & 9. Voice-Over Narration (ಕನ್ನಡ & English)</h4><p><b>🇰🇳 ಕನ್ನಡ:</b> ${p.knScript}<br><br><b>🇬🇧 EN:</b> ${p.enScript}</p></div>
+        <div class="script-block"><h4>12 & 13. AI Video Prompt & Visual Effect</h4><p>${p.aiPrompt}</p></div>
+        <div class="script-block"><h4>15–18. Caption, Hashtags & Follow CTA</h4><p>Follow <b>@shivaraju_learner</b> for hands-on science! Comment your answer below!<br><span style="color:var(--electric-blue)">${p.hashtags}</span></p></div>
+    `;
+}
+
+// ================= MODULE E: CONTENT LIBRARY (localStorage) =================
+const defaultLibrary = [
+    { title: "Ohm's Law Interactive Reel", status: "Published", url: "https://www.instagram.com/shivaraju_learner/", date: "2026-10-15" },
+    { title: "Turmeric pH Indicator Demo", status: "Script Ready", url: "https://www.instagram.com/shivaraju_learner/", date: "2026-10-15" }
+];
+
+function getLibrary() {
+    const saved = localStorage.getItem('instalab_library');
+    return saved ? JSON.parse(saved) : defaultLibrary;
+}
+
+function renderLibrary() {
+    const list = getLibrary();
+    document.getElementById('libraryGrid').innerHTML = list.map((item, idx) => `
+        <div class="card">
+            <div>
+                <span class="badge">${item.status}</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); float:right;">📅 ${item.date}</span>
+                <h3 style="margin:6px 0;">${item.title}</h3>
+            </div>
+            <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
+                <a href="${item.url}" target="_blank" rel="noopener" style="color:var(--electric-blue); font-weight:700; text-decoration:none; font-size:0.86rem;">🔗 Open on Instagram ↗</a>
+                <button class="pill-btn" style="padding:4px 10px; font-size:0.75rem;" onclick="deleteLibItem(${idx})">🗑️</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function saveToLibrary() {
+    const key = document.getElementById('studioTopic').value;
+    const status = document.getElementById('studioStatus').value;
+    const list = getLibrary();
+    list.unshift({
+        title: reelPackages[key].topic,
+        status: status,
+        url: "https://www.instagram.com/shivaraju_learner/",
+        date: new Date().toISOString().split('T')[0]
     });
+    localStorage.setItem('instalab_library', JSON.stringify(list));
+    renderLibrary();
 }
-function filterTopic(t, btn) { currentTopic=t; document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderExperiments(); }
+
+function addCustomReel() {
+    const title = document.getElementById('customReelTitle').value.trim();
+    const url = document.getElementById('customReelUrl').value.trim() || "https://www.instagram.com/shivaraju_learner/";
+    if (!title) return;
+    const list = getLibrary();
+    list.unshift({ title, status: "Published", url, date: new Date().toISOString().split('T')[0] });
+    localStorage.setItem('instalab_library', JSON.stringify(list));
+    document.getElementById('customReelTitle').value = '';
+    document.getElementById('customReelUrl').value = '';
+    renderLibrary();
+}
+
+function deleteLibItem(idx) {
+    const list = getLibrary();
+    list.splice(idx, 1);
+    localStorage.setItem('instalab_library', JSON.stringify(list));
+    renderLibrary();
+}
+
+// ================= MODULE F: INTERACTIVE SCIENCE QUIZ =================
+const quizQuestions = [
+    {
+        q: "1. ಆಲ್ಕೋಹಾಲ್ ಥರ್ಮಾಮೀಟರ್ ಅನ್ನು ಅತಿ ಶೀತ ಪ್ರದೇಶಗಳಲ್ಲಿ ಬಳಸಲು ಕಾರಣವೇನು? (Why is alcohol preferred in very cold regions?)",
+        opts: ["It boils at 357°C", "It freezes at a very low temperature (-114°C)", "It is heavier than mercury", "It does not expand on heating"],
+        ans: 1,
+        exp: "✅ Correct! Ethanol freezes at -114.1°C, whereas mercury freezes at -38.8°C and water freezes at 0°C."
+    },
+    {
+        q: "2. ಓಮ್ ನಿಯಮದ ಪ್ರಕಾರ ವೋಲ್ಟೇಜ್ 12V ಮತ್ತು ರೋಧ 3Ω ಆಗಿದ್ದರೆ ವಿದ್ಯುತ್ ಪ್ರವಾಹ (Current I) ಎಷ್ಟು?",
+        opts: ["36 A", "4 A", "0.25 A", "9 A"],
+        ans: 1,
+        exp: "✅ Correct! By Ohm's Law, I = V / R = 12V / 3Ω = 4.00 A."
+    },
+    {
+        q: "3. ಮರದ ತುಂಡಿನ ಸಾಂದ್ರತೆ 0.60 g/cm³ ಆಗಿದ್ದರೆ, ಅದು ನೀರಿನಲ್ಲಿ (1.0 g/cm³) ಏನಾಗುತ್ತದೆ?",
+        opts: ["Sinks completely (ಸಂಪೂರ್ಣ ಮುಳುಗುತ್ತದೆ)", "Floats with 60% submerged (ತೇಲುತ್ತದೆ)", "Dissolves in water", "Boils the water"],
+        ans: 1,
+        exp: "✅ Correct! Because 0.60 g/cm³ is less than 1.0 g/cm³, the wood floats with 60% of its volume submerged."
+    }
+];
+
+let quizScore = 0;
+function renderQuiz() {
+    const box = document.getElementById('quizBox');
+    box.innerHTML = quizQuestions.map((item, qIdx) => `
+        <div style="margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--border-color);" id="qblock-${qIdx}">
+            <h4>${item.q}</h4>
+            ${item.opts.map((opt, oIdx) => `<button class="opt-btn" onclick="answerQuiz(${qIdx}, ${oIdx}, this)">${opt}</button>`).join('')}
+            <p id="qexp-${qIdx}" style="display:none; margin-top:8px; font-size:0.88rem; color:var(--accent-amber);"></p>
+        </div>
+    `).join('') + `
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <b style="font-size:1.15rem;">🎯 Session Score: <span id="qScoreVal" style="color:var(--electric-blue)">0 / ${quizQuestions.length}</span></b>
+            <button class="pill-btn active" onclick="quizScore=0; renderQuiz()">🔄 Reset Quiz</button>
+        </div>
+    `;
+}
+
+function answerQuiz(qIdx, oIdx, btn) {
+    const block = document.getElementById('qblock-' + qIdx);
+    if (block.dataset.done) return;
+    block.dataset.done = "1";
+    const correct = quizQuestions[qIdx].ans;
+    if (oIdx === correct) {
+        btn.classList.add('correct');
+        quizScore++;
+    } else {
+        btn.classList.add('wrong');
+        block.querySelectorAll('.opt-btn')[correct].classList.add('correct');
+    }
+    const expEl = document.getElementById('qexp-' + qIdx);
+    expEl.textContent = quizQuestions[qIdx].exp;
+    expEl.style.display = 'block';
+    document.getElementById('qScoreVal').textContent = `${quizScore} / ${quizQuestions.length}`;
+}
+
+// Initialize all modules on load
+renderSimControls();
+animateSim();
+renderExplorer();
 renderExperiments();
-
-const canvas = document.getElementById('circuitCanvas'), ctx = canvas.getContext('2d');
-const vSlider = document.getElementById('vSlider'), rSlider = document.getElementById('rSlider');
-let offset = 0;
-function drawCircuit() {
-    const V = parseFloat(vSlider.value), R = parseFloat(rSlider.value), I = V/R;
-    document.getElementById('vVal').textContent = V+" V"; document.getElementById('rVal').textContent = R+" Ω"; document.getElementById('iVal').textContent = I.toFixed(2)+" A";
-    ctx.clearRect(0,0,500,260); ctx.strokeStyle="#64748b"; ctx.lineWidth=6; ctx.strokeRect(70,50,360,160);
-    ctx.strokeStyle="#38bdf8"; ctx.lineWidth=4; ctx.setLineDash([10,18]); offset-=I*1.2; ctx.lineDashOffset=offset; ctx.strokeRect(70,50,360,160); ctx.setLineDash([]);
-    ctx.fillStyle="#f59e0b"; ctx.fillRect(45,105,50,50); ctx.fillStyle="#000"; ctx.font="bold 13px sans-serif"; ctx.fillText(V+"V",58,135);
-    ctx.fillStyle="#ef4444"; ctx.fillRect(210,192,80,36); ctx.fillStyle="#fff"; ctx.fillText(R+" Ω",235,215);
-    ctx.save(); ctx.beginPath(); ctx.arc(250,50,22,0,Math.PI*2); ctx.shadowColor="#fde047"; ctx.shadowBlur=Math.min(I*12,45); ctx.fillStyle=I>0.5?"#facc15":"#ca8a04"; ctx.fill(); ctx.restore();
-    requestAnimationFrame(drawCircuit);
-}
-drawCircuit();
-
-let score = 0;
-function checkAns(btn, idx) {
-    const p = btn.closest('.q-item'); if(p.dataset.ans) return; p.dataset.ans="1";
-    const c = parseInt(p.dataset.correct);
-    if(idx===c){ btn.classList.add('correct'); score++; } else { btn.classList.add('wrong'); p.querySelectorAll('.opt-btn')[c].classList.add('correct'); }
-    document.getElementById('scoreText').textContent = score+" / 2";
-}
-function resetQuiz() { score=0; document.getElementById('scoreText').textContent="0 / 2"; document.querySelectorAll('.q-item').forEach(q=>{delete q.dataset.ans; q.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('correct','wrong'));}); }
+generateReelPackage();
+renderLibrary();
+renderQuiz();
 </script>
 </body>
 </html>
