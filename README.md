@@ -1,33 +1,23 @@
-# InstaLab Complete Static Website
+# InstaLab Scientist Discovery Lab
 
-This is a starter upgrade project for the public InstaLab website. It is a static HTML/CSS/JavaScript site designed to work on GitHub Pages.
+A static website redesign for GitHub Pages using the supplied InstaLab logo and the blue/green/black colour palette.
 
 ## Included
-- Bilingual English/Kannada interface toggle
-- Science Explorer with keyword, grade, subject and curriculum filters
-- Topic detail cards
-- Four interactive model simulations: thermometer, simple circuit, magnet poles, and states of matter
-- Topic-specific YouTube search links
-- Safe hands-on experiment cards
-- Official resource links
-- Interactive quiz with feedback and session score
-- Lesson outline builder for teachers
-- Science reel script builder
-- Local topic-search assistant (not a generative AI service)
-- Responsive mobile layout
+- 10 Indian and 10 international scientist profiles
+- Profile modal for each scientist with biography, selected discoveries, awards/honours, interesting facts, and an activity
+- Search and filters by collection and science field
+- Four interactive mini labs: temperature/liquid explorer, plant-growth model, particle-energy illustration, and idealised rocket-height calculator
+- Owner Instagram link: https://www.instagram.com/shivaraju_learner/
+- Responsive layout for desktop and mobile
 
-## Publish to GitHub Pages
-1. Download and extract the ZIP.
-2. Back up your current repository before replacing files.
-3. Copy `index.html` and `app.js` into the repository root, or upload the extracted files using GitHub.
-4. Commit the changes to the branch/folder configured in Settings → Pages.
-5. Open the published site and test the navigation, language toggle, search, filters, simulations, quiz and external links.
+## Publish on GitHub Pages
+1. Download and unzip the package.
+2. In the `shivarajus015-maker/instalab` repository, upload `index.html`, the `assets` folder, and this `README.md` to the branch/folder configured for GitHub Pages.
+3. Review the file replacement changes before committing.
+4. Open https://shivarajus015-maker.github.io/instalab/ and test search, filters, scientist cards, profile modals, and mini labs.
 
-## Important limitations
-- This project does not include your existing repository source code and has not been merged into your live website.
-- YouTube links are search links, not verified individual videos.
-- Curriculum labels are broad topic suggestions, not a verified chapter-by-chapter mapping for each current Karnataka or NCERT edition.
-- The Science Assistant is local topic search, not AI. Real AI requires a secure backend.
-- The static project does not save user accounts or synchronise quiz results across devices.
-- Simulations are simplified educational models, not real measurements.
-- External links can change. Verify resources before classroom use.
+## Notes
+- Portraits load from Wikipedia's `Special:FilePath` redirect and may occasionally be unavailable; initials appear as a fallback on cards.
+- Biographies and awards are concise educational summaries; verify details against linked sources before formal citation.
+- Mini labs are simplified educational models, not real-world measurements. The plant, particle, and rocket models intentionally omit many physical/biological variables.
+- No private API keys or user data are collected.
