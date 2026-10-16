@@ -1,102 +1,744 @@
-const translations = {
-en:{
-navExplorer:"Explorer",navLab:"Virtual Lab",navVideos:"Videos",navExperiments:"Experiments",navResources:"Resources",navQuiz:"Quiz",navTeachers:"Teachers",navReels:"Reels Studio",navAssistant:"Assistant",
-eyebrow:"A hands-on science learning space",heroLine1:"Curiosity becomes",heroLine2:"discovery.",heroDesc:"Explore science through interactive simulations, safe experiments, trusted learning resources and quick quizzes — in Kannada and English.",exploreNow:"Explore science →",openLab:"Open virtual lab",heroCardText:"Ask a question. Test an idea. Observe what happens.",statGrades:"Grade levels",statLabs:"Planned lab modules",statLanguages:"Learning languages",statCuriosity:"Questions to explore",
-explorerTitle:"Science Explorer",explorerDesc:"Find a concept, explore an explanation and continue with experiments or videos.",clearFilters:"Clear filters",noResults:"No topics found. Try another search.",labTitle:"Virtual Lab",labDesc:"Change a value, observe the model and record what you notice. These are simulations, not real measurements.",thermoTitle:"Thermometer Lab",thermoDesc:"Change the simulated water temperature and observe the thermometer reading.",setTemperature:"Set simulated temperature",circuitTitle:"Electric Circuit Lab",circuitDesc:"Toggle the switch to model an open or closed circuit.",circuitNote:"A complete conducting path is needed for the bulb to light.",magnetTitle:"Magnet Explorer",magnetDesc:"Change the facing poles and observe attraction or repulsion.",matterTitle:"States of Matter",matterDesc:"Change the model temperature to see particles move more actively.",modelEnergy:"Particle energy (model)",matterNote:"This is a simplified particle model, not a molecular-scale measurement.",labSafety:"Learning safety: simulations are simplified models. Follow teacher guidance for real experiments; never use mains electricity, flames, or hot liquids without qualified supervision.",
-videosTitle:"Science Video Library",videosDesc:"Open topic-specific YouTube searches. These are search links, not individually verified videos.",experimentsTitle:"Hands-on Experiments",experimentsDesc:"Use simple materials, record observations and explain the result.",resourcesTitle:"Trusted Resources",resourcesDesc:"Official and established educational sources. Check each resource for grade, language and curriculum fit.",resourceNotice:"External resources may change. Verify the exact page and suitability before assigning it to students. Do not republish copyrighted documents without permission.",quizTitle:"Quick Science Quiz",quizDesc:"Choose an answer to get immediate feedback and a short explanation.",yourProgress:"Your session",progressNote:"This demo tracks your score in the current session only.",teachersTitle:"Teacher Resource Centre",teachersDesc:"Create a quick lesson outline and use the checklist before class.",lessonPlanner:"Lesson Plan Builder",topicLabel:"Topic",gradeLabel:"Grade",durationLabel:"Duration",generatePlan:"Generate lesson outline",copyText:"Copy text",classChecklist:"Before class checklist",check1:"Learning objective is clear",check2:"Materials are ready and safe",check3:"Students will predict before observing",check4:"Observation table is prepared",check5:"Assessment question is ready",teacherTip:"Use the state textbook and school lesson plan to confirm the chapter sequence and expected learning outcomes.",reelsTitle:"InstaLab Reels Studio",reelsDesc:"Generate a starter script and storyboard for an educational science reel.",reelTopicLabel:"Science topic",reelLanguageLabel:"Script language",makeScript:"Create script",reelOutputTitle:"Script and storyboard",assistantTitle:"Science Assistant",assistantDesc:"Search the InstaLab topic collection and get guided next steps. This static version does not call an AI service.",askQuestion:"Ask a science question or topic",findHelp:"Find learning resources",clear:"Clear",assistantResponse:"Suggested learning path",aiNotice:"A real generative AI assistant requires a secure backend. Never place private API keys in a public GitHub Pages JavaScript file.",footerTag:"Explore • Experiment • Discover",footerNote:"Always verify curriculum alignment and resource links before classroom use."
-},
-kn:{
-navExplorer:"ವಿಜ್ಞಾನ ಅನ್ವೇಷಣೆ",navLab:"ವರ್ಚುವಲ್ ಲ್ಯಾಬ್",navVideos:"ವಿಡಿಯೋಗಳು",navExperiments:"ಪ್ರಯೋಗಗಳು",navResources:"ಸಂಪನ್ಮೂಲಗಳು",navQuiz:"ಪ್ರಶ್ನೋತ್ತರ",navTeachers:"ಶಿಕ್ಷಕರ ವಿಭಾಗ",navReels:"ರೀಲ್ಸ್ ಸ್ಟುಡಿಯೋ",navAssistant:"ವಿಜ್ಞಾನ ಸಹಾಯಕ",
-eyebrow:"ಪ್ರಯೋಗದ ಮೂಲಕ ವಿಜ್ಞಾನ ಕಲಿಕೆ",heroLine1:"ಕುತೂಹಲದಿಂದ",heroLine2:"ಆವಿಷ್ಕಾರದವರೆಗೆ.",heroDesc:"ಸಂವಾದಾತ್ಮಕ ಸಿಮ್ಯುಲೇಷನ್‌ಗಳು, ಸುರಕ್ಷಿತ ಪ್ರಯೋಗಗಳು, ವಿಶ್ವಾಸಾರ್ಹ ಕಲಿಕಾ ಸಂಪನ್ಮೂಲಗಳು ಮತ್ತು ಚುಟುಕು ಪ್ರಶ್ನೆಗಳ ಮೂಲಕ ಕನ್ನಡ ಮತ್ತು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ವಿಜ್ಞಾನ ಕಲಿಯಿರಿ.",exploreNow:"ವಿಜ್ಞಾನ ಅನ್ವೇಷಿಸಿ →",openLab:"ವರ್ಚುವಲ್ ಲ್ಯಾಬ್ ತೆರೆಯಿರಿ",heroCardText:"ಪ್ರಶ್ನೆ ಕೇಳಿ. ಕಲ್ಪನೆಯನ್ನು ಪರೀಕ್ಷಿಸಿ. ಏನಾಗುತ್ತದೆ ಎಂದು ಗಮನಿಸಿ.",statGrades:"ತರಗತಿಗಳು",statLabs:"ಲ್ಯಾಬ್ ವಿಭಾಗಗಳು",statLanguages:"ಕಲಿಕಾ ಭಾಷೆಗಳು",statCuriosity:"ಅನ್ವೇಷಿಸಬಹುದಾದ ಪ್ರಶ್ನೆಗಳು",
-explorerTitle:"ವಿಜ್ಞಾನ ಅನ್ವೇಷಣೆ",explorerDesc:"ಪರಿಕಲ್ಪನೆಯನ್ನು ಹುಡುಕಿ, ವಿವರಣೆ ಓದಿ, ಪ್ರಯೋಗ ಅಥವಾ ವಿಡಿಯೋ ಮೂಲಕ ಮುಂದುವರಿಯಿರಿ.",clearFilters:"ಫಿಲ್ಟರ್ ತೆರವುಗೊಳಿಸಿ",noResults:"ವಿಷಯ ಸಿಗಲಿಲ್ಲ. ಬೇರೆ ಪದದಿಂದ ಹುಡುಕಿ.",labTitle:"ವರ್ಚುವಲ್ ಲ್ಯಾಬ್",labDesc:"ಮೌಲ್ಯವನ್ನು ಬದಲಿಸಿ, ಮಾದರಿಯನ್ನು ಗಮನಿಸಿ ಮತ್ತು ವೀಕ್ಷಣೆಯನ್ನು ದಾಖಲಿಸಿ. ಇವು ಸಿಮ್ಯುಲೇಷನ್‌ಗಳು; ನೈಜ ಅಳತೆಗಳಲ್ಲ.",thermoTitle:"ಥರ್ಮಾಮೀಟರ್ ಪ್ರಯೋಗ",thermoDesc:"ಸಿಮ್ಯುಲೇಷನ್‌ನಲ್ಲಿನ ನೀರಿನ ತಾಪಮಾನ ಬದಲಿಸಿ ಓದನ್ನು ಗಮನಿಸಿ.",setTemperature:"ಸಿಮ್ಯುಲೇಟೆಡ್ ತಾಪಮಾನ ಹೊಂದಿಸಿ",circuitTitle:"ವಿದ್ಯುತ್ ಸರ್ಕ್ಯೂಟ್",circuitDesc:"ಸ್ವಿಚ್ ಬದಲಿಸಿ ತೆರೆದ ಅಥವಾ ಮುಚ್ಚಿದ ಸರ್ಕ್ಯೂಟ್ ಮಾದರಿಯನ್ನು ವೀಕ್ಷಿಸಿ.",circuitNote:"ಬಲ್ಬ್ ಬೆಳಗಲು ಸಂಪೂರ್ಣ ವಿದ್ಯುತ್ ಮಾರ್ಗ ಅಗತ್ಯ.",magnetTitle:"ಕಾಂತ ಅನ್ವೇಷಣೆ",magnetDesc:"ಕಾಂತದ ಧ್ರುವಗಳನ್ನು ಬದಲಿಸಿ ಆಕರ್ಷಣೆ ಅಥವಾ ವಿಕರ್ಷಣೆಯನ್ನು ಗಮನಿಸಿ.",matterTitle:"ದ್ರವ್ಯದ ಸ್ಥಿತಿಗಳು",matterDesc:"ಮಾದರಿಯ ತಾಪಮಾನ ಬದಲಿಸಿ ಕಣಗಳ ಚಲನೆಯನ್ನು ಗಮನಿಸಿ.",modelEnergy:"ಕಣಗಳ ಶಕ್ತಿ (ಮಾದರಿ)",matterNote:"ಇದು ಸರಳೀಕೃತ ಕಣ ಮಾದರಿ; ಅಣುಮಟ್ಟದ ನೈಜ ಅಳತೆಯಲ್ಲ.",labSafety:"ಸುರಕ್ಷತೆ: ಸಿಮ್ಯುಲೇಷನ್‌ಗಳು ಸರಳೀಕೃತ ಮಾದರಿಗಳು. ನೈಜ ಪ್ರಯೋಗಗಳನ್ನು ಶಿಕ್ಷಕರ ಮಾರ್ಗದರ್ಶನದಲ್ಲಿ ಮಾಡಿ; ಮೇಲ್ವಿಚಾರಣೆಯಿಲ್ಲದೆ ವಿದ್ಯುತ್, ಬೆಂಕಿ ಅಥವಾ ಬಿಸಿ ದ್ರವ ಬಳಸಬೇಡಿ.",
-videosTitle:"ವಿಜ್ಞಾನ ವಿಡಿಯೋ ಗ್ರಂಥಾಲಯ",videosDesc:"ವಿಷಯವಾರು YouTube ಹುಡುಕಾಟಗಳನ್ನು ತೆರೆಯಿರಿ. ಇವು ಹುಡುಕಾಟ ಲಿಂಕ್‌ಗಳು; ಪ್ರತ್ಯೇಕವಾಗಿ ಪರಿಶೀಲಿಸಿದ ವಿಡಿಯೋಗಳಲ್ಲ.",experimentsTitle:"ಪ್ರಾಯೋಗಿಕ ಚಟುವಟಿಕೆಗಳು",experimentsDesc:"ಸರಳ ವಸ್ತುಗಳನ್ನು ಬಳಸಿ, ವೀಕ್ಷಣೆ ದಾಖಲಿಸಿ ಮತ್ತು ಫಲಿತಾಂಶವನ್ನು ವಿವರಿಸಿ.",resourcesTitle:"ವಿಶ್ವಾಸಾರ್ಹ ಸಂಪನ್ಮೂಲಗಳು",resourcesDesc:"ಅಧಿಕೃತ ಮತ್ತು ಸ್ಥಾಪಿತ ಶೈಕ್ಷಣಿಕ ಮೂಲಗಳು. ತರಗತಿ, ಭಾಷೆ ಮತ್ತು ಪಠ್ಯಕ್ರಮಕ್ಕೆ ಹೊಂದಾಣಿಕೆ ಪರಿಶೀಲಿಸಿ.",resourceNotice:"ಬಾಹ್ಯ ಸಂಪನ್ಮೂಲಗಳು ಬದಲಾಗಬಹುದು. ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ನೀಡುವ ಮೊದಲು ನಿಖರ ಪುಟ ಮತ್ತು ಸೂಕ್ತತೆಯನ್ನು ಪರಿಶೀಲಿಸಿ. ಅನುಮತಿಯಿಲ್ಲದೆ ಕೃತಿಸ್ವಾಮ್ಯ ದಾಖಲೆಗಳನ್ನು ಮರುಪ್ರಕಟಿಸಬೇಡಿ.",quizTitle:"ಚುಟುಕು ವಿಜ್ಞಾನ ಪ್ರಶ್ನೋತ್ತರ",quizDesc:"ಉತ್ತರ ಆಯ್ಕೆ ಮಾಡಿ; ತಕ್ಷಣದ ಪ್ರತಿಕ್ರಿಯೆ ಮತ್ತು ಚಿಕ್ಕ ವಿವರಣೆ ಪಡೆಯಿರಿ.",yourProgress:"ಈ ಅಧಿವೇಶನ",progressNote:"ಈ ಮಾದರಿ ಪ್ರಸ್ತುತ ಅಧಿವೇಶನದ ಅಂಕಗಳನ್ನು ಮಾತ್ರ ದಾಖಲಿಸುತ್ತದೆ.",teachersTitle:"ಶಿಕ್ಷಕರ ಸಂಪನ್ಮೂಲ ಕೇಂದ್ರ",teachersDesc:"ಪಾಠದ ಸಂಕ್ಷಿಪ್ತ ಯೋಜನೆ ರಚಿಸಿ ಮತ್ತು ತರಗತಿಗೆ ಮೊದಲು ಪರಿಶೀಲನಾ ಪಟ್ಟಿಯನ್ನು ಬಳಸಿ.",lessonPlanner:"ಪಾಠ ಯೋಜನೆ ನಿರ್ಮಿಸಿ",topicLabel:"ವಿಷಯ",gradeLabel:"ತರಗತಿ",durationLabel:"ಅವಧಿ",generatePlan:"ಪಾಠದ ರೂಪುರೇಷೆ ರಚಿಸಿ",copyText:"ಪಠ್ಯ ನಕಲಿಸಿ",classChecklist:"ತರಗತಿಗೆ ಮುನ್ನ ಪರಿಶೀಲನೆ",check1:"ಕಲಿಕಾ ಉದ್ದೇಶ ಸ್ಪಷ್ಟವಾಗಿದೆ",check2:"ವಸ್ತುಗಳು ಸಿದ್ಧವಾಗಿವೆ ಮತ್ತು ಸುರಕ್ಷಿತವಾಗಿವೆ",check3:"ವೀಕ್ಷಣೆಗೆ ಮುನ್ನ ವಿದ್ಯಾರ್ಥಿಗಳು ಊಹೆ ಮಾಡುತ್ತಾರೆ",check4:"ವೀಕ್ಷಣಾ ಕೋಷ್ಟಕ ಸಿದ್ಧವಾಗಿದೆ",check5:"ಮೌಲ್ಯಮಾಪನ ಪ್ರಶ್ನೆ ಸಿದ್ಧವಾಗಿದೆ",teacherTip:"ಅಧ್ಯಾಯ ಕ್ರಮ ಮತ್ತು ನಿರೀಕ್ಷಿತ ಕಲಿಕಾ ಫಲಿತಾಂಶಗಳನ್ನು ಖಚಿತಪಡಿಸಲು ರಾಜ್ಯ ಪಠ್ಯಪುಸ್ತಕ ಮತ್ತು ಶಾಲೆಯ ಪಾಠಯೋಜನೆ ಬಳಸಿ.",reelsTitle:"InstaLab ರೀಲ್ಸ್ ಸ್ಟುಡಿಯೋ",reelsDesc:"ಶೈಕ್ಷಣಿಕ ವಿಜ್ಞಾನ ರೀಲ್ಸ್‌ಗಾಗಿ ಆರಂಭಿಕ ಸ್ಕ್ರಿಪ್ಟ್ ಮತ್ತು ದೃಶ್ಯ ರೂಪುರೇಷೆ ರಚಿಸಿ.",reelTopicLabel:"ವಿಜ್ಞಾನ ವಿಷಯ",reelLanguageLabel:"ಸ್ಕ್ರಿಪ್ಟ್ ಭಾಷೆ",makeScript:"ಸ್ಕ್ರಿಪ್ಟ್ ರಚಿಸಿ",reelOutputTitle:"ಸ್ಕ್ರಿಪ್ಟ್ ಮತ್ತು ದೃಶ್ಯ ರೂಪುರೇಷೆ",assistantTitle:"ವಿಜ್ಞಾನ ಸಹಾಯಕ",assistantDesc:"InstaLab ವಿಷಯ ಸಂಗ್ರಹದಲ್ಲಿ ಹುಡುಕಿ ಮುಂದಿನ ಕಲಿಕಾ ಹಂತಗಳನ್ನು ಪಡೆಯಿರಿ. ಈ static ಆವೃತ್ತಿ AI ಸೇವೆಯನ್ನು ಸಂಪರ್ಕಿಸುವುದಿಲ್ಲ.",askQuestion:"ವಿಜ್ಞಾನ ಪ್ರಶ್ನೆ ಅಥವಾ ವಿಷಯ ನಮೂದಿಸಿ",findHelp:"ಕಲಿಕಾ ಸಂಪನ್ಮೂಲ ಹುಡುಕಿ",clear:"ತೆರವುಗೊಳಿಸಿ",assistantResponse:"ಸೂಚಿಸಲಾದ ಕಲಿಕಾ ಮಾರ್ಗ",aiNotice:"ನೈಜ generative AI ಸಹಾಯಕಕ್ಕೆ ಸುರಕ್ಷಿತ backend ಅಗತ್ಯ. ಖಾಸಗಿ API ಕೀಗಳನ್ನು ಸಾರ್ವಜನಿಕ GitHub Pages JavaScript ಫೈಲ್‌ನಲ್ಲಿ ಇರಿಸಬೇಡಿ.",footerTag:"ಅನ್ವೇಷಿಸಿ • ಪ್ರಯೋಗಿಸಿ • ತಿಳಿಯಿರಿ",footerNote:"ತರಗತಿಯಲ್ಲಿ ಬಳಸುವ ಮೊದಲು ಪಠ್ಯಕ್ರಮ ಹೊಂದಾಣಿಕೆ ಮತ್ತು ಸಂಪನ್ಮೂಲ ಲಿಂಕ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ."
-}};
-let lang = localStorage.getItem("instalab-lang") || "en";
-const topics = [
-{id:"matter",title:{en:"Materials and their properties",kn:"ವಸ್ತುಗಳು ಮತ್ತು ಅವುಗಳ ಗುಣಲಕ್ಷಣಗಳು"},grades:[6,7,8],subject:"Chemistry",curricula:["Karnataka State Board","NCERT / CBSE","Common Science Concepts"],keywords:"matter materials properties solubility density ವಸ್ತು ದ್ರವ್ಯ ಗುಣಲಕ್ಷಣ",desc:{en:"Compare materials by appearance, hardness, solubility and other observable properties.",kn:"ವಸ್ತುಗಳನ್ನು ನೋಟ, ಗಡಸುತನ, ಕರಗುವಿಕೆ ಮತ್ತು ಇತರ ಗುಣಲಕ್ಷಣಗಳ ಆಧಾರದಲ್ಲಿ ಹೋಲಿಸಿ."},experiment:"Compare safe household materials and record observable properties.",video:"materials properties science experiment middle school"},
-{id:"temperature",title:{en:"Temperature and thermometers",kn:"ತಾಪಮಾನ ಮತ್ತು ಥರ್ಮಾಮೀಟರ್"},grades:[6,7,8],subject:"Physics",curricula:["Karnataka State Board","NCERT / CBSE","Common Science Concepts"],keywords:"temperature thermometer heat ತಾಪಮಾನ ಥರ್ಮಾಮೀಟರ್ ಉಷ್ಣತೆ",desc:{en:"Learn to read temperature and compare warmer and cooler samples.",kn:"ತಾಪಮಾನ ಓದುವುದು ಮತ್ತು ಹೆಚ್ಚು/ಕಡಿಮೆ ತಾಪಮಾನದ ಮಾದರಿಗಳನ್ನು ಹೋಲಿಸುವುದನ್ನು ಕಲಿಯಿರಿ."},experiment:"Compare room-temperature and lukewarm water using a suitable classroom thermometer.",video:"thermometer temperature science experiment"},
-{id:"electricity",title:{en:"Electric circuits",kn:"ವಿದ್ಯುತ್ ಸರ್ಕ್ಯೂಟ್‌ಗಳು"},grades:[6,7,8,10],subject:"Physics",curricula:["Karnataka State Board","NCERT / CBSE","Common Science Concepts"],keywords:"electricity circuit battery bulb switch current ವಿದ್ಯುತ್ ಸರ್ಕ್ಯೂಟ್ ಬ್ಯಾಟರಿ ಬಲ್ಬ್",desc:{en:"Explore how a complete conducting path allows a circuit to work.",kn:"ಪೂರ್ಣ ವಿದ್ಯುತ್ ಮಾರ್ಗವಿದ್ದಾಗ ಸರ್ಕ್ಯೂಟ್ ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ ಎಂದು ತಿಳಿಯಿರಿ."},experiment:"Use a low-voltage classroom circuit kit under teacher supervision.",video:"simple electric circuit battery bulb experiment"},
-{id:"magnetism",title:{en:"Magnets and magnetic effects",kn:"ಕಾಂತಗಳು ಮತ್ತು ಕಾಂತೀಯ ಪರಿಣಾಮಗಳು"},grades:[6,7,8,10],subject:"Physics",curricula:["Karnataka State Board","NCERT / CBSE","Common Science Concepts"],keywords:"magnet magnetic poles attraction repulsion ಕಾಂತ ಧ್ರುವ ಆಕರ್ಷಣೆ ವಿಕರ್ಷಣೆ",desc:{en:"Investigate poles, attraction, repulsion and magnetic materials.",kn:"ಕಾಂತದ ಧ್ರುವಗಳು, ಆಕರ್ಷಣೆ, ವಿಕರ್ಷಣೆ ಮತ್ತು ಕಾಂತೀಯ ವಸ್ತುಗಳನ್ನು ಅನ್ವೇಷಿಸಿ."},experiment:"Test classroom objects with a bar magnet and record results.",video:"magnetism magnetic poles experiment"},
-{id:"plants",title:{en:"Plants and photosynthesis",kn:"ಸಸ್ಯಗಳು ಮತ್ತು ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ"},grades:[6,7,8,10],subject:"Biology",curricula:["Karnataka State Board","NCERT / CBSE","Common Science Concepts"],keywords:"plant photosynthesis leaves sunlight chlorophyll ಸಸ್ಯ ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ ಎಲೆ ಸೂರ್ಯನ ಬೆಳಕು",desc:{en:"Explore how plants use light, water and carbon dioxide to make food.",kn:"ಸಸ್ಯಗಳು ಬೆಳಕು, ನೀರು ಮತ್ತು ಕಾರ್ಬನ್ ಡೈಆಕ್ಸೈಡ್ ಬಳಸಿ ಆಹಾರ ತಯಾರಿಸುವುದನ್ನು ತಿಳಿಯಿರಿ."},experiment:"Compare plant growth under different safe light conditions over several days.",video:"photosynthesis science animation"},
-{id:"light",title:{en:"Reflection and refraction of light",kn:"ಬೆಳಕಿನ ಪ್ರತಿಫಲನ ಮತ್ತು ವಕ್ರೀಭವನ"},grades:[7,8,9,10],subject:"Physics",curricula:["Karnataka State Board","NCERT / CBSE","Common Science Concepts"],keywords:"light reflection refraction mirror lens ಬೆಳಕು ಪ್ರತಿಫಲನ ವಕ್ರೀಭವನ ಕನ್ನಡಿ ಮಸೂರ",desc:{en:"Use ray diagrams to explore how light changes direction at surfaces and boundaries.",kn:"ಮೇಲ್ಮೈ ಮತ್ತು ಮಾಧ್ಯಮದ ಗಡಿಯಲ್ಲಿ ಬೆಳಕಿನ ದಿಕ್ಕು ಹೇಗೆ ಬದಲಾಗುತ್ತದೆ ಎಂಬುದನ್ನು ಕಿರಣ ಚಿತ್ರಗಳಿಂದ ತಿಳಿಯಿರಿ."},experiment:"Observe reflection with a mirror and a torch under teacher guidance.",video:"reflection refraction light science animation"},
-{id:"motion",title:{en:"Motion, distance and speed",kn:"ಚಲನೆ, ದೂರ ಮತ್ತು ವೇಗ"},grades:[6,7,8,9],subject:"Physics",curricula:["Karnataka State Board","NCERT / CBSE","Common Science Concepts"],keywords:"motion distance speed time ಚಲನೆ ದೂರ ವೇಗ ಸಮಯ",desc:{en:"Measure distance and time, then calculate average speed.",kn:"ದೂರ ಮತ್ತು ಸಮಯ ಅಳೆದು ಸರಾಸರಿ ವೇಗವನ್ನು ಲೆಕ್ಕ ಹಾಕಿ."},experiment:"Time a rolling toy over a measured safe distance and compare trials.",video:"distance time speed science experiment"},
-{id:"density",title:{en:"Density and floating or sinking",kn:"ಸಾಂದ್ರತೆ ಮತ್ತು ತೇಲುವಿಕೆ"},grades:[7,8,9],subject:"Physics",curricula:["Karnataka State Board","NCERT / CBSE","Common Science Concepts"],keywords:"density mass volume float sink ಸಾಂದ್ರತೆ ದ್ರವ್ಯರಾಶಿ ಘನಫಲ ತೇಲುವಿಕೆ",desc:{en:"Understand density as mass divided by volume and explore floating models.",kn:"ಸಾಂದ್ರತೆ = ದ್ರವ್ಯರಾಶಿ ÷ ಘನಫಲ ಎಂಬ ಸಂಬಂಧವನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ."},experiment:"Observe safe objects in water and record whether they float or sink.",video:"density buoyancy science experiment"},
-{id:"cells",title:{en:"Cells and living organisms",kn:"ಕೋಶಗಳು ಮತ್ತು ಜೀವಿಗಳು"},grades:[8,9,10],subject:"Biology",curricula:["Karnataka State Board","NCERT / CBSE","Common Science Concepts"],keywords:"cell nucleus membrane plant animal ಜೀವಕೋಶ ಕೋಶಕೇಂದ್ರ ಸಸ್ಯ ಪ್ರಾಣಿ",desc:{en:"Explore cells as basic structural and functional units of living organisms.",kn:"ಜೀವಿಗಳ ಮೂಲ ರಚನಾತ್ಮಕ ಮತ್ತು ಕಾರ್ಯಾತ್ಮಕ ಘಟಕಗಳಾಗಿ ಕೋಶಗಳನ್ನು ತಿಳಿಯಿರಿ."},experiment:"Observe prepared slides with a microscope only under teacher guidance.",video:"cell structure plant animal animation"},
-{id:"chemical",title:{en:"Chemical changes and reactions",kn:"ರಾಸಾಯನಿಕ ಬದಲಾವಣೆಗಳು ಮತ್ತು ಕ್ರಿಯೆಗಳು"},grades:[7,8,9,10],subject:"Chemistry",curricula:["Karnataka State Board","NCERT / CBSE","Common Science Concepts"],keywords:"chemical reaction change acid base chemistry ರಾಸಾಯನಿಕ ಕ್ರಿಯೆ ಬದಲಾವಣೆ ಆಮ್ಲ ಪ್ರತ್ಯಾಮ್ಲ",desc:{en:"Distinguish physical changes from chemical changes using safe, teacher-approved examples.",kn:"ಶಿಕ್ಷಕರ ಅನುಮೋದಿತ ಸುರಕ್ಷಿತ ಉದಾಹರಣೆಗಳಿಂದ ಭೌತಿಕ ಮತ್ತು ರಾಸಾಯನಿಕ ಬದಲಾವಣೆಗಳನ್ನು ಬೇರ್ಪಡಿಸಿ."},experiment:"Observe a teacher-approved safe reaction; never mix unknown household chemicals.",video:"chemical physical changes school science"},
-{id:"environment",title:{en:"Environment and conservation",kn:"ಪರಿಸರ ಮತ್ತು ಸಂರಕ್ಷಣೆ"},grades:[6,7,8,9,10],subject:"Environment",curricula:["Karnataka State Board","NCERT / CBSE","Common Science Concepts"],keywords:"environment pollution conservation biodiversity ಪರಿಸರ ಮಾಲಿನ್ಯ ಸಂರಕ್ಷಣೆ ಜೀವವೈವಿಧ್ಯ",desc:{en:"Investigate how everyday choices affect water, air, biodiversity and waste.",kn:"ದೈನಂದಿನ ಆಯ್ಕೆಗಳು ನೀರು, ಗಾಳಿ, ಜೀವವೈವಿಧ್ಯ ಮತ್ತು ತ್ಯಾಜ್ಯದ ಮೇಲೆ ಹೇಗೆ ಪರಿಣಾಮ ಬೀರುತ್ತವೆ ಎಂದು ಪರಿಶೀಲಿಸಿ."},experiment:"Conduct a school waste audit without touching hazardous waste.",video:"environment pollution conservation school science"},
-{id:"solar",title:{en:"Solar system and space",kn:"ಸೌರಮಂಡಲ ಮತ್ತು ಬಾಹ್ಯಾಕಾಶ"},grades:[6,7,8],subject:"Earth and Space",curricula:["Karnataka State Board","NCERT / CBSE","Common Science Concepts"],keywords:"solar system planets orbit space ಸೌರಮಂಡಲ ಗ್ರಹ ಕಕ್ಷೆ ಬಾಹ್ಯಾಕಾಶ",desc:{en:"Explore planet order, orbital motion and the scale of the Solar System.",kn:"ಗ್ರಹಗಳ ಕ್ರಮ, ಕಕ್ಷೀಯ ಚಲನೆ ಮತ್ತು ಸೌರಮಂಡಲದ ಗಾತ್ರವನ್ನು ಅನ್ವೇಷಿಸಿ."},experiment:"Create a labelled planet-order model; clearly state that sizes and distances are not to scale.",video:"solar system animation for students"},
-{id:"sound",title:{en:"Sound and vibration",kn:"ಧ್ವನಿ ಮತ್ತು ಕಂಪನ"},grades:[7,8,9],subject:"Physics",curricula:["Karnataka State Board","NCERT / CBSE","Common Science Concepts"],keywords:"sound vibration frequency ಧ್ವನಿ ಕಂಪನ ಆವೃತ್ತಿ",desc:{en:"Explore how vibrations create sound and how pitch differs from loudness.",kn:"ಕಂಪನದಿಂದ ಧ್ವನಿ ಹೇಗೆ ಉಂಟಾಗುತ್ತದೆ ಮತ್ತು ಸ್ವರದ ಎತ್ತರ ಹಾಗೂ ಧ್ವನಿಯ ಜೋರಿನ ವ್ಯತ್ಯಾಸವನ್ನು ತಿಳಿಯಿರಿ."},experiment:"Use a rubber band stretched safely over a box to compare vibration and sound.",video:"sound vibration science experiment"}
+let currentLang = localStorage.getItem('instalab_lang') || 'both';
+let currentSimId = 'thermometer';
+let currentGrade = '6';
+
+function t(enText, knText) {
+  if (!knText) return enText;
+  if (currentLang === 'en') return enText;
+  if (currentLang === 'kn') return knText;
+  return `${knText} / ${enText}`;
+}
+
+function ytUrl(query) {
+  return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+}
+
+function createScientistAvatarSVG(name, color = '#22D3EE', fieldIcon = '⚛️') {
+  const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2);
+  return `<svg viewBox="0 0 80 80" width="74" height="74" role="img" aria-label="${name}">
+    <circle cx="40" cy="40" r="38" fill="#131B33" stroke="${color}" stroke-width="2"/>
+    <text x="40" y="36" text-anchor="middle" fill="#F8FAFC" font-size="16" font-weight="bold">${initials}</text>
+    <text x="40" y="58" text-anchor="middle" font-size="16">${fieldIcon}</text>
+  </svg>`;
+}
+
+const UI_TEXT = {
+  nav_home: { en: "Home", kn: "ಮುಖಪುಟ" },
+  nav_sims: { en: "Virtual Lab (12)", kn: "ಪ್ರಯೋಗಾಲಯ (12)" },
+  nav_materials: { en: "Equipment", kn: "ಉಪಕರಣಗಳು" },
+  nav_scientists: { en: "Scientists (20)", kn: "ವಿಜ್ಞಾನಿಗಳು (20)" },
+  nav_facts: { en: "30 Facts", kn: "30 ವಿಜ್ಞಾನ ಸತ್ಯಗಳು" },
+  nav_karnataka: { en: "Class 6–10", kn: "6–10ನೇ ತರಗತಿ" },
+  nav_videos: { en: "Videos", kn: "ವೀಡಿಯೊಗಳು" },
+  nav_quizzes: { en: "Quizzes", kn: "ರಸಪ್ರಶ್ನೆ" },
+  hero_badge: { en: "🔬 Interactive Science Lab", kn: "🔬 ಶಾಲಾ ವಿಜ್ಞಾನ ಸಂವಾದಾತ್ಮಕ ಪ್ರಯೋಗಾಲಯ" },
+  hero_title: { en: "Explore Science by Doing — Anytime, Anywhere", kn: "ಪ್ರಯೋಗಗಳ ಮೂಲಕ ವಿಜ್ಞಾನ ಕಲಿಯಿರಿ — ಎಲ್ಲೆಡೆಯೂ, ಯಾವಾಗಲೂ" },
+  hero_desc: {
+    en: "Hands-on virtual experiments, interactive apparatus guides, scientist biographies, quizzes, and Karnataka State Board (Grades 6–10) learning resources.",
+    kn: "ವರ್ಚುವಲ್ ಪ್ರಯೋಗಗಳು, ವಿಜ್ಞಾನ ಉಪಕರಣಗಳ ಮಾಹಿತಿ, ವಿಜ್ಞಾನಿಗಳ ಪರಿಚಯ, ರಸಪ್ರಶ್ನೆ ಹಾಗೂ ಕರ್ನಾಟಕ ರಾಜ್ಯ ಪಠ್ಯಕ್ರಮದ (6–10ನೇ ತರಗತಿ) ಕಲಿಕಾ ಸಂಪನ್ಮೂಲಗಳು."
+  },
+  btn_launch_lab: { en: "⚡ Launch Virtual Lab (12 Sims)", kn: "⚡ ಪ್ರಯೋಗಾಲಯ ಪ್ರಾರಂಭಿಸಿ (12)" },
+  btn_explore_state: { en: "📚 Class 6–10 State Board", kn: "📚 6–10ನೇ ತರಗತಿ ಪಠ್ಯಕ್ರಮ" },
+  btn_follow_insta: { en: "Follow @instalab on Instagram", kn: "ಇನ್‌ಸ್ಟಾಗ್ರಾಮ್‌ನಲ್ಲಿ @instalab ಹಿಂಬಾಲಿಸಿ" }
+};
+
+const SIMULATIONS = [
+  {
+    id: 'thermometer',
+    titleEn: 'A. Thermometer & Liquid Expansion',
+    titleKn: 'A. ತಾಪಮಾನ ಮಾಪಕ ಮತ್ತು ದ್ರವದ ಹಿಗ್ಗುವಿಕೆ',
+    objectiveEn: 'Observe how temperature affects liquid column height and compare Celsius, Fahrenheit, and Kelvin scales.',
+    objectiveKn: 'ತಾಪಮಾನ ಬದಲಾದಂತೆ ತಾಪಮಾನ ಮಾಪಕದಲ್ಲಿ ದ್ರವದ ಮಟ್ಟ ಹೇಗೆ ಬದಲಾಗುತ್ತದೆ ಮತ್ತು ಸೆಲ್ಸಿಯಸ್, ಫ್ಯಾರನ್‌ಹೀಟ್ ಹಾಗೂ ಕೆಲ್ವಿನ್ ಮಾಪನಗಳನ್ನು ಹೋಲಿಸಿ.',
+    explanationEn: 'Liquids expand when heated because kinetic energy increases particle separation.',
+    explanationKn: 'ಶಾಖ ನೀಡಿದಾಗ ದ್ರವದ ಕಣಗಳ ಚಲನಶಕ್ತಿ ಹೆಚ್ಚಾಗಿ ಹಿಗ್ಗುತ್ತದೆ.',
+    safetyEn: 'Never use a clinical thermometer in boiling water.',
+    safetyKn: 'ವೈದ್ಯಕೀಯ ತಾಪಮಾನ ಮಾಪಕವನ್ನು ಕುದಿಯುವ ನೀರಿನಲ್ಲಿ ಇಡಬೇಡಿ.',
+    ytKn: 'ತಾಪಮಾನ ಮಾಪಕ ವಿಜ್ಞಾನ ಪ್ರಯೋಗ ಕನ್ನಡ Thermometer in Kannada',
+    ytEn: 'How a Thermometer Works Thermal Expansion Physics'
+  },
+  {
+    id: 'plant',
+    titleEn: 'B. Plant Growth & Photosynthesis Model',
+    titleKn: 'B. ಸಸ್ಯ ಬೆಳವಣಿಗೆ ಮತ್ತು ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ',
+    objectiveEn: 'Investigate how light intensity and water availability affect plant growth and oxygen output.',
+    objectiveKn: 'ಬೆಳಕಿನ ತೀವ್ರತೆ ಮತ್ತು ನೀರಿನ ಪ್ರಮಾಣವು ಸಸ್ಯದ ಬೆಳವಣಿಗೆಯ ಮೇಲೆ ಹೇಗೆ ಪರಿಣಾಮ ಬೀರುತ್ತದೆ ಎಂಬುದನ್ನು ಅಭ್ಯಸಿಸಿ.',
+    explanationEn: 'Chlorophyll captures sunlight to convert water and CO2 into glucose and oxygen.',
+    explanationKn: 'ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆಯ ಮೂಲಕ ಸಸ್ಯಗಳು ಸೂರ್ಯನ ಬೆಳಕು, ನೀರು ಮತ್ತು ಇಂಗಾಲದ ಡೈಆಕ್ಸೈಡ್ ಬಳಸಿ ಆಹಾರ ತಯಾರಿಸುತ್ತವೆ.',
+    safetyEn: 'Wash hands after handling soil and fertilizers.',
+    safetyKn: 'ಮಣ್ಣು ಮತ್ತು ಗೊಬ್ಬರ ಮುಟ್ಟಿದ ನಂತರ ಕೈಗಳನ್ನು ಸ್ವಚ್ಛವಾಗಿ ತೊಳೆಯಿರಿ.',
+    ytKn: 'ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ ಸಸ್ಯಗಳ ಬೆಳವಣಿಗೆ ಕನ್ನಡ Photosynthesis Kannada',
+    ytEn: 'Photosynthesis Light and Water Plant Growth Experiment'
+  },
+  {
+    id: 'particles',
+    titleEn: 'C. Particle Model of Matter (Solid, Liquid, Gas)',
+    titleKn: 'C. ದ್ರವ್ಯದ ಕಣಗಳ ಮಾದರಿ (ಘನ, ದ್ರವ, ಅನಿಲ)',
+    objectiveEn: 'Visualize particle arrangement and kinetic movement in solids, liquids, and gases.',
+    objectiveKn: 'ಘನ, ದ್ರವ ಮತ್ತು ಅನಿಲ ಸ್ಥಿತಿಗಳಲ್ಲಿ ಕಣಗಳ ಜೋಡಣೆ ಹಾಗೂ ಚಲನೆಯನ್ನು ವೀಕ್ಷಿಸಿ.',
+    explanationEn: 'Solids have tightly packed particles; liquids slide past each other; gases move rapidly with wide spacing.',
+    explanationKn: 'ಘನ ವಸ್ತುಗಳಲ್ಲಿ ಕಣಗಳು ಒತ್ತೊತ್ತಾಗಿ ಜೋಡಣೆಯಾಗಿರುತ್ತವೆ. ಅನಿಲದಲ್ಲಿ ಕಣಗಳು ವೇಗವಾಗಿ ಚಲಿಸುತ್ತವೆ.',
+    safetyEn: 'Pressurized gas containers should never be heated directly.',
+    safetyKn: 'ಒತ್ತಡದಲ್ಲಿರುವ ಅನಿಲ ಸಿಲಿಂಡರ್‌ಗಳನ್ನು ಎಂದಿಗೂ ಬಿಸಿ ಮಾಡಬೇಡಿ.',
+    ytKn: 'ದ್ರವ್ಯದ ಸ್ಥಿತಿಗಳು ಘನ ದ್ರವ ಅನಿಲ ಕನ್ನಡ States of Matter Kannada',
+    ytEn: 'Particle Model of Matter Solid Liquid Gas Animation'
+  },
+  {
+    id: 'circuit',
+    titleEn: 'D. Electric Circuit & Switch Control',
+    titleKn: 'D. ಸರಳ ವಿದ್ಯುತ್ ಮಂಡಲ ಮತ್ತು ಸ್ವಿಚ್',
+    objectiveEn: 'Build a closed path using a battery, wires, switch, and bulb to understand electric current flow.',
+    objectiveKn: 'ಬ್ಯಾಟರಿ, ತಂತಿ, ಸ್ವಿಚ್ ಮತ್ತು ಬಲ್ಬ್ ಬಳಸಿ ಪೂರ್ಣ ವಿದ್ಯುತ್ ಮಂಡಲ ರಚಿಸಿ ವಿದ್ಯುತ್ ಪ್ರವಾಹ ತಿಳಿಯಿರಿ.',
+    explanationEn: 'Current flows only when the circuit forms a closed loop (I = V/R).',
+    explanationKn: 'ವಿದ್ಯುತ್ ಮಂಡಲವು ಮುಚ್ಚಿದಾಗ ಮಾತ್ರ ವಿದ್ಯುತ್ ಪ್ರವಹಿಸಿ ಬಲ್ಬ್ ಬೆಳಗುತ್ತದೆ.',
+    safetyEn: 'Only use low-voltage DC batteries (1.5V–9V). Never touch 230V AC sockets.',
+    safetyKn: 'ಪ್ರಯೋಗಗಳಿಗೆ ಸಣ್ಣ ಬ್ಯಾಟರಿಗಳನ್ನು ಮಾತ್ರ ಬಳಸಿ. ಮನೆಯ 230V ಪ್ಲಗ್ ಬಳಸಬೇಡಿ.',
+    ytKn: 'ವಿದ್ಯುತ್ ಮಂಡಲ ಪ್ರಯೋಗ ಕನ್ನಡ Electric Circuit in Kannada',
+    ytEn: 'Simple Electric Circuit Switch Battery Bulb Science'
+  },
+  {
+    id: 'magnetism',
+    titleEn: 'E. Magnetism & Magnetic Materials Tester',
+    titleKn: 'E. ಕಾಂತೀಯತೆ ಮತ್ತು ಕಾಂತೀಯ ವಸ್ತುಗಳ ಪರೀಕ್ಷೆ',
+    objectiveEn: 'Test everyday materials with a bar magnet to classify magnetic and non-magnetic substances.',
+    objectiveKn: 'ದಂಡಕಾಂತವನ್ನು ಬಳಸಿ ಯಾವ ವಸ್ತುಗಳು ಕಾಂತಕ್ಕೆ ಆಕರ್ಷಿತವಾಗುತ್ತವೆ ಎಂಬುದನ್ನು ಪರೀಕ್ಷಿಸಿ.',
+    explanationEn: 'Ferromagnetic materials (Iron, Nickel, Cobalt) are strongly attracted by magnets.',
+    explanationKn: 'ಕಬ್ಬಿಣ, ನಿಕ್ಕಲ್ ಮತ್ತು ಕೋಬಾಲ್ಟ್‌ನಂತಹ ಕಾಂತೀಯ ವಸ್ತುಗಳು ಕಾಂತಕ್ಕೆ ಆಕರ್ಷಿತವಾಗುತ್ತವೆ.',
+    safetyEn: 'Keep strong magnets away from electronic screens and cards.',
+    safetyKn: 'ಪ್ರಬಲ ಕಾಂತಗಳನ್ನು ಮೊಬೈಲ್ ಮತ್ತು ಕಾರ್ಡ್‌ಗಳಿಂದ ದೂರವಿಡಿ.',
+    ytKn: 'ಕಾಂತಗಳೊಂದಿಗೆ ಆಟ ವಿಜ್ಞಾನ ಕನ್ನಡ Magnetism in Kannada',
+    ytEn: 'Magnetism Magnetic vs Non Magnetic Materials Experiment'
+  },
+  {
+    id: 'motion',
+    titleEn: 'F. Motion, Free Fall & Gravity',
+    titleKn: 'F. ಚಲನೆ, ಮುಕ್ತ ಪತನ ಮತ್ತು ಗುರುತ್ವಾಕರ್ಷಣೆ',
+    objectiveEn: 'Explore equations of motion under Earth (9.8 m/s²) and Moon (1.6 m/s²) gravity.',
+    objectiveKn: 'ಗುರುತ್ವಾಕರ್ಷಣೆಯ ಅಡಿಯಲ್ಲಿ ವಸ್ತುವಿನ ಚಲನೆ, ವೇಗ ಮತ್ತು ಕ್ರಮಿಸಿದ ದೂರವನ್ನು ಲೆಕ್ಕಾಚಾರ ಮಾಡಿ.',
+    explanationEn: 'Displacement s = ut + ½gt² and final velocity v = u + gt.',
+    explanationKn: 'ನಿರ್ವಾತದಲ್ಲಿ ಎಲ್ಲಾ ವಸ್ತುಗಳು ಸಮಾನ ವೇಗೋತ್ಕರ್ಷದಿಂದ (9.8 m/s²) ಬೀಳುತ್ತವೆ.',
+    safetyEn: 'Ensure drop zones are clear during physical drop tests.',
+    safetyKn: 'ಎತ್ತರದಿಂದ ವಸ್ತುಗಳನ್ನು ಬೀಳಿಸುವ ಪ್ರಯೋಗ ಮಾಡುವಾಗ ಕೆಳಗೆ ಯಾರೂ ಇಲ್ಲದಿರುವುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.',
+    ytKn: 'ಚಲನೆ ಮತ್ತು ಗುರುತ್ವಾಕರ್ಷಣೆ ಕನ್ನಡ Motion and Gravity Kannada',
+    ytEn: 'Equations of Motion and Free Fall Gravity Physics'
+  },
+  {
+    id: 'ph',
+    titleEn: 'G. Acids, Bases & Universal pH Indicator',
+    titleKn: 'G. ಆಮ್ಲಗಳು, ಪ್ರತ್ಯಾಮ್ಲಗಳು ಮತ್ತು pH ಮಾಪಕ',
+    objectiveEn: 'Test solutions to observe pH values (0–14) and indicator color changes.',
+    objectiveKn: 'ವಿವಿಧ ದ್ರಾವಣಗಳ pH ಮೌಲ್ಯ (0–14) ಮತ್ತು ಸೂಚಕದ ಬಣ್ಣ ಬದಲಾವಣೆಯನ್ನು ಗಮನಿಸಿ.',
+    explanationEn: 'pH 7 is neutral, below 7 is acidic, and above 7 is basic/alkaline.',
+    explanationKn: 'pH 7 ತಟಸ್ಥ, 7 ಕ್ಕಿಂತ ಕಡಿಮೆ ಆಮ್ಲ, 7 ಕ್ಕಿಂತ ಹೆಚ್ಚು ಪ್ರತ್ಯಾಮ್ಲ.',
+    safetyEn: 'Never taste any laboratory chemical!',
+    safetyKn: 'ಯಾವುದೇ ರಾಸಾಯನಿಕವನ್ನು ನಾಲಿಗೆಯಿಂದ ರುಚಿ ನೋಡಬೇಡಿ!',
+    ytKn: 'ಆಮ್ಲಗಳು ಪ್ರತ್ಯಾಮ್ಲಗಳು ಮತ್ತು ಲವಣಗಳು ಕನ್ನಡ Acids Bases pH Kannada',
+    ytEn: 'Acids Bases and pH Scale Universal Indicator Experiment'
+  },
+  {
+    id: 'optics',
+    titleEn: 'H. Light Reflection & Refraction Ray Lab',
+    titleKn: 'H. ಬೆಳಕಿನ ಪ್ರತಿಫಲನ ಮತ್ತು ವಕ್ರೀಭವನ',
+    objectiveEn: 'Adjust angle of incidence to verify Law of Reflection and Snell’s Law of Refraction.',
+    objectiveKn: 'ಬೆಳಕಿನ ಕಿರಣದ ಪತನ ಕೋನವನ್ನು ಬದಲಿಸಿ ಪ್ರತಿಫಲನ ಕೋನ ಮತ್ತು ವಕ್ರೀಭವನ ಕೋನವನ್ನು ಅಭ್ಯಸಿಸಿ.',
+    explanationEn: 'Angle of incidence equals angle of reflection (θi = θr); light bends toward the normal in denser media.',
+    explanationKn: 'ಪತನ ಕೋನ ಮತ್ತು ಪ್ರತಿಫಲನ ಕೋನ ಸಮವಾಗಿರುತ್ತವೆ. ಸಾಂದ್ರ ಮಾಧ್ಯಮದಲ್ಲಿ ಬೆಳಕು ಲಂಬದ ಕಡೆಗೆ ಬಾಗುತ್ತದೆ.',
+    safetyEn: 'Never shine laser pointers into eyes.',
+    safetyKn: 'ಲೇಸರ್ ಬೆಳಕನ್ನು ಯಾರ ಕಣ್ಣಿಗೂ ಬಿಡಬೇಡಿ.',
+    ytKn: 'ಬೆಳಕಿನ ಪ್ರತಿಫಲನ ಮತ್ತು ವಕ್ರೀಭವನ ಕನ್ನಡ Light Reflection Kannada',
+    ytEn: 'Reflection and Refraction of Light Snell Law Ray Diagram'
+  },
+  {
+    id: 'pendulum',
+    titleEn: 'I. Simple Pendulum & Time Period',
+    titleKn: 'I. ಸರಳ ಲೋಲಕ ಮತ್ತು ಆವರ್ತಕಾಲ',
+    objectiveEn: 'Discover how string length (L) affects time period T = 2π√(L/g).',
+    objectiveKn: 'ಸರಳ ಲೋಲಕದ ದಾರದ ಉದ್ದವು (L) ಅದರ ಆವರ್ತಕಾಲದ (T) ಮೇಲೆ ಹೇಗೆ ಪರಿಣಾಮ ಬೀರುತ್ತದೆ ಎಂದು ಕಂಡುಹಿಡಿಯಿರಿ.',
+    explanationEn: 'Time period depends on length and gravity, not on the mass of the bob.',
+    explanationKn: 'ಸರಳ ಲೋಲಕದ ಆವರ್ತಕಾಲವು ದಾರದ ಉದ್ದ ಮತ್ತು ಗುರುತ್ವದ ಮೇಲೆ ಮಾತ್ರ ಅವಲಂಬಿತವಾಗಿರುತ್ತದೆ.',
+    safetyEn: 'Release bob gently without pushing.',
+    safetyKn: 'ಲೋಲಕದ ಗುಂಡನ್ನು ತಳ್ಳದೆ ನಿಧಾನವಾಗಿ ಬಿಡಿ.',
+    ytKn: 'ಸರಳ ಲೋಲಕ ಪ್ರಯೋಗ ಕನ್ನಡ Simple Pendulum Kannada',
+    ytEn: 'Simple Pendulum Time Period Length Experiment Physics'
+  },
+  {
+    id: 'ohmslaw',
+    titleEn: 'J. Ohm’s Law (V = I × R) Verification',
+    titleKn: 'J. ಓಮ್‌ನ ನಿಯಮ (V = I × R) ಪರಿಶೀಲನೆ',
+    objectiveEn: 'Explore the relationship between Voltage (V), Current (I), and Resistance (R).',
+    objectiveKn: 'ವಾಹಕದಲ್ಲಿ ವಿಭವಾಂತರ (V), ವಿದ್ಯುತ್ ಪ್ರವಾಹ (I) ಮತ್ತು ರೋಧದ (R) ನಡುವಿನ ಸಂಬಂಧವನ್ನು ಪರಿಶೀಲಿಸಿ.',
+    explanationEn: 'Current is directly proportional to voltage and inversely proportional to resistance (I = V/R).',
+    explanationKn: 'ಸ್ಥಿರ ತಾಪಮಾನದಲ್ಲಿ ವಿದ್ಯುತ್ ಪ್ರವಾಹವು ವಿಭವಾಂತರಕ್ಕೆ ನೇರ ಅನುಪಾತದಲ್ಲಿರುತ್ತದೆ (V = IR).',
+    safetyEn: 'Switch off circuit when not taking readings to avoid wire heating.',
+    safetyKn: 'ತಂತಿ ಬಿಸಿಯಾಗುವುದನ್ನು ತಡೆಯಲು ರೀಡಿಂಗ್ ತೆಗೆದುಕೊಂಡ ನಂತರ ಸ್ವಿಚ್ ಆಫ್ ಮಾಡಿ.',
+    ytKn: 'ಓಮ್ ನ ನಿಯಮ ಕನ್ನಡ 10ನೇ ತರಗತಿ Ohms Law in Kannada',
+    ytEn: 'Ohms Law Voltage Current Resistance Interactive Physics'
+  },
+  {
+    id: 'density',
+    titleEn: 'K. Density, Buoyancy & Archimedes Principle',
+    titleKn: 'K. ಸಾಂದ್ರತೆ, ಪ್ಲವನಶೀಲತೆ ಮತ್ತು ಆರ್ಕಿಮಿಡೀಸ್ ತತ್ವ',
+    objectiveEn: 'Test why objects with density less than water (1.0 g/cm³) float while denser objects sink.',
+    objectiveKn: 'ನೀರಿಗಿಂತ ಕಡಿಮೆ ಸಾಂದ್ರತೆಯ ವಸ್ತುಗಳು ಏಕೆ ತೇಲುತ್ತವೆ ಮತ್ತು ಹೆಚ್ಚಿನ ಸಾಂದ್ರತೆಯ ವಸ್ತುಗಳು ಏಕೆ ಮುಳುಗುತ್ತವೆ ಎಂದು ಪರೀಕ್ಷಿಸಿ.',
+    explanationEn: 'Objects less dense than fluid float; upward buoyant force equals weight of displaced water.',
+    explanationKn: 'ವಸ್ತುವಿನ ಸಾಂದ್ರತೆಯು ನೀರಿನ ಸಾಂದ್ರತೆಗಿಂತ (1.0 g/cm³) ಕಡಿಮೆಯಿದ್ದರೆ ಅದು ತೇಲುತ್ತದೆ.',
+    safetyEn: 'Wipe spilled water around lab tables immediately.',
+    safetyKn: 'ಪ್ರಯೋಗದ ವೇಳೆ ಚೆಲ್ಲಿದ ನೀರನ್ನು ತಕ್ಷಣ ಒರೆಸಿ.',
+    ytKn: 'ಸಾಂದ್ರತೆ ಮತ್ತು ಆರ್ಕಿಮಿಡೀಸ್ ತತ್ವ ಕನ್ನಡ Density Archimedes Kannada',
+    ytEn: 'Density Floating and Sinking Archimedes Principle'
+  },
+  {
+    id: 'sound',
+    titleEn: 'L. Sound Waves: Pitch & Loudness',
+    titleKn: 'L. ಶಬ್ದದ ತರಂಗಗಳು: ಆವೃತ್ತಿ ಮತ್ತು ಪಾರ',
+    objectiveEn: 'Visualize how Frequency (Hz) controls pitch and Amplitude controls loudness.',
+    objectiveKn: 'ಶಬ್ದ ತರಂಗದ ಆವೃತ್ತಿ (Frequency) ಮತ್ತು ಪಾರ (Amplitude) ಬದಲಾದಂತೆ ತರಂಗದ ಆಕಾರ ಹೇಗೆ ಬದಲಾಗುತ್ತದೆ ಎಂದು ವೀಕ್ಷಿಸಿ.',
+    explanationEn: 'Sound requires a medium to travel. Pitch depends on frequency; loudness depends on amplitude.',
+    explanationKn: 'ಶಬ್ದವು ಕಂಪನದಿಂದ ಉಂಟಾಗುತ್ತದೆ ಮತ್ತು ಚಲಿಸಲು ಮಾಧ್ಯಮದ ಅಗತ್ಯವಿದೆ.',
+    safetyEn: 'Avoid prolonged exposure to loud sounds above 85 dB.',
+    safetyKn: 'ಕಿವಿಯ ಆರೋಗ್ಯಕ್ಕಾಗಿ ಅತಿ ಹೆಚ್ಚಿನ ಶಬ್ದದಿಂದ ದೂರವಿರಿ.',
+    ytKn: 'ಶಬ್ದ ವಿಜ್ಞಾನ ಪಾಠ ಕನ್ನಡ Sound Waves in Kannada',
+    ytEn: 'Sound Waves Frequency Pitch and Amplitude Oscilloscope'
+  }
 ];
-const videos = [
-["🌡️","Temperature and thermometers","ತಾಪಮಾನ ಮತ್ತು ಥರ್ಮಾಮೀಟರ್","thermometer temperature science experiment"],
-["⚡","Electric circuits","ವಿದ್ಯುತ್ ಸರ್ಕ್ಯೂಟ್‌ಗಳು","simple electric circuit battery bulb experiment"],
-["🧲","Magnetism","ಕಾಂತೀಯತೆ","magnetism magnetic poles experiment"],
-["🌱","Photosynthesis","ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ","photosynthesis science animation"],
-["🔦","Reflection of light","ಬೆಳಕಿನ ಪ್ರತಿಫಲನ","reflection of light experiment school"],
-["🪐","Solar system","ಸೌರಮಂಡಲ","solar system animation for students"],
-["🧬","Cells and organisms","ಕೋಶಗಳು ಮತ್ತು ಜೀವಿಗಳು","cell structure plant animal animation"],
-["🧪","Chemical changes","ರಾಸಾಯನಿಕ ಬದಲಾವಣೆಗಳು","physical and chemical changes school science"],
-["🔊","Sound and vibration","ಧ್ವನಿ ಮತ್ತು ಕಂಪನ","sound vibration science experiment"],
-["♻️","Environment","ಪರಿಸರ","environment conservation school science"]
+
+const MATERIALS = [
+  { id: 'mat-1', nameEn: 'Laboratory Thermometer', nameKn: 'ಪ್ರಯೋಗಾಲಯ ತಾಪಮಾನ ಮಾಪಕ', category: 'measurement', icon: '🌡️', principleEn: 'Thermal expansion of mercury/alcohol.', principleKn: 'ಶಾಖಕ್ಕೆ ದ್ರವ ಹಿಗ್ಗುವ ತತ್ವ.', simId: 'thermometer', ytKn: 'ತಾಪಮಾನ ಮಾಪಕ ಕನ್ನಡ', ytEn: 'Laboratory Thermometer' },
+  { id: 'mat-2', nameEn: 'Magnifying Glass (Convex Lens)', nameKn: 'ಭೂತಗನ್ನಡಿ (ಪೀನ ಮಸೂರ)', category: 'optics', icon: '🔍', principleEn: 'Refracts light to form magnified virtual image.', principleKn: 'ಬೆಳಕನ್ನು ವಕ್ರೀಭವಿಸಿ ದೊಡ್ಡ ಪ್ರತಿಬಿಂಬ ತೋರಿಸುತ್ತದೆ.', simId: 'optics', ytKn: 'ಪೀನ ಮಸೂರ ಕನ್ನಡ', ytEn: 'Convex Lens Magnifying Glass' },
+  { id: 'mat-3', nameEn: 'Compound Microscope', nameKn: 'ಸಂಯುಕ್ತ ಸೂಕ್ಷ್ಮದರ್ಶಕ', category: 'optics', icon: '🔬', principleEn: 'Two lens systems magnify cells up to 400x–1000x.', principleKn: 'ಸೂಕ್ಷ್ಮ ಜೀವಿಗಳನ್ನು ಮತ್ತು ಜೀವಕೋಶಗಳನ್ನು ದೊಡ್ಡದಾಗಿ ತೋರಿಸುತ್ತದೆ.', simId: 'plant', ytKn: 'ಸೂಕ್ಷ್ಮದರ್ಶಕದ ಭಾಗಗಳು ಕನ್ನಡ', ytEn: 'Compound Microscope Guide' },
+  { id: 'mat-4', nameEn: 'Bar Magnet & Horseshoe Magnet', nameKn: 'ದಂಡಕಾಂತ ಮತ್ತು ಲಾಳಾಕೃತಿಯ ಕಾಂತ', category: 'electricity', icon: '🧲', principleEn: 'Creates magnetic field; attracts Fe, Ni, Co.', principleKn: 'ಕಬ್ಬಿಣ, ನಿಕ್ಕಲ್ ಮತ್ತು ಕೋಬಾಲ್ಟ್ ಆಕರ್ಷಿಸುತ್ತದೆ.', simId: 'magnetism', ytKn: 'ದಂಡಕಾಂತ ಪ್ರಯೋಗ ಕನ್ನಡ', ytEn: 'Bar Magnet Field Lines' },
+  { id: 'mat-5', nameEn: 'Electric Circuit Kit', nameKn: 'ವಿದ್ಯುತ್ ಮಂಡಲ ಕಿಟ್', category: 'electricity', icon: '💡', principleEn: 'Chemical energy to electrical and light energy.', principleKn: 'ರಾಸಾಯನಿಕ ಶಕ್ತಿಯನ್ನು ವಿದ್ಯುತ್ ಮತ್ತು ಬೆಳಕಿನ ಶಕ್ತಿಯನ್ನಾಗಿ ಪರಿವರ್ತಿಸುತ್ತದೆ.', simId: 'circuit', ytKn: 'ಸರಳ ವಿದ್ಯುತ್ ಮಂಡಲ ಕನ್ನಡ', ytEn: 'Simple Electric Circuit Kit' },
+  { id: 'mat-6', nameEn: 'Graduated Measuring Cylinder', nameKn: 'ಅಳತೆ ಸಿಲಿಂಡರ್', category: 'measurement', icon: '🧪', principleEn: 'Measures liquid volume and solid displacement.', principleKn: 'ದ್ರವಗಳ ಗಾತ್ರವನ್ನು ಮಿಲಿಲೀಟರ್‌ಗಳಲ್ಲಿ ಅಳೆಯಲು ಬಳಸಲಾಗುತ್ತದೆ.', simId: 'density', ytKn: 'ಅಳತೆ ಸಿಲಿಂಡರ್ ಕನ್ನಡ', ytEn: 'Graduated Cylinder Volume' },
+  { id: 'mat-7', nameEn: 'Spring Balance & Beam Balance', nameKn: 'ಸ್ಪ್ರಿಂಗ್ ತಕ್ಕಡಿ ಮತ್ತು ಭೌತಿಕ ತಕ್ಕಡಿ', category: 'measurement', icon: '⚖️', principleEn: 'Measures gravitational weight (N) and mass (g).', principleKn: 'ವಸ್ತುವಿನ ದ್ರವ್ಯರಾಶಿ ಮತ್ತು ತೂಕವನ್ನು ಅಳೆಯುತ್ತದೆ.', simId: 'motion', ytKn: 'ಸ್ಪ್ರಿಂಗ್ ತಕ್ಕಡಿ ಕನ್ನಡ', ytEn: 'Spring Balance Physics' },
+  { id: 'mat-8', nameEn: 'Litmus & Universal pH Paper', nameKn: 'ಲಿಟ್ಮಸ್ ಮತ್ತು pH ಸೂಚಕ ಕಾಗದ', category: 'chemistry', icon: '🎨', principleEn: 'Changes color according to H+ ion concentration.', principleKn: 'ಆಮ್ಲ ಮತ್ತು ಪ್ರತ್ಯಾಮ್ಲಗಳಲ್ಲಿ ಬಣ್ಣ ಬದಲಾಯಿಸುತ್ತದೆ.', simId: 'ph', ytKn: 'ಲಿಟ್ಮಸ್ ಪೇಪರ್ ಪರೀಕ್ಷೆ ಕನ್ನಡ', ytEn: 'Litmus and pH Paper Test' },
+  { id: 'mat-9', nameEn: 'Mirrors, Lenses & Glass Prism', nameKn: 'ದರ್ಪಣಗಳು, ಮಸೂರಗಳು ಮತ್ತು ಪಟ್ಟಕ', category: 'optics', icon: '🌈', principleEn: 'Reflection, refraction, and dispersion into VIBGYOR.', principleKn: 'ಬೆಳಕಿನ ಪ್ರತಿಫಲನ, ವಕ್ರೀಭವನ ಮತ್ತು ವರ್ಣವಿಭಜನೆ.', simId: 'optics', ytKn: 'ಗಾಜಿನ ಪಟ್ಟಕ ಪ್ರಯೋಗ ಕನ್ನಡ', ytEn: 'Glass Prism Dispersion' },
+  { id: 'mat-10', nameEn: 'Pulley & Lever Kit', nameKn: 'ಸರಳ ಯಂತ್ರಗಳು: ರಾಟೆ ಮತ್ತು ಸನ್ನೆಕೋಲು', category: 'chemistry', icon: '⚙️', principleEn: 'Mechanical advantage reduces effort needed.', principleKn: 'ಕಡಿಮೆ ಬಲದಿಂದ ಹೆಚ್ಚಿನ ಭಾರ ಎತ್ತಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.', simId: 'motion', ytKn: 'ಸರಳ ಯಂತ್ರಗಳು ಕನ್ನಡ', ytEn: 'Simple Machines Pulley Lever' },
+  { id: 'mat-11', nameEn: 'Magnetic Compass', nameKn: 'ಕಾಂತೀಯ ದಿಕ್ಸೂಚಿ', category: 'electricity', icon: '🧭', principleEn: 'Aligns with Earth’s North-South geomagnetic field.', principleKn: 'ಭೂಮಿಯ ಕಾಂತೀಯ ಕ್ಷೇತ್ರಕ್ಕೆ ಅನುಗುಣವಾಗಿ ಉತ್ತರ-ದಕ್ಷಿಣ ತೋರಿಸುತ್ತದೆ.', simId: 'magnetism', ytKn: 'ದಿಕ್ಸೂಚಿ ಪ್ರಯೋಗ ಕನ್ನಡ', ytEn: 'Magnetic Compass Science' },
+  { id: 'mat-12', nameEn: 'Laboratory Stopwatch', nameKn: 'ಸ್ಟಾಪ್‌ವಾಚ್ (ಕಾಲಮಾಪಕ)', category: 'measurement', icon: '⏱️', principleEn: 'Accurate oscillation timing to 0.01 seconds.', principleKn: 'ಸಮಯದ ಅಂತರವನ್ನು ನಿಖರವಾಗಿ ಅಳೆಯಲು ಬಳಸಲಾಗುತ್ತದೆ.', simId: 'pendulum', ytKn: 'ಲೋಲಕದ ಆವರ್ತಕಾಲ ಕನ್ನಡ', ytEn: 'Stopwatch Pendulum Timing' }
 ];
-const experiments = [
-{icon:"🧲",en:"Magnet test",kn:"ಕಾಂತ ಪರೀಕ್ಷೆ",materials:"Bar magnet, paper clips, plastic, wood and other safe objects.",steps:["Predict which objects may be attracted.","Bring the magnet near each object without forcing contact.","Record attraction or no attraction.","Compare the prediction with the observation."],safety:"Keep magnets away from sensitive electronic devices and follow teacher guidance."},
-{icon:"💧",en:"Dissolving investigation",kn:"ಕರಗುವಿಕೆ ಪರಿಶೀಲನೆ",materials:"Clear cups, water, salt, sugar, spoon; adult supervision as appropriate.",steps:["Label separate cups.","Add the same volume of water.","Add a small measured amount of one material to each cup.","Stir and record what you observe."],safety:"Do not taste any experiment materials. Clean spills promptly."},
-{icon:"🌱",en:"Plant growth observation",kn:"ಸಸ್ಯ ಬೆಳವಣಿಗೆ ವೀಕ್ಷಣೆ",materials:"Two similar small plants, labels, ruler and a safe place with different light conditions.",steps:["Measure and record starting height.","Keep other conditions as similar as practical.","Place plants in the selected light conditions.","Observe over several days and record data."],safety:"Do not use unknown plants or chemicals. Water responsibly."},
-{icon:"🔦",en:"Mirror reflection",kn:"ಕನ್ನಡಿ ಪ್ರತಿಫಲನ",materials:"Plane mirror, paper, pencil and a low-power torch.",steps:["Draw a line representing the mirror.","Shine the torch at a shallow angle under supervision.","Mark the incident and reflected directions.","Compare the angles using a protractor if appropriate."],safety:"Never shine light into anyone's eyes. Avoid lasers."},
-{icon:"🏎️",en:"Measure average speed",kn:"ಸರಾಸರಿ ವೇಗ ಅಳೆಯಿರಿ",materials:"Toy car, measuring tape, stopwatch and a clear level track.",steps:["Measure a safe track distance.","Release the toy car from the same starting point.","Record the travel time.","Calculate average speed as distance divided by time."],safety:"Keep the track away from stairs, roads and walkways."},
-{icon:"♻️",en:"School waste audit",kn:"ಶಾಲಾ ತ್ಯಾಜ್ಯ ಪರಿಶೀಲನೆ",materials:"Observation sheet, categories and teacher-approved clean samples only.",steps:["Agree on categories such as paper and packaging.","Observe waste without touching hazardous materials.","Tally the categories.","Suggest one reduction action and check later."],safety:"Never handle sharp, medical, chemical or unknown waste."}
+
+const SCIENTISTS = [
+  { nameEn: 'Sir C. V. Raman', nameKn: 'ಸರ್ ಸಿ. ವಿ. ರಾಮನ್', dates: '1888–1970', origin: 'Indian', fieldEn: 'Physics (Optics)', fieldKn: 'ಭೌತಶಾಸ್ತ್ರ', icon: '🌈', contribEn: 'Discovered the Raman Effect (1928, Nobel Prize 1930).', contribKn: 'ರಾಮನ್ ಪರಿಣಾಮದ ಆವಿಷ್ಕಾರ (ನೊಬೆಲ್ ಪ್ರಶಸ್ತಿ 1930).', simId: 'optics' },
+  { nameEn: 'Dr. A. P. J. Abdul Kalam', nameKn: 'ಡಾ. ಎ. ಪಿ. ಜೆ. ಅಬ್ದುಲ್ ಕಲಾಂ', dates: '1931–2015', origin: 'Indian', fieldEn: 'Aerospace & Missiles', fieldKn: 'ಬಾಹ್ಯಾಕಾಶ ವಿಜ್ಞಾನ', icon: '🚀', contribEn: 'SLV-III launch vehicle and Agni/Prithvi missile systems.', contribKn: 'ಭಾರತದ ಮೊದಲ ಉಪಗ್ರಹ ಉಡಾವಣಾ ವಾಹನ (SLV-III) ಮತ್ತು ಕ್ಷಿಪಣಿ ಅಭಿವೃದ್ಧಿ.', simId: 'motion' },
+  { nameEn: 'Sir Jagadish Chandra Bose', nameKn: 'ಸರ್ ಜಗದೀಶ್ ಚಂದ್ರ ಬೋಸ್', dates: '1858–1937', origin: 'Indian', fieldEn: 'Physics & Plant Physiology', fieldKn: 'ಭೌತಶಾಸ್ತ್ರ ಮತ್ತು ಸಸ್ಯಶಾಸ್ತ್ರ', icon: '🌱', contribEn: 'Invented Crescograph and millimeter radio wave receivers.', contribKn: 'ಸಸ್ಯಗಳ ಬೆಳವಣಿಗೆ ಅಳೆಯುವ ಕ್ರೆಸ್ಕೋಗ್ರಾಫ್ ಆವಿಷ್ಕಾರ.', simId: 'plant' },
+  { nameEn: 'Dr. Homi J. Bhabha', nameKn: 'ಡಾ. ಹೋಮಿ ಜೆ. ಭಾಭಾ', dates: '1909–1966', origin: 'Indian', fieldEn: 'Nuclear Physics', fieldKn: 'ಪರಮಾಣು ಭೌತಶಾಸ್ತ್ರ', icon: '⚛️', contribEn: 'Founder of TIFR & Architect of Indian Nuclear Programme.', contribKn: 'ಭಾರತದ ಪರಮಾಣು ಶಕ್ತಿ ಕಾರ್ಯಕ್ರಮದ ಪಿತಾಮಹ.', simId: 'particles' },
+  { nameEn: 'Dr. Vikram Sarabhai', nameKn: 'ಡಾ. ವಿಕ್ರಮ್ ಸಾರಾಭಾಯ್', dates: '1919–1971', origin: 'Indian', fieldEn: 'Space Science', fieldKn: 'ಬಾಹ್ಯಾಕಾಶ ವಿಜ್ಞಾನ', icon: '🛰️', contribEn: 'Father of Indian Space Programme (ISRO).', contribKn: 'ಭಾರತೀಯ ಬಾಹ್ಯಾಕಾಶ ಸಂಶೋಧನಾ ಸಂಸ್ಥೆಯ (ISRO) ಪಿತಾಮಹ.', simId: 'motion' },
+  { nameEn: 'Dr. M. S. Swaminathan', nameKn: 'ಡಾ. ಎಂ. ಎಸ್. ಸ್ವಾಮಿನಾಥನ್', dates: '1925–2023', origin: 'Indian', fieldEn: 'Agricultural Genetics', fieldKn: 'ಕೃಷಿ ವಿಜ್ಞಾನ', icon: '🌾', contribEn: 'Architect of India’s Green Revolution & high-yield crops.', contribKn: 'ಭಾರತದ ಹಸಿರು ಕ್ರಾಂತಿಯ ಪಿತಾಮಹ.', simId: 'plant' },
+  { nameEn: 'Srinivasa Ramanujan', nameKn: 'ಶ್ರೀನಿವಾಸ ರಾಮಾನುಜನ್', dates: '1887–1920', origin: 'Indian', fieldEn: 'Mathematics', fieldKn: 'ಗಣಿತಶಾಸ್ತ್ರ', icon: '♾️', contribEn: 'Number theory, infinite series, and mock theta functions.', contribKn: 'ಸಂಖ್ಯಾ ಸಿದ್ಧಾಂತ ಮತ್ತು ಅನಂತ ಶ್ರೇಣಿಗಳ ಕೊಡುಗೆ.', simId: 'pendulum' },
+  { nameEn: 'Satyendra Nath Bose', nameKn: 'ಸತ್ಯೇಂದ್ರ ನಾಥ್ ಬೋಸ್', dates: '1894–1974', origin: 'Indian', fieldEn: 'Quantum Physics', fieldKn: 'ಕ್ವಾಂಟಮ್ ಭೌತಶಾಸ್ತ್ರ', icon: '✨', contribEn: 'Bose–Einstein statistics and Boson particles.', contribKn: 'ಬೋಸ್-ಐನ್‌ಸ್ಟೈನ್ ಸಾಂಖ್ಯಿಕ ಸಿದ್ಧಾಂತ ಮತ್ತು ಬೋಸಾನ್ ಕಣಗಳು.', simId: 'particles' },
+  { nameEn: 'Dr. Janaki Ammal', nameKn: 'ಡಾ. ಜಾನಕಿ ಅಮ್ಮಾಳ್', dates: '1897–1984', origin: 'Indian', fieldEn: 'Cytogenetics & Botany', fieldKn: 'ಸಸ್ಯಶಾಸ್ತ್ರ', icon: '🌺', contribEn: 'Developed high-yielding sweet sugarcane hybrids for India.', contribKn: 'ಸಿಹಿ ಕಬ್ಬಿನ ಮಿಶ್ರತಳಿಗಳ ಸಂಶೋಧನೆ ಮಾಡಿದ ಮೊದಲ ಭಾರತೀಯ ಮಹಿಳಾ ಸಸ್ಯಶಾಸ್ತ್ರಜ್ಞೆ.', simId: 'plant' },
+  { nameEn: 'Sir M. Visvesvaraya', nameKn: 'ಸರ್ ಎಂ. ವಿಶ್ವೇಶ್ವರಯ್ಯ', dates: '1861–1962', origin: 'Indian', fieldEn: 'Civil & Hydraulic Engineering', fieldKn: 'ಇಂಜಿನಿಯರಿಂಗ್', icon: '🌊', contribEn: 'Chief Engineer of KRS Dam and automatic floodgate patents.', contribKn: 'ಕನ್ನಂಬಾಡಿ ಅಣೆಕಟ್ಟು (KRS) ನಿರ್ಮಾಣ ಮತ್ತು ಸ್ವಯಂಚಾಲಿತ ಫ್ಲಡ್‌ಗೇಟ್ ವಿನ್ಯಾಸ.', simId: 'density' },
+  { nameEn: 'Sir Isaac Newton', nameKn: 'ಸರ್ ಐಸಾಕ್ ನ್ಯೂಟನ್', dates: '1643–1727', origin: 'International', fieldEn: 'Physics & Calculus', fieldKn: 'ಭೌತಶಾಸ್ತ್ರ', icon: '🍎', contribEn: 'Three Laws of Motion, Universal Gravitation, and Prism Optics.', contribKn: 'ಚಲನೆಯ ನಿಯಮಗಳು ಮತ್ತು ಗುರುತ್ವಾಕರ್ಷಣೆಯ ನಿಯಮ.', simId: 'motion' },
+  { nameEn: 'Marie Skłodowska Curie', nameKn: 'ಮೇರಿ ಕ್ಯೂರಿ', dates: '1867–1934', origin: 'International', fieldEn: 'Physics & Chemistry', fieldKn: 'ರಸಾಯನಶಾಸ್ತ್ರ', icon: '🧪', contribEn: 'Pioneered radioactivity; discovered Polonium and Radium.', contribKn: 'ವಿಕಿರಣಶೀಲತೆ ಸಂಶೋಧನೆ; ಪೊಲೊನಿಯಮ್ ಮತ್ತು ರೇಡಿಯಮ್ ಆವಿಷ್ಕಾರ.', simId: 'particles' },
+  { nameEn: 'Albert Einstein', nameKn: 'ಆಲ್ಬರ್ಟ್ ಐನ್‌ಸ್ಟೈನ್', dates: '1879–1955', origin: 'International', fieldEn: 'Theoretical Physics', fieldKn: 'ಭೌತಶಾಸ್ತ್ರ', icon: '⏳', contribEn: 'Photoelectric effect, Brownian motion, and Relativity (E=mc²).', contribKn: 'ದ್ಯುತಿವಿದ್ಯುತ್ ಪರಿಣಾಮ ಮತ್ತು ಸಾಪೇಕ್ಷತಾ ಸಿದ್ಧಾಂತ (E=mc²).', simId: 'optics' },
+  { nameEn: 'Galileo Galilei', nameKn: 'ಗೆಲಿಲಿಯೋ ಗೆಲಿಲಿ', dates: '1564–1642', origin: 'International', fieldEn: 'Astronomy & Mechanics', fieldKn: 'ಖಗೋಳಶಾಸ್ತ್ರ', icon: '🔭', contribEn: 'Pendulum laws, kinematics of free fall, and telescope astronomy.', contribKn: 'ಲೋಲಕದ ನಿಯಮಗಳು ಮತ್ತು ದೂರದರ್ಶಕದ ಮೂಲಕ ಗ್ರಹಗಳ ವೀಕ್ಷಣೆ.', simId: 'pendulum' },
+  { nameEn: 'Michael Faraday', nameKn: 'ಮೈಕೆಲ್ ಫ್ಯಾರಡೆ', dates: '1791–1867', origin: 'International', fieldEn: 'Electromagnetism', fieldKn: 'ವಿದ್ಯುತ್ಕಾಂತೀಯತೆ', icon: '🧲', contribEn: 'Electromagnetic induction, electric motor, and dynamo.', contribKn: 'ವಿದ್ಯುತ್ಕಾಂತೀಯ ಪ್ರೇರಣೆ ಮತ್ತು ಡೈನಮೋ ಆವಿಷ್ಕಾರ.', simId: 'magnetism' },
+  { nameEn: 'Nikola Tesla', nameKn: 'ನಿಕೋಲಾ ಟೆಸ್ಲಾ', dates: '1856–1943', origin: 'International', fieldEn: 'Electrical Engineering', fieldKn: 'ವಿದ್ಯುತ್ ಇಂಜಿನಿಯರಿಂಗ್', icon: '⚡', contribEn: 'Alternating Current (AC) induction motor and power transmission.', contribKn: 'ಪರ್ಯಾಯ ವಿದ್ಯುತ್ ಪ್ರವಾಹ (AC) ವ್ಯವಸ್ಥೆಯ ಆವಿಷ್ಕಾರ.', simId: 'circuit' },
+  { nameEn: 'Rosalind Franklin', nameKn: 'ರೊಸಾಲಿಂಡ್ ಫ್ರಾಂಕ್ಲಿನ್', dates: '1920–1958', origin: 'International', fieldEn: 'Biophysics', fieldKn: 'ಜೀವಭೌತಶಾಸ್ತ್ರ', icon: '🧬', contribEn: 'X-ray diffraction Photo 51 revealing the DNA double helix.', contribKn: 'ಡಿಎನ್‌ಎ (DNA) ದ್ವಿಸುರುಳಿ ರಚನೆಯನ್ನು ತೋರಿಸಿದ ಎಕ್ಸ್-ರೇ ಸಂಶೋಧನೆ.', simId: 'plant' },
+  { nameEn: 'Charles Darwin', nameKn: 'ಚಾರ್ಲ್ಸ್ ಡಾರ್ವಿನ್', dates: '1809–1882', origin: 'International', fieldEn: 'Natural History & Biology', fieldKn: 'ಜೀವಶಾಸ್ತ್ರ', icon: '🐢', contribEn: 'Theory of Evolution by Natural Selection.', contribKn: 'ನೈಸರ್ಗಿಕ ಆಯ್ಕೆಯ ಮೂಲಕ ಜೀವ ವಿಕಾಸ ಸಿದ್ಧಾಂತ.', simId: 'plant' },
+  { nameEn: 'Dmitri Mendeleev', nameKn: 'ಡಿಮಿಟ್ರಿ ಮೆಂಡಲೀವ್', dates: '1834–1907', origin: 'International', fieldEn: 'Chemistry', fieldKn: 'ರಸಾಯನಶಾಸ್ತ್ರ', icon: '📊', contribEn: 'Formulated the Periodic Table of Elements.', contribKn: 'ಧಾತುಗಳ ಆವರ್ತಕ ಕೋಷ್ಟಕದ (Periodic Table) ರಚನೆ.', simId: 'ph' },
+  { nameEn: 'Archimedes of Syracuse', nameKn: 'ಆರ್ಕಿಮಿಡೀಸ್', dates: '287–212 BCE', origin: 'International', fieldEn: 'Physics & Mathematics', fieldKn: 'ಭೌತಶಾಸ್ತ್ರ', icon: '🛁', contribEn: 'Principle of Buoyancy, levers, and hydrostatics.', contribKn: 'ವಸ್ತುಗಳ ತೇಲುವಿಕೆಯ (ಪ್ಲವನಶೀಲತೆ) ತತ್ವ ಮತ್ತು ಸನ್ನೆಕೋಲಿನ ನಿಯಮ.', simId: 'density' }
 ];
-const resources = [
-{icon:"📘",title:"NCERT Textbooks",desc:"Official textbook portal; choose grade, subject and edition.",url:"https://ncert.nic.in/textbook.php",label:"Open NCERT"},
-{icon:"🧑‍🏫",title:"NCERT Teacher Resources",desc:"Teaching materials and resources for educators.",url:"https://ncert.nic.in/desm/material-for-teachers.php",label:"Open resources"},
-{icon:"🇮🇳",title:"DIKSHA Student Resources",desc:"Search digital resources by grade, subject and board.",url:"https://diksha.gov.in/exploreasstudent/index.html",label:"Explore DIKSHA"},
-{icon:"🧪",title:"DIKSHA Virtual Labs",desc:"Virtual lab learning resources; check individual activity suitability.",url:"https://diksha.gov.in/virtuallabs.html",label:"Open Virtual Labs"},
-{icon:"⚛️",title:"PhET Simulations",desc:"Interactive science and mathematics simulations.",url:"https://phet.colorado.edu/en/simulations",label:"Explore simulations"},
-{icon:"📝",title:"PhET Teaching Activities",desc:"Activities designed to support classroom use of simulations.",url:"https://phet.colorado.edu/en/activities",label:"Open activities"},
-{icon:"📺",title:"NCERT Official YouTube",desc:"Official educational video channel; select relevant videos.",url:"https://www.youtube.com/c/NCERTOFFICIAL",label:"Open channel"},
-{icon:"🔬",title:"India Science",desc:"Science and technology video resources from India.",url:"https://indiascience.dst.gov.in/",label:"Open portal"}
+
+const FACTS = [
+  { cat: 'Physics', en: 'Sunlight takes about 8 minutes 20 seconds to reach Earth at 300,000 km/s.', kn: 'ಸೂರ್ಯನ ಬೆಳಕು ಭೂಮಿಯನ್ನು ತಲುಪಲು ಸುಮಾರು 8 ನಿಮಿಷ 20 ಸೆಕೆಂಡುಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ.', simId: 'optics' },
+  { cat: 'Physics', en: 'Water expands by about 9% when it freezes into ice, making ice float on water.', kn: 'ನೀರು ಮಂಜುಗಡ್ಡೆಯಾದಾಗ ಹಿಗ್ಗುವುದರಿಂದ ಅದರ ಸಾಂದ್ರತೆ ಕಡಿಮೆಯಾಗಿ ನೀರಿನ ಮೇಲೆ ತೇಲುತ್ತದೆ.', simId: 'density' },
+  { cat: 'Physics', en: 'Sound travels over 4 times faster in water (~1480 m/s) than in air (~343 m/s).', kn: 'ಗಾಳಿಗಿಂತ ನೀರಿನಲ್ಲಿ ಶಬ್ದವು 4 ಪಟ್ಟು ವೇಗವಾಗಿ ಚಲಿಸುತ್ತದೆ.', simId: 'sound' },
+  { cat: 'Physics', en: 'Celsius and Fahrenheit scales read the exact same number at -40° (-40°C = -40°F).', kn: '-40 ಡಿಗ್ರಿಯಲ್ಲಿ ಸೆಲ್ಸಿಯಸ್ ಮತ್ತು ಫ್ಯಾರನ್‌ಹೀಟ್ ಮಾಪಕಗಳು ಒಂದೇ ಮೌಲ್ಯವನ್ನು ತೋರಿಸುತ್ತವೆ.', simId: 'thermometer' },
+  { cat: 'Physics', en: 'A pendulum clock runs slower at the equator than at the poles due to slight gravity differences.', kn: 'ಗುರುತ್ವಾಕರ್ಷಣೆಯ ವ್ಯತ್ಯಾಸದಿಂದಾಗಿ ಲೋಲಕದ ಗಡಿಯಾರವು ಧ್ರುವಗಳಿಗಿಂತ ಸಮಭಾಜಕ ವೃತ್ತದಲ್ಲಿ ನಿಧಾನವಾಗಿ ಚಲಿಸುತ್ತದೆ.', simId: 'pendulum' },
+  { cat: 'Chemistry', en: 'Mercury is the only metallic element that is liquid at standard room temperature.', kn: 'ಕೊಠಡಿಯ ಸಾಮಾನ್ಯ ತಾಪಮಾನದಲ್ಲಿ ದ್ರವ ರೂಪದಲ್ಲಿರುವ ಏಕೈಕ ಲೋಹ ಪಾದರಸ (Mercury).', simId: 'thermometer' },
+  { cat: 'Chemistry', en: 'Pure gold is so malleable that 1 gram can be beaten into a sheet of 1 square meter.', kn: 'ಶುದ್ಧ ಚಿನ್ನವು ಎಷ್ಟು ಕುಟ್ಟೆಗುಣ ಹೊಂದಿದೆ ಎಂದರೆ 1 ಗ್ರಾಂ ಚಿನ್ನವನ್ನು 1 ಚದರ ಮೀಟರ್ ಹಾಳೆಯನ್ನಾಗಿ ಮಾಡಬಹುದು.', simId: 'particles' },
+  { cat: 'Chemistry', en: 'Human stomach acid (HCl) has a strong acidic pH between 1.5 and 3.5 to digest food.', kn: 'ಆಹಾರ ಜೀರ್ಣಿಸಿಕೊಳ್ಳಲು ನಮ್ಮ ಜಠರದಲ್ಲಿರುವ ಹೈಡ್ರೋಕ್ಲೋರಿಕ್ ಆಮ್ಲದ pH 1.5 ರಿಂದ 3.5 ರಷ್ಟಿರುತ್ತದೆ.', simId: 'ph' },
+  { cat: 'Chemistry', en: 'Bee stings are acidic, while wasp stings are alkaline.', kn: 'ಜೇನುನೊಣದ ಕಡಿತವು ಆಮ್ಲೀಯವಾಗಿರುತ್ತದೆ, ಆದ್ದರಿಂದ ಅಡುಗೆ ಸೋಡಾ ಹಚ್ಚುವುದರಿಂದ ಉರಿ ಕಡಿಮೆಯಾಗುತ್ತದೆ.', simId: 'ph' },
+  { cat: 'Chemistry', en: 'Diamond and pencil graphite are both made solely of carbon atoms arranged differently.', kn: 'ವಜ್ರ ಮತ್ತು ಪೆನ್ಸಿಲ್ ಮುಳ್ಳು (ಗ್ರಾಫೈಟ್) ಎರಡೂ ಇಂಗಾಲದ ಪರಮಾಣುಗಳಿಂದಲೇ ಮಾಡಲ್ಪಟ್ಟಿವೆ.', simId: 'particles' },
+  { cat: 'Biology', en: 'Plants release oxygen by splitting water molecules (H2O) during photosynthesis.', kn: 'ಸಸ್ಯಗಳು ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆಯಲ್ಲಿ ನೀರಿನ ಅಣುವನ್ನು (H2O) ವಿಭಜಿಸಿ ಆಮ್ಲಜನಕವನ್ನು ಬಿಡುಗಡೆ ಮಾಡುತ್ತವೆ.', simId: 'plant' },
+  { cat: 'Biology', en: 'Stomata on the underside of leaves open and close via guard cells to regulate water loss.', kn: 'ಎಲೆಗಳ ಕೆಳಭಾಗದಲ್ಲಿರುವ ಪತ್ರರಂಧ್ರಗಳು (Stomata) ಅನಿಲಗಳ ವಿನಿಮಯ ಮತ್ತು ಭಾಷ್ಪವಿಸರ್ಜನೆಯನ್ನು ನಿಯಂತ್ರಿಸುತ್ತವೆ.', simId: 'plant' },
+  { cat: 'Biology', en: 'Xylem tissue transports water upward from roots, while Phloem transports food.', kn: 'ಸಸ್ಯಗಳಲ್ಲಿ ಕ್ಸೈಲಂ ಅಂಗಾಂಶವು ನೀರನ್ನು ಮತ್ತು ಫ್ಲೋಯಂ ಅಂಗಾಂಶವು ಆಹಾರವನ್ನು ಸಾಗಿಸುತ್ತವೆ.', simId: 'plant' },
+  { cat: 'Biology', en: 'The human body contains enough iron to make a small 3-inch metal nail.', kn: 'ಮನುಷ್ಯನ ದೇಹದಲ್ಲಿರುವ ಒಟ್ಟು ಕಬ್ಬಿಣದ ಅಂಶದಿಂದ ಒಂದು ಸಣ್ಣ ಮೊಳೆಯನ್ನು ತಯಾರಿಸಬಹುದು.', simId: 'magnetism' },
+  { cat: 'Biology', en: 'Bats navigate in total darkness using ultrasonic echolocation above 20,000 Hz.', kn: 'ಬಾವಲಿಗಳು ರಾತ್ರಿ ವೇಳೆ ಶ್ರವಣಾತೀತ ಶಬ್ದ ತರಂಗಗಳ (Ultrasound) ಪ್ರತಿಧ್ವನಿಯ ಸಹಾಯದಿಂದ ಹಾರಾಡುತ್ತವೆ.', simId: 'sound' },
+  { cat: 'Astronomy', en: 'Because Moon gravity is 1/6th of Earth’s, a 60 kg person weighs only 10 kg-force on the Moon.', kn: 'ಚಂದ್ರನ ಗುರುತ್ವಾಕರ್ಷಣೆಯು ಭೂಮಿಯ 1/6 ರಷ್ಟಿರುವುದರಿಂದ ಅಲ್ಲಿ ನಮ್ಮ ತೂಕ ಆರು ಪಟ್ಟು ಕಡಿಮೆಯಿರುತ್ತದೆ.', simId: 'motion' },
+  { cat: 'Astronomy', en: 'Outer space is silent because sound waves cannot travel through a vacuum.', kn: 'ಬಾಹ್ಯಾಕಾಶದಲ್ಲಿ ಗಾಳಿ (ಮಾಧ್ಯಮ) ಇಲ್ಲದ ಕಾರಣ ಅಲ್ಲಿ ಶಬ್ದವು ಚಲಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.', simId: 'sound' },
+  { cat: 'Astronomy', en: 'Neutron stars are so dense that a teaspoon of their material weighs billions of tons.', kn: 'ನ್ಯೂಟ್ರಾನ್ ನಕ್ಷತ್ರಗಳ ಸಾಂದ್ರತೆ ಎಷ್ಟಿರುತ್ತದೆ ಎಂದರೆ ಅದರ ಒಂದು ಚಮಚ ವಸ್ತುವಿನ ತೂಕ ಕೋಟ್ಯಂತರ ಟನ್ ಆಗಿರುತ್ತದೆ.', simId: 'density' },
+  { cat: 'Astronomy', en: 'India’s Chandrayaan-3 successfully landed near the Moon’s South Pole on 23 August 2023.', kn: 'ಭಾರತದ ಚಂದ್ರಯಾನ-3 ನೌಕೆಯು ಆಗಸ್ಟ್ 23, 2023 ರಂದು ಚಂದ್ರನ ದಕ್ಷಿಣ ಧ್ರುವದಲ್ಲಿ ಯಶಸ್ವಿಯಾಗಿ ಇಳಿಯಿತು.', simId: 'motion' },
+  { cat: 'Astronomy', en: 'Venus spins backward (retrograde rotation) compared to most planets, so the Sun rises in the west.', kn: 'ಶುಕ್ರ ಗ್ರಹವು ವಿರುದ್ಧ ದಿಕ್ಕಿನಲ್ಲಿ ತಿರುಗುವುದರಿಂದ ಅಲ್ಲಿ ಸೂರ್ಯ ಪಶ್ಚಿಮದಲ್ಲಿ ಹುಟ್ಟಿ ಪೂರ್ವದಲ್ಲಿ ಮುಳುಗುತ್ತಾನೆ.', simId: 'motion' },
+  { cat: 'Earth', en: 'Earth’s molten iron outer core generates the magnetic field that guides compasses.', kn: 'ಭೂಮಿಯ ಒಳಭಾಗದಲ್ಲಿರುವ ದ್ರವರೂಪದ ಕಬ್ಬಿಣದ ಚಲನೆಯಿಂದ ಭೂಮಿಗೆ ಕಾಂತೀಯ ಕ್ಷೇತ್ರ ಉಂಟಾಗಿದೆ.', simId: 'magnetism' },
+  { cat: 'Earth', en: 'At the top of Mount Everest, water boils at around 70°C instead of 100°C due to low air pressure.', kn: 'ಮೌಂಟ್ ಎವರೆಸ್ಟ್ ಶಿಖರದ ಮೇಲೆ ವಾಯುಭಾರ ಕಡಿಮೆಯಿರುವುದರಿಂದ ನೀರು ಸುಮಾರು 70°C ನಲ್ಲೇ ಕುದಿಯುತ್ತದೆ.', simId: 'thermometer' },
+  { cat: 'Earth', en: 'Rainbows form by refraction, dispersion, and internal reflection of sunlight inside raindrops.', kn: 'ಮಳೆಹನಿಗಳ ಒಳಗೆ ಸೂರ್ಯನ ಬೆಳಕಿನ ವಕ್ರೀಭವನ ಮತ್ತು ಪ್ರತಿಫಲನದಿಂದ ಕಾಮನಬಿಲ್ಲು ಮೂಡುತ್ತದೆ.', simId: 'optics' },
+  { cat: 'Earth', en: 'The Dead Sea has such high salt density (~1.24 g/cm³) that swimmers float effortlessly.', kn: 'ಮೃತ ಸಮುದ್ರದ (Dead Sea) ನೀರಿನಲ್ಲಿ ಉಪ್ಪಿನ ಸಾಂದ್ರತೆ ಹೆಚ್ಚಿರುವುದರಿಂದ ಮನುಷ್ಯರು ಮುಳುಗದೆ ತೇಲುತ್ತಾರೆ.', simId: 'density' },
+  { cat: 'Earth', en: 'Lightning heats the surrounding air to nearly 30,000°C, causing a shockwave we hear as thunder.', kn: 'ಮಿಂಚು ಸುತ್ತಲಿನ ಗಾಳಿಯನ್ನು ತಕ್ಷಣ ಬಿಸಿ ಮಾಡುವುದರಿಂದ ಹಿಗ್ಗುವ ಗಾಳಿಯು ಗುಡುಗಿನ ಶಬ್ದವನ್ನು ಉಂಟುಮಾಡುತ್ತದೆ.', simId: 'sound' },
+  { cat: 'Technology', en: 'Fiber optic cables transmit internet data as pulses of light using Total Internal Reflection.', kn: 'ಆಪ್ಟಿಕಲ್ ಫೈಬರ್ ಕೇಬಲ್‌ಗಳು ಬೆಳಕಿನ ಸಂಪೂರ್ಣ ಆಂತರಿಕ ಪ್ರತಿಫಲನ ತತ್ವದ ಮೇಲೆ ವೇಗವಾಗಿ ಇಂಟರ್ನೆಟ್ ಡೇಟಾ ಸಾಗಿಸುತ್ತವೆ.', simId: 'optics' },
+  { cat: 'Technology', en: 'LED bulbs convert over 80% of electrical energy into light, wasting very little heat.', kn: 'ಎಲ್‌ಇಡಿ (LED) ಬಲ್ಬ್‌ಗಳು ಅತಿ ಕಡಿಮೆ ವಿದ್ಯುತ್ ಬಳಸಿ ಹೆಚ್ಚಿನ ಬೆಳಕನ್ನು ನೀಡುತ್ತವೆ.', simId: 'circuit' },
+  { cat: 'Technology', en: 'Electric fuses have a low melting point so they melt and break the circuit during overloads.', kn: 'ವಿದ್ಯುತ್ ಫ್ಯೂಸ್ ತಂತಿಯು ಕಡಿಮೆ ದ್ರವಣ ಬಿಂದು ಹೊಂದಿದ್ದು, ಹೆಚ್ಚಿನ ವಿದ್ಯುತ್ ಹರಿದಾಗ ಕರಗಿ ಮಂಡಲವನ್ನು ರಕ್ಷಿಸುತ್ತದೆ.', simId: 'ohmslaw' },
+  { cat: 'Technology', en: 'Maglev trains float above tracks using powerful electromagnetic repulsion to eliminate friction.', kn: 'ಮ್ಯಾಗ್ಲೆವ್ (Maglev) ರೈಲುಗಳು ಕಾಂತೀಯ ವಿಕರ್ಷಣೆಯ ಮೂಲಕ ಹಳಿಯ ಮೇಲೆ ತೇಲುತ್ತಾ ಅತಿ ವೇಗವಾಗಿ ಚಲಿಸುತ್ತವೆ.', simId: 'magnetism' },
+  { cat: 'Technology', en: 'SONAR uses reflected ultrasonic sound pulses to map the depth of the ocean floor.', kn: 'ಸಮುದ್ರದ ಆಳವನ್ನು ಅಳೆಯಲು ಸೋನಾರ್ (SONAR) ಉಪಕರಣವು ಶ್ರವಣಾತೀತ ತರಂಗಗಳನ್ನು ಬಳಸುತ್ತದೆ.', simId: 'sound' }
 ];
-const quizQuestions = [
-{q:{en:"Which instrument measures temperature?",kn:"ತಾಪಮಾನವನ್ನು ಅಳೆಯುವ ಉಪಕರಣ ಯಾವುದು?"},options:{en:["Barometer","Thermometer","Ammeter","Speedometer"],kn:["ಬ್ಯಾರೋಮೀಟರ್","ಥರ್ಮಾಮೀಟರ್","ಆಮ್ಮೀಟರ್","ಸ್ಪೀಡೋಮೀಟರ್"]},a:1,ex:{en:"A thermometer measures temperature. A barometer measures pressure and an ammeter measures electric current.",kn:"ಥರ್ಮಾಮೀಟರ್ ತಾಪಮಾನವನ್ನು ಅಳೆಯುತ್ತದೆ. ಬ್ಯಾರೋಮೀಟರ್ ಒತ್ತಡವನ್ನು ಮತ್ತು ಆಮ್ಮೀಟರ್ ವಿದ್ಯುತ್ ಪ್ರವಾಹವನ್ನು ಅಳೆಯುತ್ತದೆ."}},
-{q:{en:"What is needed for a simple bulb circuit to light?",kn:"ಸರಳ ಸರ್ಕ್ಯೂಟ್‌ನಲ್ಲಿ ಬಲ್ಬ್ ಬೆಳಗಲು ಏನು ಅಗತ್ಯ?"},options:{en:["A complete conducting path","Only a bulb","A broken wire","A magnet only"],kn:["ಪೂರ್ಣ ವಿದ್ಯುತ್ ಮಾರ್ಗ","ಬಲ್ಬ್ ಮಾತ್ರ","ತುಂಡಾದ ತಂತಿ","ಕಾಂತ ಮಾತ್ರ"]},a:0,ex:{en:"The circuit must form a complete conducting path with a suitable power source.",kn:"ಸೂಕ್ತ ವಿದ್ಯುತ್ ಮೂಲದೊಂದಿಗೆ ಸರ್ಕ್ಯೂಟ್ ಪೂರ್ಣ ವಿದ್ಯುತ್ ಮಾರ್ಗವನ್ನು ರಚಿಸಬೇಕು."}},
-{q:{en:"What happens when like magnetic poles face each other?",kn:"ಒಂದೇ ರೀತಿಯ ಕಾಂತ ಧ್ರುವಗಳು ಮುಖಾಮುಖಿಯಾದಾಗ ಏನಾಗುತ್ತದೆ?"},options:{en:["They attract","They repel","They disappear","Nothing can ever happen"],kn:["ಆಕರ್ಷಿಸುತ್ತವೆ","ವಿಕರ್ಷಿಸುತ್ತವೆ","ಕಣ್ಮರೆಯಾಗುತ್ತವೆ","ಏನೂ ಆಗುವುದಿಲ್ಲ"]},a:1,ex:{en:"Like poles repel; unlike poles attract.",kn:"ಒಂದೇ ರೀತಿಯ ಧ್ರುವಗಳು ವಿಕರ್ಷಿಸುತ್ತವೆ; ವಿರುದ್ಧ ಧ್ರುವಗಳು ಆಕರ್ಷಿಸುತ್ತವೆ."}},
-{q:{en:"Which process allows green plants to make food using light?",kn:"ಹಸಿರು ಸಸ್ಯಗಳು ಬೆಳಕನ್ನು ಬಳಸಿ ಆಹಾರ ತಯಾರಿಸುವ ಪ್ರಕ್ರಿಯೆ ಯಾವುದು?"},options:{en:["Respiration only","Filtration","Photosynthesis","Condensation"],kn:["ಉಸಿರಾಟ ಮಾತ್ರ","ಶೋಧನೆ","ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ","ಸಾಂದ್ರೀಕರಣ"]},a:2,ex:{en:"Photosynthesis uses light energy to help plants make sugars from carbon dioxide and water.",kn:"ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆಯಲ್ಲಿ ಬೆಳಕಿನ ಶಕ್ತಿಯನ್ನು ಬಳಸಿ ಸಸ್ಯಗಳು ಕಾರ್ಬನ್ ಡೈಆಕ್ಸೈಡ್ ಮತ್ತು ನೀರಿನಿಂದ ಸಕ್ಕರೆಗಳನ್ನು ತಯಾರಿಸುತ್ತವೆ."}},
-{q:{en:"Average speed is calculated by:",kn:"ಸರಾಸರಿ ವೇಗವನ್ನು ಹೇಗೆ ಲೆಕ್ಕ ಹಾಕಲಾಗುತ್ತದೆ?"},options:{en:["Time ÷ distance","Distance ÷ time","Mass × volume","Distance + time"],kn:["ಸಮಯ ÷ ದೂರ","ದೂರ ÷ ಸಮಯ","ದ್ರವ್ಯರಾಶಿ × ಘನಫಲ","ದೂರ + ಸಮಯ"]},a:1,ex:{en:"Average speed equals total distance travelled divided by total time taken.",kn:"ಸರಾಸರಿ ವೇಗ = ಒಟ್ಟು ಕ್ರಮಿಸಿದ ದೂರ ÷ ತೆಗೆದುಕೊಂಡ ಒಟ್ಟು ಸಮಯ."}},
-{q:{en:"Which is a safe first step before an experiment?",kn:"ಪ್ರಯೋಗದ ಮೊದಲು ಯಾವುದು ಸುರಕ್ಷಿತ ಮೊದಲ ಹೆಜ್ಜೆ?"},options:{en:["Mix unknown chemicals","Read instructions and safety guidance","Taste materials","Work with flames alone"],kn:["ತಿಳಿಯದ ರಾಸಾಯನಿಕಗಳನ್ನು ಬೆರೆಸುವುದು","ಸೂಚನೆ ಮತ್ತು ಸುರಕ್ಷತಾ ಮಾರ್ಗದರ್ಶನ ಓದುವುದು","ವಸ್ತುಗಳನ್ನು ರುಚಿ ನೋಡುವುದು","ಒಬ್ಬರೇ ಬೆಂಕಿ ಬಳಸುವುದು"]},a:1,ex:{en:"Understand the procedure, identify hazards and follow teacher supervision.",kn:"ವಿಧಾನವನ್ನು ಅರ್ಥಮಾಡಿಕೊಂಡು ಅಪಾಯಗಳನ್ನು ಗುರುತಿಸಿ ಶಿಕ್ಷಕರ ಮಾರ್ಗದರ್ಶನ ಪಾಲಿಸಬೇಕು."}}
+
+const KARNATAKA_GRADES = {
+  '6': [
+    { chEn: 'Fun with Magnets', chKn: 'ಕಾಂತಗಳೊಂದಿಗೆ ಆಟ', descEn: 'Discover magnetic vs non-magnetic materials, poles of a bar magnet, and how a compass finds direction.', descKn: 'ಕಾಂತೀಯ ಮತ್ತು ಅಕಾಂತೀಯ ವಸ್ತುಗಳು, ಕಾಂತದ ಧ್ರುವಗಳು ಮತ್ತು ದಿಕ್ಸೂಚಿಯ ಕಾರ್ಯವಿಧಾನ.', simId: 'magnetism' },
+    { chEn: 'Electricity and Circuits', chKn: 'ವಿದ್ಯುಚ್ಛಕ್ತಿ ಮತ್ತು ಮಂಡಲಗಳು', descEn: 'Understand electric cells, bulb filaments, switches, conductors, and insulators.', descKn: 'ವಿದ್ಯುತ್ ಕೋಶ, ಬಲ್ಬ್, ಸ್ವಿಚ್, ವಿದ್ಯುತ್ ವಾಹಕಗಳು ಮತ್ತು ಅವಾಹಕಗಳ ಪರಿಚಯ.', simId: 'circuit' },
+    { chEn: 'Light, Shadows and Reflections', chKn: 'ಬೆಳಕು, ನೆರಳುಗಳು ಮತ್ತು ಪ್ರತಿಫಲನಗಳು', descEn: 'Learn rectilinear propagation of light, pinhole cameras, and mirror reflections.', descKn: 'ಬೆಳಕಿನ ಸರಳರೇಖೆಯ ಚಲನೆ, ಸೂಜಿರಂಧ್ರ ಕ್ಯಾಮೆರಾ ಮತ್ತು ದರ್ಪಣದ ಪ್ರತಿಫಲನ.', simId: 'optics' }
+  ],
+  '7': [
+    { chEn: 'Heat and Temperature', chKn: 'ಉಷ್ಣ ಮತ್ತು ತಾಪಮಾನ', descEn: 'Differentiate clinical and laboratory thermometers, conduction, convection, and radiation.', descKn: 'ವೈದ್ಯಕೀಯ ಮತ್ತು ಪ್ರಯೋಗಾಲಯ ತಾಪಮಾನ ಮಾಪಕಗಳ ಬಳಕೆ ಹಾಗೂ ಉಷ್ಣ ಪ್ರಸರಣ ವಿಧಾನಗಳು.', simId: 'thermometer' },
+    { chEn: 'Acids, Bases and Salts', chKn: 'ಆಮ್ಲಗಳು, ಪ್ರತ್ಯಾಮ್ಲಗಳು ಮತ್ತು ಲವಣಗಳು', descEn: 'Test solutions with litmus, turmeric, China rose, and pH indicators; learn neutralization.', descKn: 'ಲಿಟ್ಮಸ್, ಅರಿಶಿನ ಮತ್ತು ದಾಸವಾಳ ಸೂಚಕಗಳ ಮೂಲಕ ಆಮ್ಲ ಮತ್ತು ಪ್ರತ್ಯಾಮ್ಲಗಳ ಪರೀಕ್ಷೆ.', simId: 'ph' },
+    { chEn: 'Motion and Time', chKn: 'ಚಲನೆ ಮತ್ತು ಕಾಲ', descEn: 'Measure time period of a simple pendulum and plot distance-time graphs.', descKn: 'ಸರಳ ಲೋಲಕದ ಆವರ್ತಕಾಲ ಮತ್ತು ಜವದ ಲೆಕ್ಕಾಚಾರ.', simId: 'pendulum' }
+  ],
+  '8': [
+    { chEn: 'Sound', chKn: 'ಶಬ್ದ', descEn: 'Explore sound production by vibrating bodies, frequency, pitch, amplitude, and loudness.', descKn: 'ಕಂಪಿಸುವ ವಸ್ತುಗಳಿಂದ ಶಬ್ದದ ಉತ್ಪತ್ತಿ, ಆವೃತ್ತಿ, ಪಾರ ಮತ್ತು ಶ್ರವಣ ವ್ಯಾಪ್ತಿ.', simId: 'sound' },
+    { chEn: 'Chemical Effects of Electric Current', chKn: 'ವಿದ್ಯುತ್ ಪ್ರವಾಹದ ರಾಸಾಯನಿಕ ಪರಿಣಾಮಗಳು', descEn: 'Test electrical conductivity of liquids and electroplating.', descKn: 'ದ್ರವಗಳ ವಿದ್ಯುತ್ ವಾಹಕತೆ ಮತ್ತು ವಿದ್ಯುತ್ ಲೇಪನ.', simId: 'circuit' },
+    { chEn: 'Crop Production & Plant Nutrition', chKn: 'ಬೆಳೆ ಉತ್ಪಾದನೆ ಮತ್ತು ಸಸ್ಯ ಪೋಷಣೆ', descEn: 'Role of water, sunlight, and soil nutrients in healthy crop growth.', descKn: 'ಬೆಳೆಗಳ ಬೆಳವಣಿಗೆಗೆ ನೀರು, ಬೆಳಕು ಮತ್ತು ಪೋಷಕಾಂಶಗಳ ಮಹತ್ವ.', simId: 'plant' }
+  ],
+  '9': [
+    { chEn: 'Matter in Our Surroundings', chKn: 'ನಮ್ಮ ಸುತ್ತಮುತ್ತಲಿನ ದ್ರವ್ಯವು', descEn: 'Particle nature of solids, liquids, and gases, latent heat, and evaporation.', descKn: 'ಘನ, ದ್ರವ ಮತ್ತು ಅನಿಲ ಸ್ಥಿತಿಗಳಲ್ಲಿ ಕಣಗಳ ಚಲನೆ ಮತ್ತು ಸ್ಥಿತಿ ಬದಲಾವಣೆ.', simId: 'particles' },
+    { chEn: 'Gravitation & Floatation', chKn: 'ಗುರುತ್ವಾಕರ್ಷಣೆ ಮತ್ತು ತೇಲುವಿಕೆ', descEn: 'Universal law of gravitation, free fall acceleration (g), density, and Archimedes’ principle.', descKn: 'ಗುರುತ್ವಾಕರ್ಷಣೆಯ ನಿಯಮ, ಮುಕ್ತ ಪತನ, ಸಾಂದ್ರತೆ ಮತ್ತು ಆರ್ಕಿಮಿಡೀಸ್ ತತ್ವ.', simId: 'density' },
+    { chEn: 'Motion & Laws of Motion', chKn: 'ಚಲನೆ ಮತ್ತು ಚಲನೆಯ ನಿಯಮಗಳು', descEn: 'Velocity, uniform acceleration, and kinematic equations of motion.', descKn: 'ವೇಗ, ವೇಗೋತ್ಕರ್ಷ ಮತ್ತು ಚಲನೆಯ ಸಮೀಕರಣಗಳು.', simId: 'motion' }
+  ],
+  '10': [
+    { chEn: 'Electricity (Ohm’s Law)', chKn: 'ವಿದ್ಯುಚ್ಛಕ್ತಿ (ಓಮ್‌ನ ನಿಯಮ)', descEn: 'Verify V = IR, series/parallel resistors, and Joule’s heating effect.', descKn: 'ಓಮ್‌ನ ನಿಯಮ (V = IR), ರೋಧಕಗಳ ಜೋಡಣೆ ಮತ್ತು ವಿದ್ಯುತ್ ಸಾಮರ್ಥ್ಯ.', simId: 'ohmslaw' },
+    { chEn: 'Light — Reflection and Refraction', chKn: 'ಬೆಳಕು — ಪ್ರತಿಫಲನ ಮತ್ತು ವಕ್ರೀಭವನ', descEn: 'Spherical mirrors, lenses, refractive index, and Snell’s law.', descKn: 'ಗೋಳೀಯ ದರ್ಪಣಗಳು, ಮಸೂರಗಳು ಮತ್ತು ಬೆಳಕಿನ ವಕ್ರೀಭವನದ ನಿಯಮಗಳು.', simId: 'optics' },
+    { chEn: 'Acids, Bases and Salts (pH Scale)', chKn: 'ಆಮ್ಲಗಳು, ಪ್ರತ್ಯಾಮ್ಲಗಳು ಮತ್ತು ಲವಣಗಳು', descEn: 'Universal indicator pH scale (0–14) and importance of pH in everyday life.', descKn: 'pH ಮಾಪಕ ಮತ್ತು ದೈನಂದಿನ ಜೀವನದಲ್ಲಿ pH ನ ಮಹತ್ವ.', simId: 'ph' }
+  ]
+};
+
+const QUIZ_QUESTIONS = [
+  { cat: 'Easy', grade: 'Grade 6', qEn: 'Which material is attracted by a bar magnet?', qKn: 'ದಂಡಕಾಂತಕ್ಕೆ ಆಕರ್ಷಿತವಾಗುವ ವಸ್ತು ಯಾವುದು?', opts: ['Iron nail / ಕಬ್ಬಿಣದ ಮೊಳೆ', 'Plastic scale / ಪ್ಲಾಸ್ಟಿಕ್ ಪಟ್ಟಿ', 'Dry wood / ಒಣ ಮರ'], ans: 0, expEn: 'Iron is ferromagnetic.', expKn: 'ಕಬ್ಬಿಣವು ಕಾಂತೀಯ ವಸ್ತುವಾಗಿದೆ.' },
+  { cat: 'Easy', grade: 'Grade 7', qEn: 'What is the normal temperature of a healthy human body?', qKn: 'ಆರೋಗ್ಯವಂತ ಮನುಷ್ಯನ ದೇಹದ ಸಾಮಾನ್ಯ ತಾಪಮಾನ ಎಷ್ಟು?', opts: ['37°C', '100°C', '0°C'], ans: 0, expEn: 'Normal body temperature is 37°C (98.6°F).', expKn: 'ಸಾಮಾನ್ಯ ದೇಹದ ತಾಪಮಾನ 37°C ಆಗಿರುತ್ತದೆ.' },
+  { cat: 'Easy', grade: 'Grade 7', qEn: 'What is the pH of pure neutral water?', qKn: 'ಶುದ್ಧ ತಟಸ್ಥ ನೀರಿನ pH ಮೌಲ್ಯ ಎಷ್ಟು?', opts: ['7', '1', '14'], ans: 0, expEn: 'pH 7 indicates a neutral substance.', expKn: 'pH 7 ತಟಸ್ಥ ದ್ರಾವಣವನ್ನು ಸೂಚಿಸುತ್ತದೆ.' },
+  { cat: 'Medium', grade: 'Grade 8', qEn: 'Can sound waves travel through a vacuum?', qKn: 'ನಿರ್ವಾತದಲ್ಲಿ ಶಬ್ದವು ಚಲಿಸಬಲ್ಲದೇ?', opts: ['No, sound requires a medium / ಇಲ್ಲ, ಮಾಧ್ಯಮ ಬೇಕು', 'Yes, very fast', 'Only high pitch'], ans: 0, expEn: 'Sound is a mechanical wave and needs particles to vibrate.', expKn: 'ಶಬ್ದ ಚಲಿಸಲು ಗಾಳಿ, ದ್ರವ ಅಥವಾ ಘನ ಮಾಧ್ಯಮದ ಅಗತ್ಯವಿದೆ.' },
+  { cat: 'Medium', grade: 'Grade 9', qEn: 'Why does ice float on liquid water?', qKn: 'ಮಂಜುಗಡ್ಡೆಯು ನೀರಿನ ಮೇಲೆ ಏಕೆ ತೇಲುತ್ತದೆ?', opts: ['Density of ice (0.92 g/cm³) is less than water (1.0 g/cm³)', 'Ice is heavier than water', 'Ice has zero mass'], ans: 0, expEn: 'Objects less dense than water float.', expKn: 'ಮಂಜುಗಡ್ಡೆಯ ಸಾಂದ್ರತೆಯು ನೀರಿಗಿಂತ ಕಡಿಮೆ ಇರುವುದರಿಂದ ತೇಲುತ್ತದೆ.' },
+  { cat: 'Hard', grade: 'Grade 10', qEn: 'According to Ohm’s Law, if Voltage V = 12V and Resistance R = 3Ω, what is Current I?', qKn: 'ಓಮ್‌ನ ನಿಯಮದಂತೆ V = 12V ಮತ್ತು R = 3Ω ಆಗಿದ್ದರೆ, ವಿದ್ಯುತ್ ಪ್ರವಾಹ (I) ಎಷ್ಟು?', opts: ['4 A', '36 A', '0.25 A'], ans: 0, expEn: 'I = V / R = 12 / 3 = 4 Amperes.', expKn: 'I = V / R = 12 / 3 = 4 ಆಂಪಿಯರ್.' },
+  { cat: 'Hard', grade: 'Grade 10', qEn: 'Who discovered the scattering of light celebrated on National Science Day (Feb 28)?', qKn: 'ರಾಷ್ಟ್ರೀಯ ವಿಜ್ಞಾನ ದಿನದಂದು (ಫೆಬ್ರವರಿ 28) ಸ್ಮರಿಸಲಾಗುವ ಬೆಳಕಿನ ಚದುರುವಿಕೆಯ ಆವಿಷ್ಕಾರ ಮಾಡಿದವರು ಯಾರು?', opts: ['Sir C. V. Raman / ಸರ್ ಸಿ. ವಿ. ರಾಮನ್', 'Isaac Newton', 'Nikola Tesla'], ans: 0, expEn: 'Sir C. V. Raman discovered the Raman Effect on 28 Feb 1928.', expKn: 'ಸರ್ ಸಿ. ವಿ. ರಾಮನ್ ಅವರು ಫೆಬ್ರವರಿ 28, 1928 ರಂದು ರಾಮನ್ ಪರಿಣಾಮವನ್ನು ಕಂಡುಹಿಡಿದರು.' }
 ];
-function tx(key){return (translations[lang]&&translations[lang][key])||translations.en[key]||key}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function setLanguage(next){lang=next;localStorage.setItem("instalab-lang",lang);document.documentElement.lang=lang;document.querySelectorAll("[data-i18n]").forEach(el=>{const key=el.dataset.i18n;if(translations[lang][key])el.textContent=translations[lang][key]});document.getElementById("languageToggle").textContent=lang==="en"?"ಕನ್ನಡ":"English";renderTopics();renderVideos();renderExperiments();renderResources();renderQuiz();document.getElementById("lessonOutput").textContent=lang==="en"?"Your lesson outline will appear here.":"ನಿಮ್ಮ ಪಾಠದ ರೂಪುರೇಷೆ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.";document.getElementById("reelOutput").textContent=lang==="en"?"Your script will appear here.":"ನಿಮ್ಮ ಸ್ಕ್ರಿಪ್ಟ್ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ."}
-function titleFor(t){return t.title[lang]||t.title.en}
-function renderTopics(){const q=document.getElementById("searchInput").value.trim().toLowerCase();const grade=document.getElementById("gradeFilter").value;const subject=document.getElementById("subjectFilter").value;const curriculum=document.getElementById("curriculumFilter").value;const found=topics.filter(t=>{const blob=[t.title.en,t.title.kn,t.keywords,t.desc.en,t.desc.kn,t.subject].join(" ").toLowerCase();return (!q||blob.includes(q))&&(!grade||t.grades.includes(Number(grade)))&&(!subject||t.subject===subject)&&(!curriculum||t.curricula.includes(curriculum))});document.getElementById("resultCount").textContent=lang==="en"?`${found.length} topics found`:`${found.length} ವಿಷಯಗಳು ಕಂಡುಬಂದಿವೆ`;document.getElementById("noResults").classList.toggle("hidden",found.length>0);document.getElementById("topicGrid").innerHTML=found.map(t=>`<article class="card"><div class="row"><span class="iconbox">${({Physics:"⚡",Chemistry:"🧪",Biology:"🌱",Environment:"♻️","Earth and Space":"🪐"})[t.subject]||"🔬"}</span><span class="pill">${t.subject}</span></div><h3>${esc(titleFor(t))}</h3><p>${esc(t.desc[lang]||t.desc.en)}</p><div class="tagrow">${t.grades.map(g=>`<span class="tag">Class ${g}</span>`).join("")}</div><button class="btn primary" data-topic="${t.id}">${lang==="en"?"Explore topic →":"ವಿಷಯ ಅನ್ವೇಷಿಸಿ →"}</button></article>`).join("");document.querySelectorAll("[data-topic]").forEach(b=>b.addEventListener("click",()=>showTopic(b.dataset.topic)))}
-function showTopic(id){const t=topics.find(x=>x.id===id);if(!t)return;const detail=document.getElementById("topicDetail");detail.classList.remove("hidden");detail.innerHTML=`<div class="row" style="justify-content:space-between"><span class="pill">${t.subject} · Classes ${t.grades.join(", ")}</span><button class="btn" id="closeTopic">${lang==="en"?"Close":"ಮುಚ್ಚಿ"} ✕</button></div><h2>${esc(titleFor(t))}</h2><p>${esc(t.desc[lang]||t.desc.en)}</p><h3>${lang==="en"?"Learning goals":"ಕಲಿಕಾ ಉದ್ದೇಶಗಳು"}</h3><ul>${(lang==="en"?["Explain the concept in your own words.","Connect the idea to an everyday example.","Record an observation and support a conclusion."]:["ಪರಿಕಲ್ಪನೆಯನ್ನು ನಿಮ್ಮದೇ ಮಾತಿನಲ್ಲಿ ವಿವರಿಸಿ.","ದೈನಂದಿನ ಜೀವನದ ಉದಾಹರಣೆಯೊಂದಿಗೆ ಸಂಪರ್ಕಿಸಿ.","ವೀಕ್ಷಣೆಯನ್ನು ದಾಖಲಿಸಿ ತೀರ್ಮಾನಕ್ಕೆ ಕಾರಣ ನೀಡಿ."]).map(x=>`<li>${x}</li>`).join("")}</ul><h3>${lang==="en"?"Try this activity":"ಈ ಚಟುವಟಿಕೆಯನ್ನು ಪ್ರಯತ್ನಿಸಿ"}</h3><p>${esc(t.experiment)}</p><div class="notice">${lang==="en"?"Safety: follow teacher guidance and use only suitable, known materials. Never taste experiment materials.":"ಸುರಕ್ಷತೆ: ಶಿಕ್ಷಕರ ಮಾರ್ಗದರ್ಶನ ಪಾಲಿಸಿ, ತಿಳಿದಿರುವ ಸೂಕ್ತ ವಸ್ತುಗಳನ್ನೇ ಬಳಸಿ. ಪ್ರಯೋಗದ ವಸ್ತುಗಳನ್ನು ರುಚಿ ನೋಡಬೇಡಿ."}</div><h3>${lang==="en"?"Continue learning":"ಮುಂದಿನ ಕಲಿಕೆ"}</h3><div class="row"><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(t.video)}">${lang==="en"?"Find videos ↗":"ವಿಡಿಯೋ ಹುಡುಕಿ ↗"}</a><a class="btn" target="_blank" rel="noopener" href="https://phet.colorado.edu/en/simulations">${lang==="en"?"Explore PhET ↗":"PhET ತೆರೆಯಿರಿ ↗"}</a><a class="btn" target="_blank" rel="noopener" href="https://ncert.nic.in/textbook.php">${lang==="en"?"NCERT textbooks ↗":"NCERT ಪಠ್ಯಪುಸ್ತಕ ↗"}</a></div>`;document.getElementById("closeTopic").onclick=()=>detail.classList.add("hidden");detail.scrollIntoView({behavior:"smooth",block:"start"})}
-function renderVideos(){document.getElementById("videoGrid").innerHTML=videos.map(v=>`<article class="card"><div class="iconbox">${v[0]}</div><h3>${lang==="en"?v[1]:v[2]}</h3><p>${lang==="en"?"Search YouTube for related demonstrations and animations.":"ಸಂಬಂಧಿತ ಪ್ರಯೋಗ ಮತ್ತು ಅನಿಮೇಷನ್‌ಗಳಿಗಾಗಿ YouTube ಹುಡುಕಿ."}</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(v[3])}">${lang==="en"?"Search videos ↗":"ವಿಡಿಯೋ ಹುಡುಕಿ ↗"}</a></article>`).join("")}
-function renderExperiments(){document.getElementById("experimentGrid").innerHTML=experiments.map((e,i)=>`<article class="card"><div class="iconbox">${e.icon}</div><h3>${lang==="en"?e.en:e.kn}</h3><p><strong>${lang==="en"?"Materials":"ಬೇಕಾಗುವ ವಸ್ತುಗಳು"}:</strong> ${esc(e.materials)}</p><details><summary>${lang==="en"?"View procedure and safety":"ವಿಧಾನ ಮತ್ತು ಸುರಕ್ಷತೆ ನೋಡಿ"}</summary><ol>${e.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol><p class="notice"><strong>${lang==="en"?"Safety":"ಸುರಕ್ಷತೆ"}:</strong> ${esc(e.safety)}</p></details></article>`).join("")}
-function renderResources(){document.getElementById("resourceList").innerHTML=resources.map(r=>`<div class="resource"><div class="row"><div class="iconbox">${r.icon}</div><div><strong>${esc(r.title)}</strong><p>${esc(r.desc)}</p></div></div><a href="${r.url}" target="_blank" rel="noopener">${esc(r.label)} ↗</a></div>`).join("")}
-let qIndex=0,qScore=0,qAnswered=0,qLocked=false;
-function renderQuiz(){const q=quizQuestions[qIndex];document.getElementById("quizCounter").textContent=`${lang==="en"?"Question":"ಪ್ರಶ್ನೆ"} ${qIndex+1} / ${quizQuestions.length}`;document.getElementById("quizQuestion").textContent=q.q[lang]||q.q.en;document.getElementById("quizOptions").innerHTML=q.options[lang].map((o,i)=>`<button class="quiz-option" data-answer="${i}">${String.fromCharCode(65+i)}. ${esc(o)}</button>`).join("");document.getElementById("quizFeedback").classList.add("hidden");document.getElementById("quizScore").textContent=`${qScore} / ${qAnswered}`;document.getElementById("quizScoreText").textContent=lang==="en"?"Correct answers / questions answered":"ಸರಿಯಾದ ಉತ್ತರಗಳು / ಉತ್ತರಿಸಿದ ಪ್ರಶ್ನೆಗಳು";qLocked=false;document.querySelectorAll("[data-answer]").forEach(b=>b.addEventListener("click",()=>answerQuiz(Number(b.dataset.answer))))}
-function answerQuiz(n){if(qLocked)return;qLocked=true;qAnswered++;const q=quizQuestions[qIndex];const correct=n===q.a;if(correct)qScore++;document.querySelectorAll("[data-answer]").forEach((b,i)=>{b.disabled=true;if(i===q.a)b.classList.add("correct");if(i===n&&!correct)b.classList.add("wrong")});const f=document.getElementById("quizFeedback");f.classList.remove("hidden");f.innerHTML=`<strong>${correct?(lang==="en"?"Correct!":"ಸರಿಯಾದ ಉತ್ತರ!"):(lang==="en"?"Not quite.":"ಸರಿಯಲ್ಲ.")}</strong><p>${esc(q.ex[lang]||q.ex.en)}</p>`;document.getElementById("quizScore").textContent=`${qScore} / ${qAnswered}`}
-function nextQuiz(){qIndex=(qIndex+1)%quizQuestions.length;renderQuiz()}
-function setTemp(v){document.getElementById("tempSlider").value=v;document.getElementById("tempReadout").textContent=v;document.getElementById("thermoFill").style.height=`${Math.max(4,v)}%`;document.getElementById("tempExplain").textContent=lang==="en"?`Simulated sample temperature: ${v} °C. This is a model value, not a real measurement.`:`ಸಿಮ್ಯುಲೇಟೆಡ್ ಮಾದರಿಯ ತಾಪಮಾನ: ${v} °C. ಇದು ಮಾದರಿ ಮೌಲ್ಯ; ನೈಜ ಅಳತೆಯಲ್ಲ.`}
-let circuitOn=false;function setCircuit(v){circuitOn=v;document.getElementById("bulb").classList.toggle("on",v);document.getElementById("wireTop").classList.toggle("on",v);document.getElementById("wireBottom").classList.toggle("on",v);document.getElementById("circuitStatus").textContent=v?(lang==="en"?"Circuit closed — bulb on":"ಸರ್ಕ್ಯೂಟ್ ಮುಚ್ಚಿದೆ — ಬಲ್ಬ್ ಆನ್"):(lang==="en"?"Circuit open — bulb off":"ಸರ್ಕ್ಯೂಟ್ ತೆರೆದಿದೆ — ಬಲ್ಬ್ ಆಫ್");document.getElementById("circuitToggle").textContent=v?(lang==="en"?"Open switch":"ಸ್ವಿಚ್ ತೆರೆಯಿರಿ"):(lang==="en"?"Close switch":"ಸ್ವಿಚ್ ಮುಚ್ಚಿ")}
-let flipped=false;function updateMagnet(){document.getElementById("poleA").textContent="N — S";document.getElementById("poleB").textContent=flipped?"S — N":"N — S";document.getElementById("magnetEffect").textContent=flipped?"→←":"←→";document.getElementById("magnetStatus").textContent=flipped?(lang==="en"?"Unlike poles face each other: attraction model.":"ವಿರುದ್ಧ ಧ್ರುವಗಳು ಮುಖಾಮುಖಿ: ಆಕರ್ಷಣೆಯ ಮಾದರಿ."):(lang==="en"?"Like poles face each other: repulsion model.":"ಒಂದೇ ರೀತಿಯ ಧ್ರುವಗಳು ಮುಖಾಮುಖಿ: ವಿಕರ್ಷಣೆಯ ಮಾದರಿ.") }
-function setMatter(state){document.getElementById("matterSlider").value=state;const box=document.getElementById("particles");box.innerHTML=Array.from({length:24},(_,i)=>`<span class="particle" style="opacity:${state===1?.85:state===2?.72:.58};transform:translate(${state===3?((i*37)%85)-42:state===2?((i*17)%26)-13:((i%4)*2)-3}px,${state===3?((i*19)%65)-32:state===2?((i*11)%18)-9:((i%3)*2)-2}px)"></span>`).join("");document.getElementById("matterState").textContent=state===1?(lang==="en"?"Solid model — particles close together":"ಘನ ಮಾದರಿ — ಕಣಗಳು ಹತ್ತಿರದಲ್ಲಿವೆ"):state===2?(lang==="en"?"Liquid model — particles can move past each other":"ದ್ರವ ಮಾದರಿ — ಕಣಗಳು ಪರಸ್ಪರ ಸರಿಯಬಹುದು"):(lang==="en"?"Gas model — particles spread out":"ಅನಿಲ ಮಾದರಿ — ಕಣಗಳು ದೂರ ಹರಡಿವೆ")}
-function makeLesson(){const topic=document.getElementById("lessonTopic").value.trim()||(lang==="en"?"Science concept":"ವಿಜ್ಞಾನ ಪರಿಕಲ್ಪನೆ");const grade=document.getElementById("lessonGrade").value;const duration=document.getElementById("lessonDuration").value;const out=lang==="en"?`LESSON OUTLINE\nTopic: ${topic}\nGrade: ${grade}\nDuration: ${duration}\n\n1. Learning intention: Students explain ${topic} in their own words.\n2. Connect: Begin with an everyday question or phenomenon.\n3. Predict: Ask students to record a prediction and reason.\n4. Explore: Demonstrate a safe activity or use a simulation.\n5. Observe: Students record evidence in a table.\n6. Explain: Discuss the scientific concept and misconceptions.\n7. Check understanding: Use 3 short questions or an exit ticket.\n8. Extend: Ask students to find a real-life example.\nSafety and curriculum: Verify the activity against the current textbook and school safety guidance.`:`ಪಾಠದ ರೂಪುರೇಷೆ\nವಿಷಯ: ${topic}\nತರಗತಿ: ${grade}\nಅವಧಿ: ${duration}\n\n1. ಕಲಿಕಾ ಉದ್ದೇಶ: ವಿದ್ಯಾರ್ಥಿಗಳು ${topic} ಅನ್ನು ತಮ್ಮದೇ ಮಾತಿನಲ್ಲಿ ವಿವರಿಸುತ್ತಾರೆ.\n2. ಸಂಪರ್ಕ: ದೈನಂದಿನ ಜೀವನದ ಪ್ರಶ್ನೆ ಅಥವಾ ಘಟನೆಯಿಂದ ಆರಂಭಿಸಿ.\n3. ಊಹೆ: ವಿದ್ಯಾರ್ಥಿಗಳು ತಮ್ಮ ಊಹೆ ಮತ್ತು ಕಾರಣ ದಾಖಲಿಸಲಿ.\n4. ಅನ್ವೇಷಣೆ: ಸುರಕ್ಷಿತ ಚಟುವಟಿಕೆ ಅಥವಾ ಸಿಮ್ಯುಲೇಷನ್ ಬಳಸಿ.\n5. ವೀಕ್ಷಣೆ: ಸಾಕ್ಷ್ಯವನ್ನು ಕೋಷ್ಟಕದಲ್ಲಿ ದಾಖಲಿಸಲಿ.\n6. ವಿವರಣೆ: ವೈಜ್ಞಾನಿಕ ಪರಿಕಲ್ಪನೆ ಮತ್ತು ಸಾಮಾನ್ಯ ತಪ್ಪು ಕಲ್ಪನೆಗಳನ್ನು ಚರ್ಚಿಸಿ.\n7. ಮೌಲ್ಯಮಾಪನ: 3 ಚಿಕ್ಕ ಪ್ರಶ್ನೆಗಳು ಅಥವಾ exit ticket ಬಳಸಿ.\n8. ವಿಸ್ತರಣೆ: ದೈನಂದಿನ ಜೀವನದ ಉದಾಹರಣೆ ಹುಡುಕಲು ಹೇಳಿ.\nಸುರಕ್ಷತೆ ಮತ್ತು ಪಠ್ಯಕ್ರಮ: ಪ್ರಸ್ತುತ ಪಠ್ಯಪುಸ್ತಕ ಹಾಗೂ ಶಾಲೆಯ ಸುರಕ್ಷತಾ ಮಾರ್ಗದರ್ಶನದೊಂದಿಗೆ ಚಟುವಟಿಕೆಯನ್ನು ಪರಿಶೀಲಿಸಿ.`;document.getElementById("lessonOutput").textContent=out}
-function makeReel(){const topic=document.getElementById("reelTopic").value.trim()||(lang==="en"?"Why does a balloon attract paper?":"ಬಲೂನ್ ಕಾಗದದ ತುಂಡುಗಳನ್ನು ಏಕೆ ಆಕರ್ಷಿಸುತ್ತದೆ?");const l=document.getElementById("reelLanguage").value;let out;if(l==="kn"){out=`InstaLab Reel Script\nವಿಷಯ: ${topic}\n\nದೃಶ್ಯ 1 — Hook (0–3 ಸೆಕೆಂಡ್): “ಇದು ಹೇಗೆ ಸಾಧ್ಯ? ಬಲೂನ್ ಕಾಗದವನ್ನು ಆಕರ್ಷಿಸುತ್ತದೆಯೇ?”\nದೃಶ್ಯ 2 — ಪ್ರಯೋಗ (3–15 ಸೆಕೆಂಡ್): ಒಣ ಕೂದಲು ಅಥವಾ ಬಟ್ಟೆಗೆ ಬಲೂನ್ ಅನ್ನು ಒರೆಸಿ, ಸಣ್ಣ ಕಾಗದದ ತುಂಡುಗಳ ಹತ್ತಿರ ತಂದು ತೋರಿಸಿ.\nದೃಶ್ಯ 3 — ವಿವರಣೆ (15–35 ಸೆಕೆಂಡ್): ಒರೆಸುವಾಗ ವಿದ್ಯುತ್ ಆವೇಶಗಳ ಮರುಹಂಚಿಕೆ ಸಂಭವಿಸಬಹುದು. ಆವೇಶಿತ ಬಲೂನ್ ಹತ್ತಿರದ ತಟಸ್ಥ ಕಾಗದದಲ್ಲಿ ಆವೇಶಗಳ ಸ್ವಲ್ಪ ಮರುಹಂಚಿಕೆಗೆ ಕಾರಣವಾಗಿ ಆಕರ್ಷಣೆ ಉಂಟುಮಾಡಬಹುದು.\nದೃಶ್ಯ 4 — ಪ್ರಶ್ನೆ (35–45 ಸೆಕೆಂಡ್): “ಆರ್ದ್ರ ದಿನದಲ್ಲಿ ಈ ಪ್ರಯೋಗದ ಪರಿಣಾಮ ಏಕೆ ಕಡಿಮೆಯಾಗಬಹುದು?”\nಸುರಕ್ಷತೆ: ಬಲೂನ್ ಅನ್ನು ವಿದ್ಯುತ್ ಉಪಕರಣಗಳ ಬಳಿ ಬಳಸಬೇಡಿ. ಫಲಿತಾಂಶ ಪರಿಸ್ಥಿತಿಗಳ ಮೇಲೆ ಅವಲಂಬಿತವಾಗಿದೆ.\nCaption: ವಿಜ್ಞಾನವನ್ನು ನೋಡಿ ಮಾತ್ರವಲ್ಲ — ಪ್ರಯೋಗಿಸಿ, ಗಮನಿಸಿ, ವಿವರಿಸಿ!\nHashtags: #InstaLab #ScienceKannada #ScienceExperiment`;}else{out=`InstaLab Reel Script\nTopic: ${topic}\n\nScene 1 — Hook (0–3 sec): “Can a balloon attract tiny pieces of paper? Let’s test it!”\nScene 2 — Demonstration (3–15 sec): Rub a balloon on dry hair or cloth and bring it near tiny paper pieces.\nScene 3 — Explanation (15–35 sec): Rubbing can transfer charge. The charged balloon can cause a redistribution of charge in nearby neutral paper, producing attraction.\nScene 4 — Challenge (35–45 sec): “Why might this effect be weaker on a humid day?”\nSafety: Keep balloons away from electrical equipment. Results depend on conditions.\nCaption: Don’t just watch science — test, observe and explain!\nHashtags: #InstaLab #ScienceExperiments #ScienceEducation`;}document.getElementById("reelOutput").textContent=out}
-function assistantSearch(){const q=document.getElementById("assistantInput").value.trim().toLowerCase();if(!q){document.getElementById("assistantOutput").textContent=lang==="en"?"Enter a topic or question first.":"ಮೊದಲು ವಿಷಯ ಅಥವಾ ಪ್ರಶ್ನೆ ನಮೂದಿಸಿ.";return}const found=topics.filter(t=>[t.title.en,t.title.kn,t.keywords,t.desc.en,t.desc.kn].join(" ").toLowerCase().includes(q));const suggestions=found.length?found:topics.filter(t=>t.subject.toLowerCase().includes(q)||q.split(/\s+/).some(w=>w.length>3&&[t.title.en,t.title.kn,t.keywords].join(" ").toLowerCase().includes(w)));document.getElementById("assistantOutput").textContent=suggestions.length?(lang==="en"?"Suggested topics:\n":"ಸೂಚಿಸಲಾದ ವಿಷಯಗಳು:\n")+suggestions.slice(0,6).map(t=>`• ${titleFor(t)} — ${t.subject}, Classes ${t.grades.join(", ")}\n  ${t.desc[lang]||t.desc.en}\n  Video search: https://www.youtube.com/results?search_query=${encodeURIComponent(t.video)}`).join("\n\n"):(lang==="en"?"No exact topic match found. Try terms such as temperature, electricity, magnet, plants, light, motion, cells or environment. You can also use the Science Explorer filters.":"ನಿಖರ ವಿಷಯ ಸಿಗಲಿಲ್ಲ. ತಾಪಮಾನ, ವಿದ್ಯುತ್, ಕಾಂತ, ಸಸ್ಯ, ಬೆಳಕು, ಚಲನೆ, ಕೋಶ ಅಥವಾ ಪರಿಸರ ಎಂಬ ಪದಗಳಿಂದ ಹುಡುಕಿ. Science Explorer ಫಿಲ್ಟರ್‌ಗಳನ್ನೂ ಬಳಸಿ.")}
-function copyTextFrom(id){const text=document.getElementById(id).textContent;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>alert(lang==="en"?"Copied to clipboard.":"ಪಠ್ಯ ನಕಲಿಸಲಾಗಿದೆ.")).catch(()=>fallbackCopy(text))}else fallbackCopy(text)}
-function fallbackCopy(text){const t=document.createElement("textarea");t.value=text;document.body.appendChild(t);t.select();try{document.execCommand("copy");alert(lang==="en"?"Copied to clipboard.":"ಪಠ್ಯ ನಕಲಿಸಲಾಗಿದೆ.")}catch(e){alert(text)}t.remove()}
-document.getElementById("languageToggle").addEventListener("click",()=>setLanguage(lang==="en"?"kn":"en"));
-document.getElementById("menuToggle").addEventListener("click",()=>document.getElementById("navLinks").classList.toggle("open"));
-document.querySelectorAll("#navLinks a").forEach(a=>a.addEventListener("click",()=>document.getElementById("navLinks").classList.remove("open")));
-["searchInput","gradeFilter","subjectFilter","curriculumFilter"].forEach(id=>document.getElementById(id).addEventListener(id==="searchInput"?"input":"change",renderTopics));
-document.getElementById("clearFilters").addEventListener("click",()=>{["searchInput","gradeFilter","subjectFilter","curriculumFilter"].forEach(id=>document.getElementById(id).value="");renderTopics()});
-document.getElementById("tempSlider").addEventListener("input",e=>setTemp(Number(e.target.value)));document.querySelectorAll("[data-temp]").forEach(b=>b.addEventListener("click",()=>setTemp(Number(b.dataset.temp))));document.getElementById("tempReset").addEventListener("click",()=>setTemp(25));
-document.getElementById("circuitToggle").addEventListener("click",()=>setCircuit(!circuitOn));document.getElementById("circuitReset").addEventListener("click",()=>setCircuit(false));
-document.getElementById("flipMagnet").addEventListener("click",()=>{flipped=!flipped;updateMagnet()});document.getElementById("magnetReset").addEventListener("click",()=>{flipped=false;updateMagnet()});
-document.getElementById("matterSlider").addEventListener("input",e=>setMatter(Number(e.target.value)));document.querySelectorAll("[data-state]").forEach(b=>b.addEventListener("click",()=>setMatter(Number(b.dataset.state))));document.getElementById("matterReset").addEventListener("click",()=>setMatter(1));
-document.getElementById("nextQuestion").addEventListener("click",nextQuiz);document.getElementById("restartQuiz").addEventListener("click",()=>{qIndex=0;qScore=0;qAnswered=0;renderQuiz()});
-document.getElementById("generateLesson").addEventListener("click",makeLesson);document.getElementById("copyLesson").addEventListener("click",()=>copyTextFrom("lessonOutput"));document.getElementById("makeReel").addEventListener("click",makeReel);document.getElementById("copyReel").addEventListener("click",()=>copyTextFrom("reelOutput"));
-document.getElementById("askAssistant").addEventListener("click",assistantSearch);document.getElementById("assistantClear").addEventListener("click",()=>{document.getElementById("assistantInput").value="";document.getElementById("assistantOutput").textContent=lang==="en"?"Enter a topic to find related content.":"ಸಂಬಂಧಿತ ವಿಷಯ ಹುಡುಕಲು ವಿಷಯ ನಮೂದಿಸಿ."});
-setLanguage(lang);setTemp(25);setCircuit(false);updateMagnet();setMatter(1);
+
+/* ============================================================================
+   NAVIGATION & RENDERING FUNCTIONS
+   ============================================================================ */
+function navigateToSection(sectionId) {
+  document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+  const targetSec = document.getElementById(`section-${sectionId}`);
+  if (targetSec) targetSec.classList.add('active');
+
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.target === sectionId);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openSimulation(simId) {
+  currentSimId = simId;
+  navigateToSection('simulations');
+  renderSimTabs();
+  renderActiveSimulation();
+}
+
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (UI_TEXT[key]) {
+      el.textContent = t(UI_TEXT[key].en, UI_TEXT[key].kn);
+    }
+  });
+  renderHome();
+  renderSimTabs();
+  renderActiveSimulation();
+  renderMaterials();
+  renderScientists();
+  renderFacts();
+  renderKarnataka();
+  renderVideos();
+  renderQuiz();
+}
+
+function renderHome() {
+  const featGrid = document.getElementById('home-featured-sims-grid');
+  if (featGrid) {
+    featGrid.innerHTML = SIMULATIONS.slice(0, 6).map(sim => `
+      <div class="lab-card">
+        <div>
+          <span class="card-tag">Interactive Sim</span>
+          <h3>${t(sim.titleEn, sim.titleKn)}</h3>
+          <p>${t(sim.objectiveEn, sim.objectiveKn)}</p>
+        </div>
+        <div class="card-actions-row">
+          <button class="btn-primary" onclick="openSimulation('${sim.id}')">▶ ${t('Launch Sim', 'ಪ್ರಯೋಗ ಪ್ರಾರಂಭಿಸಿ')}</button>
+          <a href="${ytUrl(sim.ytKn)}" target="_blank" rel="noopener" class="yt-badge-kn">▶ ಕನ್ನಡ Video</a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  const actGrid = document.getElementById('home-activities-grid');
+  if (actGrid) {
+    actGrid.innerHTML = KARNATAKA_GRADES['7'].concat(KARNATAKA_GRADES['10']).slice(0, 3).map(item => `
+      <div class="lab-card">
+        <div>
+          <span class="card-tag">Hands-on Activity</span>
+          <h3>${t(item.chEn, item.chKn)}</h3>
+          <p>${t(item.descEn, item.descKn)}</p>
+        </div>
+        <button class="btn-gold-sm" onclick="openSimulation('${item.simId}')">🔬 ${t('Try Virtual Experiment', 'ವರ್ಚುವಲ್ ಪ್ರಯೋಗ ಮಾಡಿ')}</button>
+      </div>
+    `).join('');
+  }
+
+  const sciPrev = document.getElementById('home-scientists-preview');
+  if (sciPrev) {
+    sciPrev.innerHTML = SCIENTISTS.slice(0, 3).map(s => `
+      <div class="lab-card">
+        <strong>${s.icon} ${t(s.nameEn, s.nameKn)} (${s.dates})</strong>
+        <p>${t(s.contribEn, s.contribKn)}</p>
+      </div>
+    `).join('');
+  }
+
+  const factPrev = document.getElementById('home-facts-preview');
+  if (factPrev) {
+    factPrev.innerHTML = FACTS.slice(0, 3).map(f => `
+      <div class="lab-card">
+        <span class="card-tag">${f.cat}</span>
+        <p>${t(f.en, f.kn)}</p>
+      </div>
+    `).join('');
+  }
+}
+
+function renderSimTabs() {
+  const bar = document.getElementById('sim-selector-tabs');
+  if (!bar) return;
+  bar.innerHTML = SIMULATIONS.map(sim => `
+    <button class="sim-tab-btn ${sim.id === currentSimId ? 'active' : ''}" onclick="openSimulation('${sim.id}')">
+      ${t(sim.titleEn, sim.titleKn)}
+    </button>
+  `).join('');
+}
+
+function renderActiveSimulation() {
+  const box = document.getElementById('active-sim-workspace');
+  if (!box) return;
+  const sim = SIMULATIONS.find(s => s.id === currentSimId) || SIMULATIONS[0];
+
+  box.innerHTML = `
+    <h2>${t(sim.titleEn, sim.titleKn)}</h2>
+    <p>${t(sim.objectiveEn, sim.objectiveKn)}</p>
+    <div class="sim-grid">
+      <div class="sim-stage" id="sim-visual-stage"></div>
+      <div class="sim-controls-panel" id="sim-controls-box"></div>
+    </div>
+    <div class="readout-box">
+      <strong>📘 ${t('Scientific Principle:', 'ವೈಜ್ಞಾನಿಕ ವಿವರಣೆ:')}</strong> ${t(sim.explanationEn, sim.explanationKn)}
+    </div>
+    <div class="safety-alert">
+      <strong>⚠️ ${t('Safety Precaution:', 'ಸುರಕ್ಷತಾ ಮುನ್ನೆಚ್ಚರಿಕೆ:')}</strong> ${t(sim.safetyEn, sim.safetyKn)}
+    </div>
+    <div class="card-actions-row" style="margin-top:1rem;">
+      <a href="${ytUrl(sim.ytKn)}" target="_blank" rel="noopener" class="yt-badge-kn">▶ ಕನ್ನಡ ವಿವರಣೆ ವೀಡಿಯೊ</a>
+      <a href="${ytUrl(sim.ytEn)}" target="_blank" rel="noopener" class="yt-badge-en">▶ English Video Lesson</a>
+    </div>
+  `;
+  setupInteractiveSimControls(sim.id);
+}
+
+function setupInteractiveSimControls(id) {
+  const stage = document.getElementById('sim-visual-stage');
+  const ctrl = document.getElementById('sim-controls-box');
+  if (!stage || !ctrl) return;
+
+  if (id === 'thermometer') {
+    ctrl.innerHTML = `
+      <div class="control-group">
+        <label>Temperature (°C): <span id="val-temp">25°C</span></label>
+        <input type="range" id="inp-temp" min="-10" max="110" value="25">
+      </div>
+      <div class="readout-box" id="sim-live-readout"></div>
+    `;
+    const inp = document.getElementById('inp-temp');
+    const update = () => {
+      const c = Number(inp.value);
+      const f = ((c * 9/5) + 32).toFixed(1);
+      const k = (c + 273.15).toFixed(1);
+      const h = Math.max(10, Math.min(180, (c + 10) * 1.4));
+      document.getElementById('val-temp').textContent = `${c}°C`;
+      stage.innerHTML = `
+        <svg viewBox="0 0 200 240" width="200" height="240">
+          <rect x="88" y="20" width="24" height="175" rx="12" fill="#1E293B" stroke="#94A3B8" stroke-width="2"/>
+          <rect x="93" y="${190 - h}" width="14" height="${h}" fill="#F87171"/>
+          <circle cx="100" cy="200" r="22" fill="#F87171" stroke="#94A3B8" stroke-width="2"/>
+          <text x="130" y="110" fill="#F5C451" font-size="16" font-weight="bold">${c} °C</text>
+        </svg>
+      `;
+      document.getElementById('sim-live-readout').innerHTML = `Celsius: <b>${c}°C</b> | Fahrenheit: <b>${f}°F</b> | Kelvin: <b>${k} K</b><br>Water State: <b>${c <= 0 ? 'Solid Ice (ಮಂಜುಗಡ್ಡೆ)' : c >= 100 ? 'Steam Gas (ಆವಿ)' : 'Liquid Water (ದ್ರವ ನೀರು)'}</b>`;
+    };
+    inp.addEventListener('input', update);
+    update();
+  } else if (id === 'circuit' || id === 'ohmslaw') {
+    ctrl.innerHTML = `
+      <div class="control-group">
+        <label>Battery Voltage (V): <span id="val-v">6 V</span></label>
+        <input type="range" id="inp-v" min="1.5" max="12" step="0.5" value="6">
+      </div>
+      <div class="control-group">
+        <label>Resistance (R): <span id="val-r">3 Ω</span></label>
+        <input type="range" id="inp-r" min="1" max="12" step="1" value="3">
+      </div>
+      <div class="readout-box" id="sim-live-readout"></div>
+    `;
+    const iv = document.getElementById('inp-v');
+    const ir = document.getElementById('inp-r');
+    const update = () => {
+      const v = Number(iv.value);
+      const r = Number(ir.value);
+      const amp = (v / r).toFixed(2);
+      const glow = Math.min(1, amp / 4);
+      document.getElementById('val-v').textContent = `${v} V`;
+      document.getElementById('val-r').textContent = `${r} Ω`;
+      stage.innerHTML = `
+        <svg viewBox="0 0 260 190" width="260" height="190">
+          <rect x="30" y="45" width="200" height="110" fill="none" stroke="#22D3EE" stroke-width="3"/>
+          <circle cx="130" cy="45" r="22" fill="rgba(245, 196, 81, ${glow})" stroke="#F5C451" stroke-width="2"/>
+          <text x="130" y="50" text-anchor="middle" fill="#fff" font-size="12">💡</text>
+          <text x="130" y="145" text-anchor="middle" fill="#22D3EE" font-size="14" font-weight="bold">I = ${amp} A</text>
+        </svg>
+      `;
+      document.getElementById('sim-live-readout').innerHTML = `Voltage (V): <b>${v} V</b> | Resistance (R): <b>${r} Ω</b> | Current (I = V/R): <b>${amp} A</b>`;
+    };
+    iv.addEventListener('input', update);
+    ir.addEventListener('input', update);
+    update();
+  } else if (id === 'ph') {
+    ctrl.innerHTML = `
+      <div class="control-group">
+        <label>Select Solution pH: <span id="val-ph">7.0</span></label>
+        <input type="range" id="inp-ph" min="1" max="14" step="0.5" value="7">
+      </div>
+      <div class="readout-box" id="sim-live-readout"></div>
+    `;
+    const iph = document.getElementById('inp-ph');
+    const update = () => {
+      const p = Number(iph.value);
+      document.getElementById('val-ph').textContent = p;
+      const col = p < 4 ? '#EF4444' : p < 6.8 ? '#F59E0B' : p <= 7.2 ? '#10B981' : p < 10 ? '#06B6D4' : '#6366F1';
+      const type = p < 7 ? 'Acidic (ಆಮ್ಲೀಯ)' : p === 7 ? 'Neutral (ತಟಸ್ಥ)' : 'Basic / Alkaline (ಪ್ರತ್ಯಾಮ್ಲೀಯ)';
+      stage.innerHTML = `
+        <svg viewBox="0 0 220 200" width="220" height="200">
+          <rect x="65" y="40" width="90" height="130" rx="8" fill="#1E293B" stroke="#94A3B8" stroke-width="2"/>
+          <rect x="70" y="85" width="80" height="80" rx="4" fill="${col}" opacity="0.85"/>
+          <rect x="102" y="20" width="16" height="95" fill="${col}" stroke="#fff"/>
+          <text x="110" y="188" text-anchor="middle" fill="#F8FAFC" font-size="14" font-weight="bold">pH = ${p}</text>
+        </svg>
+      `;
+      document.getElementById('sim-live-readout').innerHTML = `pH Value: <b>${p}</b> | Nature: <b>${type}</b>`;
+    };
+    iph.addEventListener('input', update);
+    update();
+  } else {
+    ctrl.innerHTML = `
+      <div class="control-group">
+        <label>Parameter Intensity / Input Value: <span id="val-gen">50</span></label>
+        <input type="range" id="inp-gen" min="10" max="100" value="50">
+      </div>
+      <div class="readout-box" id="sim-live-readout"></div>
+    `;
+    const igen = document.getElementById('inp-gen');
+    const update = () => {
+      const val = Number(igen.value);
+      document.getElementById('val-gen').textContent = val;
+      const r = 20 + val * 0.5;
+      stage.innerHTML = `
+        <svg viewBox="0 0 240 200" width="240" height="200">
+          <circle cx="120" cy="100" r="${r}" fill="rgba(34, 211, 238, 0.25)" stroke="#22D3EE" stroke-width="3"/>
+          <circle cx="120" cy="100" r="10" fill="#F5C451"/>
+          <text x="120" y="185" text-anchor="middle" fill="#F5C451" font-size="14" font-weight="bold">Active Level: ${val}%</text>
+        </svg>
+      `;
+      document.getElementById('sim-live-readout').innerHTML = `Input Setting: <b>${val}%</b> | Output Response: <b>${(val * 1.45).toFixed(1)} units</b>`;
+    };
+    igen.addEventListener('input', update);
+    update();
+  }
+}
+
+function renderMaterials() {
+  const grid = document.getElementById('materials-grid');
+  if (!grid) return;
+  const q = (document.getElementById('material-search')?.value || '').toLowerCase();
+  const cat = document.getElementById('material-category-filter')?.value || 'all';
+
+  const list = MATERIALS.filter(m => {
+    const matchCat = cat === 'all' || m.category === cat;
+    const matchQ = !q || m.nameEn.toLowerCase().includes(q) || m.nameKn.includes(q);
+    return matchCat && matchQ;
+  });
+
+  grid.innerHTML = list.map(m => `
+    <div class="lab-card">
+      <div>
+        <span class="card-tag">${m.icon} ${m.category.toUpperCase()}</span>
+        <h3>${t(m.nameEn, m.nameKn)}</h3>
+        <p>${t(m.principleEn, m.principleKn)}</p>
+      </div>
+      <div class="card-actions-row">
+        <button class="btn-primary" onclick="openSimulation('${m.simId}')">🔬 ${t('Open Simulation', 'ಪ್ರಯೋಗ ಮಾಡಿ')}</button>
+        <a href="${ytUrl(m.ytKn)}" target="_blank" rel="noopener" class="yt-badge-kn">▶ ಕನ್ನಡ</a>
+        <a href="${ytUrl(m.ytEn)}" target="_blank" rel="noopener" class="yt-badge-en">▶ English</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderScientists() {
+  const grid = document.getElementById('scientists-grid');
+  if (!grid) return;
+  const q = (document.getElementById('scientist-search')?.value || '').toLowerCase();
+  const orig = document.getElementById('scientist-origin-filter')?.value || 'all';
+
+  const list = SCIENTISTS.filter(s => {
+    const matchOrig = orig === 'all' || s.origin === orig;
+    const matchQ = !q || s.nameEn.toLowerCase().includes(q) || s.nameKn.includes(q) || s.contribEn.toLowerCase().includes(q);
+    return matchOrig && matchQ;
+  });
+
+  grid.innerHTML = list.map(s => `
+    <div class="lab-card">
+      <div class="scientist-header">
+        <div class="scientist-avatar">${createScientistAvatarSVG(s.nameEn, '#22D3EE', s.icon)}</div>
+        <div>
+          <span class="card-tag">${s.origin === 'Indian' ? '🇮🇳 ಭಾರತೀಯ ವಿಜ್ಞಾನಿ' : '🌍 International'} • ${s.dates}</span>
+          <h3>${t(s.nameEn, s.nameKn)}</h3>
+          <small style="color:var(--gold)">${t(s.fieldEn, s.fieldKn)}</small>
+        </div>
+      </div>
+      <p>${t(s.contribEn, s.contribKn)}</p>
+      <div class="card-actions-row">
+        <button class="btn-gold-sm" onclick="openSimulation('${s.simId}')">⚡ ${t('Try Related Sim', 'ಸಂಬಂಧಿತ ಪ್ರಯೋಗ')}</button>
+        <a href="${ytUrl(s.nameKn + ' ವಿಜ್ಞಾನಿ ಕನ್ನಡ')}" target="_blank" rel="noopener" class="yt-badge-kn">▶ ಕನ್ನಡ ಜೀವನ ಚರಿತ್ರೆ</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderFacts() {
+  const grid = document.getElementById('facts-grid');
+  if (!grid) return;
+  const cat = document.getElementById('fact-category-filter')?.value || 'all';
+  const list = FACTS.filter(f => cat === 'all' || f.cat === cat);
+
+  grid.innerHTML = list.map((f, i) => `
+    <div class="lab-card">
+      <div>
+        <span class="card-tag">#${i + 1} • ${f.cat}</span>
+        <p style="margin-top:0.5rem;">${t(f.en, f.kn)}</p>
+      </div>
+      <button class="btn-outline" onclick="openSimulation('${f.simId}')">🔬 ${t('Explore in Lab', 'ಪ್ರಯೋಗಾಲಯದಲ್ಲಿ ನೋಡಿ')}</button>
+    </div>
+  `).join('');
+}
+
+function renderKarnataka() {
+  const box = document.getElementById('karnataka-content');
+  if (!box) return;
+  const chapters = KARNATAKA_GRADES[currentGrade] || KARNATAKA_GRADES['6'];
+
+  box.innerHTML = `
+    <div class="card-grid-3">
+      ${chapters.map(ch => `
+        <div class="lab-card">
+          <div>
+            <span class="card-tag">Class ${currentGrade} • KTBS</span>
+            <h3>${t(ch.chEn, ch.chKn)}</h3>
+            <p>${t(ch.descEn, ch.descKn)}</p>
+          </div>
+          <div class="card-actions-row">
+            <button class="btn-primary" onclick="openSimulation('${ch.simId}')">🔬 ${t('Launch Lab Sim', 'ಪ್ರಯೋಗ ಪ್ರಾರಂಭಿಸಿ')}</button>
+            <a href="${ytUrl(ch.chKn + ' ' + currentGrade + 'ನೇ ತರಗತಿ ವಿಜ್ಞಾನ')}" target="_blank" rel="noopener" class="yt-badge-kn">▶ ಕನ್ನಡ ಪಾಠ</a>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderVideos() {
+  const grid = document.getElementById('videos-grid');
+  if (!grid) return;
+  grid.innerHTML = SIMULATIONS.map(sim => `
+    <div class="lab-card">
+      <div>
+        <span class="card-tag">🎬 Bilingual Video + Sim</span>
+        <h3>${t(sim.titleEn, sim.titleKn)}</h3>
+        <p>${t(sim.objectiveEn, sim.objectiveKn)}</p>
+      </div>
+      <div class="card-actions-row">
+        <a href="${ytUrl(sim.ytKn)}" target="_blank" rel="noopener" class="yt-badge-kn">▶ ಕನ್ನಡ ವೀಡಿಯೊ</a>
+        <a href="${ytUrl(sim.ytEn)}" target="_blank" rel="noopener" class="yt-badge-en">▶ English Video</a>
+        <button class="btn-gold-sm" onclick="openSimulation('${sim.id}')">⚡ Sim</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderQuiz() {
+  const box = document.getElementById('quiz-workspace');
+  if (!box) return;
+  const mode = document.getElementById('quiz-category-select')?.value || 'all';
+  const list = QUIZ_QUESTIONS.filter(q => mode === 'all' || q.cat === mode || q.grade === mode);
+
+  box.innerHTML = list.map((q, idx) => `
+    <div style="margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid var(--border-col);">
+      <span class="card-tag">${q.cat} • ${q.grade}</span>
+      <h3 style="margin:0.5rem 0;">Q${idx + 1}. ${t(q.qEn, q.qKn)}</h3>
+      <div class="quiz-options">
+        ${q.opts.map((opt, oIdx) => `
+          <button class="quiz-opt-btn" onclick="checkQuizAnswer(this, ${oIdx === q.ans}, '${q.expKn.replace(/'/g, "")} / ${q.expEn.replace(/'/g, "")}')">${opt}</button>
+        `).join('')}
+      </div>
+      <div class="quiz-feedback hidden read-out"></div>
+    </div>
+  `).join('');
+}
+
+function checkQuizAnswer(btn, isCorrect, explanation) {
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.quiz-opt-btn').forEach(b => b.disabled = true);
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+  const fb = parent.nextElementSibling;
+  fb.classList.remove('hidden');
+  fb.style.padding = '0.6rem';
+  fb.style.marginTop = '0.4rem';
+  fb.style.color = isCorrect ? '#34D399' : '#F87171';
+  fb.innerHTML = (isCorrect ? '✅ ಸರಿ ಉತ್ತರ! / Correct! — ' : '❌ ತಪ್ಪು ಉತ್ತರ / Try Again — ') + explanation;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => navigateToSection(btn.dataset.target));
+  });
+
+  const langSel = document.getElementById('lang-select');
+  if (langSel) {
+    langSel.value = currentLang;
+    langSel.addEventListener('change', e => {
+      currentLang = e.target.value;
+      localStorage.setItem('instalab_lang', currentLang);
+      applyTranslations();
+    });
+  }
+
+  document.querySelectorAll('.grade-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.grade-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentGrade = tab.dataset.grade;
+      renderKarnataka();
+    });
+  });
+
+  document.getElementById('material-search')?.addEventListener('input', renderMaterials);
+  document.getElementById('material-category-filter')?.addEventListener('change', renderMaterials);
+  document.getElementById('scientist-search')?.addEventListener('input', renderScientists);
+  document.getElementById('scientist-origin-filter')?.addEventListener('change', renderScientists);
+  document.getElementById('fact-category-filter')?.addEventListener('change', renderFacts);
+  document.getElementById('quiz-category-select')?.addEventListener('change', renderQuiz);
+  document.getElementById('start-quiz-btn')?.addEventListener('click', renderQuiz);
+
+  applyTranslations();
+});
