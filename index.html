@@ -5,17 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>InstaLab | ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್ — Interactive Science Learning Platform</title>
   <meta name="description" content="Hands-on virtual science experiments, simulations, lab equipment guides, scientist biographies, and Karnataka State Board resources in Kannada and English." />
+  <!-- Google Fonts for English (Inter/Space Grotesk) and Kannada (Noto Sans Kannada) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Kannada:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Skip to content for keyboard accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content / ಮುಖ್ಯ ವಿಷಯಕ್ಕೆ ಹೋಗಿ</a>
 
+  <!-- Top Navigation Header -->
   <header class="site-header">
     <div class="container header-inner">
-      <a href="#home" class="brand-logo" aria-label="InstaLab Home" onclick="navigateToSection('home')">
+      <a href="#home" class="brand-logo" aria-label="InstaLab Home">
         <div class="logo-icon">
           <svg viewBox="0 0 40 40" width="38" height="38" aria-hidden="true">
             <defs>
@@ -36,17 +39,19 @@
         </div>
       </a>
 
+      <!-- Main Navigation -->
       <nav class="main-nav" aria-label="Primary Navigation">
         <button class="nav-btn active" data-target="home" data-i18n="nav_home">Home</button>
         <button class="nav-btn" data-target="simulations" data-i18n="nav_sims">Virtual Lab (12)</button>
         <button class="nav-btn" data-target="materials" data-i18n="nav_materials">Equipment</button>
         <button class="nav-btn" data-target="scientists" data-i18n="nav_scientists">Scientists (20)</button>
-        <button class="nav-btn" data-target="facts" data-i18n="nav_facts">30 Facts</button>
+        <button class="nav-btn" data-target="facts" data-i18n="nav_facts">Science Facts</button>
         <button class="nav-btn" data-target="karnataka" data-i18n="nav_karnataka">Class 6–10</button>
         <button class="nav-btn" data-target="videos" data-i18n="nav_videos">Videos</button>
         <button class="nav-btn" data-target="quizzes" data-i18n="nav_quizzes">Quizzes</button>
       </nav>
 
+      <!-- Controls: Language Selector & Instagram Quick Button -->
       <div class="header-controls">
         <div class="lang-selector-wrapper">
           <label for="lang-select" class="sr-only">Select Language / ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ</label>
@@ -56,6 +61,7 @@
             <option value="en">English Only</option>
           </select>
         </div>
+        <!-- Replace @instalab_science href with your exact Instagram URL -->
         <a href="https://www.instagram.com/instalab_science/" target="_blank" rel="noopener noreferrer" class="insta-header-btn" title="Follow InstaLab on Instagram">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           <span>@instalab</span>
@@ -64,6 +70,7 @@
     </div>
   </header>
 
+  <!-- Global Search & Quick Filter Bar -->
   <section class="global-search-bar" aria-label="Platform Search">
     <div class="container search-inner">
       <div class="search-input-group">
@@ -75,7 +82,10 @@
     </div>
   </section>
 
+  <!-- Main Content Area -->
   <main id="main-content" class="container">
+
+    <!-- ================= 1. HOMEPAGE SECTION ================= -->
     <section id="section-home" class="page-section active">
       <div class="hero-card">
         <div class="hero-content">
@@ -94,6 +104,7 @@
           </div>
         </div>
         <div class="hero-visual" aria-hidden="true">
+          <!-- Animated Atom & Lab SVG Graphic -->
           <svg viewBox="0 0 260 260" class="atom-svg">
             <circle cx="130" cy="130" r="18" fill="#F5C451" />
             <ellipse cx="130" cy="130" rx="105" ry="42" fill="none" stroke="#22D3EE" stroke-width="2" stroke-dasharray="6 4" class="orbit-1"/>
@@ -106,9 +117,12 @@
         </div>
       </div>
 
+      <!-- Instagram Reels & Science Shorts Banner -->
       <div class="insta-showcase-banner">
         <div class="insta-banner-left">
-          <div class="insta-avatar-ring"><span>ಇನ್‌ಸ್ಟಾ</span></div>
+          <div class="insta-avatar-ring">
+            <span>ಇನ್‌ಸ್ಟಾ</span>
+          </div>
           <div>
             <h2 data-i18n="insta_banner_title">InstaLab (ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್) on Instagram & YouTube Shorts</h2>
             <p data-i18n="insta_banner_desc">Watch 60-second 3D science animations, laboratory apparatus breakdowns, and low-cost home experiments curated by Shivaraju S.</p>
@@ -120,6 +134,7 @@
         </div>
       </div>
 
+      <!-- Quick Stats & Featured Grid -->
       <div class="stats-grid">
         <div class="stat-card" onclick="navigateToSection('simulations')">
           <span class="stat-num">12</span>
@@ -135,53 +150,62 @@
         </div>
         <div class="stat-card" onclick="navigateToSection('facts')">
           <span class="stat-num">30</span>
-          <span class="stat-label" data-i18n="stat_facts">Verified Science Facts</span>
+          <span class="stat-label" data-i18n="stat_facts">Science Facts (data pending)</span>
         </div>
       </div>
 
+      <!-- Homepage Featured Simulations -->
       <div class="section-header-row">
         <h2 data-i18n="home_featured_sims">🔥 Featured Interactive Simulations</h2>
-        <button class="btn-link" onclick="navigateToSection('simulations')">View All 12 Simulations →</button>
+        <button class="btn-link" onclick="navigateToSection('simulations')" data-i18n="view_all_sims">View All 12 Simulations →</button>
       </div>
       <div id="home-featured-sims-grid" class="card-grid-3"></div>
 
+      <!-- Homepage Recently Added Activities (Each with direct Simulation launch) -->
       <div class="section-header-row">
         <h2 data-i18n="home_recent_act">🧪 Hands-On Learning Activities (With Live Simulations)</h2>
-        <button class="btn-link" onclick="navigateToSection('karnataka')">Explore Grades 6–10 →</button>
+        <button class="btn-link" onclick="navigateToSection('karnataka')" data-i18n="view_all_classes">Explore Grades 6–10 →</button>
       </div>
       <div id="home-activities-grid" class="card-grid-3"></div>
 
+      <!-- Homepage Popular Scientists & Daily Facts -->
       <div class="home-split-row">
         <div class="split-col">
           <div class="section-header-row">
             <h2 data-i18n="home_pop_sci">👩‍🔬 Featured Scientists</h2>
-            <button class="btn-link" onclick="navigateToSection('scientists')">View All 20 →</button>
+            <button class="btn-link" onclick="navigateToSection('scientists')" data-i18n="view_all">View All 20 →</button>
           </div>
           <div id="home-scientists-preview" class="compact-list"></div>
         </div>
         <div class="split-col">
           <div class="section-header-row">
             <h2 data-i18n="home_daily_facts">💡 Amazing Science Facts</h2>
-            <button class="btn-link" onclick="navigateToSection('facts')">View All 30 →</button>
+            <button class="btn-link" onclick="navigateToSection('facts')" data-i18n="view_all">View All 30 →</button>
           </div>
           <div id="home-facts-preview" class="compact-list"></div>
         </div>
       </div>
     </section>
 
+    <!-- ================= 2. INTERACTIVE VIRTUAL LAB (12 SIMULATIONS) ================= -->
     <section id="section-simulations" class="page-section">
       <div class="section-banner">
         <h1 data-i18n="sims_page_title">🔬 Interactive Virtual Laboratory (12 Simulations)</h1>
-        <p data-i18n="sims_page_desc">Select any experiment below to adjust sliders, observe live numerical readouts, test hypotheses, and answer review questions.</p>
+        <p data-i18n="sims_page_desc">Select any experiment below to adjust sliders, observe live numerical readouts, test hypotheses, and answer review questions. Note: Simulations use mathematical models for educational clarity.</p>
       </div>
+
+      <!-- Simulation Selector Tabs -->
       <div id="sim-selector-tabs" class="sim-tabs-bar" role="tablist" aria-label="Experiments List"></div>
+
+      <!-- Active Simulation Workspace -->
       <div id="active-sim-workspace" class="sim-workspace" aria-live="polite"></div>
     </section>
 
+    <!-- ================= 3. SCIENCE MATERIALS & APPARATUS GALLERY ================= -->
     <section id="section-materials" class="page-section">
       <div class="section-banner">
-        <h1>🧰 Science Materials & Apparatus Gallery / ಪ್ರಯೋಗಾಲಯದ ಉಪಕರಣಗಳು</h1>
-        <p>Every laboratory instrument includes its working principle, safety precautions, Kannada & English YouTube guides, and a direct button to launch its interactive simulation.</p>
+        <h1 data-i18n="mat_page_title">🧰 Science Materials & Apparatus Gallery</h1>
+        <p data-i18n="mat_page_desc">Every laboratory instrument includes its working principle, safety precautions, Kannada & English YouTube guides, and a direct button to launch its interactive simulation.</p>
         <div class="filter-bar">
           <input type="search" id="material-search" placeholder="Filter equipment by name or purpose..." aria-label="Filter equipment" />
           <select id="material-category-filter" aria-label="Filter by category">
@@ -196,10 +220,11 @@
       <div id="materials-grid" class="card-grid-3"></div>
     </section>
 
+    <!-- ================= 4. SCIENTISTS GALLERY (20 PROFILES) ================= -->
     <section id="section-scientists" class="page-section">
       <div class="section-banner">
-        <h1>🌟 Legends of Science (20 Indian & International Biographies) / ವಿಜ್ಞಾನಿಗಳು</h1>
-        <p>Verified historical dates, portraits, key discoveries, student hands-on activities, interactive simulations, and bilingual video links.</p>
+        <h1 data-i18n="sci_page_title">🌟 Legends of Science (20 Indian & International Biographies)</h1>
+        <p data-i18n="sci_page_desc">Verified historical dates, portraits, key discoveries, student hands-on activities, interactive simulations, and bilingual video links.</p>
         <div class="filter-bar">
           <input type="search" id="scientist-search" placeholder="Search scientist by name, discovery, or field..." aria-label="Search scientists" />
           <select id="scientist-origin-filter" aria-label="Filter by origin">
@@ -212,10 +237,11 @@
       <div id="scientists-grid" class="card-grid-2"></div>
     </section>
 
+    <!-- ================= 5. AMAZING SCIENCE FACTS (30 FACTS) ================= -->
     <section id="section-facts" class="page-section">
       <div class="section-banner">
-        <h1>⚡ 30 Verified Amazing Science Facts / 30 ವಿಜ್ಞಾನದ ಅಚ್ಚರಿಗಳು</h1>
-        <p>Explore Physics, Chemistry, Biology, Astronomy, Earth Science, and Technology — complete with real-world examples and simulations.</p>
+        <h1 data-i18n="facts_page_title">⚡ 30 Verified Amazing Science Facts</h1>
+        <p data-i18n="facts_page_desc">Explore Physics, Chemistry, Biology, Astronomy, Earth Science, and Technology — complete with real-world examples, simulations, and verification links.</p>
         <div class="filter-bar">
           <select id="fact-category-filter" aria-label="Filter facts by branch">
             <option value="all">All Branches (30)</option>
@@ -231,12 +257,13 @@
       <div id="facts-grid" class="card-grid-3"></div>
     </section>
 
+    <!-- ================= 6. KARNATAKA STATE BOARD (GRADES 6–10) ================= -->
     <section id="section-karnataka" class="page-section">
       <div class="section-banner">
-        <h1>📚 Karnataka State Board Science (Classes 6 to 10) / ಕರ್ನಾಟಕ ರಾಜ್ಯ ಪಠ್ಯಕ್ರಮ</h1>
-        <p>Aligned with KTBS / NCERT science curriculum. Access official textbooks, interactive simulations for every core activity, and bilingual notes.</p>
+        <h1 data-i18n="kar_page_title">📚 Karnataka State Board Science (Classes 6 to 10)</h1>
+        <p data-i18n="kar_page_desc">Aligned with KTBS / NCERT science curriculum. Access official textbooks, interactive simulations for every core activity, bilingual notes, and Kannada & English YouTube lessons.</p>
         <div class="ktbs-official-alert">
-          <span>🏛️ <strong>Official KTBS Portal:</strong> Download authorized PDF textbooks directly from the Government of Karnataka portal:</span>
+          <span>🏛️ <strong>Official KTBS Portal:</strong> Verify and download complete authorized PDF textbooks directly from the Government of Karnataka portal:</span>
           <a href="https://textbooks.karnataka.gov.in/textbooks/en" target="_blank" rel="noopener noreferrer" class="btn-gold-sm">textbooks.karnataka.gov.in ↗</a>
         </div>
         <div class="grade-tabs" role="tablist" aria-label="Select Class Grade">
@@ -250,12 +277,13 @@
       <div id="karnataka-content" class="karnataka-container"></div>
     </section>
 
+    <!-- ================= 7. VIDEOS & BILINGUAL YOUTUBE HUB ================= -->
     <section id="section-videos" class="page-section">
       <div class="section-banner">
-        <h1>🎬 Bilingual Science Video Library (Kannada & English)</h1>
-        <p>Curated science demonstrations, animated explanations, and experiment walkthroughs with direct Kannada and English YouTube links.</p>
+        <h1 data-i18n="vid_page_title">🎬 Bilingual Science Video Library (Kannada & English)</h1>
+        <p data-i18n="vid_page_desc">Curated science demonstrations, animated explanations, and experiment walkthroughs with direct Kannada and English YouTube links plus companion simulations.</p>
         <div class="filter-bar">
-          <input type="search" id="video-search" placeholder="Search video topics..." aria-label="Search videos" />
+          <input type="search" id="video-search" placeholder="Search video topics (e.g., Optics, Acids, Raman, Circuits)..." aria-label="Search videos" />
           <select id="video-lang-filter" aria-label="Filter video language">
             <option value="all">Kannada & English Links</option>
             <option value="Kannada">ಕನ್ನಡ (Kannada Focus)</option>
@@ -266,46 +294,57 @@
       <div id="videos-grid" class="card-grid-3"></div>
     </section>
 
+    <!-- ================= 8. QUIZZES & SELF-ASSESSMENT ================= -->
     <section id="section-quizzes" class="page-section">
       <div class="section-banner">
-        <h1>🏆 Interactive Science Quiz Arena / ವಿಜ್ಞಾನ ರಸಪ್ರಶ್ನೆ</h1>
-        <p>Test your understanding across Difficulty Levels or Class-wise (Grades 6–10) with instant bilingual explanations.</p>
-        <div class="filter-bar">
-          <select id="quiz-category-select">
-            <option value="all">All Mixed Questions</option>
-            <option value="Easy">Difficulty: Easy (ಸುಲಭ)</option>
-            <option value="Medium">Difficulty: Medium (ಮಧ್ಯಮ)</option>
-            <option value="Hard">Difficulty: Hard (ಕಠಿಣ)</option>
-            <option value="Grade 6">Class 6 Science (೬ನೇ ತರಗತಿ)</option>
-            <option value="Grade 7">Class 7 Science (೭ನೇ ತರಗತಿ)</option>
-            <option value="Grade 8">Class 8 Science (೮ನೇ ತರಗತಿ)</option>
-            <option value="Grade 9">Class 9 Science (೯ನೇ ತರಗತಿ)</option>
-            <option value="Grade 10">Class 10 Science (೧೦ನೇ ತರಗತಿ)</option>
-          </select>
-          <button id="start-quiz-btn" class="btn-primary">🔄 Start / Reset Quiz</button>
+        <h1 data-i18n="quiz_page_title">🏆 Interactive Science Quiz Arena</h1>
+        <p data-i18n="quiz_page_desc">Test your understanding across Difficulty Levels (Easy, Medium, Hard) or Class-wise (Grades 6–10) with instant bilingual explanations.</p>
+        <div class="quiz-controls-bar">
+          <label>
+            <span data-i18n="quiz_filter_mode">Select Quiz Mode:</span>
+            <select id="quiz-category-select">
+              <option value="all">All Mixed Questions (Randomized)</option>
+              <option value="Easy">Difficulty: Easy (ಸುಲಭ)</option>
+              <option value="Medium">Difficulty: Medium (ಮಧ್ಯಮ)</option>
+              <option value="Hard">Difficulty: Hard (ಕಠಿಣ)</option>
+              <option value="Grade 6">Class 6 Science (೬ನೇ ತರಗತಿ)</option>
+              <option value="Grade 7">Class 7 Science (೭ನೇ ತರಗತಿ)</option>
+              <option value="Grade 8">Class 8 Science (೮ನೇ ತರಗತಿ)</option>
+              <option value="Grade 9">Class 9 Science (೯ನೇ ತರಗತಿ)</option>
+              <option value="Grade 10">Class 10 Science (೧೦ನೇ ತರಗತಿ)</option>
+            </select>
+          </label>
+          <button id="start-quiz-btn" class="btn-primary" data-i18n="quiz_restart_btn">🔄 Start / Reset Quiz</button>
         </div>
       </div>
       <div id="quiz-workspace" class="quiz-box" aria-live="polite"></div>
     </section>
+
   </main>
 
+  <!-- Floating Instagram Follow Badge -->
   <a href="https://www.instagram.com/instalab_science/" target="_blank" rel="noopener noreferrer" class="floating-insta-fab" aria-label="Follow InstaLab on Instagram">
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
     <span>@instalab</span>
   </a>
 
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
         <h3>InstaLab (ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್)</h3>
-        <p>An open-access interactive science education initiative making laboratory concepts, hands-on STEM experiments, and bilingual learning accessible to every student.</p>
+        <p data-i18n="footer_about">
+          An open-access interactive science education initiative making laboratory concepts, hands-on STEM experiments, and bilingual learning accessible to every student.
+        </p>
       </div>
       <div>
-        <h4>⚠️ Laboratory Safety First</h4>
-        <p>Virtual simulations use simplified educational models. Never taste laboratory chemicals, mix household cleaners, or work with mains electricity (230V AC). Conduct experiments under teacher supervision.</p>
+        <h4 data-i18n="footer_safety_title">⚠️ Laboratory Safety First</h4>
+        <p data-i18n="footer_safety_desc">
+          Virtual simulations use simplified educational models. Never taste laboratory chemicals, mix household cleaners, look directly at the sun through lenses, or work with mains electricity (230V AC). Always conduct physical experiments under adult or teacher supervision.
+        </p>
       </div>
       <div>
-        <h4>Connect & Resources</h4>
+        <h4 data-i18n="footer_links_title">Connect & Resources</h4>
         <ul class="footer-links">
           <li><a href="https://textbooks.karnataka.gov.in/textbooks/en" target="_blank" rel="noopener noreferrer">Karnataka Textbook Society (KTBS) ↗</a></li>
           <li><a href="https://ncert.nic.in/textbook.php" target="_blank" rel="noopener noreferrer">NCERT Official Textbooks ↗</a></li>
@@ -315,7 +354,10 @@
       </div>
     </div>
     <div class="container footer-bottom">
-      <p>© 2026 InstaLab (ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್) • Created by Shivaraju S. • Hosted on GitHub Pages</p>
+      <p>© 2026 InstaLab (ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್) • Created by Shivaraju S. • Hosted on GitHub Pages • Illustrations: Original SVG & Verified Wikimedia Commons (CC/Public Domain).</p>
     </div>
   </footer>
-  <script src="app.js">
+
+  <script src="app.js"></script>
+</body>
+</html>
