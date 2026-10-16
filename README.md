@@ -1,25 +1,27 @@
-# InstaLab — GitHub Pages repair package
+# InstaLab — Interactive Science Learning
+
+A responsive bilingual (Kannada + English) science-learning website.
 
 ## Files
-- `index.html` — website entry point
-- `styles.css` — page styling
-- `app.js` — repaired JavaScript and interactive page behavior
+- `index.html` — website structure and sections
+- `styles.css` — responsive visual design
+- `app.js` — language toggle, simulations, topic search and quiz
+- `README.md` — setup and upload instructions
 
-## Upload to GitHub
-1. Open your repository: https://github.com/shivarajus015-maker/instalab
-2. Open the repository's main/root folder.
-3. Choose **Add file → Upload files**.
-4. Upload these three files together: `index.html`, `styles.css`, and `app.js`.
-5. If GitHub asks whether to replace existing files, review the changes and confirm the replacement.
-6. Enter a commit message such as `Repair InstaLab website files`, then choose **Commit changes**.
-7. Wait a minute, then refresh https://shivarajus015-maker.github.io/instalab/
+## Features
+- Kannada, English, or bilingual display
+- Interactive temperature, electric circuit, states-of-matter and plant-growth activities
+- Searchable Physics, Chemistry, Biology, and Earth & Space topics
+- Short quiz with feedback and score
+- Links to YouTube science learning searches
+- Instagram profile link: https://www.instagram.com/shivaraju_learner?mdxt=aXBoaXpmYzFhZmdo
 
-## Important findings
-- The uploaded JavaScript stopped halfway through the Kannada biography for M. S. Swaminathan, causing a JavaScript syntax error. The package closes the record and restores the missing application code.
-- The HTML already referenced `styles.css` and `app.js`, so the files are named to match those references.
-- The restored UI supports navigation, language selection, search, equipment/scientist cards, simulation controls, and the quiz questions present in the source.
-- The source did not contain the complete science-facts or grade-wise curriculum datasets, and its scientist list was cut off. Those sections show a notice instead of pretending that missing information is complete. There are 12 simulation records and 12 equipment records in the uploaded JavaScript.
-- JavaScript syntax was checked with Node.js. This is not a substitute for testing every interaction in a real browser.
+## Upload to GitHub Pages
+1. Download and extract the ZIP.
+2. Open https://github.com/shivarajus015-maker/instalab
+3. Select **Add file → Upload files**.
+4. Upload `index.html`, `styles.css`, `app.js`, and `README.md` together to the repository root.
+5. Review any replacement warning, then commit the changes.
+6. Wait for GitHub Pages to publish, then check https://shivarajus015-maker.github.io/instalab/
 
-## Safety
-Use only low-voltage battery models for electricity lessons. Never experiment with household mains electricity.
+This package is a complete small website starter, not a claim that every planned InstaLab feature has been implemented. Test the live website after uploading.
