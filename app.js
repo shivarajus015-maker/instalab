@@ -1,477 +1,376 @@
-// app.js - InstaLab Core
-const I18N = {
-  brand: { en: "InstaLab", kn: "ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್" },
-  tagline: { en: "Explore Science by Doing", kn: "ಪ್ರಯೋಗಗಳ ಮೂಲಕ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ" },
-  nav_lab: { en: "Virtual Lab", kn: "ವರ್ಚುವಲ್ ಲ್ಯಾಬ್" },
-  nav_equipment: { en: "Equipment", kn: "ವಿಜ್ಞಾನ ಉಪಕರಣಗಳು" },
-  nav_scientists: { en: "Scientists", kn: "ವಿಜ್ಞಾನಿಗಳು" },
-  nav_library: { en: "Knowledge Library", kn: "ಜ್ಞಾನ ಭಂಡಾರ" },
-  nav_documents: { en: "Worksheets", kn: "ಕಾರ್ಯಹಾಳೆಗಳು" },
-  nav_quiz: { en: "Quiz", kn: "ರಸಪ್ರಶ್ನೆ" },
-  hero_title: { en: "Explore, Experiment, and Understand Science!", kn: "ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ, ಪ್ರಯೋಗಿಸಿ ಮತ್ತು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ!" },
-  hero_desc: { en: "Interactive science simulations, physical principles, and open hands-on learning resources in Kannada and English.", kn: "ಕನ್ನಡ ಮತ್ತು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ಸಂವಾದಾತ್ಮಕ ವಿಜ್ಞಾನ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು, ಭೌತಿಕ ತತ್ವಗಳು ಮತ್ತು ಪ್ರಾಯೋಗಿಕ ಕಲಿಕಾ ಸಂಪನ್ಮೂಲಗಳು." },
-  btn_explore: { en: "Explore InstaLab", kn: "ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್ ಅನ್ವೇಷಿಸಿ" },
-  btn_open_lab: { en: "Open Virtual Lab", kn: "ವರ್ಚುವಲ್ ಲ್ಯಾಬ್ ತೆರೆಯಿರಿ" },
-  btn_start_learning: { en: "Start Learning", kn: "ಕಲಿಕೆ ಪ್ರಾರಂಭಿಸಿ" },
-  search_placeholder: { en: "Search topics, simulations, scientists, quizzes...", kn: "ವಿಷಯಗಳು, ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು, ವಿಜ್ಞಾನಿಗಳು, ರಸಪ್ರಶ್ನೆಗಳನ್ನು ಹುಡುಕಿ..." },
-  no_results: { en: "No matching scientific resources found.", kn: "ಯಾವುದೇ ಹೊಂದಾಣಿಕೆಯ ಫಲಿತಾಂಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ." },
-  cat_physics: { en: "Physics", kn: "ಭೌತಶಾಸ್ತ್ರ" },
-  cat_physics_desc: { en: "Mechanics, optics, electricity, magnetism, and wave phenomena.", kn: "ಚಲನಶಾಸ್ತ್ರ, ದೃಗ್ವಿಜ್ಞಾನ, ವಿದ್ಯುತ್, ಕಾಂತೀಯತೆ ಮತ್ತು ತರಂಗಗಳು." },
-  cat_chemistry: { en: "Chemistry", kn: "ರಸಾಯನಶಾಸ್ತ್ರ" },
-  cat_chemistry_desc: { en: "Acids, bases, chemical reactions, and molecular structures.", kn: "ಆಮ್ಲಗಳು, ಪ್ರತ್ಯಾಮ್ಲಗಳು, ರಾಸಾಯನಿಕ ಕ್ರಿಯೆಗಳು ಮತ್ತು ದ್ರಾವಣಗಳು." },
-  cat_biology: { en: "Biology", kn: "ಜೀವಶಾಸ್ತ್ರ" },
-  cat_biology_desc: { en: "Cell biology, microscopy, human systems, and genetics.", kn: "ಕೋಶ ಜೀವಶಾಸ್ತ್ರ, ಸೂಕ್ಷ್ಮದರ್ಶಕ, ಮಾನವ ಅಂಗವ್ಯೂಹ ಮತ್ತು ತಳಿಶಾಸ್ತ್ರ." },
-  cat_earth: { en: "Earth Science & Space", kn: "ಭೂ ಮತ್ತು ಬಾಹ್ಯಾಕಾಶ ವಿಜ್ಞಾನ" },
-  cat_earth_desc: { en: "Solar system dynamics, eclipses, earth layers, and the water cycle.", kn: "ಸೌರವ್ಯೂಹ, ಗ್ರಹಣಗಳು, ಭೂಮಿಯ ಪದರಗಳು ಮತ್ತು ಜಲಚಕ್ರ." },
-  try_today_heading: { en: "Try It Today", kn: "ಇಂದೇ ಪ್ರಯೋಗಿಸಿ" },
-  try_today_sub: { en: "Functional interactive simulations with live controls, observation recording, and data plotting.", kn: "ಲೈವ್ ನಿಯಂತ್ರಣಗಳು, ವೀಕ್ಷಣಾ ಕೋಷ್ಟಕ ಮತ್ತು ಗ್ರಾಫ್ ಒಳಗೊಂಡ ಕ್ರಿಯಾತ್ಮಕ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು." },
-  resources_title: { en: "Learning Resources Preview", kn: "ಕಲಿಕಾ ಸಂಪನ್ಮೂಲಗಳ ಮುನ್ನೋಟ" },
-  quiz_preview_title: { en: "Daily Science Challenge", kn: "ದೈನಂದಿನ ವಿಜ್ಞಾನ ರಸಪ್ರಶ್ನೆ" },
-  about_title: { en: "About InstaLab", kn: "ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್ ಬಗ್ಗೆ" },
-  about_text: { en: "InstaLab is an open scientific learning platform designed to make practical science accessible in Kannada and English. All simulations run locally in your browser using simplified mathematical models.", kn: "ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್ ಪ್ರಾಯೋಗಿಕ ವಿಜ್ಞಾನವನ್ನು ಕನ್ನಡ ಮತ್ತು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ಸುಲಭವಾಗಿ ಕಲಿಯಲು ವಿನ್ಯಾಸಗೊಳಿಸಲಾದ ಮುಕ್ತ ವೇದಿಕೆಯಾಗಿದೆ. ಎಲ್ಲಾ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು ಸರಳೀಕೃತ ಗಣಿತೀಯ ಮಾದರಿಗಳನ್ನು ಬಳಸಿ ಬ್ರೌಸರ್‌ನಲ್ಲಿಯೇ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತವೆ." },
-  footer_disclaimer: { en: "Simulations use simplified theoretical models and do not replace physical laboratory experiments. Always perform physical science experiments under certified adult supervision.", kn: "ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು ಸರಳೀಕೃತ ಸೈದ್ಧಾಂತಿಕ ಮಾದರಿಗಳನ್ನು ಬಳಸುತ್ತವೆ ಮತ್ತು ನೈಜ ಪ್ರಯೋಗಾಲಯಕ್ಕೆ ಪರ್ಯಾಯವಲ್ಲ. ನೈಜ ಪ್ರಯೋಗಗಳನ್ನು ಯಾವಾಗಲೂ ಶಿಕ್ಷಕರ ಮೇಲ್ವಿಚಾರಣೆಯಲ್ಲಿಯೇ ನಡೆಸಿ." }
-};
-
-// Structured Datasets
-const DATA_STORE = {
-  simulations: [
-    { id: "sim-motion", title_en: "Motion & Speed", title_kn: "ಚಲನೆ ಮತ್ತು ವೇಗ", subject: "Physics" },
-    { id: "sim-reflection", title_en: "Reflection of Light", title_kn: "ಬೆಳಕಿನ ಪ್ರತಿಫಲನ", subject: "Physics" },
-    { id: "sim-buoyancy", title_en: "Density and Buoyancy", title_kn: "ಸಾಂದ್ರತೆ ಮತ್ತು ತೇಲುವಿಕೆ", subject: "Physics" },
-    { id: "sim-circuits", title_en: "Simple Electric Circuit", title_kn: "ಸರಳ ವಿದ್ಯುತ್ ಮಂಡಲ", subject: "Physics" },
-    { id: "sim-ph", title_en: "Acids, Bases and pH Scale", title_kn: "ಆಮ್ಲಗಳು ಮತ್ತು ಪ್ರತ್ಯಾಮ್ಲಗಳು", subject: "Chemistry" },
-    { id: "sim-cell", title_en: "Plant and Animal Cell Explorer", title_kn: "ಜೀವಕೋಶ ಪರಿಶೋಧಕ", subject: "Biology" }
-  ],
-  scientists: [
-    { id: "sci-newton", name_en: "Isaac Newton", name_kn: "ಐಸಾಕ್ ನ್ಯೂಟನ್", field: "Physics", link: "https://www.britannica.com/biography/Isaac-Newton" },
-    { id: "sci-einstein", name_en: "Albert Einstein", name_kn: "ಆಲ್ಬರ್ಟ್ ಐನ್‌ಸ್ಟೈನ್", field: "Physics", link: "https://www.nobelprize.org/prizes/physics/1921/einstein/biographical/" },
-    { id: "sci-curie", name_en: "Marie Curie", name_kn: "ಮೇರಿ ಕ್ಯೂರಿ", field: "Chemistry & Physics", link: "https://www.nobelprize.org/prizes/physics/1903/marie-curie/biographical/" },
-    { id: "sci-raman", name_en: "C. V. Raman", name_kn: "ಸಿ. ವಿ. ರಾಮನ್", field: "Physics (Optics)", link: "https://www.nobelprize.org/prizes/physics/1930/raman/biographical/" },
-    { id: "sci-kalam", name_en: "A. P. J. Abdul Kalam", name_kn: "ಎ. ಪಿ. ಜೆ. ಅಬ್ದುಲ್ ಕಲಾಂ", field: "Aerospace Engineering", link: "https://www.presidentofindia.gov.in" }
-  ],
-  resources: [
-    { id: "res-si", title_en: "SI Units and Fundamental Constants Sheet", title_kn: "SI ಏಕಮಾನಗಳು ಮತ್ತು ಭೌತಿಕ ಸ್ಥಿರಾಂಕಗಳ ಪಟ್ಟಿ", subject: "Physics", format: "Reference Sheet", publisher: "BIPM Standard", link: "https://www.bipm.org" },
-    { id: "res-safety", title_en: "10 Core Safety Rules for Science Laboratories", title_kn: "ಪ್ರಾಯೋಗಿಕ ವಿಜ್ಞಾನದ 10 ಪ್ರಮುಖ ಸುರಕ್ಷತಾ ನಿಯಮಗಳು", subject: "Safety", format: "Safety Guide", publisher: "InstaLab Protocol", link: "#" },
-    { id: "res-table", title_en: "Scientific Observation Table & Graph Template", title_kn: "ವೈಜ್ಞಾನಿಕ ವೀಕ್ಷಣಾ ಕೋಷ್ಟಕ ಮತ್ತು ಗ್ರಾಫ್ ಮಾದರಿ", subject: "Methodology", format: "Interactive Template", publisher: "InstaLab Education", link: "#" },
-    { id: "res-water", title_en: "Hydrological Water Cycle Diagram", title_kn: "ಜಲಚಕ್ರ ನಕ್ಷೆ ಮತ್ತು ಪ್ರಕ್ರಿಯಾ ವಿವರಣೆ", subject: "Earth Science", format: "Diagram", publisher: "USGS Aligned", link: "https://www.usgs.gov" }
-  ],
-  quiz: [
-    {
-      id: "q-1",
-      question_en: "When a light ray strikes a plane mirror at an angle of incidence of 40°, what is the angle of reflection?",
-      question_kn: "ಬೆಳಕಿನ ಕಿರಣವು ಸಮತಲ ಕನ್ನಡಿಯ ಲಂಬಕ್ಕೆ 40° ಪತನ ಕೋನದಲ್ಲಿ ಬಿದ್ದರೆ, ಪ್ರತಿಫಲನ ಕೋನ ಎಷ್ಟು?",
-      options: [
-        { text_en: "40°", text_kn: "40°", correct: true },
-        { text_en: "50°", text_kn: "50°", correct: false },
-        { text_en: "80°", text_kn: "80°", correct: false },
-        { text_en: "90°", text_kn: "90°", correct: false }
-      ],
-      explanation_en: "The Law of Reflection states that the angle of incidence equals the angle of reflection (∠i = ∠r = 40°).",
-      explanation_kn: "ಪ್ರತಿಫಲನ ನಿಯಮದ ಪ್ರಕಾರ, ಪತನ ಕೋನವು ಪ್ರತಿಫಲನ ಕೋನಕ್ಕೆ ಸಮನಾಗಿರುತ್ತದೆ (∠i = ∠r = 40°)."
-    }
-  ]
-};
-
-// Simulation State (window.simState persists across language toggles)
-window.simState = {
-  motion: { speed: 10, time: 0, distance: 0, running: false, timer: null, records: [] },
-  reflection: { angle: 45, records: [] },
-  buoyancy: { mass: 60, volume: 100, records: [] }
-};
-
-let currentLang = localStorage.getItem("instalab_lang") || "both";
-
+// lab.js - Virtual Science Lab Controller
 document.addEventListener("DOMContentLoaded", () => {
-  const langSelector = document.getElementById("langSelector");
-  langSelector.value = currentLang;
+  // Tab filtering
+  const tabs = document.querySelectorAll(".tab-btn");
+  const cards = document.querySelectorAll(".experiment-card");
 
-  langSelector.addEventListener("change", (e) => {
-    currentLang = e.target.value;
-    localStorage.setItem("instalab_lang", currentLang);
-    applyLanguage(currentLang);
-    renderResources();
-    renderQuizPreview();
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      const subj = tab.getAttribute("data-subject");
+
+      cards.forEach(card => {
+        if (subj === "all" || card.getAttribute("data-cat") === subj) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
   });
 
-  // Dynamic Honest Counts
-  document.getElementById("statSimCount").textContent = DATA_STORE.simulations.length;
-  document.getElementById("statSciCount").textContent = DATA_STORE.scientists.length;
-  document.getElementById("statQuizCount").textContent = DATA_STORE.quiz.length;
-
-  applyLanguage(currentLang);
-  renderResources();
-  renderQuizPreview();
-  initSearch();
-  initNavigation();
-
-  // Simulations
-  initMotionSimulation();
-  initReflectionSimulation();
-  initBuoyancySimulation();
+  initCircuitExperiment();
+  initPHExperiment();
+  initCellExperiment();
 });
 
-function t(key, mode = currentLang) {
-  const item = I18N[key];
-  if (!item) return key;
-  if (mode === "kn") return item.kn;
-  if (mode === "en") return item.en;
-  return `${item.kn} / ${item.en}`;
-}
-
-function applyLanguage(mode) {
-  document.getElementById("brandTitle").textContent = mode === "kn" ? I18N.brand.kn : (mode === "en" ? I18N.brand.en : `${I18N.brand.kn} / ${I18N.brand.en}`);
-  document.getElementById("brandTagline").textContent = t("tagline", mode);
-  document.getElementById("navLab").textContent = t("nav_lab", mode);
-  document.getElementById("navDocs").textContent = t("nav_documents", mode);
-  document.getElementById("navQuiz").textContent = t("nav_quiz", mode);
-  document.getElementById("heroTitle").textContent = t("hero_title", mode);
-  document.getElementById("heroDesc").textContent = t("hero_desc", mode);
-  document.getElementById("btnExplore").textContent = t("btn_explore", mode);
-  document.getElementById("btnOpenLab").textContent = t("btn_open_lab", mode);
-  document.getElementById("btnStartLearning").textContent = t("btn_start_learning", mode);
-  document.getElementById("globalSearch").placeholder = t("search_placeholder", mode);
-
-  document.getElementById("catPhysicsTitle").textContent = t("cat_physics", mode);
-  document.getElementById("catPhysicsDesc").textContent = t("cat_physics_desc", mode);
-  document.getElementById("catChemTitle").textContent = t("cat_chemistry", mode);
-  document.getElementById("catChemDesc").textContent = t("cat_chemistry_desc", mode);
-  document.getElementById("catBioTitle").textContent = t("cat_biology", mode);
-  document.getElementById("catBioDesc").textContent = t("cat_biology_desc", mode);
-  document.getElementById("catEarthTitle").textContent = t("cat_earth", mode);
-  document.getElementById("catEarthDesc").textContent = t("cat_earth_desc", mode);
-
-  document.getElementById("tryTodayTitle").textContent = t("try_today_heading", mode);
-  document.getElementById("tryTodaySub").textContent = t("try_today_sub", mode);
-  document.getElementById("resTitle").textContent = t("resources_title", mode);
-  document.getElementById("quizTitle").textContent = t("quiz_preview_title", mode);
-  document.getElementById("aboutTitle").textContent = t("about_title", mode);
-  document.getElementById("aboutText").textContent = t("about_text", mode);
-  document.getElementById("footerDisclaimer").textContent = t("footer_disclaimer", mode);
-}
-
-function renderResources() {
-  const container = document.getElementById("resourcesPreviewGrid");
-  container.innerHTML = DATA_STORE.resources.map(r => `
-    <article class="resource-card">
-      <span class="resource-badge">${r.subject}</span>
-      <h4 class="resource-title">${currentLang === 'kn' ? r.title_kn : (currentLang === 'en' ? r.title_en : `${r.title_kn} / ${r.title_en}`)}</h4>
-      <p class="resource-meta">Format: ${r.format} | ${r.publisher}</p>
-      <a href="${r.link}" class="resource-link" target="_blank" rel="noopener">Open Source →</a>
-    </article>
-  `).join("");
-}
-
-function initSearch() {
-  const input = document.getElementById("globalSearch");
-  const clearBtn = document.getElementById("clearSearchBtn");
-  const resultsBox = document.getElementById("searchResults");
-
-  input.addEventListener("input", (e) => {
-    const q = e.target.value.trim().toLowerCase();
-    if (!q) {
-      resultsBox.classList.add("hidden");
-      resultsBox.innerHTML = "";
-      return;
-    }
-    const hits = [];
-    DATA_STORE.simulations.forEach(s => {
-      if (s.title_en.toLowerCase().includes(q) || s.title_kn.includes(q)) {
-        hits.push({ title: `${s.title_kn} / ${s.title_en}`, badge: "Simulation", link: "#try-it-today" });
-      }
-    });
-    DATA_STORE.scientists.forEach(sc => {
-      if (sc.name_en.toLowerCase().includes(q) || sc.name_kn.includes(q)) {
-        hits.push({ title: `${sc.name_kn} / ${sc.name_en}`, badge: "Scientist", link: sc.link });
-      }
-    });
-
-    resultsBox.classList.remove("hidden");
-    if (hits.length === 0) {
-      resultsBox.innerHTML = `<p style="font-size:0.9rem; color:#64748b;">${t("no_results")}</p>`;
-    } else {
-      resultsBox.innerHTML = hits.map(h => `
-        <div class="search-result-item">
-          <span class="result-badge">${h.badge}</span>
-          <a href="${h.link}">${h.title}</a>
-        </div>
-      `).join("");
-    }
-  });
-
-  clearBtn.addEventListener("click", () => {
-    input.value = "";
-    resultsBox.classList.add("hidden");
-    resultsBox.innerHTML = "";
-  });
-}
-
-function initNavigation() {
-  const hamburger = document.getElementById("hamburgerBtn");
-  const nav = document.getElementById("primaryNav");
-  hamburger.addEventListener("click", () => {
-    const expanded = hamburger.getAttribute("aria-expanded") === "true";
-    hamburger.setAttribute("aria-expanded", !expanded);
-    nav.classList.toggle("nav-open");
-  });
-}
-
-function renderQuizPreview() {
-  const q = DATA_STORE.quiz[0];
-  const qEl = document.getElementById("quizQuestion");
-  const optBox = document.getElementById("quizOptions");
-  qEl.textContent = currentLang === 'kn' ? q.question_kn : (currentLang === 'en' ? q.question_en : `${q.question_kn} / ${q.question_en}`);
-  optBox.innerHTML = q.options.map((opt, i) => `
-    <label class="quiz-option-label">
-      <input type="radio" name="quizOption" value="${i}">
-      <span>${currentLang === 'kn' ? opt.text_kn : (currentLang === 'en' ? opt.text_en : `${opt.text_kn} (${opt.text_en})`)}</span>
-    </label>
-  `).join("");
-
-  document.getElementById("quizSubmitBtn").onclick = () => {
-    const selected = document.querySelector('input[name="quizOption"]:checked');
-    const fb = document.getElementById("quizFeedback");
-    if (!selected) {
-      fb.className = "quiz-feedback error";
-      fb.textContent = currentLang === 'kn' ? "ದಯವಿಟ್ಟು ಆಯ್ಕೆಮಾಡಿ." : "Please select an answer.";
-      fb.classList.remove("hidden");
-      return;
-    }
-    const isCorrect = q.options[parseInt(selected.value, 10)].correct;
-    fb.className = isCorrect ? "quiz-feedback success" : "quiz-feedback error";
-    fb.textContent = (isCorrect ? "✓ " : "✗ ") + (currentLang === 'kn' ? q.explanation_kn : q.explanation_en);
-    fb.classList.remove("hidden");
-  };
-}
-
-// Simulation 1: Motion
-function initMotionSimulation() {
-  const canvas = document.getElementById("motionCanvas");
+// ==============================================================
+// 1. EXPERIMENT 1: Simple Electric Circuit (Ohm's Law)
+// ==============================================================
+function initCircuitExperiment() {
+  const canvas = document.getElementById("circuitCanvas");
   const ctx = canvas.getContext("2d");
-  const speedSlider = document.getElementById("motionSpeedSlider");
-  const speedVal = document.getElementById("motionSpeedVal");
-  const timeVal = document.getElementById("motionTimeVal");
-  const distVal = document.getElementById("motionDistVal");
-  const startBtn = document.getElementById("motionStartBtn");
-  const pauseBtn = document.getElementById("motionPauseBtn");
-  const resetBtn = document.getElementById("motionResetBtn");
-  const recordBtn = document.getElementById("motionRecordBtn");
+  const vSlider = document.getElementById("circuitVoltage");
+  const rSlider = document.getElementById("circuitResistance");
+  const vVal = document.getElementById("voltageVal");
+  const rVal = document.getElementById("resistanceVal");
+  const iVal = document.getElementById("currentVal");
+  const pVal = document.getElementById("powerVal");
+  const recordBtn = document.getElementById("circuitRecordBtn");
+  const resetBtn = document.getElementById("circuitResetBtn");
+  const tbody = document.querySelector("#circuitTable tbody");
 
-  const state = window.simState.motion;
+  const records = [];
 
-  function draw() {
+  function calculateAndDraw() {
+    const V = parseFloat(vSlider.value);
+    const R = parseFloat(rSlider.value);
+    const I = V / R; // Amperes
+    const P = V * I; // Watts
+
+    vVal.textContent = V.toFixed(1);
+    rVal.textContent = R.toFixed(1);
+    iVal.textContent = I.toFixed(2) + " A";
+    pVal.textContent = P.toFixed(2) + " W";
+
+    // Draw Circuit Animation
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.strokeStyle = "#475569";
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(10, 85);
-    ctx.lineTo(canvas.width - 10, 85);
-    ctx.stroke();
 
-    const trackWidth = canvas.width - 60;
-    const cartX = 10 + Math.min(trackWidth, (state.distance / 100) * trackWidth);
+    // Circuit Loop
+    ctx.strokeStyle = "#38bdf8";
+    ctx.lineWidth = 4;
+    ctx.strokeRect(60, 30, 360, 120);
 
-    ctx.fillStyle = "#0284c7";
-    ctx.fillRect(cartX, 55, 36, 20);
-
+    // Battery (Left side)
+    ctx.fillStyle = "#0f172a";
+    ctx.fillRect(52, 70, 16, 40);
+    ctx.fillStyle = "#ef4444";
+    ctx.fillRect(54, 72, 12, 16); // + pole
     ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 10px sans-serif";
+    ctx.fillText("+", 57, 84);
+    ctx.fillText(`${V}V`, 25, 95);
+
+    // Resistor (Top wire)
+    ctx.fillStyle = "#f59e0b";
+    ctx.fillRect(200, 22, 60, 16);
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 10px sans-serif";
+    ctx.fillText(`${R}Ω`, 218, 34);
+
+    // Ammeter (Bottom wire)
+    ctx.fillStyle = "#0284c7";
     ctx.beginPath();
-    ctx.arc(cartX + 8, 77, 5, 0, Math.PI * 2);
-    ctx.arc(cartX + 28, 77, 5, 0, Math.PI * 2);
+    ctx.arc(230, 150, 16, 0, Math.PI * 2);
     ctx.fill();
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 11px sans-serif";
+    ctx.fillText("A", 225, 154);
+
+    // Light Bulb (Right side)
+    const brightness = Math.min(1.0, P / 20); // Glow intensity
+    const glowRadius = 14 + brightness * 20;
+
+    // Outer Glow
+    const gradient = ctx.createRadialGradient(420, 90, 5, 420, 90, glowRadius);
+    gradient.addColorStop(0, `rgba(250, 204, 21, ${0.4 + brightness * 0.6})`);
+    gradient.addColorStop(1, "rgba(250, 204, 21, 0)");
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(420, 90, glowRadius, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Bulb glass
+    ctx.fillStyle = "#fef08a";
+    ctx.beginPath();
+    ctx.arc(420, 90, 12, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#ca8a04";
+    ctx.lineWidth = 2;
+    ctx.stroke();
   }
 
-  speedSlider.addEventListener("input", (e) => {
-    state.speed = parseFloat(e.target.value);
-    speedVal.textContent = state.speed.toFixed(1);
-  });
+  vSlider.addEventListener("input", calculateAndDraw);
+  rSlider.addEventListener("input", calculateAndDraw);
 
-  startBtn.addEventListener("click", () => {
-    if (state.running) return;
-    state.running = true;
-    state.timer = setInterval(() => {
-      state.time += 0.05;
-      state.distance = state.speed * state.time;
-      timeVal.textContent = state.time.toFixed(2);
-      distVal.textContent = state.distance.toFixed(2);
-      draw();
-      if (state.distance >= 100) {
-        clearInterval(state.timer);
-        state.running = false;
-      }
-    }, 50);
-  });
+  recordBtn.addEventListener("click", () => {
+    const trial = records.length + 1;
+    const V = parseFloat(vSlider.value).toFixed(1);
+    const R = parseFloat(rSlider.value).toFixed(1);
+    const I = (V / R).toFixed(2);
 
-  pauseBtn.addEventListener("click", () => {
-    state.running = false;
-    clearInterval(state.timer);
+    records.push({ trial, V: parseFloat(V), I: parseFloat(I) });
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${trial}</td><td>${V}</td><td>${R}</td><td>${I}</td>`;
+    tbody.appendChild(tr);
+
+    plotLabGraph("circuitGraphCanvas", records.map(r => ({ x: r.V, y: r.I })), "Voltage V (V)", "Current I (A)");
   });
 
   resetBtn.addEventListener("click", () => {
-    state.running = false;
-    clearInterval(state.timer);
-    state.time = 0;
-    state.distance = 0;
-    timeVal.textContent = "0.00";
-    distVal.textContent = "0.00";
-    draw();
+    vSlider.value = 6;
+    rSlider.value = 10;
+    calculateAndDraw();
   });
 
-  recordBtn.addEventListener("click", () => {
-    const trial = state.records.length + 1;
-    const row = { trial, speed: state.speed.toFixed(1), time: state.time.toFixed(2), dist: state.distance.toFixed(2) };
-    state.records.push(row);
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${trial}</td><td>${row.speed}</td><td>${row.time}</td><td>${row.dist}</td>`;
-    document.querySelector("#motionTable tbody").appendChild(tr);
-    plotGraph("motionGraphCanvas", state.records.map(r => ({ x: parseFloat(r.time), y: parseFloat(r.dist) })), "Time (s)", "Dist (m)");
+  // Quiz
+  document.getElementById("circuitQuizCheck").addEventListener("click", () => {
+    const sel = document.querySelector('input[name="circuitQ"]:checked');
+    const fb = document.getElementById("circuitQuizFeedback");
+    if (!sel) return;
+    if (sel.value === "double") {
+      fb.className = "quiz-feedback success";
+      fb.textContent = "✓ ಸರಿ (Correct)! Ohm's Law states I = V / R. Doubling V while R remains constant doubles the current (12V / 10Ω = 1.20 A).";
+    } else {
+      fb.className = "quiz-feedback error";
+      fb.textContent = "✗ ತಪ್ಪಾಗಿದೆ (Incorrect). Since I = V / R, doubling voltage directly doubles the current.";
+    }
+    fb.classList.remove("hidden");
   });
 
-  draw();
+  calculateAndDraw();
 }
 
-// Simulation 2: Reflection
-function initReflectionSimulation() {
-  const canvas = document.getElementById("reflectionCanvas");
+// ==============================================================
+// 2. EXPERIMENT 2: pH Scale and Indicators
+// ==============================================================
+function initPHExperiment() {
+  const select = document.getElementById("substanceSelect");
+  const canvas = document.getElementById("phCanvas");
   const ctx = canvas.getContext("2d");
-  const slider = document.getElementById("angleSlider");
-  const angleDisp = document.getElementById("angleDisp");
-  const reflectDisp = document.getElementById("angleReflectDisp");
-  const recordBtn = document.getElementById("reflectionRecordBtn");
+  const phDisp = document.getElementById("phDisplayVal");
+  const natureDisp = document.getElementById("phNatureVal");
+  const recordBtn = document.getElementById("phRecordBtn");
+  const tbody = document.querySelector("#phTable tbody");
 
-  const state = window.simState.reflection;
+  const records = [];
 
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const midX = canvas.width / 2;
-    const mirrorY = 95;
-
-    ctx.strokeStyle = "#94a3b8";
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(20, mirrorY);
-    ctx.lineTo(canvas.width - 20, mirrorY);
-    ctx.stroke();
-
-    ctx.strokeStyle = "#cbd5e1";
-    ctx.setLineDash([4, 4]);
-    ctx.beginPath();
-    ctx.moveTo(midX, 15);
-    ctx.lineTo(midX, mirrorY);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    const rad = (state.angle * Math.PI) / 180;
-    const len = 70;
-    const incX = midX - len * Math.sin(rad);
-    const incY = mirrorY - len * Math.cos(rad);
-    const refX = midX + len * Math.sin(rad);
-    const refY = mirrorY - len * Math.cos(rad);
-
-    ctx.strokeStyle = "#f59e0b";
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(incX, incY);
-    ctx.lineTo(midX, mirrorY);
-    ctx.stroke();
-
-    ctx.strokeStyle = "#06b6d4";
-    ctx.beginPath();
-    ctx.moveTo(midX, mirrorY);
-    ctx.lineTo(refX, refY);
-    ctx.stroke();
+  function getPHColor(ph) {
+    if (ph <= 2) return "#dc2626"; // Deep Red (Strong Acid)
+    if (ph <= 4) return "#f97316"; // Orange (Acid)
+    if (ph <= 6) return "#facc15"; // Yellow (Weak Acid)
+    if (ph === 7) return "#22c55e"; // Green (Neutral)
+    if (ph <= 9) return "#06b6d4"; // Cyan (Weak Base)
+    if (ph <= 11) return "#3b82f6"; // Blue (Base)
+    return "#7c3aed"; // Violet (Strong Base)
   }
 
-  slider.addEventListener("input", (e) => {
-    state.angle = parseInt(e.target.value, 10);
-    angleDisp.textContent = state.angle;
-    reflectDisp.textContent = state.angle;
-    draw();
-  });
+  function renderPH() {
+    const ph = parseFloat(select.value);
+    const opt = select.options[select.selectedIndex];
+    const nameKn = opt.getAttribute("data-name-kn");
+    const nameEn = opt.getAttribute("data-name-en");
+
+    phDisp.textContent = ph.toFixed(1);
+
+    let nature = "";
+    if (ph < 7) {
+      nature = `ಆಮ್ಲೀಯ / Acidic (${ph < 3 ? 'ಪ್ರಬಲ / Strong' : 'ದುರ್ಬಲ / Weak'})`;
+      natureDisp.style.color = "#ea580c";
+    } else if (ph === 7) {
+      nature = "ತಟಸ್ಥ / Neutral";
+      natureDisp.style.color = "#16a34a";
+    } else {
+      nature = `ಪ್ರತ್ಯಾಮ್ಲೀಯ / Basic (${ph > 11 ? 'ಪ್ರಬಲ / Strong' : 'ದುರ್ಬಲ / Weak'})`;
+      natureDisp.style.color = "#0284c7";
+    }
+    natureDisp.textContent = nature;
+
+    // Draw Beaker & Liquid
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const color = getPHColor(ph);
+
+    // Beaker Outline
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(170, 40, 140, 110);
+
+    // Liquid Fill
+    ctx.fillStyle = color;
+    ctx.globalAlpha = 0.65;
+    ctx.fillRect(173, 75, 134, 72);
+    ctx.globalAlpha = 1.0;
+
+    // Litmus Paper Strip dipped
+    ctx.fillStyle = color;
+    ctx.fillRect(230, 20, 20, 90);
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.strokeRect(230, 20, 20, 90);
+
+    // Label on Beaker
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 13px sans-serif";
+    ctx.fillText(`pH: ${ph.toFixed(1)}`, 218, 120);
+  }
+
+  select.addEventListener("change", renderPH);
 
   recordBtn.addEventListener("click", () => {
-    const trial = state.records.length + 1;
-    state.records.push({ trial, i: state.angle, r: state.angle });
+    const trial = records.length + 1;
+    const ph = parseFloat(select.value);
+    const opt = select.options[select.selectedIndex];
+    const subName = `${opt.getAttribute("data-name-kn")} (${opt.getAttribute("data-name-en")})`;
+    const nature = ph < 7 ? "Acidic" : (ph === 7 ? "Neutral" : "Basic");
+
+    records.push({ trial, name: opt.getAttribute("data-name-en"), ph });
+
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${trial}</td><td>${state.angle}°</td><td>${state.angle}°</td>`;
-    document.querySelector("#reflectionTable tbody").appendChild(tr);
-    plotGraph("reflectionGraphCanvas", state.records.map(p => ({ x: p.i, y: p.r })), "∠i (°)", "∠r (°)");
+    tr.innerHTML = `<td>${trial}</td><td>${subName}</td><td>${ph.toFixed(1)}</td><td>${nature}</td>`;
+    tbody.appendChild(tr);
+
+    plotLabBarChart("phGraphCanvas", records);
   });
 
-  draw();
+  renderPH();
 }
 
-// Simulation 3: Density
-function initBuoyancySimulation() {
-  const canvas = document.getElementById("buoyancyCanvas");
+// ==============================================================
+// 3. EXPERIMENT 3: Microscope & Cell Explorer
+// ==============================================================
+function initCellExperiment() {
+  const typeSelect = document.getElementById("specimenType");
+  const objSelect = document.getElementById("objectivePower");
+  const objVal = document.getElementById("objVal");
+  const totalMagVal = document.getElementById("totalMagVal");
+  const canvas = document.getElementById("cellCanvas");
   const ctx = canvas.getContext("2d");
-  const slider = document.getElementById("buoyancyMassSlider");
-  const massDisp = document.getElementById("buoyancyMassDisp");
-  const calcDensity = document.getElementById("calcDensityDisp");
-  const statusDisp = document.getElementById("buoyancyStatusDisp");
-  const recordBtn = document.getElementById("buoyancyRecordBtn");
+  const recordBtn = document.getElementById("cellRecordBtn");
+  const tbody = document.querySelector("#cellTable tbody");
 
-  const state = window.simState.buoyancy;
+  let trial = 0;
 
-  function draw() {
+  function renderCells() {
+    const type = typeSelect.value;
+    const obj = parseInt(objSelect.value, 10);
+    const total = 10 * obj; // 10x eyepiece
+
+    objVal.textContent = `${obj}x`;
+    totalMagVal.textContent = `${total}x`;
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const density = state.mass / state.volume;
-    calcDensity.textContent = density.toFixed(2);
-
     const midX = canvas.width / 2;
-    const waterY = 35;
+    const midY = canvas.height / 2;
+    const radius = 75;
 
-    ctx.fillStyle = "rgba(14, 165, 233, 0.3)";
-    ctx.fillRect(midX - 60, waterY, 120, 75);
-    ctx.strokeStyle = "#0284c7";
-    ctx.strokeRect(midX - 60, waterY, 120, 75);
+    // Dark outer stage
+    ctx.fillStyle = "#020617";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    let blockY;
-    if (density < 1.0) {
-      blockY = waterY - 10 + (density * 20);
-      statusDisp.textContent = "Floats / ತೇಲುತ್ತದೆ";
-      statusDisp.style.color = "#16a34a";
+    // Circular Microscope Viewport
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(midX, midY, radius, 0, Math.PI * 2);
+    ctx.clip();
+
+    ctx.fillStyle = type === "plant" ? "#ecfdf5" : "#fdf2f8";
+    ctx.fillRect(midX - radius, midY - radius, radius * 2, radius * 2);
+
+    if (type === "plant") {
+      // Plant Brick-like Cell Walls
+      ctx.strokeStyle = "#059669";
+      ctx.lineWidth = obj === 4 ? 1 : (obj === 10 ? 2 : 3);
+      const stepX = obj === 4 ? 20 : (obj === 10 ? 40 : 80);
+      const stepY = obj === 4 ? 15 : (obj === 10 ? 25 : 50);
+
+      for (let x = midX - radius; x < midX + radius; x += stepX) {
+        for (let y = midY - radius; y < midY + radius; y += stepY) {
+          ctx.strokeRect(x, y, stepX, stepY);
+          // Nucleus
+          ctx.fillStyle = "#047857";
+          ctx.beginPath();
+          ctx.arc(x + stepX * 0.7, y + stepY * 0.5, obj === 40 ? 6 : 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
     } else {
-      blockY = waterY + 50;
-      statusDisp.textContent = "Sinks / ಮುಳುಗುತ್ತದೆ";
-      statusDisp.style.color = "#dc2626";
+      // Animal Irregular Cheek Cells
+      ctx.strokeStyle = "#db2777";
+      ctx.fillStyle = "rgba(244, 114, 182, 0.25)";
+      ctx.lineWidth = 2;
+
+      const count = obj === 4 ? 8 : (obj === 10 ? 4 : 1);
+      for (let i = 0; i < count; i++) {
+        const cx = midX + (i % 2 === 0 ? -25 : 25) * (i * 0.5);
+        const cy = midY + (i > 1 ? 20 : -20);
+        const r = obj === 40 ? 45 : 22;
+
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, r, r * 0.75, Math.PI / 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Dark Nucleus
+        ctx.fillStyle = "#be185d";
+        ctx.beginPath();
+        ctx.arc(cx, cy, obj === 40 ? 7 : 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
 
-    ctx.fillStyle = "#eab308";
-    ctx.fillRect(midX - 20, blockY, 40, 22);
-    ctx.strokeStyle = "#a16207";
-    ctx.strokeRect(midX - 20, blockY, 40, 22);
+    ctx.restore();
+
+    // Viewport rim
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.arc(midX, midY, radius, 0, Math.PI * 2);
+    ctx.stroke();
   }
 
-  slider.addEventListener("input", (e) => {
-    state.mass = parseFloat(e.target.value);
-    massDisp.textContent = state.mass;
-    draw();
-  });
+  typeSelect.addEventListener("change", renderCells);
+  objSelect.addEventListener("change", renderCells);
 
   recordBtn.addEventListener("click", () => {
-    const trial = state.records.length + 1;
-    const dens = (state.mass / state.volume).toFixed(2);
-    state.records.push({ trial, mass: state.mass, dens: parseFloat(dens) });
+    trial++;
+    const spec = typeSelect.value === "plant" ? "Onion Peel (ಸಸ್ಯ ಕೋಶ)" : "Cheek Cells (ಪ್ರಾಣಿ ಕೋಶ)";
+    const obj = `${objSelect.value}x`;
+    const tot = `${parseInt(objSelect.value, 10) * 10}x`;
+    const struct = typeSelect.value === "plant" ? "Cell wall, Large central vacuole, Nucleus" : "Cell membrane, Cytoplasm, Distinct nucleus";
+
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${trial}</td><td>${state.mass}</td><td>100</td><td>${dens}</td>`;
-    document.querySelector("#buoyancyTable tbody").appendChild(tr);
-    plotGraph("buoyancyGraphCanvas", state.records.map(p => ({ x: p.mass, y: p.dens })), "Mass (g)", "ρ (g/cm³)");
+    tr.innerHTML = `<td>${trial}</td><td>${spec}</td><td>${obj}</td><td>${tot}</td><td>${struct}</td>`;
+    tbody.appendChild(tr);
   });
 
-  draw();
+  renderCells();
 }
 
-// Data-Driven Graph Plotter
-function plotGraph(canvasId, points, xLabel, yLabel) {
+// ==============================================================
+// Generic Plotters (strictly for recorded empirical data points)
+// ==============================================================
+function plotLabGraph(canvasId, points, xLabel, yLabel) {
   const canvas = document.getElementById(canvasId);
   if (!canvas || points.length === 0) return;
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const pad = 30;
+  const pad = 35;
   const w = canvas.width - pad * 2;
   const h = canvas.height - pad * 2;
 
+  // Axes
   ctx.strokeStyle = "#94a3b8";
   ctx.lineWidth = 1;
   ctx.beginPath();
@@ -481,15 +380,15 @@ function plotGraph(canvasId, points, xLabel, yLabel) {
   ctx.stroke();
 
   ctx.fillStyle = "#64748b";
-  ctx.font = "10px sans-serif";
-  ctx.fillText(xLabel, canvas.width - pad - 35, canvas.height - 10);
-  ctx.fillText(yLabel, 5, pad - 10);
+  ctx.font = "9px sans-serif";
+  ctx.fillText(xLabel, canvas.width - pad - 45, canvas.height - 8);
+  ctx.fillText(yLabel, 5, pad - 12);
 
   const maxX = Math.max(...points.map(p => p.x), 1);
   const maxY = Math.max(...points.map(p => p.y), 1);
 
-  ctx.strokeStyle = "#2563eb";
-  ctx.fillStyle = "#2563eb";
+  ctx.strokeStyle = "#0284c7";
+  ctx.fillStyle = "#0284c7";
   ctx.lineWidth = 2;
   ctx.beginPath();
   points.forEach((pt, i) => {
@@ -506,5 +405,35 @@ function plotGraph(canvasId, points, xLabel, yLabel) {
     ctx.beginPath();
     ctx.arc(px, py, 3, 0, Math.PI * 2);
     ctx.fill();
+  });
+}
+
+function plotLabBarChart(canvasId, items) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas || items.length === 0) return;
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const pad = 30;
+  const barWidth = Math.max(12, (canvas.width - pad * 2) / (items.length * 1.5));
+  const maxPH = 14;
+
+  ctx.strokeStyle = "#94a3b8";
+  ctx.beginPath();
+  ctx.moveTo(pad, canvas.height - pad);
+  ctx.lineTo(canvas.width - pad, canvas.height - pad);
+  ctx.stroke();
+
+  items.forEach((item, idx) => {
+    const barH = (item.ph / maxPH) * (canvas.height - pad * 2);
+    const x = pad + idx * (barWidth + 12) + 5;
+    const y = canvas.height - pad - barH;
+
+    ctx.fillStyle = item.ph < 7 ? "#f97316" : (item.ph === 7 ? "#22c55e" : "#0284c7");
+    ctx.fillRect(x, y, barWidth, barH);
+
+    ctx.fillStyle = "#0f172a";
+    ctx.font = "9px sans-serif";
+    ctx.fillText(`${item.ph}`, x, y - 4);
   });
 }
