@@ -1,186 +1,510 @@
-/* InstaLab — functional bilingual single-page science learning app.
-   Textbook-free. All saved progress is local to this browser. */
-(function () {
-'use strict';
-const $ = (s, root=document) => root.querySelector(s);
-const $$ = (s, root=document) => [...root.querySelectorAll(s)];
-const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const pair = (en, kn) => `<span class="lang-kn">${escapeHTML(kn || en)}</span><span class="lang-sep"> / </span><span class="lang-en">${escapeHTML(en)}</span>`;
-const state = { lang:'both', active:'home', quizIndex:0, quizAnswers:[], quizFinished:false, activeSim:null, simValues:{}, timer:null };
-const readStore = (key, fallback) => { try { const v=localStorage.getItem('instalab:'+key); return v ? JSON.parse(v) : fallback; } catch { return fallback; } };
-const writeStore = (key, value) => { try { localStorage.setItem('instalab:'+key, JSON.stringify(value)); } catch(e) { console.warn('Local storage unavailable', e); } };
-const bilingual = (en,kn) => `<span class="lang-kn">${escapeHTML(kn || en)}</span><span class="lang-sep"> / </span><span class="lang-en">${escapeHTML(en)}</span>`;
+// app.js - InstaLab Core
+const I18N = {
+  brand: { en: "InstaLab", kn: "ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್" },
+  tagline: { en: "Explore Science by Doing", kn: "ಪ್ರಯೋಗಗಳ ಮೂಲಕ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ" },
+  nav_lab: { en: "Virtual Lab", kn: "ವರ್ಚುವಲ್ ಲ್ಯಾಬ್" },
+  nav_equipment: { en: "Equipment", kn: "ವಿಜ್ಞಾನ ಉಪಕರಣಗಳು" },
+  nav_scientists: { en: "Scientists", kn: "ವಿಜ್ಞಾನಿಗಳು" },
+  nav_library: { en: "Knowledge Library", kn: "ಜ್ಞಾನ ಭಂಡಾರ" },
+  nav_documents: { en: "Worksheets", kn: "ಕಾರ್ಯಹಾಳೆಗಳು" },
+  nav_quiz: { en: "Quiz", kn: "ರಸಪ್ರಶ್ನೆ" },
+  hero_title: { en: "Explore, Experiment, and Understand Science!", kn: "ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ, ಪ್ರಯೋಗಿಸಿ ಮತ್ತು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ!" },
+  hero_desc: { en: "Interactive science simulations, physical principles, and open hands-on learning resources in Kannada and English.", kn: "ಕನ್ನಡ ಮತ್ತು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ಸಂವಾದಾತ್ಮಕ ವಿಜ್ಞಾನ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು, ಭೌತಿಕ ತತ್ವಗಳು ಮತ್ತು ಪ್ರಾಯೋಗಿಕ ಕಲಿಕಾ ಸಂಪನ್ಮೂಲಗಳು." },
+  btn_explore: { en: "Explore InstaLab", kn: "ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್ ಅನ್ವೇಷಿಸಿ" },
+  btn_open_lab: { en: "Open Virtual Lab", kn: "ವರ್ಚುವಲ್ ಲ್ಯಾಬ್ ತೆರೆಯಿರಿ" },
+  btn_start_learning: { en: "Start Learning", kn: "ಕಲಿಕೆ ಪ್ರಾರಂಭಿಸಿ" },
+  search_placeholder: { en: "Search topics, simulations, scientists, quizzes...", kn: "ವಿಷಯಗಳು, ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು, ವಿಜ್ಞಾನಿಗಳು, ರಸಪ್ರಶ್ನೆಗಳನ್ನು ಹುಡುಕಿ..." },
+  no_results: { en: "No matching scientific resources found.", kn: "ಯಾವುದೇ ಹೊಂದಾಣಿಕೆಯ ಫಲಿತಾಂಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ." },
+  cat_physics: { en: "Physics", kn: "ಭೌತಶಾಸ್ತ್ರ" },
+  cat_physics_desc: { en: "Mechanics, optics, electricity, magnetism, and wave phenomena.", kn: "ಚಲನಶಾಸ್ತ್ರ, ದೃಗ್ವಿಜ್ಞಾನ, ವಿದ್ಯುತ್, ಕಾಂತೀಯತೆ ಮತ್ತು ತರಂಗಗಳು." },
+  cat_chemistry: { en: "Chemistry", kn: "ರಸಾಯನಶಾಸ್ತ್ರ" },
+  cat_chemistry_desc: { en: "Acids, bases, chemical reactions, and molecular structures.", kn: "ಆಮ್ಲಗಳು, ಪ್ರತ್ಯಾಮ್ಲಗಳು, ರಾಸಾಯನಿಕ ಕ್ರಿಯೆಗಳು ಮತ್ತು ದ್ರಾವಣಗಳು." },
+  cat_biology: { en: "Biology", kn: "ಜೀವಶಾಸ್ತ್ರ" },
+  cat_biology_desc: { en: "Cell biology, microscopy, human systems, and genetics.", kn: "ಕೋಶ ಜೀವಶಾಸ್ತ್ರ, ಸೂಕ್ಷ್ಮದರ್ಶಕ, ಮಾನವ ಅಂಗವ್ಯೂಹ ಮತ್ತು ತಳಿಶಾಸ್ತ್ರ." },
+  cat_earth: { en: "Earth Science & Space", kn: "ಭೂ ಮತ್ತು ಬಾಹ್ಯಾಕಾಶ ವಿಜ್ಞಾನ" },
+  cat_earth_desc: { en: "Solar system dynamics, eclipses, earth layers, and the water cycle.", kn: "ಸೌರವ್ಯೂಹ, ಗ್ರಹಣಗಳು, ಭೂಮಿಯ ಪದರಗಳು ಮತ್ತು ಜಲಚಕ್ರ." },
+  try_today_heading: { en: "Try It Today", kn: "ಇಂದೇ ಪ್ರಯೋಗಿಸಿ" },
+  try_today_sub: { en: "Functional interactive simulations with live controls, observation recording, and data plotting.", kn: "ಲೈವ್ ನಿಯಂತ್ರಣಗಳು, ವೀಕ್ಷಣಾ ಕೋಷ್ಟಕ ಮತ್ತು ಗ್ರಾಫ್ ಒಳಗೊಂಡ ಕ್ರಿಯಾತ್ಮಕ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು." },
+  resources_title: { en: "Learning Resources Preview", kn: "ಕಲಿಕಾ ಸಂಪನ್ಮೂಲಗಳ ಮುನ್ನೋಟ" },
+  quiz_preview_title: { en: "Daily Science Challenge", kn: "ದೈನಂದಿನ ವಿಜ್ಞಾನ ರಸಪ್ರಶ್ನೆ" },
+  about_title: { en: "About InstaLab", kn: "ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್ ಬಗ್ಗೆ" },
+  about_text: { en: "InstaLab is an open scientific learning platform designed to make practical science accessible in Kannada and English. All simulations run locally in your browser using simplified mathematical models.", kn: "ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್ ಪ್ರಾಯೋಗಿಕ ವಿಜ್ಞಾನವನ್ನು ಕನ್ನಡ ಮತ್ತು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ಸುಲಭವಾಗಿ ಕಲಿಯಲು ವಿನ್ಯಾಸಗೊಳಿಸಲಾದ ಮುಕ್ತ ವೇದಿಕೆಯಾಗಿದೆ. ಎಲ್ಲಾ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು ಸರಳೀಕೃತ ಗಣಿತೀಯ ಮಾದರಿಗಳನ್ನು ಬಳಸಿ ಬ್ರೌಸರ್‌ನಲ್ಲಿಯೇ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತವೆ." },
+  footer_disclaimer: { en: "Simulations use simplified theoretical models and do not replace physical laboratory experiments. Always perform physical science experiments under certified adult supervision.", kn: "ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು ಸರಳೀಕೃತ ಸೈದ್ಧಾಂತಿಕ ಮಾದರಿಗಳನ್ನು ಬಳಸುತ್ತವೆ ಮತ್ತು ನೈಜ ಪ್ರಯೋಗಾಲಯಕ್ಕೆ ಪರ್ಯಾಯವಲ್ಲ. ನೈಜ ಪ್ರಯೋಗಗಳನ್ನು ಯಾವಾಗಲೂ ಶಿಕ್ಷಕರ ಮೇಲ್ವಿಚಾರಣೆಯಲ್ಲಿಯೇ ನಡೆಸಿ." }
+};
 
-const nav = [
- ['home','Home','ಮುಖಪುಟ'],['lab','Virtual Science Lab','ವರ್ಚುವಲ್ ವಿಜ್ಞಾನ ಪ್ರಯೋಗಾಲಯ'],['equipment','Science Equipment','ವಿಜ್ಞಾನ ಉಪಕರಣಗಳು'],
- ['scientists','Scientists','ವಿಜ್ಞಾನಿಗಳು'],['library','Knowledge Library','ಜ್ಞಾನ ಭಂಡಾರ'],['videos','Science Videos','ವಿಜ್ಞಾನ ವೀಡಿಯೊಗಳು'],
- ['documents','Worksheets & Resources','ಕಾರ್ಯಹಾಳೆಗಳು ಮತ್ತು ಸಂಪನ್ಮೂಲಗಳು'],['quiz','Science Quiz','ವಿಜ್ಞಾನ ರಸಪ್ರಶ್ನೆ'],['projects','Hands-on Projects','ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಗಳು'],
- ['news','Science Updates','ವಿಜ್ಞಾನ ಮಾಹಿತಿ'],['tutor','Offline Science Tutor','ಆಫ್‌ಲೈನ್ ವಿಜ್ಞಾನ ಬೋಧಕ'],['community','My Science Notebook','ನನ್ನ ವಿಜ್ಞಾನ ಟಿಪ್ಪಣಿ'],['careers','STEM Careers','STEM ವೃತ್ತಿಗಳು']
-];
-const simulations = [
- {id:'motion',subject:'Physics',en:'Motion and Speed',kn:'ಚಲನೆ ಮತ್ತು ವೇಗ',objective:'Explore displacement for uniform acceleration.',objectiveKn:'ಸ್ಥಿರ ವೇಗೋತ್ಕರ್ಷದಲ್ಲಿ ಸ್ಥಾನಪಲ್ಲಟವನ್ನು ಅನ್ವೇಷಿಸಿ.',formula:'s = u × t + ½ × a × t²; v = u + a × t',safety:'Use a virtual model; physical carts should be supervised.',controls:[['u','Initial velocity','ಆರಂಭಿಕ ವೇಗ',0,20,1,5,'m/s'],['a','Acceleration','ವೇಗೋತ್ಕರ್ಷ',0,10,.5,2,'m/s²'],['t','Time','ಸಮಯ',1,10,1,5,'s']]},
- {id:'gravity',subject:'Physics',en:'Gravity and Falling Objects',kn:'ಗುರುತ್ವ ಮತ್ತು ಬೀಳುವ ವಸ್ತುಗಳು',objective:'Estimate fall speed and distance in an ideal model.',objectiveKn:'ಆದರ್ಶ ಮಾದರಿಯಲ್ಲಿ ಬೀಳುವ ವೇಗ ಮತ್ತು ದೂರ ಅಂದಾಜಿಸಿ.',formula:'v = g × t; h = ½ × g × t²',safety:'The model ignores complex air flow unless noted.',controls:[['g','Gravity','ಗುರುತ್ವ',1.6,24.8,.2,9.8,'m/s²'],['t','Time','ಸಮಯ',0,5,.25,2,'s']]},
- {id:'reflection',subject:'Physics',en:'Reflection of Light',kn:'ಬೆಳಕಿನ ಪ್ರತಿಫಲನ',objective:'Compare the incident and reflected angles.',objectiveKn:'ಪತನ ಮತ್ತು ಪ್ರತಿಫಲನ ಕೋನಗಳನ್ನು ಹೋಲಿಸಿ.',formula:'Angle of incidence = Angle of reflection',safety:'Never shine real lasers into eyes.',controls:[['angle','Incident angle','ಪತನ ಕೋನ',5,85,5,40,'°']]},
- {id:'circuit',subject:'Physics',en:'Ohm’s Law Circuit',kn:'ಓಮ್‌ನ ನಿಯಮದ ಮಂಡಲ',objective:'Calculate current as voltage and resistance change.',objectiveKn:'ವೋಲ್ಟೇಜ್ ಮತ್ತು ರೋಧ ಬದಲಾದಾಗ ಪ್ರವಾಹ ಲೆಕ್ಕಿಸಿ.',formula:'I = V / R; V = I × R',safety:'Real experiments: low-voltage batteries only; never use mains electricity.',controls:[['V','Voltage','ವೋಲ್ಟೇಜ್',1.5,9,1.5,6,'V'],['R','Resistance','ರೋಧ',2,50,2,12,'Ω']]},
- {id:'ph',subject:'Chemistry',en:'Acids, Bases and pH',kn:'ಆಮ್ಲ, ಪ್ರತ್ಯಾಮ್ಲ ಮತ್ತು pH',objective:'Explore the pH scale from acidic to basic.',objectiveKn:'ಆಮ್ಲೀಯದಿಂದ ಪ್ರತ್ಯಾಮ್ಲೀಯದವರೆಗಿನ pH ತಿಳಿಯಿರಿ.',formula:'pH = −log₁₀[H⁺]',safety:'Never taste lab liquids or mix household cleaners.',controls:[['ph','pH value','pH ಮೌಲ್ಯ',0,14,.5,7,'pH']]},
- {id:'dissolve',subject:'Chemistry',en:'Temperature and Dissolving',kn:'ತಾಪಮಾನ ಮತ್ತು ಕರಗುವಿಕೆ',objective:'See how a simple model changes with temperature and particle amount.',objectiveKn:'ತಾಪಮಾನ ಮತ್ತು ದ್ರವ್ಯರಾಶಿಯಿಂದ ಸರಳ ಮಾದರಿ ಹೇಗೆ ಬದಲಾಗುತ್ತದೆ ನೋಡಿ.',formula:'Illustrative model: relative rate ∝ (T + 273) / solute mass',safety:'Use adult supervision for warm water; no heating is done by this simulation.',controls:[['temp','Temperature','ತಾಪಮಾನ',10,90,10,30,'°C'],['mass','Solute mass','ದ್ರಾವ್ಯದ ರಾಶಿ',5,25,5,10,'g']]},
- {id:'separation',subject:'Chemistry',en:'Mixture Separation',kn:'ಮಿಶ್ರಣಗಳ ಬೇರ್ಪಡಿಸುವಿಕೆ',objective:'Explore mass balance for sand, salt and iron in a mixture.',objectiveKn:'ಮರಳು, ಉಪ್ಪು ಮತ್ತು ಕಬ್ಬಿಣದ ರಾಶಿಯ ಲೆಕ್ಕ ಪರಿಶೀಲಿಸಿ.',formula:'Total mixture mass = sand + salt + iron',safety:'Do not consume materials used in experiments.',controls:[['sand','Sand','ಮರಳು',0,50,5,20,'g'],['salt','Salt','ಉಪ್ಪು',0,50,5,15,'g'],['iron','Iron','ಕಬ್ಬಿಣ',0,30,5,10,'g']]},
- {id:'cells',subject:'Biology',en:'Plant and Animal Cells',kn:'ಸಸ್ಯ ಮತ್ತು ಪ್ರಾಣಿ ಜೀವಕೋಶಗಳು',objective:'Compare major structures in plant and animal cells.',objectiveKn:'ಸಸ್ಯ ಮತ್ತು ಪ್ರಾಣಿ ಕೋಶಗಳ ಪ್ರಮುಖ ರಚನೆಗಳನ್ನು ಹೋಲಿಸಿ.',formula:'Plant cells commonly have a cell wall, chloroplasts and a large central vacuole.',safety:'Microscope slides should be handled by their edges.',controls:[['type','Cell type: 1 plant / 2 animal','ಕೋಶ: 1 ಸಸ್ಯ / 2 ಪ್ರಾಣಿ',1,2,1,1,'']]},
- {id:'microscope',subject:'Biology',en:'Microscope Magnification',kn:'ಸೂಕ್ಷ್ಮದರ್ಶಕದ ವರ್ಧನೆ',objective:'Calculate total magnification from lens values.',objectiveKn:'ಮಸೂರಗಳ ಮೌಲ್ಯದಿಂದ ಒಟ್ಟು ವರ್ಧನೆ ಲೆಕ್ಕಿಸಿ.',formula:'Total magnification = eyepiece × objective',safety:'Use safe illumination; never point a mirror at the Sun.',controls:[['eye','Eyepiece','ನೇತ್ರಮಸೂರ',5,20,5,10,'×'],['obj','Objective','ವಸ್ತುಮಸೂರ',4,40,4,40,'×']]},
- {id:'density',subject:'Physics',en:'Density Explorer',kn:'ಸಾಂದ್ರತೆ ಅನ್ವೇಷಕ',objective:'Compare density from mass and volume.',objectiveKn:'ರಾಶಿ ಮತ್ತು ಘನಪರಿಮಾಣದಿಂದ ಸಾಂದ್ರತೆ ಹೋಲಿಸಿ.',formula:'Density = mass / volume',safety:'Use only safe household objects in real demonstrations.',controls:[['mass','Mass','ರಾಶಿ',10,500,10,100,'g'],['volume','Volume','ಘನಪರಿಮಾಣ',10,250,10,50,'cm³']]},
- {id:'waves',subject:'Physics',en:'Wave Frequency and Period',kn:'ತರಂಗ ಆವೃತ್ತಿ ಮತ್ತು ಆವರ್ತಕಾಲ',objective:'Connect wave frequency with period.',objectiveKn:'ತರಂಗ ಆವೃತ್ತಿ ಮತ್ತು ಆವರ್ತಕಾಲದ ಸಂಬಂಧ ತಿಳಿಯಿರಿ.',formula:'Period T = 1 / frequency f',safety:'Visual model only.',controls:[['f','Frequency','ಆವೃತ್ತಿ',1,20,1,5,'Hz']]},
- {id:'photosynthesis',subject:'Biology',en:'Photosynthesis Factors',kn:'ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆಯ ಅಂಶಗಳು',objective:'Explore a conceptual model of light and carbon dioxide effects.',objectiveKn:'ಬೆಳಕು ಮತ್ತು ಇಂಗಾಲದ ಡೈಆಕ್ಸೈಡ್ ಪರಿಣಾಮಗಳ ಕಲ್ಪನಾತ್ಮಕ ಮಾದರಿ.',formula:'Light + water + carbon dioxide → sugar + oxygen (simplified)',safety:'Do not damage living plants for an experiment.',controls:[['light','Light level','ಬೆಳಕಿನ ಮಟ್ಟ',0,100,10,60,'%'],['co2','CO₂ level','CO₂ ಮಟ್ಟ',0,100,10,50,'%']]},
- {id:'solar',subject:'Earth & Space',en:'Solar System Orbits',kn:'ಸೌರಮಂಡಲದ ಕಕ್ಷೆಗಳು',objective:'Compare orbital period trends in a simplified model.',objectiveKn:'ಸರಳ ಮಾದರಿಯಲ್ಲಿ ಕಕ್ಷಾ ಅವಧಿಯ ಪ್ರವೃತ್ತಿ ಹೋಲಿಸಿ.',formula:'Kepler’s third law: T² ∝ a³ (for bodies orbiting the same star)',safety:'Never look directly at the Sun.',controls:[['orbit','Relative orbital radius','ಸಾಪೇಕ್ಷ ಕಕ್ಷಾ ತ್ರಿಜ್ಯ',1,10,1,4,'AU']]}
-];
-const equipment = [
- ['Thermometer','ಉಷ್ಣತಾಮಾಪಕ','Measures temperature.','ತಾಪಮಾನ ಅಳೆಯುತ್ತದೆ.','Read at eye level and use the correct range.'],
- ['Measuring cylinder','ಅಳತೆಯ ಸಿಲಿಂಡರ್','Measures liquid volume.','ದ್ರವದ ಘನಪರಿಮಾಣ ಅಳೆಯುತ್ತದೆ.','Read the bottom of the meniscus at eye level.'],
- ['Microscope','ಸೂಕ್ಷ್ಮದರ್ಶಕ','Magnifies small specimens.','ಸಣ್ಣ ಮಾದರಿಗಳನ್ನು ದೊಡ್ಡದಾಗಿ ತೋರಿಸುತ್ತದೆ.','Start with the lowest-power objective.'],
- ['Ammeter','ಅಮ್ಮೀಟರ್','Measures electric current.','ವಿದ್ಯುತ್ ಪ್ರವಾಹ ಅಳೆಯುತ್ತದೆ.','Connected in series in a suitable circuit.'],
- ['Voltmeter','ವೋಲ್ಟ್‌ಮೀಟರ್','Measures potential difference.','ವಿಭವಾಂತರ ಅಳೆಯುತ್ತದೆ.','Connected in parallel across a component.'],
- ['Beaker','ಬೀಕರ್','Holds and mixes liquids.','ದ್ರವ ಹಿಡಿಯಲು ಮತ್ತು ಬೆರೆಸಲು.','Not intended for highly accurate volume measurement.'],
- ['Conical flask','ಶಂಕು ಪಾತ್ರೆ','Mixes liquids with reduced splashing.','ಚಿಮುಕುವಿಕೆ ಕಡಿಮೆ ಮಾಡಿ ದ್ರವ ಬೆರೆಸಲು.','Do not stopper a gas-producing reaction.'],
- ['Funnel and filter paper','ಆಲಿಕೆ ಮತ್ತು ಸೋಸು ಕಾಗದ','Separates insoluble solids from liquids.','ಕರಗದ ಘನವನ್ನು ದ್ರವದಿಂದ ಬೇರ್ಪಡಿಸುತ್ತದೆ.','Seat filter paper correctly in the funnel.'],
- ['Balance','ತೂಕದ ತಕ್ಕಡಿ','Measures mass.','ರಾಶಿ ಅಳೆಯುತ್ತದೆ.','Zero/tare before use.'],
- ['Stopwatch','ನಿಲ್ಲುಗಡಿಯಾರ','Measures elapsed time.','ಕಳೆದ ಸಮಯ ಅಳೆಯುತ್ತದೆ.','Repeat measurements to reduce random error.'],
- ['Pipette','ಪಿಪೆಟ್','Transfers measured liquid volumes.','ನಿರ್ದಿಷ್ಟ ದ್ರವ ಪ್ರಮಾಣ ವರ್ಗಾಯಿಸುತ್ತದೆ.','Never pipette by mouth.'],
- ['Burette','ಬ್ಯುರೆಟ್','Dispenses measured variable volumes.','ನಿಯಂತ್ರಿತ ಪ್ರಮಾಣದಲ್ಲಿ ದ್ರವ ಬಿಡುತ್ತದೆ.','Check for air bubbles and leaks.'],
- ['Magnet','ಕಾಂತ','Attracts certain magnetic materials.','ಕೆಲವು ಕಾಂತೀಯ ವಸ್ತುಗಳನ್ನು ಆಕರ್ಷಿಸುತ್ತದೆ.','Keep away from sensitive electronics.'],
- ['Spring balance','ಸ್ಪ್ರಿಂಗ್ ತಕ್ಕಡಿ','Measures force/weight.','ಬಲ ಅಥವಾ ತೂಕ ಅಳೆಯುತ್ತದೆ.','Do not exceed its scale limit.'],
- ['Hand lens','ಕೈ ಮಸೂರ','Magnifies small details.','ಸಣ್ಣ ವಿವರಗಳನ್ನು ದೊಡ್ಡದಾಗಿ ತೋರಿಸುತ್ತದೆ.','Avoid focusing sunlight onto skin or objects.'],
- ['Petri dish','ಪೆಟ್ರಿ ತಟ್ಟೆ','Holds small samples.','ಸಣ್ಣ ಮಾದರಿಗಳನ್ನು ಇಡುತ್ತದೆ.','Do not culture unknown microbes at home.']
-];
-const scientists = [
- ['C. V. Raman','ಸಿ. ವಿ. ರಾಮನ್','Physics','ಭೌತಶಾಸ್ತ್ರ','Known for the Raman effect; Nobel Prize in Physics in 1930.','ರಾಮನ್ ಪರಿಣಾಮಕ್ಕಾಗಿ ಪ್ರಸಿದ್ಧರು; 1930ರ ಭೌತಶಾಸ್ತ್ರದ ನೋಬೆಲ್ ಪ್ರಶಸ್ತಿ.'],
- ['A. P. J. Abdul Kalam','ಎ. ಪಿ. ಜೆ. ಅಬ್ದುಲ್ ಕಲಾಂ','Aerospace engineering','ವಿಮಾನ-ಅಂತರಿಕ್ಷ ಇಂಜಿನಿಯರಿಂಗ್','Aerospace scientist and former President of India.','ಅಂತರಿಕ್ಷ ವಿಜ್ಞಾನಿ ಮತ್ತು ಭಾರತದ ಮಾಜಿ ರಾಷ್ಟ್ರಪತಿ.'],
- ['Marie Curie','ಮೇರಿ ಕ್ಯೂರಿ','Physics and Chemistry','ಭೌತಶಾಸ್ತ್ರ ಮತ್ತು ರಸಾಯನಶಾಸ್ತ್ರ','Pioneering research on radioactivity; Nobel laureate in two sciences.','ವಿಕಿರಣಶೀಲತೆಯ ಸಂಶೋಧನೆಯಲ್ಲಿ ಮುಂಚೂಣಿ; ಎರಡು ವಿಜ್ಞಾನಗಳಲ್ಲಿ ನೋಬೆಲ್ ಪ್ರಶಸ್ತಿ.'],
- ['Isaac Newton','ಐಸಾಕ್ ನ್ಯೂಟನ್','Physics and Mathematics','ಭೌತಶಾಸ್ತ್ರ ಮತ್ತು ಗಣಿತ','Contributed to classical mechanics and universal gravitation.','ಶಾಸ್ತ್ರೀಯ ಯಂತ್ರಶಾಸ್ತ್ರ ಮತ್ತು ಸಾರ್ವತ್ರಿಕ ಗುರುತ್ವಕ್ಕೆ ಕೊಡುಗೆ.'],
- ['Katherine Johnson','ಕ್ಯಾಥರಿನ್ ಜಾನ್ಸನ್','Mathematics','ಗಣಿತಶಾಸ್ತ್ರ','NASA mathematician whose calculations supported early crewed spaceflight.','NASAಯ ಆರಂಭಿಕ ಮಾನವಸಹಿತ ಬಾಹ್ಯಾಕಾಶ ಹಾರಾಟಕ್ಕೆ ಗಣನೆಗಳ ಮೂಲಕ ನೆರವಾದ ಗಣಿತಜ್ಞೆ.'],
- ['A. S. Kiran Kumar','ಎ. ಎಸ್. ಕಿರಣ್ ಕುಮಾರ್','Space science','ಬಾಹ್ಯಾಕಾಶ ವಿಜ್ಞಾನ','Indian space scientist associated with satellite and space programme leadership.','ಭಾರತದ ಉಪಗ್ರಹ ಮತ್ತು ಬಾಹ್ಯಾಕಾಶ ಕಾರ್ಯಕ್ರಮದ ನಾಯಕತ್ವಕ್ಕೆ ಸಂಬಂಧಿಸಿದ ವಿಜ್ಞಾನಿ.'],
- ['Rosalind Franklin','ರೋಸಲಿಂಡ್ ಫ್ರಾಂಕ್ಲಿನ್','Chemistry and molecular biology','ರಸಾಯನಶಾಸ್ತ್ರ ಮತ್ತು ಅಣು ಜೀವಶಾಸ್ತ್ರ','Her X-ray diffraction work contributed to understanding DNA structure.','ಎಕ್ಸ್-ಕಿರಣ ವಿವರ್ತನೆ ಸಂಶೋಧನೆ DNA ರಚನೆ ತಿಳಿಯಲು ನೆರವಾಯಿತು.'],
- ['Jagadish Chandra Bose','ಜಗದೀಶ ಚಂದ್ರ ಬೋಸ್','Physics and plant science','ಭೌತಶಾಸ್ತ್ರ ಮತ್ತು ಸಸ್ಯ ವಿಜ್ಞಾನ','Pioneered work in radio science and plant responses.','ರೇಡಿಯೋ ವಿಜ್ಞಾನ ಮತ್ತು ಸಸ್ಯಗಳ ಪ್ರತಿಕ್ರಿಯೆಗಳ ಸಂಶೋಧನೆಯಲ್ಲಿ ಮುಂಚೂಣಿ.'],
- ['Kalpana Chawla','ಕಲ್ಪನಾ ಚಾವ್ಲಾ','Aerospace','ವಿಮಾನ-ಅಂತರಿಕ್ಷ ಕ್ಷೇತ್ರ','Indian-born American astronaut who flew on Space Shuttle missions.','ಬಾಹ್ಯಾಕಾಶ ನೌಕೆ ಯಾತ್ರೆಗಳಲ್ಲಿ ಭಾಗವಹಿಸಿದ ಭಾರತೀಯ ಮೂಲದ ಅಮೆರಿಕನ್ ಗಗನಯಾತ್ರಿ.'],
- ['A. E. Muthunayagam','ಎ. ಇ. ಮುತ್ತುನಾಯಗಂ','Rocket propulsion','ರಾಕೆಟ್ ಪ್ರಚೋದನೆ','Indian aerospace scientist who contributed to liquid propulsion systems.','ದ್ರವ ಪ್ರಚೋದನಾ ವ್ಯವಸ್ಥೆಗಳಿಗೆ ಕೊಡುಗೆ ನೀಡಿದ ಭಾರತೀಯ ಅಂತರಿಕ್ಷ ವಿಜ್ಞಾನಿ.']
-];
-const topics = [
- ['Motion','ಚಲನೆ','Motion describes change in position with time. Speed is distance per time; velocity includes direction.','ಚಲನೆ ಎಂದರೆ ಸಮಯದೊಂದಿಗೆ ಸ್ಥಾನ ಬದಲಾಗುವುದು. ವೇಗವು ದೂರ/ಸಮಯ; ದಿಶಾವೇಗದಲ್ಲಿ ದಿಕ್ಕೂ ಸೇರಿದೆ.','speed = distance / time','Try timing a toy car over a measured distance.'],
- ['Force','ಬಲ','A force is a push or pull that can change motion or shape. Net force determines acceleration.','ಬಲವು ಚಲನೆಯನ್ನು ಅಥವಾ ಆಕಾರವನ್ನು ಬದಲಾಯಿಸಬಲ್ಲ ತಳ್ಳುವಿಕೆ ಅಥವಾ ಎಳೆಯುವಿಕೆ.','F = m × a','Draw a free-body diagram for a book resting on a table.'],
- ['Energy','ಶಕ್ತಿ','Energy is the capacity to cause change. It can transfer between forms while total energy is conserved in an isolated system.','ಶಕ್ತಿಯು ಬದಲಾವಣೆ ಉಂಟುಮಾಡುವ ಸಾಮರ್ಥ್ಯ. ಅದು ರೂಪಾಂತರಗೊಳ್ಳುತ್ತದೆ.','KE = ½mv²','List energy changes in a bouncing ball.'],
- ['Electricity','ವಿದ್ಯುತ್','Current is charge flow. Voltage is energy per charge, and resistance opposes current.','ಪ್ರವಾಹವು ವಿದ್ಯುತ್ ಆವೇಶದ ಹರಿವು. ವೋಲ್ಟೇಜ್ ಪ್ರತಿ ಆವೇಶದ ಶಕ್ತಿ.','V = I × R','Calculate current for 6 V across 12 Ω.'],
- ['Light','ಬೆಳಕು','Light travels as an electromagnetic wave and can reflect, refract, diffract and be absorbed.','ಬೆಳಕು ವಿದ್ಯುತ್ಕಾಂತೀಯ ತರಂಗ; ಪ್ರತಿಫಲನ, ವಕ್ರೀಭವನ ಮತ್ತು ಶೋಷಣೆಗೆ ಒಳಗಾಗುತ್ತದೆ.','angle i = angle r','Sketch a ray diagram for a plane mirror.'],
- ['Matter','ದ್ರವ್ಯ','Matter has mass and occupies space. Solids, liquids and gases differ in particle arrangement and motion.','ದ್ರವ್ಯಕ್ಕೆ ರಾಶಿ ಇರುತ್ತದೆ ಮತ್ತು ಅದು ಸ್ಥಳ ಆಕ್ರಮಿಸುತ್ತದೆ.','density = mass / volume','Compare the shape and volume of water and ice.'],
- ['Atoms','ಪರಮಾಣುಗಳು','Atoms contain a nucleus with protons and neutrons, surrounded by electrons.','ಪರಮಾಣುವಿನಲ್ಲಿ ಪ್ರೋಟಾನ್ ಮತ್ತು ನ್ಯೂಟ್ರಾನ್ ಇರುವ ಕೇಂದ್ರಕ ಹಾಗೂ ಎಲೆಕ್ಟ್ರಾನ್‌ಗಳಿವೆ.','atomic number = protons','Compare isotopes of the same element.'],
- ['Acids and bases','ಆಮ್ಲ ಮತ್ತು ಪ್ರತ್ಯಾಮ್ಲ','The pH scale indicates acidity or basicity of aqueous solutions.','pH ಮಾಪಕವು ಜಲದ್ರಾವಣದ ಆಮ್ಲೀಯತೆ ಅಥವಾ ಪ್ರತ್ಯಾಮ್ಲೀಯತೆಯನ್ನು ಸೂಚಿಸುತ್ತದೆ.','pH = −log₁₀[H⁺]','Use indicator paper only with safe, labelled samples.'],
- ['Cells','ಜೀವಕೋಶಗಳು','Cells are the basic structural and functional units of living organisms.','ಜೀವಕೋಶಗಳು ಜೀವಿಗಳ ಮೂಲ ರಚನಾತ್ಮಕ ಮತ್ತು ಕಾರ್ಯಾತ್ಮಕ ಘಟಕಗಳು.','cell → tissue → organ','Label a simple plant-cell drawing.'],
- ['Photosynthesis','ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ','Plants use light energy to make sugars from carbon dioxide and water, releasing oxygen.','ಸಸ್ಯಗಳು ಬೆಳಕಿನ ಶಕ್ತಿಯಿಂದ CO₂ ಮತ್ತು ನೀರಿನಿಂದ ಸಕ್ಕರೆ ತಯಾರಿಸಿ ಆಮ್ಲಜನಕ ಬಿಡುಗಡೆ ಮಾಡುತ್ತವೆ.','CO₂ + H₂O + light → sugar + O₂','Record how a plant’s light conditions differ across a day.'],
- ['Ecosystems','ಪರಿಸರ ವ್ಯವಸ್ಥೆ','Organisms interact with one another and with non-living parts of their environment.','ಜೀವಿಗಳು ಪರಸ್ಪರ ಮತ್ತು ಪರಿಸರದ ನಿರ್ಜೀವ ಅಂಶಗಳೊಂದಿಗೆ ಸಂವಹನ ನಡೆಸುತ್ತವೆ.','energy flows; matter cycles','Create a food web for a local habitat.'],
- ['Earth layers','ಭೂಮಿಯ ಪದರಗಳು','Earth has a crust, mantle, liquid outer core and solid inner core.','ಭೂಮಿಗೆ ಭೂಪಟಲ, ಮ್ಯಾಂಟಲ್, ದ್ರವ ಹೊರಕೇಂದ್ರಕ ಮತ್ತು ಘನ ಒಳಕೇಂದ್ರಕಗಳಿವೆ.','crust → mantle → core','Draw and label Earth’s internal layers.'],
- ['Solar system','ಸೌರಮಂಡಲ','Planets orbit the Sun; their orbital periods generally increase with orbital distance.','ಗ್ರಹಗಳು ಸೂರ್ಯನ ಸುತ್ತ ಸುತ್ತುತ್ತವೆ; ದೂರ ಹೆಚ್ಚಿದಂತೆ ಕಕ್ಷಾ ಅವಧಿಯೂ ಸಾಮಾನ್ಯವಾಗಿ ಹೆಚ್ಚುತ್ತದೆ.','T² ∝ a³','Compare two planets’ relative distances from the Sun.'],
- ['Weather and climate','ಹವಾಮಾನ ಮತ್ತು ವಾಯುಗುಣ','Weather is short-term atmospheric condition; climate describes long-term patterns.','ಹವಾಮಾನವು ಅಲ್ಪಾವಧಿಯ ವಾತಾವರಣ ಸ್ಥಿತಿ; ವಾಯುಗುಣ ದೀರ್ಘಾವಧಿಯ ಮಾದರಿ.','weather ≠ climate','Keep a week-long cloud and temperature observation log.'],
- ['Scientific method','ವೈಜ್ಞಾನಿಕ ವಿಧಾನ','Ask a question, form a testable hypothesis, control variables, measure evidence and revise conclusions.','ಪ್ರಶ್ನೆ, ಪರೀಕ್ಷಿಸಬಹುದಾದ ಊಹೆ, ನಿಯಂತ್ರಿತ ಅಂಶಗಳು, ಸಾಕ್ಷ್ಯ ಮತ್ತು ತೀರ್ಮಾನ.','question → test → evidence','Change one variable at a time in a fair test.']
-];
-const questions = [
- {q:'What is the SI unit of force?',kn:'ಬಲದ SI ಏಕಮಾನ ಯಾವುದು?',opts:['Newton','Joule','Watt','Pascal'],ans:0,why:'Force is measured in newtons (N).'},
- {q:'Which equation represents Ohm’s law?',kn:'ಓಮ್‌ನ ನಿಯಮವನ್ನು ಯಾವ ಸಮೀಕರಣ ಸೂಚಿಸುತ್ತದೆ?',opts:['V = I × R','P = m × g','F = m × a','v = d × t'],ans:0,why:'Voltage equals current multiplied by resistance for an ohmic conductor at constant conditions.'},
- {q:'Which cell organelle is strongly associated with ATP production?',kn:'ATP ಉತ್ಪಾದನೆಗೆ ಸಂಬಂಧಿಸಿದ ಕೋಶಾಂಗ ಯಾವುದು?',opts:['Mitochondrion','Cell wall','Vacuole','Chloroplast only'],ans:0,why:'Mitochondria are a major site of cellular respiration and ATP production.'},
- {q:'At 25 °C, pure water is approximately neutral at pH…',kn:'25 °C ನಲ್ಲಿ ಶುದ್ಧ ನೀರಿನ ತಟಸ್ಥ pH ಎಷ್ಟು?',opts:['7','2','12','0'],ans:0,why:'At 25 °C, pure water has pH close to 7.'},
- {q:'What is the unit of frequency?',kn:'ಆವೃತ್ತಿಯ ಏಕಮಾನ ಯಾವುದು?',opts:['Hertz','Metre','Newton','Coulomb'],ans:0,why:'Frequency is measured in hertz (Hz), or cycles per second.'},
- {q:'Which instrument measures temperature?',kn:'ತಾಪಮಾನ ಅಳೆಯುವ ಉಪಕರಣ ಯಾವುದು?',opts:['Thermometer','Ammeter','Balance','Burette'],ans:0,why:'A thermometer measures temperature.'},
- {q:'What is the approximate acceleration due to gravity near Earth’s surface?',kn:'ಭೂಮಿಯ ಮೇಲ್ಮೈ ಸಮೀಪ ಗುರುತ್ವ ವೇಗೋತ್ಕರ್ಷ ಎಷ್ಟು?',opts:['9.8 m/s²','3 m/s','100 m/s²','0.98 kg'],ans:0,why:'The usual near-surface approximation is 9.8 m/s².'},
- {q:'Which process separates insoluble sand from water?',kn:'ನೀರಿನಿಂದ ಕರಗದ ಮರಳನ್ನು ಬೇರ್ಪಡಿಸುವ ವಿಧಾನ ಯಾವುದು?',opts:['Filtration','Melting','Magnetising','Condensation only'],ans:0,why:'A filter retains the insoluble sand while water passes through.'},
- {q:'Which gas do plants take in for photosynthesis?',kn:'ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆಗೆ ಸಸ್ಯಗಳು ಯಾವ ಅನಿಲವನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತವೆ?',opts:['Carbon dioxide','Helium','Hydrogen only','Neon'],ans:0,why:'Plants use carbon dioxide and water to produce sugars using light energy.'},
- {q:'What does a voltmeter measure?',kn:'ವೋಲ್ಟ್‌ಮೀಟರ್ ಏನನ್ನು ಅಳೆಯುತ್ತದೆ?',opts:['Potential difference','Current','Mass','Temperature'],ans:0,why:'A voltmeter measures voltage across a component.'}
-];
-const projects = [
- ['Paper bridge strength','ಕಾಗದದ ಸೇತುವೆಯ ಬಲ','Fold paper into different shapes and compare how many identical coins each bridge supports.','ಕಾಗದವನ್ನು ಬೇರೆ ಆಕಾರಗಳಲ್ಲಿ ಮಡಚಿ ಒಂದೇ ರೀತಿಯ ನಾಣ್ಯಗಳ ತೂಕವನ್ನು ಹೋಲಿಸಿ.','Paper, two supports, identical coins','Never use heavy or sharp loads; keep the bridge low.'],
- ['Shadow tracking','ನೆರಳಿನ ಗಮನಿಕೆ','Record a stationary object’s shadow length at different times without looking directly at the Sun.','ಸೂರ್ಯನನ್ನು ನೇರವಾಗಿ ನೋಡದೆ ಬೇರೆ ಸಮಯಗಳಲ್ಲಿ ನೆರಳಿನ ಉದ್ದ ದಾಖಲಿಸಿ.','Chalk, ruler, timer','Do not look directly at the Sun.'],
- ['Seed germination','ಬೀಜ ಮೊಳಕೆ','Compare germination in labelled containers with different water amounts while keeping other conditions similar.','ಇತರ ಅಂಶಗಳನ್ನು ಒಂದೇ ರೀತಿಯಲ್ಲಿ ಇಟ್ಟು ಬೇರೆ ನೀರಿನ ಪ್ರಮಾಣದಲ್ಲಿ ಮೊಳಕೆಯನ್ನು ಹೋಲಿಸಿ.','Seeds, paper towel, containers','Do not eat experimental seeds; wash hands.'],
- ['Water filtration model','ನೀರಿನ ಶೋಧನೆ ಮಾದರಿ','Build a demonstration filter from clean gravel, sand and cloth; compare visible clarity only.','ಕಲ್ಲುಚೂರು, ಮರಳು ಮತ್ತು ಬಟ್ಟೆಯಿಂದ ಮಾದರಿ ಶೋಧಕ ಮಾಡಿ; ದೃಶ್ಯ ಸ್ಪಷ್ಟತೆ ಮಾತ್ರ ಹೋಲಿಸಿ.','Bottle top, cloth, sand, gravel, muddy water','Filtered water is not drinking water. Adult supervision required for cutting containers.'],
- ['Sound vibration','ಧ್ವನಿ ಕಂಪನ','Observe rice grains on a stretched membrane when a nearby sound source vibrates it.','ಧ್ವನಿಯಿಂದ ಕಂಪಿಸುವ ತೆಳುವಾದ ಮೇಲ್ಮೈಯ ಮೇಲಿನ ಅಕ್ಕಿಕಾಳುಗಳ ಚಲನೆಯನ್ನು ಗಮನಿಸಿ.','Bowl, plastic film, rice grains','Keep sound at a comfortable volume.'],
- ['Evaporation comparison','ಆವಿಯಾಗುವಿಕೆ ಹೋಲಿಕೆ','Compare equal water amounts in shaded and airy locations and record remaining water over time.','ಒಂದೇ ಪ್ರಮಾಣದ ನೀರನ್ನು ನೆರಳು ಮತ್ತು ಗಾಳಿಯ ಸ್ಥಳಗಳಲ್ಲಿ ಇಟ್ಟು ಉಳಿದ ಪ್ರಮಾಣ ದಾಖಲಿಸಿ.','Two shallow dishes, measuring cup','Keep water away from electrical devices.'],
- ['Balloon static electricity','ಬಲೂನ್ ಸ್ಥಿರ ವಿದ್ಯುತ್','Rub a balloon on dry fabric and observe attraction of tiny paper pieces.','ಬಲೂನ್ ಅನ್ನು ಒಣ ಬಟ್ಟೆಗೆ ಉಜ್ಜಿ ಸಣ್ಣ ಕಾಗದದ ತುಂಡುಗಳ ಆಕರ್ಷಣೆ ನೋಡಿ.','Balloon, dry fabric, paper','Avoid latex if allergic; keep balloons away from small children.'],
- ['Plant light observation','ಸಸ್ಯದ ಬೆಳಕಿನ ಗಮನಿಕೆ','Observe a plant in different light conditions without damaging it; record leaf orientation.','ಸಸ್ಯಕ್ಕೆ ಹಾನಿ ಮಾಡದೆ ವಿಭಿನ್ನ ಬೆಳಕಿನಲ್ಲಿ ಎಲೆಗಳ ದಿಕ್ಕು ದಾಖಲಿಸಿ.','Potted plant, notebook','Do not overwater or deprive the plant of light for long periods.'],
- ['Pendulum timing','ಲೋಲಕದ ಕಾಲಮಾಪನ','Time 10 small swings using a safe lightweight object and compare string lengths.','ಹಗುರ ವಸ್ತುವಿನ 10 ಸಣ್ಣ ಆಂದೋಲನಗಳ ಸಮಯವನ್ನು ಬೇರೆ ದಾರ ಉದ್ದಗಳಲ್ಲಿ ಹೋಲಿಸಿ.','String, lightweight object, timer','Use a secure support and keep the swing area clear.'],
- ['Paper chromatography','ಕಾಗದ ವರ್ಣಲೇಖನ','Separate washable marker colours on paper using a small amount of water.','ಸ್ವಲ್ಪ ನೀರಿನಿಂದ ಕಾಗದದಲ್ಲಿ ತೊಳೆಯಬಹುದಾದ ಮಾರ್ಕರ್ ಬಣ್ಣಗಳನ್ನು ಬೇರ್ಪಡಿಸಿ.','Filter paper, washable markers, water','Do not use unknown inks or solvents.']
-];
-const careers = [
- ['Astronomer','ಖಗೋಳಶಾಸ್ತ್ರಜ್ಞ','Studies stars, planets and the universe.','ನಕ್ಷತ್ರ, ಗ್ರಹ ಮತ್ತು ವಿಶ್ವವನ್ನು ಅಧ್ಯಯನ ಮಾಡುತ್ತಾರೆ.'],
- ['Physicist','ಭೌತವಿಜ್ಞಾನಿ','Investigates matter, energy and physical laws.','ದ್ರವ್ಯ, ಶಕ್ತಿ ಮತ್ತು ಭೌತ ನಿಯಮಗಳನ್ನು ಅಧ್ಯಯನ ಮಾಡುತ್ತಾರೆ.'],
- ['Chemist','ರಸಾಯನಶಾಸ್ತ್ರಜ್ಞ','Studies substances, reactions and materials.','ಪದಾರ್ಥ, ಕ್ರಿಯೆ ಮತ್ತು ವಸ್ತುಗಳನ್ನು ಅಧ್ಯಯನ ಮಾಡುತ್ತಾರೆ.'],
- ['Biologist','ಜೀವಶಾಸ್ತ್ರಜ್ಞ','Studies living organisms and ecosystems.','ಜೀವಿಗಳು ಮತ್ತು ಪರಿಸರ ವ್ಯವಸ್ಥೆಗಳನ್ನು ಅಧ್ಯಯನ ಮಾಡುತ್ತಾರೆ.'],
- ['Doctor','ವೈದ್ಯರು','Diagnoses and treats illness with appropriate training.','ಸೂಕ್ತ ತರಬೇತಿಯಿಂದ ರೋಗ ಗುರುತಿಸಿ ಚಿಕಿತ್ಸೆ ನೀಡುತ್ತಾರೆ.'],
- ['Nurse','ಶುಶ್ರೂಷಕ / ಶುಶ್ರೂಷಕಿ','Provides patient care and health education.','ರೋಗಿ ಆರೈಕೆ ಮತ್ತು ಆರೋಗ್ಯ ಶಿಕ್ಷಣ ನೀಡುತ್ತಾರೆ.'],
- ['Civil Engineer','ಸಿವಿಲ್ ಇಂಜಿನಿಯರ್','Designs infrastructure such as bridges and water systems.','ಸೇತುವೆ ಮತ್ತು ನೀರಿನ ವ್ಯವಸ್ಥೆಯಂತಹ ಮೂಲಸೌಕರ್ಯ ವಿನ್ಯಾಸಗೊಳಿಸುತ್ತಾರೆ.'],
- ['Mechanical Engineer','ಯಾಂತ್ರಿಕ ಇಂಜಿನಿಯರ್','Designs machines, mechanisms and thermal systems.','ಯಂತ್ರ ಮತ್ತು ಉಷ್ಣ ವ್ಯವಸ್ಥೆಗಳನ್ನು ವಿನ್ಯಾಸಗೊಳಿಸುತ್ತಾರೆ.'],
- ['Electrical Engineer','ವಿದ್ಯುತ್ ಇಂಜಿನಿಯರ್','Works with electrical systems, circuits and power.','ವಿದ್ಯುತ್ ವ್ಯವಸ್ಥೆ ಮತ್ತು ಮಂಡಲಗಳೊಂದಿಗೆ ಕೆಲಸ ಮಾಡುತ್ತಾರೆ.'],
- ['Software Developer','ಸಾಫ್ಟ್‌ವೇರ್ ಅಭಿವೃದ್ಧಿಪಡಿಸುವವರು','Builds software using programming and problem solving.','ಪ್ರೋಗ್ರಾಮಿಂಗ್ ಮೂಲಕ ಸಾಫ್ಟ್‌ವೇರ್ ನಿರ್ಮಿಸುತ್ತಾರೆ.'],
- ['Data Scientist','ಡೇಟಾ ವಿಜ್ಞಾನಿ','Uses statistics and computing to learn from data.','ಅಂಕಿಅಂಶ ಮತ್ತು ಗಣಕಯಂತ್ರದಿಂದ ಡೇಟಾ ವಿಶ್ಲೇಷಿಸುತ್ತಾರೆ.'],
- ['Environmental Scientist','ಪರಿಸರ ವಿಜ್ಞಾನಿ','Studies environmental quality and conservation.','ಪರಿಸರ ಗುಣಮಟ್ಟ ಮತ್ತು ಸಂರಕ್ಷಣೆಯನ್ನು ಅಧ್ಯಯನ ಮಾಡುತ್ತಾರೆ.'],
- ['Agricultural Scientist','ಕೃಷಿ ವಿಜ್ಞಾನಿ','Improves crops, soils and sustainable farming.','ಬೆಳೆ, ಮಣ್ಣು ಮತ್ತು ಸುಸ್ಥಿರ ಕೃಷಿಯನ್ನು ಸುಧಾರಿಸುತ್ತಾರೆ.'],
- ['Geologist','ಭೂವಿಜ್ಞಾನಿ','Studies rocks, Earth processes and resources.','ಶಿಲೆ, ಭೂ ಪ್ರಕ್ರಿಯೆ ಮತ್ತು ಸಂಪನ್ಮೂಲಗಳನ್ನು ಅಧ್ಯಯನ ಮಾಡುತ್ತಾರೆ.'],
- ['Biomedical Engineer','ಜೈವವೈದ್ಯಕೀಯ ಇಂಜಿನಿಯರ್','Develops technology for healthcare and medicine.','ಆರೋಗ್ಯ ಸೇವೆಗೆ ತಂತ್ರಜ್ಞಾನ ಅಭಿವೃದ್ಧಿಪಡಿಸುತ್ತಾರೆ.'],
- ['Science Teacher','ವಿಜ್ಞಾನ ಶಿಕ್ಷಕ','Helps learners investigate and understand science.','ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ನೆರವಾಗುತ್ತಾರೆ.']
-];
-const resources = [
- ['NASA Science','NASA ವಿಜ್ಞಾನ','https://science.nasa.gov/','Public science information and missions.'],
- ['ISRO','ಇಸ್ರೋ','https://www.isro.gov.in/','Indian space programme and mission updates.'],
- ['BIPM','BIPM','https://www.bipm.org/','International measurement standards and SI units.'],
- ['Nobel Prize','ನೋಬೆಲ್ ಪ್ರಶಸ್ತಿ','https://www.nobelprize.org/','Laureates and science prize background.'],
- ['Britannica Science','Britannica ವಿಜ್ಞಾನ','https://www.britannica.com/science','General reference articles; check article dates and authors.'],
- ['PhET Interactive Simulations','PhET ಸಂವಾದಾತ್ಮಕ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು','https://phet.colorado.edu/','Interactive science and mathematics models.']
-];
-const updates = [
- ['How to read scientific claims','ವೈಜ್ಞಾನಿಕ ಹೇಳಿಕೆಗಳನ್ನು ಹೇಗೆ ಓದಬೇಕು','Check the date, source, methods, uncertainty and whether the claim is supported by multiple independent studies.','ದಿನಾಂಕ, ಮೂಲ, ವಿಧಾನ, ಅನಿಶ್ಚಿತತೆ ಮತ್ತು ಸ್ವತಂತ್ರ ಅಧ್ಯಯನಗಳ ಬೆಂಬಲ ಪರಿಶೀಲಿಸಿ.'],
- ['Why measurements need units','ಅಳತೆಗಳಿಗೆ ಏಕಮಾನ ಏಕೆ ಬೇಕು','A number without a unit can be ambiguous. Use SI units and report instrument limits where relevant.','ಏಕಮಾನವಿಲ್ಲದ ಸಂಖ್ಯೆ ಅಸ್ಪಷ್ಟವಾಗಬಹುದು. SI ಏಕಮಾನ ಮತ್ತು ಉಪಕರಣದ ಮಿತಿಗಳನ್ನು ತಿಳಿಸಿ.'],
- ['Models and real experiments','ಮಾದರಿ ಮತ್ತು ನೈಜ ಪ್ರಯೋಗ','A model simplifies reality to make a question understandable. Its assumptions and limits should be stated.','ಮಾದರಿ ವಾಸ್ತವವನ್ನು ಸರಳಗೊಳಿಸುತ್ತದೆ; ಅದರ ಊಹೆಗಳು ಮತ್ತು ಮಿತಿಗಳನ್ನು ತಿಳಿಸಬೇಕು.']
-];
-const tutorAnswers = [
- {keys:['ohm','current','ಓಮ್','ಪ್ರವಾಹ'],en:'Ohm’s law: V = I × R. Rearrange to I = V/R or R = V/I. Keep units consistent: volts, amperes and ohms.',kn:'ಓಮ್‌ನ ನಿಯಮ: V = I × R. ಆದ್ದರಿಂದ I = V/R ಅಥವಾ R = V/I. ವೋಲ್ಟ್, ಆಂಪಿಯರ್ ಮತ್ತು ಓಮ್ ಏಕಮಾನಗಳನ್ನು ಸರಿಯಾಗಿ ಬಳಸಿ.'},
- {keys:['gravity','ಗುರುತ್ವ','fall','ಬೀಳು'],en:'Near Earth’s surface, free-fall acceleration is approximately 9.8 m/s² if air resistance is neglected. For an object released from rest: v = gt and h = ½gt².',kn:'ಭೂಮಿಯ ಮೇಲ್ಮೈ ಸಮೀಪ ಗಾಳಿಯ ಪ್ರತಿರೋಧವನ್ನು ಕಡೆಗಣಿಸಿದರೆ ಮುಕ್ತ ಪತನದ ವೇಗೋತ್ಕರ್ಷ ಸುಮಾರು 9.8 m/s². ವಿಶ್ರಾಂತಿಯಿಂದ ಬಿಡಿಸಿದರೆ v = gt ಮತ್ತು h = ½gt².'},
- {keys:['photosynthesis','ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ','plant','ಸಸ್ಯ'],en:'Photosynthesis uses light energy to convert carbon dioxide and water into energy-rich sugars, releasing oxygen. Light, water, carbon dioxide and temperature can affect its rate.',kn:'ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ ಬೆಳಕಿನ ಶಕ್ತಿಯಿಂದ ಕಾರ್ಬನ್ ಡೈಆಕ್ಸೈಡ್ ಮತ್ತು ನೀರನ್ನು ಸಕ್ಕರೆಯಾಗಿ ಪರಿವರ್ತಿಸಿ ಆಮ್ಲಜನಕ ಬಿಡುಗಡೆ ಮಾಡುತ್ತದೆ.'},
- {keys:['pH','acid','base','ಆಮ್ಲ'],en:'At about 25 °C, pH below 7 is acidic, 7 is neutral, and above 7 is basic. Never taste or mix unknown liquids.',kn:'ಸುಮಾರು 25 °C ನಲ್ಲಿ pH 7 ಕ್ಕಿಂತ ಕಡಿಮೆ ಆಮ್ಲೀಯ, 7 ತಟಸ್ಥ ಮತ್ತು 7 ಕ್ಕಿಂತ ಹೆಚ್ಚು ಪ್ರತ್ಯಾಮ್ಲೀಯ. ಅಪರಿಚಿತ ದ್ರವಗಳನ್ನು ಸವಿಯಬೇಡಿ ಅಥವಾ ಬೆರೆಸಬೇಡಿ.'}
-];
+// Structured Datasets
+const DATA_STORE = {
+  simulations: [
+    { id: "sim-motion", title_en: "Motion & Speed", title_kn: "ಚಲನೆ ಮತ್ತು ವೇಗ", subject: "Physics" },
+    { id: "sim-reflection", title_en: "Reflection of Light", title_kn: "ಬೆಳಕಿನ ಪ್ರತಿಫಲನ", subject: "Physics" },
+    { id: "sim-buoyancy", title_en: "Density and Buoyancy", title_kn: "ಸಾಂದ್ರತೆ ಮತ್ತು ತೇಲುವಿಕೆ", subject: "Physics" },
+    { id: "sim-circuits", title_en: "Simple Electric Circuit", title_kn: "ಸರಳ ವಿದ್ಯುತ್ ಮಂಡಲ", subject: "Physics" },
+    { id: "sim-ph", title_en: "Acids, Bases and pH Scale", title_kn: "ಆಮ್ಲಗಳು ಮತ್ತು ಪ್ರತ್ಯಾಮ್ಲಗಳು", subject: "Chemistry" },
+    { id: "sim-cell", title_en: "Plant and Animal Cell Explorer", title_kn: "ಜೀವಕೋಶ ಪರಿಶೋಧಕ", subject: "Biology" }
+  ],
+  scientists: [
+    { id: "sci-newton", name_en: "Isaac Newton", name_kn: "ಐಸಾಕ್ ನ್ಯೂಟನ್", field: "Physics", link: "https://www.britannica.com/biography/Isaac-Newton" },
+    { id: "sci-einstein", name_en: "Albert Einstein", name_kn: "ಆಲ್ಬರ್ಟ್ ಐನ್‌ಸ್ಟೈನ್", field: "Physics", link: "https://www.nobelprize.org/prizes/physics/1921/einstein/biographical/" },
+    { id: "sci-curie", name_en: "Marie Curie", name_kn: "ಮೇರಿ ಕ್ಯೂರಿ", field: "Chemistry & Physics", link: "https://www.nobelprize.org/prizes/physics/1903/marie-curie/biographical/" },
+    { id: "sci-raman", name_en: "C. V. Raman", name_kn: "ಸಿ. ವಿ. ರಾಮನ್", field: "Physics (Optics)", link: "https://www.nobelprize.org/prizes/physics/1930/raman/biographical/" },
+    { id: "sci-kalam", name_en: "A. P. J. Abdul Kalam", name_kn: "ಎ. ಪಿ. ಜೆ. ಅಬ್ದುಲ್ ಕಲಾಂ", field: "Aerospace Engineering", link: "https://www.presidentofindia.gov.in" }
+  ],
+  resources: [
+    { id: "res-si", title_en: "SI Units and Fundamental Constants Sheet", title_kn: "SI ಏಕಮಾನಗಳು ಮತ್ತು ಭೌತಿಕ ಸ್ಥಿರಾಂಕಗಳ ಪಟ್ಟಿ", subject: "Physics", format: "Reference Sheet", publisher: "BIPM Standard", link: "https://www.bipm.org" },
+    { id: "res-safety", title_en: "10 Core Safety Rules for Science Laboratories", title_kn: "ಪ್ರಾಯೋಗಿಕ ವಿಜ್ಞಾನದ 10 ಪ್ರಮುಖ ಸುರಕ್ಷತಾ ನಿಯಮಗಳು", subject: "Safety", format: "Safety Guide", publisher: "InstaLab Protocol", link: "#" },
+    { id: "res-table", title_en: "Scientific Observation Table & Graph Template", title_kn: "ವೈಜ್ಞಾನಿಕ ವೀಕ್ಷಣಾ ಕೋಷ್ಟಕ ಮತ್ತು ಗ್ರಾಫ್ ಮಾದರಿ", subject: "Methodology", format: "Interactive Template", publisher: "InstaLab Education", link: "#" },
+    { id: "res-water", title_en: "Hydrological Water Cycle Diagram", title_kn: "ಜಲಚಕ್ರ ನಕ್ಷೆ ಮತ್ತು ಪ್ರಕ್ರಿಯಾ ವಿವರಣೆ", subject: "Earth Science", format: "Diagram", publisher: "USGS Aligned", link: "https://www.usgs.gov" }
+  ],
+  quiz: [
+    {
+      id: "q-1",
+      question_en: "When a light ray strikes a plane mirror at an angle of incidence of 40°, what is the angle of reflection?",
+      question_kn: "ಬೆಳಕಿನ ಕಿರಣವು ಸಮತಲ ಕನ್ನಡಿಯ ಲಂಬಕ್ಕೆ 40° ಪತನ ಕೋನದಲ್ಲಿ ಬಿದ್ದರೆ, ಪ್ರತಿಫಲನ ಕೋನ ಎಷ್ಟು?",
+      options: [
+        { text_en: "40°", text_kn: "40°", correct: true },
+        { text_en: "50°", text_kn: "50°", correct: false },
+        { text_en: "80°", text_kn: "80°", correct: false },
+        { text_en: "90°", text_kn: "90°", correct: false }
+      ],
+      explanation_en: "The Law of Reflection states that the angle of incidence equals the angle of reflection (∠i = ∠r = 40°).",
+      explanation_kn: "ಪ್ರತಿಫಲನ ನಿಯಮದ ಪ್ರಕಾರ, ಪತನ ಕೋನವು ಪ್ರತಿಫಲನ ಕೋನಕ್ಕೆ ಸಮನಾಗಿರುತ್ತದೆ (∠i = ∠r = 40°)."
+    }
+  ]
+};
 
-function setLang(mode){ state.lang=mode; document.documentElement.dataset.langMode=mode; document.documentElement.lang=mode==='kn'?'kn':'en'; $('#global-lang-select').value=mode; writeStore('lang',mode); }
-function heading(en,kn,desc='',descKn=''){return `<div class="section-top"><div class="eyebrow">InstaLab • Learn by doing</div><h1 class="section-heading">${bilingual(en,kn)}</h1>${desc?`<p class="section-intro">${bilingual(desc,descKn||desc)}</p>`:''}</div>`;}
-function card(title,kn,desc,descKn,actions='',badge=''){return `<article class="card">${badge?`<span class="pill ${badge==='Planned'?'planned':'working'}">${escapeHTML(badge)}</span>`:''}<h3>${bilingual(title,kn)}</h3><p>${bilingual(desc,descKn||desc)}</p>${actions?`<div class="card-actions">${actions}</div>`:''}</article>`;}
-function btn(label, action, cls='btn'){return `<button type="button" class="${cls}" data-action="${escapeHTML(action)}">${label}</button>`;}
-function openSection(id){if(!nav.some(n=>n[0]===id))return;state.active=id; $$('.page-section').forEach(s=>{const active=s.id===`section-${id}`;s.hidden=!active;s.classList.toggle('active',active)});$$('[data-nav]').forEach(el=>el.classList.toggle('active',el.dataset.nav===id));$('#primary-nav').classList.remove('open');$('#mobile-menu-btn').setAttribute('aria-expanded','false');if(location.hash!==`#${id}`)history.replaceState(null,'',`#${id}`);if(!$('#section-'+id).dataset.rendered)renderSection(id);$('#main-content').focus({preventScroll:true});}
-function renderHome(){const section=$('#section-home');section.innerHTML=`<div class="hero"><div><div class="eyebrow">Textbook-free • Kannada + English</div><h1>${bilingual('Explore Science by Doing','ಮಾಡುವ ಮೂಲಕ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ')}</h1><p>${bilingual('A hands-on learning space for experiments, scientific tools, knowledge checks and STEM career discovery.','ಪ್ರಯೋಗಗಳು, ವಿಜ್ಞಾನ ಉಪಕರಣಗಳು, ಜ್ಞಾನ ಪರೀಕ್ಷೆ ಮತ್ತು STEM ವೃತ್ತಿ ಅನ್ವೇಷಣೆಗೆ ಕಲಿಕಾ ವೇದಿಕೆ.')}</p><div class="card-actions">${btn('Open Virtual Lab / ಪ್ರಯೋಗಾಲಯ','nav:lab')}${btn('Take a Quiz / ರಸಪ್ರಶ್ನೆ','nav:quiz','btn btn-secondary')}</div></div><div class="hero-art" aria-hidden="true">⚗️🔬🧪</div></div>
-<div class="stat-grid"><div class="stat"><strong>${simulations.length}</strong><span>Interactive science models / ವಿಜ್ಞಾನ ಮಾದರಿಗಳು</span></div><div class="stat"><strong>${equipment.length}</strong><span>Equipment guides / ಉಪಕರಣ ಮಾರ್ಗದರ್ಶಿ</span></div><div class="stat"><strong>${topics.length}</strong><span>Knowledge topics / ಜ್ಞಾನ ವಿಷಯಗಳು</span></div><div class="stat"><strong>${careers.length}</strong><span>STEM career profiles / STEM ವೃತ್ತಿಗಳು</span></div></div>
-<h2>Explore all 13 sections / ಎಲ್ಲಾ ೧೩ ವಿಭಾಗಗಳನ್ನು ಅನ್ವೇಷಿಸಿ</h2><div class="grid">${nav.slice(1).map(([id,en,kn])=>card(en,kn,sectionDescriptions[id][0],sectionDescriptions[id][1],btn('Explore / ಅನ್ವೇಷಿಸಿ,' ,`nav:${id}`))).join('')}</div>
-<div class="notice mt"><strong>Textbook-free promise / ಪಠ್ಯಪುಸ್ತಕ ಮುಕ್ತ ನಿಯಮ:</strong> This site provides original learning aids and links to public science agencies; it does not host textbook PDFs or textbook downloads. / ಇಲ್ಲಿ ಪಠ್ಯಪುಸ್ತಕ PDF ಅಥವಾ ಡೌನ್‌ಲೋಡ್ ಲಿಂಕ್‌ಗಳಿಲ್ಲ.</div>`;section.dataset.rendered='1';}
-const sectionDescriptions={
-lab:['Adjust variables and observe model outputs.','ಚರಗಳನ್ನು ಬದಲಿಸಿ ಮಾದರಿಯ ಫಲಿತಾಂಶ ಗಮನಿಸಿ.'],equipment:['Learn what lab tools measure and how to use them safely.','ಪ್ರಯೋಗಾಲಯ ಉಪಕರಣಗಳ ಬಳಕೆ ಮತ್ತು ಸುರಕ್ಷತೆ ತಿಳಿಯಿರಿ.'],scientists:['Discover scientists and their contributions.','ವಿಜ್ಞಾನಿಗಳು ಮತ್ತು ಅವರ ಕೊಡುಗೆಗಳನ್ನು ತಿಳಿಯಿರಿ.'],library:['Explore core ideas, formulas and small activities.','ಮುಖ್ಯ ಪರಿಕಲ್ಪನೆ, ಸೂತ್ರ ಮತ್ತು ಚಟುವಟಿಕೆಗಳನ್ನು ತಿಳಿಯಿರಿ.'],videos:['Curated external science-learning sources.','ವಿಜ್ಞಾನ ಕಲಿಕೆಗೆ ಆಯ್ದ ಬಾಹ್ಯ ಮೂಲಗಳು.'],documents:['Original worksheets and trusted public science resources; no textbooks.','ಮೂಲ ಕಾರ್ಯಹಾಳೆಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ವಿಜ್ಞಾನ ಸಂಪನ್ಮೂಲಗಳು; ಪಠ್ಯಪುಸ್ತಕಗಳಿಲ್ಲ.'],quiz:['Check your understanding with a short science quiz.','ಚಿಕ್ಕ ವಿಜ್ಞಾನ ರಸಪ್ರಶ್ನೆಯಿಂದ ನಿಮ್ಮ ತಿಳುವಳಿಕೆ ಪರೀಕ್ಷಿಸಿ.'],projects:['Safe starter investigations for home or school.','ಮನೆ ಅಥವಾ ಶಾಲೆಗೆ ಸುರಕ್ಷಿತ ಆರಂಭಿಕ ಯೋಜನೆಗಳು.'],news:['Science literacy notes and ways to evaluate claims.','ವಿಜ್ಞಾನ ಮಾಹಿತಿಯನ್ನು ಪರಿಶೀಲಿಸುವ ಮಾರ್ಗಗಳು.'],tutor:['Offline question helper; not a live AI service.','ಆಫ್‌ಲೈನ್ ಪ್ರಶ್ನೆ ಸಹಾಯಕ; ನೇರ AI ಸೇವೆಯಲ್ಲ.'],community:['Save private ideas and observations on this device.','ನಿಮ್ಮ ಸಾಧನದಲ್ಲೇ ಖಾಸಗಿ ಕಲ್ಪನೆ ಮತ್ತು ಗಮನಿಕೆಗಳನ್ನು ಉಳಿಸಿ.'],careers:['Explore example STEM careers and their work.','STEM ವೃತ್ತಿಗಳು ಮತ್ತು ಅವುಗಳ ಕೆಲಸವನ್ನು ತಿಳಿಯಿರಿ.']};
-function renderLab(){const sec=$('#section-lab');sec.innerHTML=heading('Virtual Science Lab','ವರ್ಚುವಲ್ ವಿಜ್ಞಾನ ಪ್ರಯೋಗಾಲಯ','Choose a model, adjust its controls and record what you observe.','ಮಾದರಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ, ನಿಯಂತ್ರಣ ಬದಲಿಸಿ ಗಮನಿಕೆ ದಾಖಲಿಸಿ.')+`<div class="toolbar"><input id="sim-search" placeholder="Search simulations / ಮಾದರಿ ಹುಡುಕಿ"><select id="sim-subject"><option value="">All subjects / ಎಲ್ಲಾ ವಿಷಯಗಳು</option><option>Physics</option><option>Chemistry</option><option>Biology</option><option>Earth & Space</option></select></div><div id="sim-list" class="grid"></div><div id="sim-detail" class="mt"></div>`;const draw=()=>{const q=($('#sim-search').value||'').toLowerCase(),sub=$('#sim-subject').value;$('#sim-list').innerHTML=simulations.filter(s=>(!sub||s.subject===sub)&&(`${s.en} ${s.kn} ${s.subject}`).toLowerCase().includes(q)).map(s=>card(s.en,s.kn,s.objective,s.objectiveKn,btn('Open model / ಮಾದರಿ ತೆರೆಯಿರಿ',`sim:${s.id}`),'Working')).join('')||'<div class="empty-state">No matching models / ಹೊಂದಾಣಿಕೆಯ ಮಾದರಿಗಳಿಲ್ಲ.</div>';};$('#sim-search').addEventListener('input',draw);$('#sim-subject').addEventListener('change',draw);draw();sec.dataset.rendered='1';}
-function simValue(sim,key){const control=sim.controls.find(c=>c[0]===key);return state.simValues[sim.id]?.[key] ?? control?.[6] ?? 0;}
-function computeSim(sim){const v={};sim.controls.forEach(c=>v[c[0]]=Number(simValue(sim,c[0])));let result='',detail='';switch(sim.id){case'motion':result=`Displacement = ${(v.u*v.t+.5*v.a*v.t*v.t).toFixed(2)} m`;detail=`Final velocity = ${(v.u+v.a*v.t).toFixed(2)} m/s`;break;case'gravity':result=`Fall distance ≈ ${(0.5*v.g*v.t*v.t).toFixed(2)} m`;detail=`Speed ≈ ${(v.g*v.t).toFixed(2)} m/s (ideal free fall)`;break;case'reflection':result=`Reflected angle = ${v.angle}°`;detail='Angles are measured from the normal.';break;case'circuit':result=`Current = ${(v.V/v.R).toFixed(3)} A`;detail=`Power = ${(v.V*v.V/v.R).toFixed(2)} W`;break;case'ph':result=v.ph<7?'Acidic / ಆಮ್ಲೀಯ':v.ph===7?'Neutral / ತಟಸ್ಥ':'Basic / ಪ್ರತ್ಯಾಮ್ಲೀಯ';detail=`pH value = ${v.ph}`;break;case'dissolve':result=`Relative rate index = ${((v.temp+273)/v.mass).toFixed(2)}`;detail='Illustrative comparison only; not a measured chemical rate.';break;case'separation':result=`Total mass = ${(v.sand+v.salt+v.iron).toFixed(1)} g`;detail=`Sand ${v.sand} g · Salt ${v.salt} g · Iron ${v.iron} g`;break;case'cells':result=v.type===1?'Plant cell / ಸಸ್ಯ ಕೋಶ':'Animal cell / ಪ್ರಾಣಿ ಕೋಶ';detail=v.type===1?'Cell wall and chloroplasts are typical plant-cell structures.':'Animal cells do not have cell walls or chloroplasts.';break;case'microscope':result=`Total magnification = ${v.eye*v.obj}×`;detail=`${v.eye}× eyepiece × ${v.obj}× objective`;break;case'density':result=`Density = ${(v.mass/v.volume).toFixed(2)} g/cm³`;detail='Assumes mass and volume measurements are accurate.';break;case'waves':result=`Period = ${(1/v.f).toFixed(3)} s`;detail=`Frequency = ${v.f} Hz`;break;case'photosynthesis':result=`Conceptual activity index = ${(v.light*v.co2/100).toFixed(1)}`;detail='Not a measured photosynthesis rate; many factors affect real plants.';break;case'solar':result=`Relative period ≈ ${(Math.pow(v.orbit,1.5)).toFixed(2)} Earth years`;detail='Kepler-style scaling for an orbit around the Sun; simplified model.';break;}return {result,detail,v};}
-function renderSimDetail(id){const sim=simulations.find(s=>s.id===id);if(!sim)return;state.activeSim=id;const result=computeSim(sim);const controls=sim.controls.map(c=>{const val=simValue(sim,c[0]);return `<label class="range-control"><span>${bilingual(c[1],c[2])}: <span class="value" id="val-${c[0]}">${val}${c[7]}</span></span><input type="range" data-sim-key="${c[0]}" min="${c[3]}" max="${c[4]}" step="${c[5]}" value="${val}"></label>`}).join('');$('#sim-detail').innerHTML=`<article class="card"><div class="section-top"><span class="pill working">${escapeHTML(sim.subject)} • Interactive</span><h2>${bilingual(sim.en,sim.kn)}</h2><p>${bilingual(sim.objective,sim.objectiveKn)}</p></div><div class="simulation-layout"><div><div class="canvas-wrap"><canvas class="simulation-canvas" id="sim-canvas" width="760" height="300" aria-label="Simulation visualization"></canvas></div><div class="control-row mt">${controls}</div><div class="card-actions">${btn('Reset controls / ಮರುಹೊಂದಿಸಿ','sim-reset')}</div></div><div class="result-panel"><h3>Live result / ತಕ್ಷಣದ ಫಲಿತಾಂಶ</h3><div id="sim-result" class="result-number">${escapeHTML(result.result)}</div><p id="sim-detail-text">${escapeHTML(result.detail)}</p><div class="formula">${escapeHTML(sim.formula)}</div><p><strong>Safety / ಸುರಕ್ಷತೆ:</strong> ${bilingual(sim.safety,sim.safety)}</p><div class="field"><label for="sim-observation">Observation note / ಗಮನಿಕೆ</label><textarea id="sim-observation" placeholder="What did you observe? / ಏನು ಗಮನಿಸಿದಿರಿ?"></textarea></div><button type="button" class="btn" data-action="save-observation:${sim.id}">Save observation / ಗಮನಿಕೆ ಉಳಿಸಿ</button><div id="sim-save-msg" class="muted mt" aria-live="polite"></div></div></div></article>`;
-const canvas=$('#sim-canvas');const draw=()=>{const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;ctx.clearRect(0,0,w,h);ctx.fillStyle='#f0fdfa';ctx.fillRect(0,0,w,h);ctx.strokeStyle='#cbd5e1';ctx.lineWidth=1;for(let x=30;x<w;x+=50){ctx.beginPath();ctx.moveTo(x,10);ctx.lineTo(x,h-20);ctx.stroke()}for(let y=20;y<h;y+=40){ctx.beginPath();ctx.moveTo(20,y);ctx.lineTo(w-15,y);ctx.stroke()}ctx.fillStyle='#0f766e';ctx.font='bold 18px sans-serif';ctx.fillText(sim.en,28,32);if(id==='motion'||id==='gravity'){const pos=Math.min(w-70,40+(Number(result.v.t||2)*50));ctx.fillStyle='#0284c7';ctx.beginPath();ctx.arc(pos,id==='gravity'?70+Math.min(170,Number(result.v.t||2)*25):h-70,18,0,Math.PI*2);ctx.fill();ctx.fillStyle='#334155';ctx.font='15px sans-serif';ctx.fillText('Model view — not to scale',28,h-15)}else if(id==='reflection'){const cx=w/2,cy=h/2;ctx.strokeStyle='#64748b';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(cx,50);ctx.lineTo(cx,h-30);ctx.stroke();ctx.strokeStyle='#0ea5e9';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(cx-190,cy-90);ctx.lineTo(cx,cy);ctx.lineTo(cx+190,cy-90);ctx.stroke();ctx.strokeStyle='#f59e0b';ctx.beginPath();ctx.moveTo(cx,cy-120);ctx.lineTo(cx,cy+100);ctx.stroke()}else if(id==='ph'){const grd=ctx.createLinearGradient(80,0,w-80,0);grd.addColorStop(0,'#ef4444');grd.addColorStop(.5,'#4ade80');grd.addColorStop(1,'#8b5cf6');ctx.fillStyle=grd;ctx.fillRect(80,100,w-160,55);ctx.fillStyle='#172033';ctx.font='bold 20px sans-serif';ctx.fillText('0      Acidic         Neutral         Basic      14',90,190);ctx.beginPath();ctx.arc(80+(w-160)*result.v.ph/14,127,12,0,Math.PI*2);ctx.fillStyle='#111827';ctx.fill()}else{ctx.fillStyle='#14b8a6';ctx.fillRect(w*.25,h*.35,w*.5,70);ctx.fillStyle='#fff';ctx.font='bold 18px sans-serif';ctx.fillText(id==='circuit'?'V → R → I':id==='microscope'?'Objective × Eyepiece':id==='cells'?'Cell structure':id==='solar'?'Orbit around the Sun':'Explore variable relationships',w*.28,h*.35+42)}};
-const update=()=>{const r=computeSim(sim);$('#sim-result').textContent=r.result;$('#sim-detail-text').textContent=r.detail;sim.controls.forEach(c=>{const el=$(`[data-sim-key="${c[0]}"]`);if(el)$('#val-'+c[0]).textContent=el.value+c[7]});draw()};$$('[data-sim-key]',$('#sim-detail')).forEach(el=>el.addEventListener('input',()=>{state.simValues[id]=state.simValues[id]||{};state.simValues[id][el.dataset.simKey]=Number(el.value);update()}));draw();}
-function renderEquipment(){const sec=$('#section-equipment');sec.innerHTML=heading('Science Equipment','ವಿಜ್ಞಾನ ಉಪಕರಣಗಳು','Purpose, correct use and safety reminders for common laboratory equipment.','ಸಾಮಾನ್ಯ ಪ್ರಯೋಗಾಲಯ ಉಪಕರಣಗಳ ಉದ್ದೇಶ, ಬಳಕೆ ಮತ್ತು ಸುರಕ್ಷತಾ ಸೂಚನೆಗಳು.')+`<div class="toolbar"><input id="equip-search" placeholder="Search equipment / ಉಪಕರಣ ಹುಡುಕಿ"></div><div id="equip-list" class="grid"></div>`;const draw=()=>{const q=$('#equip-search').value.toLowerCase();$('#equip-list').innerHTML=equipment.filter(x=>x.join(' ').toLowerCase().includes(q)).map((x,i)=>card(x[0],x[1],x[2],x[3],btn('View use & safety / ವಿವರ',`equipment:${i}`))).join('')};$('#equip-search').addEventListener('input',draw);draw();sec.dataset.rendered='1';}
-function renderScientists(){const sec=$('#section-scientists');sec.innerHTML=heading('Scientists Directory','ವಿಜ್ಞಾನಿಗಳ ಕೈಪಿಡಿ','Learn about scientific contributions; profiles are brief introductions, not exhaustive biographies.','ವೈಜ್ಞಾನಿಕ ಕೊಡುಗೆಗಳ ಸಂಕ್ಷಿಪ್ತ ಪರಿಚಯ.')+`<div class="grid">${scientists.map((s,i)=>card(s[0],s[1],s[2]+': '+s[4],s[3]+': '+s[5],btn('Learn more / ಇನ್ನಷ್ಟು',`scientist:${i}`))).join('')}</div>`;sec.dataset.rendered='1';}
-function renderLibrary(){const sec=$('#section-library');sec.innerHTML=heading('Science Knowledge Library','ವಿಜ್ಞಾನ ಜ್ಞಾನ ಭಂಡಾರ','Concept summaries, formulas and small investigations created for InstaLab.','InstaLabಗಾಗಿ ರಚಿಸಿದ ಪರಿಕಲ್ಪನೆ, ಸೂತ್ರ ಮತ್ತು ಸಣ್ಣ ಚಟುವಟಿಕೆಗಳು.')+`<div class="toolbar"><input id="topic-search" placeholder="Search topics / ವಿಷಯ ಹುಡುಕಿ"></div><div id="topic-list" class="grid"></div>`;const draw=()=>{const q=$('#topic-search').value.toLowerCase();$('#topic-list').innerHTML=topics.filter(t=>t.join(' ').toLowerCase().includes(q)).map((t,i)=>card(t[0],t[1],t[2],t[3],btn('Explore topic / ವಿಷಯ ತೆರೆಯಿರಿ',`topic:${i}`))).join('')};$('#topic-search').addEventListener('input',draw);draw();sec.dataset.rendered='1';}
-function renderVideos(){const sec=$('#section-videos');sec.innerHTML=heading('Science Videos & Learning Links','ವಿಜ್ಞಾನ ವೀಡಿಯೊಗಳು ಮತ್ತು ಕಲಿಕಾ ಲಿಂಕ್‌ಗಳು','These are external source links, not embedded or independently verified videos. Check each source and its content before classroom use.','ಇವು ಬಾಹ್ಯ ಮೂಲಗಳ ಲಿಂಕ್‌ಗಳು; ವೀಡಿಯೊಗಳನ್ನು ಇಲ್ಲಿ embed ಮಾಡಿಲ್ಲ. ಬಳಸುವ ಮೊದಲು ಪರಿಶೀಲಿಸಿ.')+`<div class="grid">${[['NASA Science','NASA ವಿಜ್ಞಾನ','https://www.youtube.com/@NASA'],['ISRO','ಇಸ್ರೋ','https://www.youtube.com/@isroofficial'],['Khan Academy','ಖಾನ್ ಅಕಾಡೆಮಿ','https://www.youtube.com/@khanacademy'],['Royal Institution','ರಾಯಲ್ ಇನ್‌ಸ್ಟಿಟ್ಯೂಷನ್','https://www.youtube.com/@TheRoyalInstitution'],['PhET Simulations','PhET ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು','https://phet.colorado.edu/'],['Crash Course','ಕ್ರ್ಯಾಶ್ ಕೋರ್ಸ್','https://www.youtube.com/@crashcourse']].map(v=>card(v[0],v[1],'Open the external educational source.','ಬಾಹ್ಯ ಶಿಕ್ಷಣ ಮೂಲ ತೆರೆಯಿರಿ.',`<a class="btn" href="${v[2]}" target="_blank" rel="noopener noreferrer">Open source / ಮೂಲ ತೆರೆಯಿರಿ ↗</a>`)).join('')}</div>`;sec.dataset.rendered='1';}
-function renderDocuments(){const sec=$('#section-documents');sec.innerHTML=heading('Worksheets & Public Resources','ಕಾರ್ಯಹಾಳೆಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸಂಪನ್ಮೂಲಗಳು','Original InstaLab activities and trusted public science resources. No textbook files or textbook-download links are included.','InstaLab ಚಟುವಟಿಕೆಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ವಿಜ್ಞಾನ ಸಂಪನ್ಮೂಲಗಳು. ಪಠ್ಯಪುಸ್ತಕಗಳಿಲ್ಲ.')+`<div class="grid">${card('Observation worksheet','ಗಮನಿಕೆ ಕಾರ್ಯಹಾಳೆ','Record question, hypothesis, variables, method, results and conclusion.','ಪ್ರಶ್ನೆ, ಊಹೆ, ಚರಗಳು, ವಿಧಾನ, ಫಲಿತಾಂಶ ಮತ್ತು ತೀರ್ಮಾನ ದಾಖಲಿಸಿ.',btn('Create worksheet / ಕಾರ್ಯಹಾಳೆ','worksheet'))}${resources.map(r=>card(r[0],r[1],r[3],r[3],`<a class="btn" href="${r[2]}" target="_blank" rel="noopener noreferrer">Open official resource ↗</a>`)).join('')}</div>`;sec.dataset.rendered='1';}
-function renderQuiz(){const sec=$('#section-quiz');sec.innerHTML=heading('Science Quiz','ವಿಜ್ಞಾನ ರಸಪ್ರಶ್ನೆ','Answer the questions, submit once and review your score. Your latest result is saved on this device.','ಪ್ರಶ್ನೆಗಳಿಗೆ ಉತ್ತರಿಸಿ ಅಂಕಗಳನ್ನು ನೋಡಿ. ಇತ್ತೀಚಿನ ಫಲಿತಾಂಶ ಈ ಸಾಧನದಲ್ಲಿ ಉಳಿಯುತ್ತದೆ.')+`<div class="card"><div class="toolbar"><label>Mode / ವಿಧಾನ <select id="quiz-mode"><option value="practice">Practice / ಅಭ್ಯಾಸ</option><option value="challenge">Challenge / ಸವಾಲು</option></select></label><button class="btn btn-secondary" data-action="quiz-restart">Restart quiz / ಮರುಪ್ರಾರಂಭಿಸಿ</button></div><div id="quiz-area"></div></div>`;state.quizIndex=0;state.quizAnswers=[];state.quizFinished=false;drawQuestion();sec.dataset.rendered='1';}
-function drawQuestion(){const area=$('#quiz-area');if(!area)return;if(state.quizFinished){const score=questions.reduce((n,q,i)=>n+(state.quizAnswers[i]===q.ans?1:0),0);writeStore('lastQuiz',{score,total:questions.length,date:new Date().toISOString()});area.innerHTML=`<h2>Quiz complete / ರಸಪ್ರಶ್ನೆ ಪೂರ್ಣ</h2><p class="result-number">${score} / ${questions.length}</p><p>${bilingual('Review the correct answers and explanations below.','ಸರಿಯಾದ ಉತ್ತರ ಮತ್ತು ವಿವರಣೆಗಳನ್ನು ಕೆಳಗೆ ಪರಿಶೀಲಿಸಿ.')}</p>${questions.map((q,i)=>`<div class="feedback"><strong>${i+1}. ${bilingual(q.q,q.kn)}</strong><p>Your answer: ${escapeHTML(q.opts[state.quizAnswers[i]]??'Not answered')} · Correct: ${escapeHTML(q.opts[q.ans])}</p><p>${escapeHTML(q.why)}</p></div>`).join('')}`;return;}const q=questions[state.quizIndex];area.innerHTML=`<p class="muted">Question ${state.quizIndex+1} of ${questions.length} / ${state.quizIndex+1} / ${questions.length} ಪ್ರಶ್ನೆ</p><h3>${bilingual(q.q,q.kn)}</h3><div>${q.opts.map((o,i)=>`<button type="button" class="option-btn ${state.quizAnswers[state.quizIndex]===i?'selected':''}" data-action="quiz-answer:${i}">${String.fromCharCode(65+i)}. ${escapeHTML(o)}</button>`).join('')}</div><div class="card-actions">${btn(state.quizIndex===questions.length-1?'Submit quiz / ಸಲ್ಲಿಸಿ':'Next / ಮುಂದಿನದು','quiz-next')}${btn('Previous / ಹಿಂದಿನದು','quiz-prev','btn btn-outline')}</div><p id="quiz-feedback" class="muted" aria-live="polite"></p>`;}
-function renderProjects(){const sec=$('#section-projects');sec.innerHTML=heading('Hands-on Science Projects','ಪ್ರಾಯೋಗಿಕ ವಿಜ್ಞಾನ ಯೋಜನೆಗಳು','Use a notebook to record variables, repeated measurements and evidence. Follow the safety notes.','ಚರಗಳು, ಪುನರಾವರ್ತಿತ ಅಳತೆ ಮತ್ತು ಸಾಕ್ಷ್ಯವನ್ನು ದಾಖಲಿಸಿ; ಸುರಕ್ಷತಾ ಸೂಚನೆ ಪಾಲಿಸಿ.')+`<div class="grid">${projects.map((p,i)=>card(p[0],p[1],p[2],p[3],btn('Open project / ಯೋಜನೆ ತೆರೆಯಿರಿ',`project:${i}`))).join('')}</div>`;sec.dataset.rendered='1';}
-function renderNews(){const sec=$('#section-news');sec.innerHTML=heading('Science Updates & Critical Thinking','ವಿಜ್ಞಾನ ಮಾಹಿತಿ ಮತ್ತು ವಿಮರ್ಶಾತ್ಮಕ ಚಿಂತನೆ','This section provides evergreen science-literacy notes, not a live news feed.','ಇದು ಸ್ಥಿರ ವಿಜ್ಞಾನ ಮಾಹಿತಿ; ನೇರ ಸುದ್ದಿ ಫೀಡ್ ಅಲ್ಲ.')+`<div class="grid">${updates.map((u,i)=>card(u[0],u[1],u[2],u[3],btn('Read note / ಓದಿ',`update:${i}`))).join('')}</div>`;sec.dataset.rendered='1';}
-function renderTutor(){const sec=$('#section-tutor');sec.innerHTML=heading('Offline Science Tutor','ಆಫ್‌ಲೈನ್ ವಿಜ್ಞಾನ ಬೋಧಕ','A small offline answer bank. It is not a live AI model and may not answer every question.','ಸಣ್ಣ ಆಫ್‌ಲೈನ್ ಉತ್ತರ ಸಂಗ್ರಹ. ಇದು ನೇರ AI ಮಾದರಿಯಲ್ಲ.')+`<div class="card"><form id="tutor-form"><div class="field"><label for="tutor-question">Ask a science question / ವಿಜ್ಞಾನ ಪ್ರಶ್ನೆ ಕೇಳಿ</label><textarea id="tutor-question" required placeholder="e.g. Explain Ohm’s law / ಓಮ್‌ನ ನಿಯಮ ವಿವರಿಸಿ"></textarea></div><button class="btn" type="submit">Find guidance / ಉತ್ತರ ಹುಡುಕಿ</button></form><div id="tutor-answer" class="feedback mt" hidden></div></div>`;$('#tutor-form').addEventListener('submit',e=>{e.preventDefault();const q=$('#tutor-question').value.toLowerCase();const found=tutorAnswers.find(a=>a.keys.some(k=>q.includes(k.toLowerCase())));const ans=$('#tutor-answer');ans.hidden=false;ans.innerHTML=found?bilingual(found.en,found.kn):bilingual('I do not have a prepared answer for this exact question yet. Try a topic such as Ohm’s law, gravity, photosynthesis or pH.','ಈ ಪ್ರಶ್ನೆಗೆ ಸಿದ್ಧ ಉತ್ತರ ಇಲ್ಲ. ಓಮ್‌ನ ನಿಯಮ, ಗುರುತ್ವ, ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ ಅಥವಾ pH ಮುಂತಾದ ವಿಷಯ ಪ್ರಯತ್ನಿಸಿ.');});sec.dataset.rendered='1';}
-function renderCommunity(){const sec=$('#section-community');const drafts=readStore('drafts',[]);sec.innerHTML=heading('My Science Notebook','ನನ್ನ ವಿಜ್ಞಾನ ಟಿಪ್ಪಣಿ','Private local notes saved in this browser only. They are not uploaded or shared.','ಈ ಬ್ರೌಸರ್‌ನಲ್ಲೇ ಉಳಿಯುವ ಖಾಸಗಿ ಟಿಪ್ಪಣಿಗಳು; ಅಪ್‌ಲೋಡ್ ಅಥವಾ ಹಂಚಿಕೆ ಆಗುವುದಿಲ್ಲ.')+`<div class="card"><form id="draft-form"><div class="field"><label for="draft-title">Title / ಶೀರ್ಷಿಕೆ</label><input id="draft-title" required maxlength="100"></div><div class="field"><label for="draft-body">Observation or idea / ಗಮನಿಕೆ ಅಥವಾ ಕಲ್ಪನೆ</label><textarea id="draft-body" required maxlength="5000"></textarea></div><button class="btn" type="submit">Save note / ಉಳಿಸಿ</button></form></div><h2 class="mt">Saved notes / ಉಳಿಸಿದ ಟಿಪ್ಪಣಿಗಳು</h2><div id="draft-list" class="grid">${drafts.map((d,i)=>card(d.title,'',d.body,'',btn('Delete / ಅಳಿಸಿ',`draft-delete:${i}`))).join('')||'<div class="empty-state">No notes yet / ಇನ್ನೂ ಟಿಪ್ಪಣಿಗಳಿಲ್ಲ.</div>'}</div>`;$('#draft-form').addEventListener('submit',e=>{e.preventDefault();const arr=readStore('drafts',[]);arr.unshift({title:$('#draft-title').value.trim(),body:$('#draft-body').value.trim(),date:new Date().toISOString()});writeStore('drafts',arr);renderCommunity();});sec.dataset.rendered='1';}
-function renderCareers(){const sec=$('#section-careers');sec.innerHTML=heading('STEM Career Explorer','STEM ವೃತ್ತಿ ಅನ್ವೇಷಕ','Explore example careers, their work and the kinds of skills they use. Requirements vary by institution and region.','ವೃತ್ತಿಗಳು, ಕೆಲಸ ಮತ್ತು ಅಗತ್ಯ ಕೌಶಲ್ಯಗಳ ಉದಾಹರಣೆಗಳು. ಅರ್ಹತೆಗಳು ಸಂಸ್ಥೆ ಮತ್ತು ಪ್ರದೇಶದಂತೆ ಬದಲಾಗುತ್ತವೆ.')+`<div class="toolbar"><input id="career-search" placeholder="Search careers / ವೃತ್ತಿ ಹುಡುಕಿ"></div><div id="career-list" class="grid"></div>`;const draw=()=>{const q=$('#career-search').value.toLowerCase();$('#career-list').innerHTML=careers.filter(c=>c.join(' ').toLowerCase().includes(q)).map(c=>card(c[0],c[1],c[2],c[3])).join('')};$('#career-search').addEventListener('input',draw);draw();sec.dataset.rendered='1';}
-function renderSection(id){const fn={home:renderHome,lab:renderLab,equipment:renderEquipment,scientists:renderScientists,library:renderLibrary,videos:renderVideos,documents:renderDocuments,quiz:renderQuiz,projects:renderProjects,news:renderNews,tutor:renderTutor,community:renderCommunity,careers:renderCareers}[id];if(fn)fn();}
-function showModal(title,body){$('#modal-title').textContent=title;$('#modal-body').innerHTML=body;$('#detail-modal-backdrop').hidden=false;$('#detail-modal-backdrop').setAttribute('aria-hidden','false');$('#modal-close-btn').focus();}
-function closeModal(){$('#detail-modal-backdrop').hidden=true;$('#detail-modal-backdrop').setAttribute('aria-hidden','true');}
-function handleAction(action){if(action.startsWith('nav:')){openSection(action.slice(4));return;}if(action.startsWith('sim:')){renderSimDetail(action.slice(4));$('#sim-detail').scrollIntoView({behavior:'smooth',block:'start'});return;}if(action==='sim-reset'){const sim=simulations.find(s=>s.id===state.activeSim);if(sim){delete state.simValues[sim.id];renderSimDetail(sim.id)}return;}if(action.startsWith('save-observation:')){const id=action.split(':')[1],notes=readStore('observations',[]);notes.unshift({simulation:id,note:$('#sim-observation').value.trim(),date:new Date().toISOString()});writeStore('observations',notes);$('#sim-save-msg').textContent='Observation saved on this device / ಗಮನಿಕೆ ಈ ಸಾಧನದಲ್ಲಿ ಉಳಿಸಲಾಗಿದೆ.';return;}if(action.startsWith('equipment:')){const x=equipment[Number(action.split(':')[1])];showModal(x[0],`<p>${bilingual(x[2],x[3])}</p><div class="notice"><strong>Safe use / ಸುರಕ್ಷಿತ ಬಳಕೆ</strong><p>${escapeHTML(x[4])}</p></div>`);return;}if(action.startsWith('scientist:')){const x=scientists[Number(action.split(':')[1])];showModal(x[0],`<p>${bilingual(x[2],x[3])}</p><p>${bilingual(x[4],x[5])}</p><p class="muted">Use reputable science-history sources to learn more. / ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗೆ ವಿಶ್ವಾಸಾರ್ಹ ವಿಜ್ಞಾನ ಇತಿಹಾಸ ಮೂಲಗಳನ್ನು ಬಳಸಿ.</p>`);return;}if(action.startsWith('topic:')){const x=topics[Number(action.split(':')[1])];showModal(x[0],`<p>${bilingual(x[2],x[3])}</p><div class="formula">${escapeHTML(x[4])}</div><p><strong>Try it / ಪ್ರಯತ್ನಿಸಿ:</strong> ${escapeHTML(x[5])}</p>`);return;}if(action.startsWith('project:')){const x=projects[Number(action.split(':')[1])];showModal(x[0],`<p>${bilingual(x[2],x[3])}</p><p><strong>Materials / ಸಾಮಗ್ರಿಗಳು:</strong> ${escapeHTML(x[4])}</p><div class="notice"><strong>Safety / ಸುರಕ್ಷತೆ:</strong> ${escapeHTML(x[5])}</div><div class="field"><label for="project-observation">Observation / ಗಮನಿಕೆ</label><textarea id="project-observation"></textarea></div><button class="btn" type="button" data-action="save-project:${Number(action.split(':')[1])}">Save project note / ಯೋಜನೆ ಉಳಿಸಿ</button>`);return;}if(action.startsWith('save-project:')){const notes=readStore('projectNotes',[]);notes.unshift({project:projects[Number(action.split(':')[1])][0],note:$('#project-observation').value,date:new Date().toISOString()});writeStore('projectNotes',notes);$('#modal-body').insertAdjacentHTML('beforeend','<p class="success">Saved locally / ಸಾಧನದಲ್ಲಿ ಉಳಿಸಲಾಗಿದೆ.</p>');return;}if(action.startsWith('update:')){const x=updates[Number(action.split(':')[1])];showModal(x[0],`<p>${bilingual(x[2],x[3])}</p>`);return;}if(action==='worksheet'){showModal('Observation Worksheet / ಗಮನಿಕೆ ಕಾರ್ಯಹಾಳೆ',`<p>Use this original worksheet to structure an investigation.</p><div class="field"><label>Question / ಪ್ರಶ್ನೆ</label><textarea></textarea></div><div class="field"><label>Hypothesis / ಊಹೆ</label><textarea></textarea></div><div class="field"><label>Variables / ಚರಗಳು</label><textarea></textarea></div><div class="field"><label>Method / ವಿಧಾನ</label><textarea></textarea></div><div class="field"><label>Results / ಫಲಿತಾಂಶ</label><textarea></textarea></div><div class="field"><label>Conclusion / ತೀರ್ಮಾನ</label><textarea></textarea></div><button class="btn" type="button" data-action="print">Print worksheet / ಮುದ್ರಿಸಿ</button>`);return;}if(action.startsWith('quiz-answer:')){if(!state.quizFinished){state.quizAnswers[state.quizIndex]=Number(action.split(':')[1]);drawQuestion()}return;}if(action==='quiz-next'){if(state.quizIndex<questions.length-1)state.quizIndex++;else state.quizFinished=true;drawQuestion();return;}if(action==='quiz-prev'){state.quizIndex=Math.max(0,state.quizIndex-1);drawQuestion();return;}if(action==='quiz-restart'){state.quizIndex=0;state.quizAnswers=[];state.quizFinished=false;drawQuestion();return;}if(action.startsWith('draft-delete:')){const arr=readStore('drafts',[]);arr.splice(Number(action.split(':')[1]),1);writeStore('drafts',arr);renderCommunity();return;}if(action==='print'){window.print();return;}}
-document.addEventListener('click',e=>{const actionEl=e.target.closest('[data-action]');if(actionEl){handleAction(actionEl.dataset.action);return;}const navEl=e.target.closest('[data-nav]');if(navEl){e.preventDefault();openSection(navEl.dataset.nav);}});
-$('#global-lang-select').addEventListener('change',e=>setLang(e.target.value));
-$('#mobile-menu-btn').addEventListener('click',()=>{const navEl=$('#primary-nav'),open=navEl.classList.toggle('open');$('#mobile-menu-btn').setAttribute('aria-expanded',String(open));});
-$('#modal-close-btn').addEventListener('click',closeModal);
-$('#detail-modal-backdrop').addEventListener('click',e=>{if(e.target.id==='detail-modal-backdrop')closeModal()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-$('#reset-all-storage-btn').addEventListener('click',()=>{if(confirm('Clear InstaLab progress, quiz scores, observations and notes saved in this browser? This cannot be undone. / ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿರುವ InstaLab ಡೇಟಾ ಅಳಿಸಬೇಕೇ?')){Object.keys(localStorage).filter(k=>k.startsWith('instalab:')).forEach(k=>localStorage.removeItem(k));state.simValues={};setLang('both');alert('InstaLab local data cleared. / ಸ್ಥಳೀಯ ಡೇಟಾ ಅಳಿಸಲಾಗಿದೆ.');openSection('home');}});
-const savedLang=readStore('lang','both');setLang(['kn','en','both'].includes(savedLang)?savedLang:'both');
-const initial=(location.hash||'#home').slice(1);renderHome();if(nav.some(n=>n[0]===initial))openSection(initial);else openSection('home');
-})();
+// Simulation State (window.simState persists across language toggles)
+window.simState = {
+  motion: { speed: 10, time: 0, distance: 0, running: false, timer: null, records: [] },
+  reflection: { angle: 45, records: [] },
+  buoyancy: { mass: 60, volume: 100, records: [] }
+};
+
+let currentLang = localStorage.getItem("instalab_lang") || "both";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const langSelector = document.getElementById("langSelector");
+  langSelector.value = currentLang;
+
+  langSelector.addEventListener("change", (e) => {
+    currentLang = e.target.value;
+    localStorage.setItem("instalab_lang", currentLang);
+    applyLanguage(currentLang);
+    renderResources();
+    renderQuizPreview();
+  });
+
+  // Dynamic Honest Counts
+  document.getElementById("statSimCount").textContent = DATA_STORE.simulations.length;
+  document.getElementById("statSciCount").textContent = DATA_STORE.scientists.length;
+  document.getElementById("statQuizCount").textContent = DATA_STORE.quiz.length;
+
+  applyLanguage(currentLang);
+  renderResources();
+  renderQuizPreview();
+  initSearch();
+  initNavigation();
+
+  // Simulations
+  initMotionSimulation();
+  initReflectionSimulation();
+  initBuoyancySimulation();
+});
+
+function t(key, mode = currentLang) {
+  const item = I18N[key];
+  if (!item) return key;
+  if (mode === "kn") return item.kn;
+  if (mode === "en") return item.en;
+  return `${item.kn} / ${item.en}`;
+}
+
+function applyLanguage(mode) {
+  document.getElementById("brandTitle").textContent = mode === "kn" ? I18N.brand.kn : (mode === "en" ? I18N.brand.en : `${I18N.brand.kn} / ${I18N.brand.en}`);
+  document.getElementById("brandTagline").textContent = t("tagline", mode);
+  document.getElementById("navLab").textContent = t("nav_lab", mode);
+  document.getElementById("navDocs").textContent = t("nav_documents", mode);
+  document.getElementById("navQuiz").textContent = t("nav_quiz", mode);
+  document.getElementById("heroTitle").textContent = t("hero_title", mode);
+  document.getElementById("heroDesc").textContent = t("hero_desc", mode);
+  document.getElementById("btnExplore").textContent = t("btn_explore", mode);
+  document.getElementById("btnOpenLab").textContent = t("btn_open_lab", mode);
+  document.getElementById("btnStartLearning").textContent = t("btn_start_learning", mode);
+  document.getElementById("globalSearch").placeholder = t("search_placeholder", mode);
+
+  document.getElementById("catPhysicsTitle").textContent = t("cat_physics", mode);
+  document.getElementById("catPhysicsDesc").textContent = t("cat_physics_desc", mode);
+  document.getElementById("catChemTitle").textContent = t("cat_chemistry", mode);
+  document.getElementById("catChemDesc").textContent = t("cat_chemistry_desc", mode);
+  document.getElementById("catBioTitle").textContent = t("cat_biology", mode);
+  document.getElementById("catBioDesc").textContent = t("cat_biology_desc", mode);
+  document.getElementById("catEarthTitle").textContent = t("cat_earth", mode);
+  document.getElementById("catEarthDesc").textContent = t("cat_earth_desc", mode);
+
+  document.getElementById("tryTodayTitle").textContent = t("try_today_heading", mode);
+  document.getElementById("tryTodaySub").textContent = t("try_today_sub", mode);
+  document.getElementById("resTitle").textContent = t("resources_title", mode);
+  document.getElementById("quizTitle").textContent = t("quiz_preview_title", mode);
+  document.getElementById("aboutTitle").textContent = t("about_title", mode);
+  document.getElementById("aboutText").textContent = t("about_text", mode);
+  document.getElementById("footerDisclaimer").textContent = t("footer_disclaimer", mode);
+}
+
+function renderResources() {
+  const container = document.getElementById("resourcesPreviewGrid");
+  container.innerHTML = DATA_STORE.resources.map(r => `
+    <article class="resource-card">
+      <span class="resource-badge">${r.subject}</span>
+      <h4 class="resource-title">${currentLang === 'kn' ? r.title_kn : (currentLang === 'en' ? r.title_en : `${r.title_kn} / ${r.title_en}`)}</h4>
+      <p class="resource-meta">Format: ${r.format} | ${r.publisher}</p>
+      <a href="${r.link}" class="resource-link" target="_blank" rel="noopener">Open Source →</a>
+    </article>
+  `).join("");
+}
+
+function initSearch() {
+  const input = document.getElementById("globalSearch");
+  const clearBtn = document.getElementById("clearSearchBtn");
+  const resultsBox = document.getElementById("searchResults");
+
+  input.addEventListener("input", (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    if (!q) {
+      resultsBox.classList.add("hidden");
+      resultsBox.innerHTML = "";
+      return;
+    }
+    const hits = [];
+    DATA_STORE.simulations.forEach(s => {
+      if (s.title_en.toLowerCase().includes(q) || s.title_kn.includes(q)) {
+        hits.push({ title: `${s.title_kn} / ${s.title_en}`, badge: "Simulation", link: "#try-it-today" });
+      }
+    });
+    DATA_STORE.scientists.forEach(sc => {
+      if (sc.name_en.toLowerCase().includes(q) || sc.name_kn.includes(q)) {
+        hits.push({ title: `${sc.name_kn} / ${sc.name_en}`, badge: "Scientist", link: sc.link });
+      }
+    });
+
+    resultsBox.classList.remove("hidden");
+    if (hits.length === 0) {
+      resultsBox.innerHTML = `<p style="font-size:0.9rem; color:#64748b;">${t("no_results")}</p>`;
+    } else {
+      resultsBox.innerHTML = hits.map(h => `
+        <div class="search-result-item">
+          <span class="result-badge">${h.badge}</span>
+          <a href="${h.link}">${h.title}</a>
+        </div>
+      `).join("");
+    }
+  });
+
+  clearBtn.addEventListener("click", () => {
+    input.value = "";
+    resultsBox.classList.add("hidden");
+    resultsBox.innerHTML = "";
+  });
+}
+
+function initNavigation() {
+  const hamburger = document.getElementById("hamburgerBtn");
+  const nav = document.getElementById("primaryNav");
+  hamburger.addEventListener("click", () => {
+    const expanded = hamburger.getAttribute("aria-expanded") === "true";
+    hamburger.setAttribute("aria-expanded", !expanded);
+    nav.classList.toggle("nav-open");
+  });
+}
+
+function renderQuizPreview() {
+  const q = DATA_STORE.quiz[0];
+  const qEl = document.getElementById("quizQuestion");
+  const optBox = document.getElementById("quizOptions");
+  qEl.textContent = currentLang === 'kn' ? q.question_kn : (currentLang === 'en' ? q.question_en : `${q.question_kn} / ${q.question_en}`);
+  optBox.innerHTML = q.options.map((opt, i) => `
+    <label class="quiz-option-label">
+      <input type="radio" name="quizOption" value="${i}">
+      <span>${currentLang === 'kn' ? opt.text_kn : (currentLang === 'en' ? opt.text_en : `${opt.text_kn} (${opt.text_en})`)}</span>
+    </label>
+  `).join("");
+
+  document.getElementById("quizSubmitBtn").onclick = () => {
+    const selected = document.querySelector('input[name="quizOption"]:checked');
+    const fb = document.getElementById("quizFeedback");
+    if (!selected) {
+      fb.className = "quiz-feedback error";
+      fb.textContent = currentLang === 'kn' ? "ದಯವಿಟ್ಟು ಆಯ್ಕೆಮಾಡಿ." : "Please select an answer.";
+      fb.classList.remove("hidden");
+      return;
+    }
+    const isCorrect = q.options[parseInt(selected.value, 10)].correct;
+    fb.className = isCorrect ? "quiz-feedback success" : "quiz-feedback error";
+    fb.textContent = (isCorrect ? "✓ " : "✗ ") + (currentLang === 'kn' ? q.explanation_kn : q.explanation_en);
+    fb.classList.remove("hidden");
+  };
+}
+
+// Simulation 1: Motion
+function initMotionSimulation() {
+  const canvas = document.getElementById("motionCanvas");
+  const ctx = canvas.getContext("2d");
+  const speedSlider = document.getElementById("motionSpeedSlider");
+  const speedVal = document.getElementById("motionSpeedVal");
+  const timeVal = document.getElementById("motionTimeVal");
+  const distVal = document.getElementById("motionDistVal");
+  const startBtn = document.getElementById("motionStartBtn");
+  const pauseBtn = document.getElementById("motionPauseBtn");
+  const resetBtn = document.getElementById("motionResetBtn");
+  const recordBtn = document.getElementById("motionRecordBtn");
+
+  const state = window.simState.motion;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(10, 85);
+    ctx.lineTo(canvas.width - 10, 85);
+    ctx.stroke();
+
+    const trackWidth = canvas.width - 60;
+    const cartX = 10 + Math.min(trackWidth, (state.distance / 100) * trackWidth);
+
+    ctx.fillStyle = "#0284c7";
+    ctx.fillRect(cartX, 55, 36, 20);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.arc(cartX + 8, 77, 5, 0, Math.PI * 2);
+    ctx.arc(cartX + 28, 77, 5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  speedSlider.addEventListener("input", (e) => {
+    state.speed = parseFloat(e.target.value);
+    speedVal.textContent = state.speed.toFixed(1);
+  });
+
+  startBtn.addEventListener("click", () => {
+    if (state.running) return;
+    state.running = true;
+    state.timer = setInterval(() => {
+      state.time += 0.05;
+      state.distance = state.speed * state.time;
+      timeVal.textContent = state.time.toFixed(2);
+      distVal.textContent = state.distance.toFixed(2);
+      draw();
+      if (state.distance >= 100) {
+        clearInterval(state.timer);
+        state.running = false;
+      }
+    }, 50);
+  });
+
+  pauseBtn.addEventListener("click", () => {
+    state.running = false;
+    clearInterval(state.timer);
+  });
+
+  resetBtn.addEventListener("click", () => {
+    state.running = false;
+    clearInterval(state.timer);
+    state.time = 0;
+    state.distance = 0;
+    timeVal.textContent = "0.00";
+    distVal.textContent = "0.00";
+    draw();
+  });
+
+  recordBtn.addEventListener("click", () => {
+    const trial = state.records.length + 1;
+    const row = { trial, speed: state.speed.toFixed(1), time: state.time.toFixed(2), dist: state.distance.toFixed(2) };
+    state.records.push(row);
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${trial}</td><td>${row.speed}</td><td>${row.time}</td><td>${row.dist}</td>`;
+    document.querySelector("#motionTable tbody").appendChild(tr);
+    plotGraph("motionGraphCanvas", state.records.map(r => ({ x: parseFloat(r.time), y: parseFloat(r.dist) })), "Time (s)", "Dist (m)");
+  });
+
+  draw();
+}
+
+// Simulation 2: Reflection
+function initReflectionSimulation() {
+  const canvas = document.getElementById("reflectionCanvas");
+  const ctx = canvas.getContext("2d");
+  const slider = document.getElementById("angleSlider");
+  const angleDisp = document.getElementById("angleDisp");
+  const reflectDisp = document.getElementById("angleReflectDisp");
+  const recordBtn = document.getElementById("reflectionRecordBtn");
+
+  const state = window.simState.reflection;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const midX = canvas.width / 2;
+    const mirrorY = 95;
+
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(20, mirrorY);
+    ctx.lineTo(canvas.width - 20, mirrorY);
+    ctx.stroke();
+
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(midX, 15);
+    ctx.lineTo(midX, mirrorY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    const rad = (state.angle * Math.PI) / 180;
+    const len = 70;
+    const incX = midX - len * Math.sin(rad);
+    const incY = mirrorY - len * Math.cos(rad);
+    const refX = midX + len * Math.sin(rad);
+    const refY = mirrorY - len * Math.cos(rad);
+
+    ctx.strokeStyle = "#f59e0b";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(incX, incY);
+    ctx.lineTo(midX, mirrorY);
+    ctx.stroke();
+
+    ctx.strokeStyle = "#06b6d4";
+    ctx.beginPath();
+    ctx.moveTo(midX, mirrorY);
+    ctx.lineTo(refX, refY);
+    ctx.stroke();
+  }
+
+  slider.addEventListener("input", (e) => {
+    state.angle = parseInt(e.target.value, 10);
+    angleDisp.textContent = state.angle;
+    reflectDisp.textContent = state.angle;
+    draw();
+  });
+
+  recordBtn.addEventListener("click", () => {
+    const trial = state.records.length + 1;
+    state.records.push({ trial, i: state.angle, r: state.angle });
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${trial}</td><td>${state.angle}°</td><td>${state.angle}°</td>`;
+    document.querySelector("#reflectionTable tbody").appendChild(tr);
+    plotGraph("reflectionGraphCanvas", state.records.map(p => ({ x: p.i, y: p.r })), "∠i (°)", "∠r (°)");
+  });
+
+  draw();
+}
+
+// Simulation 3: Density
+function initBuoyancySimulation() {
+  const canvas = document.getElementById("buoyancyCanvas");
+  const ctx = canvas.getContext("2d");
+  const slider = document.getElementById("buoyancyMassSlider");
+  const massDisp = document.getElementById("buoyancyMassDisp");
+  const calcDensity = document.getElementById("calcDensityDisp");
+  const statusDisp = document.getElementById("buoyancyStatusDisp");
+  const recordBtn = document.getElementById("buoyancyRecordBtn");
+
+  const state = window.simState.buoyancy;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const density = state.mass / state.volume;
+    calcDensity.textContent = density.toFixed(2);
+
+    const midX = canvas.width / 2;
+    const waterY = 35;
+
+    ctx.fillStyle = "rgba(14, 165, 233, 0.3)";
+    ctx.fillRect(midX - 60, waterY, 120, 75);
+    ctx.strokeStyle = "#0284c7";
+    ctx.strokeRect(midX - 60, waterY, 120, 75);
+
+    let blockY;
+    if (density < 1.0) {
+      blockY = waterY - 10 + (density * 20);
+      statusDisp.textContent = "Floats / ತೇಲುತ್ತದೆ";
+      statusDisp.style.color = "#16a34a";
+    } else {
+      blockY = waterY + 50;
+      statusDisp.textContent = "Sinks / ಮುಳುಗುತ್ತದೆ";
+      statusDisp.style.color = "#dc2626";
+    }
+
+    ctx.fillStyle = "#eab308";
+    ctx.fillRect(midX - 20, blockY, 40, 22);
+    ctx.strokeStyle = "#a16207";
+    ctx.strokeRect(midX - 20, blockY, 40, 22);
+  }
+
+  slider.addEventListener("input", (e) => {
+    state.mass = parseFloat(e.target.value);
+    massDisp.textContent = state.mass;
+    draw();
+  });
+
+  recordBtn.addEventListener("click", () => {
+    const trial = state.records.length + 1;
+    const dens = (state.mass / state.volume).toFixed(2);
+    state.records.push({ trial, mass: state.mass, dens: parseFloat(dens) });
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${trial}</td><td>${state.mass}</td><td>100</td><td>${dens}</td>`;
+    document.querySelector("#buoyancyTable tbody").appendChild(tr);
+    plotGraph("buoyancyGraphCanvas", state.records.map(p => ({ x: p.mass, y: p.dens })), "Mass (g)", "ρ (g/cm³)");
+  });
+
+  draw();
+}
+
+// Data-Driven Graph Plotter
+function plotGraph(canvasId, points, xLabel, yLabel) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas || points.length === 0) return;
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const pad = 30;
+  const w = canvas.width - pad * 2;
+  const h = canvas.height - pad * 2;
+
+  ctx.strokeStyle = "#94a3b8";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(pad, pad);
+  ctx.lineTo(pad, canvas.height - pad);
+  ctx.lineTo(canvas.width - pad, canvas.height - pad);
+  ctx.stroke();
+
+  ctx.fillStyle = "#64748b";
+  ctx.font = "10px sans-serif";
+  ctx.fillText(xLabel, canvas.width - pad - 35, canvas.height - 10);
+  ctx.fillText(yLabel, 5, pad - 10);
+
+  const maxX = Math.max(...points.map(p => p.x), 1);
+  const maxY = Math.max(...points.map(p => p.y), 1);
+
+  ctx.strokeStyle = "#2563eb";
+  ctx.fillStyle = "#2563eb";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  points.forEach((pt, i) => {
+    const px = pad + (pt.x / maxX) * w;
+    const py = (canvas.height - pad) - (pt.y / maxY) * h;
+    if (i === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  });
+  ctx.stroke();
+
+  points.forEach(pt => {
+    const px = pad + (pt.x / maxX) * w;
+    const py = (canvas.height - pad) - (pt.y / maxY) * h;
+    ctx.beginPath();
+    ctx.arc(px, py, 3, 0, Math.PI * 2);
+    ctx.fill();
+  });
+}
