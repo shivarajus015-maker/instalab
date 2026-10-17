@@ -1,0 +1,461 @@
+{
+  "version": 1,
+  "simulations": [
+    {
+      "id": "sim-ohms-law",
+      "subject": "physics",
+      "status": "live",
+      "titleKey": "sim.circuit.title",
+      "objectiveKey": "sim.circuit.objective",
+      "principleKey": "sim.circuit.principle",
+      "equipmentKeys": [
+        "sim.circuit.equipment.battery",
+        "sim.circuit.equipment.resistor",
+        "sim.circuit.equipment.meter"
+      ],
+      "formula": "I = V / R; P = V × I",
+      "units": "Current: A; voltage: V; resistance: Ω; power: W",
+      "assumptionKey": "sim.circuit.assumption",
+      "safetyKey": "sim.circuit.safety",
+      "conclusionKey": "sim.circuit.conclusion",
+      "source": {
+        "label": "PhET: Ohm's Law",
+        "url": "https://phet.colorado.edu/en/simulations/ohms-law"
+      },
+      "quizId": "quiz-ohms-law"
+    },
+    {
+      "id": "sim-ph-scale",
+      "subject": "chemistry",
+      "status": "live",
+      "titleKey": "sim.ph.title",
+      "objectiveKey": "sim.ph.objective",
+      "principleKey": "sim.ph.principle",
+      "equipmentKeys": [
+        "sim.ph.equipment.beaker",
+        "sim.ph.equipment.indicator"
+      ],
+      "formula": "pH = −log₁₀[H⁺]",
+      "units": "pH is dimensionless; [H⁺] is expressed as concentration",
+      "assumptionKey": "sim.ph.assumption",
+      "safetyKey": "sim.ph.safety",
+      "conclusionKey": "sim.ph.conclusion",
+      "source": {
+        "label": "PhET: pH Scale",
+        "url": "https://phet.colorado.edu/en/simulations/ph-scale"
+      },
+      "quizId": "quiz-ph"
+    },
+    {
+      "id": "sim-cell-microscope",
+      "subject": "biology",
+      "status": "live",
+      "titleKey": "sim.cell.title",
+      "objectiveKey": "sim.cell.objective",
+      "principleKey": "sim.cell.principle",
+      "equipmentKeys": [
+        "sim.cell.equipment.microscope",
+        "sim.cell.equipment.slide"
+      ],
+      "formula": "Total magnification = eyepiece × objective",
+      "units": "Magnification is expressed as × (no SI unit)",
+      "assumptionKey": "sim.cell.assumption",
+      "safetyKey": "sim.cell.safety",
+      "conclusionKey": "sim.cell.conclusion",
+      "source": {
+        "label": "Idaho State University: Microscopes",
+        "url": "https://www.isu.edu/biology/biolab/instructor-training/technology/microscopes/"
+      },
+      "quizId": "quiz-microscope"
+    }
+  ],
+  "plannedSimulations": [
+    {
+      "id": "plan-motion-speed",
+      "subject": "physics",
+      "titleKey": "plan.motion"
+    },
+    {
+      "id": "plan-force-friction",
+      "subject": "physics",
+      "titleKey": "plan.friction"
+    },
+    {
+      "id": "plan-gravity-falling",
+      "subject": "physics",
+      "titleKey": "plan.gravity"
+    },
+    {
+      "id": "plan-reflection",
+      "subject": "physics",
+      "titleKey": "plan.reflection"
+    },
+    {
+      "id": "plan-refraction",
+      "subject": "physics",
+      "titleKey": "plan.refraction"
+    },
+    {
+      "id": "plan-series-parallel",
+      "subject": "physics",
+      "titleKey": "plan.series"
+    },
+    {
+      "id": "plan-magnetism",
+      "subject": "physics",
+      "titleKey": "plan.magnetism"
+    },
+    {
+      "id": "plan-sound-waves",
+      "subject": "physics",
+      "titleKey": "plan.sound"
+    },
+    {
+      "id": "plan-density-buoyancy",
+      "subject": "physics",
+      "titleKey": "plan.density"
+    },
+    {
+      "id": "plan-indicators",
+      "subject": "chemistry",
+      "titleKey": "plan.indicators"
+    },
+    {
+      "id": "plan-solubility",
+      "subject": "chemistry",
+      "titleKey": "plan.solubility"
+    },
+    {
+      "id": "plan-dissolving-rate",
+      "subject": "chemistry",
+      "titleKey": "plan.dissolving"
+    },
+    {
+      "id": "plan-physical-chemical",
+      "subject": "chemistry",
+      "titleKey": "plan.changes"
+    },
+    {
+      "id": "plan-atoms-molecules",
+      "subject": "chemistry",
+      "titleKey": "plan.atoms"
+    },
+    {
+      "id": "plan-balancing-equations",
+      "subject": "chemistry",
+      "titleKey": "plan.equations"
+    },
+    {
+      "id": "plan-mixture-separation",
+      "subject": "chemistry",
+      "titleKey": "plan.separation"
+    },
+    {
+      "id": "plan-respiratory-system",
+      "subject": "biology",
+      "titleKey": "plan.respiratory"
+    },
+    {
+      "id": "plan-photosynthesis",
+      "subject": "biology",
+      "titleKey": "plan.photosynthesis"
+    },
+    {
+      "id": "plan-heart-circulation",
+      "subject": "biology",
+      "titleKey": "plan.heart"
+    },
+    {
+      "id": "plan-genetics",
+      "subject": "biology",
+      "titleKey": "plan.genetics"
+    },
+    {
+      "id": "plan-food-web",
+      "subject": "biology",
+      "titleKey": "plan.foodweb"
+    },
+    {
+      "id": "plan-osmosis-diffusion",
+      "subject": "biology",
+      "titleKey": "plan.osmosis"
+    },
+    {
+      "id": "plan-solar-system",
+      "subject": "earth",
+      "titleKey": "plan.solar"
+    },
+    {
+      "id": "plan-day-night-seasons",
+      "subject": "earth",
+      "titleKey": "plan.seasons"
+    },
+    {
+      "id": "plan-eclipses",
+      "subject": "earth",
+      "titleKey": "plan.eclipses"
+    },
+    {
+      "id": "plan-earth-layers",
+      "subject": "earth",
+      "titleKey": "plan.layers"
+    },
+    {
+      "id": "plan-earthquake",
+      "subject": "earth",
+      "titleKey": "plan.earthquake"
+    },
+    {
+      "id": "plan-volcano",
+      "subject": "earth",
+      "titleKey": "plan.volcano"
+    },
+    {
+      "id": "plan-water-cycle",
+      "subject": "earth",
+      "titleKey": "plan.water"
+    },
+    {
+      "id": "plan-weather-climate",
+      "subject": "earth",
+      "titleKey": "plan.weather"
+    },
+    {
+      "id": "plan-moon-phases",
+      "subject": "earth",
+      "titleKey": "plan.moon"
+    },
+    {
+      "id": "plan-stars-galaxies",
+      "subject": "earth",
+      "titleKey": "plan.stars"
+    },
+    {
+      "id": "plan-microscope",
+      "subject": "biology",
+      "titleKey": "plan.microscope"
+    }
+  ],
+  "categories": [
+    {
+      "id": "physics",
+      "titleKey": "category.physics.title",
+      "descriptionKey": "category.physics.description",
+      "art": "physics"
+    },
+    {
+      "id": "chemistry",
+      "titleKey": "category.chemistry.title",
+      "descriptionKey": "category.chemistry.description",
+      "art": "chemistry"
+    },
+    {
+      "id": "biology",
+      "titleKey": "category.biology.title",
+      "descriptionKey": "category.biology.description",
+      "art": "biology"
+    },
+    {
+      "id": "earth",
+      "titleKey": "category.earth.title",
+      "descriptionKey": "category.earth.description",
+      "art": "earth"
+    }
+  ],
+  "resources": [
+    {
+      "id": "resource-nasa-solar",
+      "titleKey": "resource.solar.title",
+      "descriptionKey": "resource.solar.description",
+      "publisher": "NASA Space Place",
+      "subject": "earth",
+      "url": "https://spaceplace.nasa.gov/menu/solar-system"
+    },
+    {
+      "id": "resource-nasa-water",
+      "titleKey": "resource.water.title",
+      "descriptionKey": "resource.water.description",
+      "publisher": "NASA GPM",
+      "subject": "earth",
+      "url": "https://gpm.nasa.gov/education/lesson-plans/exploring-water-cycle"
+    },
+    {
+      "id": "resource-phet-circuit",
+      "titleKey": "resource.phet.title",
+      "descriptionKey": "resource.phet.description",
+      "publisher": "PhET Interactive Simulations, University of Colorado Boulder",
+      "subject": "physics",
+      "url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc/latest/circuit-construction-kit-dc_all.html"
+    },
+    {
+      "id": "resource-phet-ph-scale",
+      "titleKey": "resource.ph.title",
+      "descriptionKey": "resource.ph.description",
+      "publisher": "PhET Interactive Simulations, University of Colorado Boulder",
+      "subject": "physics",
+      "url": "https://phet.colorado.edu/en/simulations/ph-scale"
+    }
+  ],
+  "fact": {
+    "id": "fact-planets-eight",
+    "textKey": "fact.planets",
+    "sourceLabel": "NASA Solar System Exploration",
+    "sourceUrl": "https://science.nasa.gov/solar-system/"
+  },
+  "quiz": [
+    {
+      "id": "quiz-ohms-law",
+      "subject": "physics",
+      "questionKey": "quiz.ohm.question",
+      "options": [
+        {
+          "id": "half",
+          "key": "quiz.ohm.half"
+        },
+        {
+          "id": "double",
+          "key": "quiz.ohm.double"
+        },
+        {
+          "id": "same",
+          "key": "quiz.ohm.same"
+        }
+      ],
+      "answer": "double",
+      "explanationKey": "quiz.ohm.explanation",
+      "sourceUrl": "https://phet.colorado.edu/en/simulations/ohms-law"
+    },
+    {
+      "id": "quiz-ph",
+      "subject": "chemistry",
+      "questionKey": "quiz.ph.question",
+      "options": [
+        {
+          "id": "acid",
+          "key": "quiz.ph.acid"
+        },
+        {
+          "id": "neutral",
+          "key": "quiz.ph.neutral"
+        },
+        {
+          "id": "base",
+          "key": "quiz.ph.base"
+        }
+      ],
+      "answer": "acid",
+      "explanationKey": "quiz.ph.explanation",
+      "sourceUrl": "https://phet.colorado.edu/en/simulations/ph-scale"
+    },
+    {
+      "id": "quiz-microscope",
+      "subject": "biology",
+      "questionKey": "quiz.microscope.question",
+      "options": [
+        {
+          "id": "add",
+          "key": "quiz.microscope.add"
+        },
+        {
+          "id": "multiply",
+          "key": "quiz.microscope.multiply"
+        },
+        {
+          "id": "subtract",
+          "key": "quiz.microscope.subtract"
+        }
+      ],
+      "answer": "multiply",
+      "explanationKey": "quiz.microscope.explanation",
+      "sourceUrl": "https://www.isu.edu/biology/biolab/instructor-training/technology/microscopes/"
+    }
+  ],
+  "scientists": [],
+  "comingSoon": [
+    {
+      "id": "equipment",
+      "titleKey": "section.equipment"
+    },
+    {
+      "id": "scientists",
+      "titleKey": "section.scientists"
+    },
+    {
+      "id": "library",
+      "titleKey": "section.library"
+    },
+    {
+      "id": "videos",
+      "titleKey": "section.videos"
+    },
+    {
+      "id": "documents",
+      "titleKey": "section.documents"
+    },
+    {
+      "id": "quiz",
+      "titleKey": "section.quiz"
+    },
+    {
+      "id": "projects",
+      "titleKey": "section.projects"
+    },
+    {
+      "id": "news",
+      "titleKey": "section.news"
+    },
+    {
+      "id": "tutor",
+      "titleKey": "section.tutor"
+    },
+    {
+      "id": "community",
+      "titleKey": "section.community"
+    },
+    {
+      "id": "careers",
+      "titleKey": "section.careers"
+    }
+  ],
+  "additionalPlannedSimulations": [
+    {
+      "id": "plan-gas-laws",
+      "subject": "chemistry",
+      "titleKey": "plan.gaslaws",
+      "planGroup": "additional"
+    },
+    {
+      "id": "plan-periodic-table",
+      "subject": "chemistry",
+      "titleKey": "plan.periodic",
+      "planGroup": "additional"
+    }
+  ],
+  "phSamples": [
+    {
+      "id": "acidic",
+      "value": 4.0,
+      "nameKey": "sim.ph.sample.acidic"
+    },
+    {
+      "id": "weak-acid",
+      "value": 6.0,
+      "nameKey": "sim.ph.sample.weakAcid"
+    },
+    {
+      "id": "neutral",
+      "value": 7.0,
+      "nameKey": "sim.ph.sample.neutral"
+    },
+    {
+      "id": "weak-base",
+      "value": 8.0,
+      "nameKey": "sim.ph.sample.weakBase"
+    },
+    {
+      "id": "basic",
+      "value": 9.0,
+      "nameKey": "sim.ph.sample.basic"
+    }
+  ]
+}

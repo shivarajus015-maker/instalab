@@ -1,0 +1,302 @@
+{
+  "ui": {
+    "skip": "Skip to content|ವಿಷಯಕ್ಕೆ ತೆರಳಿ",
+    "tagline": "Explore Science by Doing|ಪ್ರಯೋಗಗಳ ಮೂಲಕ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ",
+    "menu": "Menu|ಮೆನು",
+    "home": "Home|ಮುಖಪುಟ",
+    "virtualLab": "Virtual Lab|ವರ್ಚುವಲ್ ಪ್ರಯೋಗಾಲಯ",
+    "resources": "Learning resources|ಕಲಿಕಾ ಸಂಪನ್ಮೂಲಗಳು",
+    "language": "Language|ಭಾಷೆ",
+    "modeBoth": "ಕನ್ನಡ + English (Both)|ಕನ್ನಡ + English (Both)",
+    "modeKn": "Kannada|ಕನ್ನಡ",
+    "modeEn": "English|English",
+    "currentContent": "Current content|ಪ್ರಸ್ತುತ ವಿಷಯ",
+    "activeSimulations": "Working simulations|ಕಾರ್ಯನಿರ್ವಹಿಸುವ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು",
+    "plannedSimulations": "Planned topics|ಯೋಜಿತ ವಿಷಯಗಳು",
+    "scientistProfiles": "Verified scientist profiles|ಪರಿಶೀಲಿತ ವಿಜ್ಞಾನಿ ಪರಿಚಯಗಳು",
+    "quizQuestions": "Quiz questions available|ಲಭ್ಯವಿರುವ ರಸಪ್ರಶ್ನೆಗಳು",
+    "noProfiles": "No scientist profiles are published yet.|ಇನ್ನೂ ಯಾವುದೇ ವಿಜ್ಞಾನಿ ಪರಿಚಯ ಪ್ರಕಟವಾಗಿಲ್ಲ.",
+    "dataLocal": "Your progress and drafts stay on this browser and device.|ನಿಮ್ಮ ಪ್ರಗತಿ ಮತ್ತು ಕರಡುಗಳು ಈ ಬ್ರೌಸರ್ ಮತ್ತು ಸಾಧನದಲ್ಲೇ ಉಳಿಯುತ್ತವೆ.",
+    "clearData": "Clear local data|ಸ್ಥಳೀಯ ಡೇಟಾ ಅಳಿಸಿ",
+    "clearConfirm": "Clear saved InstaLab progress, observations, and quiz answers from this browser? This cannot be undone.|ಈ ಬ್ರೌಸರ್‌ನಿಂದ ಉಳಿಸಿದ InstaLab ಪ್ರಗತಿ, ವೀಕ್ಷಣೆಗಳು ಮತ್ತು ರಸಪ್ರಶ್ನೆ ಉತ್ತರಗಳನ್ನು ಅಳಿಸಬೇಕೆ? ಇದನ್ನು ಹಿಂದಕ್ಕೆ ಪಡೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ.",
+    "dataCleared": "Local data cleared.|ಸ್ಥಳೀಯ ಡೇಟಾ ಅಳಿಸಲಾಗಿದೆ.",
+    "searchLabel": "Search science topics, simulations, scientists, or quiz topics|ವಿಜ್ಞಾನ ವಿಷಯಗಳು, ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು, ವಿಜ್ಞಾನಿಗಳು ಅಥವಾ ರಸಪ್ರಶ್ನೆ ವಿಷಯಗಳನ್ನು ಹುಡುಕಿ",
+    "searchPlaceholder": "Try “Ohm’s law”, “pH”, or “cells”…|“ಓಮ್‌ನ ನಿಯಮ”, “pH” ಅಥವಾ “ಜೀವಕೋಶಗಳು” ಹುಡುಕಿ…",
+    "search": "Search|ಹುಡುಕಿ",
+    "clear": "Clear|ಅಳಿಸಿ",
+    "noResults": "No matching published content. Try another search.|ಹೊಂದುವ ಪ್ರಕಟಿತ ವಿಷಯ ಸಿಗಲಿಲ್ಲ. ಬೇರೆ ಪದದಿಂದ ಹುಡುಕಿ.",
+    "trySearch": "Search available content|ಲಭ್ಯವಿರುವ ವಿಷಯವನ್ನು ಹುಡುಕಿ",
+    "explore": "Explore|ಅನ್ವೇಷಿಸಿ",
+    "openLab": "Open virtual lab|ವರ್ಚುವಲ್ ಪ್ರಯೋಗಾಲಯ ತೆರೆಯಿರಿ",
+    "startLearning": "Start learning|ಕಲಿಕೆ ಪ್ರಾರಂಭಿಸಿ",
+    "readSource": "Open source|ಮೂಲವನ್ನು ತೆರೆಯಿರಿ",
+    "modelNote": "Simulations use simplified models; readings are modeled, not real laboratory measurements.|ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು ಸರಳೀಕೃತ ಮಾದರಿಗಳನ್ನು ಬಳಸುತ್ತವೆ; ಓದುಗಳು ಮಾದರಿಯಿಂದ ಬಂದವು, ನೈಜ ಪ್ರಯೋಗಾಲಯ ಅಳತೆಗಳಲ್ಲ.",
+    "planned": "Planned|ಯೋಜಿತ",
+    "live": "Interactive|ಸಂವಾದಾತ್ಮಕ",
+    "subjectAll": "All subjects|ಎಲ್ಲ ವಿಷಯಗಳು",
+    "record": "Record observation|ವೀಕ್ಷಣೆ ದಾಖಲಿಸಿ",
+    "reset": "Reset controls|ನಿಯಂತ್ರಣ ಮರುಹೊಂದಿಸಿ",
+    "help": "Model help|ಮಾದರಿ ಸಹಾಯ",
+    "closeHelp": "Hide help|ಸಹಾಯ ಮರೆಮಾಡಿ",
+    "recorded": "Recorded|ದಾಖಲಿಸಲಾಗಿದೆ",
+    "noRecords": "No observations recorded yet.|ಇನ್ನೂ ಯಾವುದೇ ವೀಕ್ಷಣೆ ದಾಖಲಿಸಿಲ್ಲ.",
+    "clearRecords": "Clear records|ದಾಖಲೆಗಳನ್ನು ಅಳಿಸಿ",
+    "clearRecordsConfirm": "Clear the recorded rows for this simulation?|ಈ ಸಿಮ್ಯುಲೇಶನ್‌ನ ದಾಖಲಾದ ಸಾಲುಗಳನ್ನು ಅಳಿಸಬೇಕೆ?",
+    "trial": "Trial|ಪ್ರಯೋಗ",
+    "voltage": "Voltage (V)|ವಿಭವಾಂತರ (V)",
+    "resistance": "Resistance (Ω)|ಪ್ರತಿರೋಧ (Ω)",
+    "current": "Current (A)|ವಿದ್ಯುತ್ ಪ್ರವಾಹ (A)",
+    "power": "Power (W)|ಸಾಮರ್ಥ್ಯ (W)",
+    "substance": "Model sample|ಮಾದರಿ ಉದಾಹರಣೆ",
+    "ph": "pH value|pH ಮೌಲ್ಯ",
+    "classification": "Classification|ವರ್ಗೀಕರಣ",
+    "specimen": "Specimen model|ಮಾದರಿ ಜೀವವಸ್ತು",
+    "objective": "Objective|ವಸ್ತು ಮಸೂರ",
+    "totalMag": "Total magnification|ಒಟ್ಟು ವರ್ಧನೆ",
+    "structure": "Illustrated structures|ಚಿತ್ರಿತ ರಚನೆಗಳು",
+    "graph": "Graph|ಗ್ರಾಫ್",
+    "graphEmpty": "Record at least one row to draw the graph.|ಗ್ರಾಫ್ ಬಿಡಿಸಲು ಕನಿಷ್ಠ ಒಂದು ಸಾಲು ದಾಖಲಿಸಿ.",
+    "checkAnswer": "Check answer|ಉತ್ತರ ಪರಿಶೀಲಿಸಿ",
+    "selectAnswer": "Choose an answer first.|ಮೊದಲು ಉತ್ತರವನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
+    "correct": "Correct.|ಸರಿಯಾಗಿದೆ.",
+    "incorrect": "Not quite. Review the explanation.|ಸರಿಯಿಲ್ಲ. ವಿವರಣೆಯನ್ನು ಪರಿಶೀಲಿಸಿ.",
+    "quizExplain": "Explanation|ವಿವರಣೆ",
+    "physics": "Physics|ಭೌತಶಾಸ್ತ್ರ",
+    "chemistry": "Chemistry|ರಸಾಯನಶಾಸ್ತ್ರ",
+    "biology": "Biology|ಜೀವಶಾಸ್ತ್ರ",
+    "earth": "Earth & Space|ಭೂಮಿ ಮತ್ತು ಬಾಹ್ಯಾಕಾಶ",
+    "footerCopyright": "InstaLab · Static science learning starter|InstaLab · ಸ್ಥಿರ ವಿಜ್ಞಾನ ಕಲಿಕಾ ಆರಂಭಿಕ ರೂಪ",
+    "about": "InstaLab is a small, browser-based science learning starter. It brings together interactive models and carefully linked learning resources, with Kannada, English, and bilingual reading modes.|InstaLab ಒಂದು ಸರಳ, ಬ್ರೌಸರ್ ಆಧಾರಿತ ವಿಜ್ಞಾನ ಕಲಿಕಾ ಆರಂಭಿಕ ರೂಪ. ಇದು ಸಂವಾದಾತ್ಮಕ ಮಾದರಿಗಳು ಮತ್ತು ಪರಿಶೀಲಿತ ಕಲಿಕಾ ಸಂಪನ್ಮೂಲಗಳನ್ನು ಕನ್ನಡ, ಇಂಗ್ಲಿಷ್ ಮತ್ತು ದ್ವಿಭಾಷಾ ಓದು ವಿಧಾನಗಳಲ್ಲಿ ಒದಗಿಸುತ್ತದೆ.",
+    "aboutTitle": "About InstaLab|InstaLab ಬಗ್ಗೆ",
+    "learning": "Learning resources|ಕಲಿಕಾ ಸಂಪನ್ಮೂಲಗಳು",
+    "quizPreview": "Quick check|ತ್ವರಿತ ಪರಿಶೀಲನೆ",
+    "categories": "Explore by subject|ವಿಷಯದ ಮೂಲಕ ಅನ್ವೇಷಿಸಿ",
+    "comingSoon": "Coming soon|ಶೀಘ್ರದಲ್ಲೇ",
+    "available": "Available now|ಈಗ ಲಭ್ಯ",
+    "searchResults": "Search results|ಹುಡುಕಾಟ ಫಲಿತಾಂಶಗಳು",
+    "start": "Start|ಪ್ರಾರಂಭಿಸಿ",
+    "plant": "Plant cell model|ಸಸ್ಯ ಜೀವಕೋಶ ಮಾದರಿ",
+    "animal": "Animal cell model|ಪ್ರಾಣಿ ಜೀವಕೋಶ ಮಾದರಿ",
+    "acidic": "Acidic|ಆಮ್ಲೀಯ",
+    "neutral": "Neutral|ತಟಸ್ಥ",
+    "basic": "Basic|ಪ್ರತ್ಯಾಮ್ಲೀಯ",
+    "plantStructures": "Cell wall, chloroplasts and nucleus (schematic)|ಕೋಶಭಿತ್ತಿ, ಹರಿತ್ಕಣಗಳು ಮತ್ತು ಕೇಂದ್ರಕ (ರೂಪರೇಖೆ)",
+    "animalStructures": "Cell membrane, cytoplasm and nucleus (schematic)|ಕೋಶಪೊರೆ, ಕೋಶದ್ರವ್ಯ ಮತ್ತು ಕೇಂದ್ರಕ (ರೂಪರೇಖೆ)",
+    "rowRecorded": "Observation row recorded.|ವೀಕ್ಷಣೆಯ ಸಾಲು ದಾಖಲಿಸಲಾಗಿದೆ.",
+    "simCount": "Working simulations|ಕಾರ್ಯನಿರ್ವಹಿಸುವ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು",
+    "plannedCount": "Planned experiments|ಯೋಜಿತ ಪ್ರಯೋಗಗಳು",
+    "scientistCount": "Verified scientist profiles|ಪರಿಶೀಲಿತ ವಿಜ್ಞಾನಿ ಪರಿಚಯಗಳು",
+    "questionCount": "Quiz questions|ರಸಪ್ರಶ್ನೆಗಳು",
+    "noScientistProfiles": "No scientist profiles are published yet.|ಇನ್ನೂ ಯಾವುದೇ ವಿಜ್ಞಾನಿ ಪರಿಚಯ ಪ್ರಕಟವಾಗಿಲ್ಲ.",
+    "sampleModel": "Illustrative pH model|ಉದಾಹರಣೆಯ pH ಮಾದರಿ",
+    "controlVoltageHelp": "Change the model voltage. The reading follows I = V / R.|ಮಾದರಿಯ ವಿಭವಾಂತರ ಬದಲಿಸಿ. ಓದು I = V / R ಅನ್ನು ಅನುಸರಿಸುತ್ತದೆ.",
+    "controlPHHelp": "Choose an illustrative pH value. These are model settings, not measurements.|ಉದಾಹರಣೆಯ pH ಮೌಲ್ಯ ಆಯ್ಕೆಮಾಡಿ. ಇವು ಮಾದರಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳು, ಅಳತೆಗಳಲ್ಲ.",
+    "controlCellHelp": "Select a schematic cell and objective. Total magnification is eyepiece × objective.|ರೂಪರೇಖಾತ್ಮಕ ಜೀವಕೋಶ ಮತ್ತು ವಸ್ತು ಮಸೂರ ಆಯ್ಕೆಮಾಡಿ. ಒಟ್ಟು ವರ್ಧನೆ = ನೇತ್ರ ಮಸೂರ × ವಸ್ತು ಮಸೂರ.",
+    "stepBrowse": "Explore the available simulations and curated source links.|ಲಭ್ಯವಿರುವ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು ಮತ್ತು ಆಯ್ದ ಮೂಲ ಲಿಂಕ್‌ಗಳನ್ನು ಅನ್ವೇಷಿಸಿ.",
+    "principle": "Scientific principle|ವೈಜ್ಞಾನಿಕ ತತ್ವ",
+    "equipment": "Equipment|ಉಪಕರಣಗಳು",
+    "interactiveModel": "Interactive simulation|ಸಂವಾದಾತ್ಮಕ ಸಿಮ್ಯುಲೇಶನ್",
+    "controls": "Controls & live readings|ನಿಯಂತ್ರಣಗಳು ಮತ್ತು ಲೈವ್ ಓದುಗಳು",
+    "formulaUnits": "Formula & units|ಸೂತ್ರ ಮತ್ತು ಏಕಮಾನಗಳು",
+    "observationTable": "Observation table|ವೀಕ್ಷಣಾ ಕೋಷ್ಟಕ",
+    "graphRecorded": "Graph generated from recorded rows only|ದಾಖಲಿಸಿದ ಸಾಲುಗಳಿಂದ ಮಾತ್ರ ರಚಿಸಿದ ಗ್ರಾಫ್",
+    "conclusion": "Conclusion|ತೀರ್ಮಾನ",
+    "safety": "Safety note|ಸುರಕ್ಷತಾ ಸೂಚನೆ",
+    "shortQuiz": "Short quiz|ಸಣ್ಣ ರಸಪ್ರಶ್ನೆ",
+    "additionalPlanned": "Additional planned topic|ಹೆಚ್ಚುವರಿ ಯೋಜಿತ ವಿಷಯ",
+    "source": "Source|ಮೂಲ",
+    "primaryNav": "Primary navigation|ಮುಖ್ಯ ಸಂಚರಣೆ",
+    "filterSubjects": "Filter simulations by subject|ವಿಷಯದ ಪ್ರಕಾರ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳನ್ನು ವಿಂಗಡಿಸಿ",
+    "countLabel": "Published content counts|ಪ್ರಕಟಿತ ವಿಷಯಗಳ ಎಣಿಕೆ",
+    "learningObjective": "Learning objective|ಕಲಿಕಾ ಉದ್ದೇಶ",
+    "brandHome": "InstaLab home|InstaLab ಮುಖಪುಟ"
+  },
+  "hero": {
+    "eyebrow": "A hands-on science learning space|ಪ್ರಯೋಗಾಧಾರಿತ ವಿಜ್ಞಾನ ಕಲಿಕಾ ತಾಣ",
+    "title": "Explore, Experiment, and Understand Science!|ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ, ಪ್ರಯೋಗಿಸಿ ಮತ್ತು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ!",
+    "description": "Explore simple interactive models, record your own observations, and follow trusted science resources. Every model explains its assumptions.|ಸರಳ ಸಂವಾದಾತ್ಮಕ ಮಾದರಿಗಳನ್ನು ಅನ್ವೇಷಿಸಿ, ನಿಮ್ಮ ವೀಕ್ಷಣೆಗಳನ್ನು ದಾಖಲಿಸಿ ಮತ್ತು ವಿಶ್ವಾಸಾರ್ಹ ವಿಜ್ಞಾನ ಸಂಪನ್ಮೂಲಗಳನ್ನು ನೋಡಿ. ಪ್ರತಿ ಮಾದರಿಯೂ ತನ್ನ ಊಹೆಗಳನ್ನು ವಿವರಿಸುತ್ತದೆ.",
+    "artAlt": "Illustration of a planet, orbit, atom and leaf|ಗ್ರಹ, ಕಕ್ಷೆ, ಪರಮಾಣು ಮತ್ತು ಎಲೆಯ ಚಿತ್ರಣ",
+    "artCaption": "A small universe of questions|ಪ್ರಶ್ನೆಗಳ ಪುಟ್ಟ ವಿಶ್ವ"
+  },
+  "home": {
+    "searchTitle": "Find something to explore|ಅನ್ವೇಷಿಸಲು ವಿಷಯ ಹುಡುಕಿ",
+    "todayTitle": "Try it today|ಇಂದು ಪ್ರಯತ್ನಿಸಿ",
+    "factTitle": "Did you know?|ನಿಮಗೆ ತಿಳಿದಿದೆಯೇ?",
+    "resourcesTitle": "Learning resources|ಕಲಿಕಾ ಸಂಪನ್ಮೂಲಗಳು",
+    "resourcesIntro": "A few verified links to external learning materials. They open at their original source.|ಬಾಹ್ಯ ಕಲಿಕಾ ವಿಷಯಗಳಿಗೆ ಪರಿಶೀಲಿಸಿದ ಕೆಲವು ಲಿಂಕ್‌ಗಳು. ಅವು ಮೂಲ ತಾಣದಲ್ಲೇ ತೆರೆಯುತ್ತವೆ.",
+    "quizTitle": "One quick question|ಒಂದು ತ್ವರಿತ ಪ್ರಶ್ನೆ",
+    "countTitle": "InstaLab today|ಇಂದಿನ InstaLab",
+    "browseLab": "Browse the virtual lab|ವರ್ಚುವಲ್ ಪ್ರಯೋಗಾಲಯ ವೀಕ್ಷಿಸಿ",
+    "findTopic": "Use the search to jump into a working simulation.|ಹುಡುಕಾಟ ಬಳಸಿ ಕಾರ್ಯನಿರ್ವಹಿಸುವ ಸಿಮ್ಯುಲೇಶನ್‌ಗೆ ಹೋಗಿ.",
+    "source": "Source|ಮೂಲ"
+  },
+  "category": {
+    "physics": {
+      "title": "Physics|ಭೌತಶಾಸ್ತ್ರ",
+      "description": "Explore current, voltage, and simple circuit models.|ವಿದ್ಯುತ್ ಪ್ರವಾಹ, ವಿಭವಾಂತರ ಮತ್ತು ಸರಳ ಮಂಡಲ ಮಾದರಿಗಳನ್ನು ಅನ್ವೇಷಿಸಿ."
+    },
+    "chemistry": {
+      "title": "Chemistry|ರಸಾಯನಶಾಸ್ತ್ರ",
+      "description": "Explore the pH scale with illustrative, safe sample values.|ಉದಾಹರಣೆಯ ಸುರಕ್ಷಿತ ಮಾದರಿ ಮೌಲ್ಯಗಳೊಂದಿಗೆ pH ಮಾಪಕವನ್ನು ಅನ್ವೇಷಿಸಿ."
+    },
+    "biology": {
+      "title": "Biology|ಜೀವಶಾಸ್ತ್ರ",
+      "description": "Explore a microscope view and magnification model.|ಸೂಕ್ಷ್ಮದರ್ಶಕದ ದೃಶ್ಯ ಮತ್ತು ವರ್ಧನೆಯ ಮಾದರಿಯನ್ನು ಅನ್ವೇಷಿಸಿ."
+    },
+    "earth": {
+      "title": "Earth & Space|ಭೂಮಿ ಮತ್ತು ಬಾಹ್ಯಾಕಾಶ",
+      "description": "Browse the planned Earth and space simulation topics.|ಯೋಜಿತ ಭೂಮಿ ಮತ್ತು ಬಾಹ್ಯಾಕಾಶ ಸಿಮ್ಯುಲೇಶನ್ ವಿಷಯಗಳನ್ನು ನೋಡಿ."
+    }
+  },
+  "fact": {
+    "planets": "Our solar system has eight planets.|ನಮ್ಮ ಸೌರಮಂಡಲದಲ್ಲಿ ಎಂಟು ಗ್ರಹಗಳಿವೆ."
+  },
+  "resource": {
+    "solar": {
+      "title": "Solar System for young learners|ಕಿರಿಯ ಕಲಿಕಾರ್ಥಿಗಳಿಗೆ ಸೌರಮಂಡಲ",
+      "description": "NASA Space Place pages and activities about the solar system.|ಸೌರಮಂಡಲದ ಕುರಿತು NASA Space Place ಪುಟಗಳು ಮತ್ತು ಚಟುವಟಿಕೆಗಳು."
+    },
+    "water": {
+      "title": "Explore the water cycle|ಜಲಚಕ್ರವನ್ನು ಅನ್ವೇಷಿಸಿ",
+      "description": "A NASA education lesson about the water cycle.|ಜಲಚಕ್ರದ ಕುರಿತು NASA ಶಿಕ್ಷಣ ಪಾಠ."
+    },
+    "phet": {
+      "title": "Build a circuit model|ಮಂಡಲ ಮಾದರಿಯನ್ನು ನಿರ್ಮಿಸಿ",
+      "description": "An interactive PhET model for exploring a direct-current circuit.|ನೇರ ವಿದ್ಯುತ್ ಪ್ರವಾಹದ ಮಂಡಲವನ್ನು ಅನ್ವೇಷಿಸಲು PhET ಸಂವಾದಾತ್ಮಕ ಮಾದರಿ."
+    },
+    "ohm": {
+      "title": "Explore Ohm's law interactively|ಓಮ್‌ನ ನಿಯಮವನ್ನು ಸಂವಾದಾತ್ಮಕವಾಗಿ ಅನ್ವೇಷಿಸಿ",
+      "description": "A PhET model showing how voltage and resistance relate to current.|ವಿಭವಾಂತರ ಮತ್ತು ಪ್ರತಿರೋಧವು ಪ್ರವಾಹದೊಂದಿಗೆ ಹೇಗೆ ಸಂಬಂಧಿಸಿದೆ ಎಂಬುದನ್ನು ತೋರಿಸುವ PhET ಮಾದರಿ."
+    },
+    "ph": {
+      "title": "Explore the pH scale|pH ಮಾಪಕವನ್ನು ಅನ್ವೇಷಿಸಿ",
+      "description": "An interactive PhET model for comparing acidic, neutral, and basic solutions.|ಆಮ್ಲೀಯ, ತಟಸ್ಥ ಮತ್ತು ಪ್ರತ್ಯಾಮ್ಲೀಯ ದ್ರಾವಣಗಳನ್ನು ಹೋಲಿಸಲು PhET ಸಂವಾದಾತ್ಮಕ ಮಾದರಿ."
+    }
+  },
+  "sim": {
+    "circuit": {
+      "title": "Simple Electric Circuit & Ohm’s Law|ಸರಳ ವಿದ್ಯುತ್ ಮಂಡಲ ಮತ್ತು ಓಮ್‌ನ ನಿಯಮ",
+      "objective": "Change voltage and resistance in an ideal circuit model, then compare calculated current and power.|ಆದರ್ಶ ಮಂಡಲ ಮಾದರಿಯಲ್ಲಿ ವಿಭವಾಂತರ ಮತ್ತು ಪ್ರತಿರೋಧವನ್ನು ಬದಲಿಸಿ, ಲೆಕ್ಕಿಸಿದ ಪ್ರವಾಹ ಮತ್ತು ಸಾಮರ್ಥ್ಯವನ್ನು ಹೋಲಿಸಿ.",
+      "principle": "For an ideal ohmic resistor at constant temperature, current is calculated as voltage divided by resistance. Power is calculated from voltage times current.|ಸ್ಥಿರ ತಾಪಮಾನದಲ್ಲಿನ ಆದರ್ಶ ಓಮಿಕ್ ಪ್ರತಿರೋಧಕಕ್ಕೆ, ವಿಭವಾಂತರವನ್ನು ಪ್ರತಿರೋಧದಿಂದ ಭಾಗಿಸಿ ಪ್ರವಾಹವನ್ನು ಲೆಕ್ಕಿಸಲಾಗುತ್ತದೆ. ವಿಭವಾಂತರ ಮತ್ತು ಪ್ರವಾಹದ ಗುಣಲಬ್ಧದಿಂದ ಸಾಮರ್ಥ್ಯ ಲೆಕ್ಕಿಸಲಾಗುತ್ತದೆ.",
+      "assumption": "This screen-only model assumes an ideal, constant-temperature resistor and zero-resistance wires. It is not a real circuit measurement.|ಈ ಪರದೆಯ ಮಾದರಿ ಆದರ್ಶ, ಸ್ಥಿರ ತಾಪಮಾನದ ಪ್ರತಿರೋಧಕ ಮತ್ತು ಶೂನ್ಯ ಪ್ರತಿರೋಧದ ತಂತಿಗಳನ್ನು ಊಹಿಸುತ್ತದೆ. ಇದು ನೈಜ ಮಂಡಲದ ಅಳತೆಯಲ್ಲ.",
+      "safety": "This is a screen-only model. Do not connect a real circuit to mains electricity; real electrical work needs adult or teacher supervision.|ಇದು ಪರದೆಯಲ್ಲಿನ ಮಾದರಿ ಮಾತ್ರ. ನೈಜ ಮಂಡಲವನ್ನು ಮುಖ್ಯ ವಿದ್ಯುತ್‌ಗೆ ಸಂಪರ್ಕಿಸಬೇಡಿ; ನೈಜ ವಿದ್ಯುತ್ ಕೆಲಸಕ್ಕೆ ವಯಸ್ಕ ಅಥವಾ ಶಿಕ್ಷಕರ ಮೇಲ್ವಿಚಾರಣೆ ಅಗತ್ಯ.",
+      "conclusion": "The recorded model rows let you compare how the calculated current changes as voltage or resistance changes.|ವಿಭವಾಂತರ ಅಥವಾ ಪ್ರತಿರೋಧ ಬದಲಾದಾಗ ಲೆಕ್ಕಿಸಿದ ಪ್ರವಾಹ ಹೇಗೆ ಬದಲಾಗುತ್ತದೆ ಎಂಬುದನ್ನು ದಾಖಲಿಸಿದ ಮಾದರಿ ಸಾಲುಗಳಿಂದ ಹೋಲಿಸಬಹುದು.",
+      "canvasAlt": "Diagram of an ideal circuit with a battery, resistor, meter and bulb|ಬ್ಯಾಟರಿ, ಪ್ರತಿರೋಧಕ, ಮೀಟರ್ ಮತ್ತು ಬಲ್ಬ್ ಹೊಂದಿರುವ ಆದರ್ಶ ಮಂಡಲದ ಚಿತ್ರ",
+      "equipment": {
+        "battery": "Ideal low-voltage source model|ಆದರ್ಶ ಕಡಿಮೆ ವಿಭವಾಂತರದ ಮೂಲ ಮಾದರಿ",
+        "resistor": "Ohmic resistor model|ಓಮಿಕ್ ಪ್ರತಿರೋಧಕ ಮಾದರಿ",
+        "meter": "Virtual ammeter and voltmeter|ವರ್ಚುವಲ್ ಅಮ್ಮೀಟರ್ ಮತ್ತು ವೋಲ್ಟ್‌ಮೀಟರ್"
+      }
+    },
+    "ph": {
+      "title": "Acids, Bases & the pH Scale|ಆಮ್ಲಗಳು, ಪ್ರತ್ಯಾಮ್ಲಗಳು ಮತ್ತು pH ಮಾಪಕ",
+      "objective": "Explore how a selected illustrative pH value is classified on the 0–14 scale.|ಆಯ್ದ ಉದಾಹರಣೆಯ pH ಮೌಲ್ಯವನ್ನು 0–14 ಮಾಪಕದಲ್ಲಿ ಹೇಗೆ ವರ್ಗೀಕರಿಸಲಾಗುತ್ತದೆ ಎಂಬುದನ್ನು ಅನ್ವೇಷಿಸಿ.",
+      "principle": "In the usual introductory model, pH values below 7 are acidic, 7 is neutral, and values above 7 are basic. Real samples vary with composition and conditions.|ಸಾಮಾನ್ಯ ಪರಿಚಯಾತ್ಮಕ ಮಾದರಿಯಲ್ಲಿ, pH 7 ಕ್ಕಿಂತ ಕಡಿಮೆ ಇದ್ದರೆ ಆಮ್ಲೀಯ, 7 ಇದ್ದರೆ ತಟಸ್ಥ, ಮತ್ತು 7 ಕ್ಕಿಂತ ಹೆಚ್ಚಿದ್ದರೆ ಪ್ರತ್ಯಾಮ್ಲೀಯ. ನೈಜ ಮಾದರಿಗಳು ಸಂಯೋಜನೆ ಮತ್ತು ಪರಿಸ್ಥಿತಿಗಳಿಂದ ಬದಲಾಗುತ್ತವೆ.",
+      "assumption": "Displayed sample values are illustrative references, not measurements of real household liquids. Actual pH can vary.|ತೋರಿಸಲಾದ ಮಾದರಿ ಮೌಲ್ಯಗಳು ಉದಾಹರಣೆಯ ಉಲ್ಲೇಖಗಳು ಮಾತ್ರ; ನೈಜ ಮನೆಯ ದ್ರವಗಳ ಅಳತೆಗಳಲ್ಲ. ನೈಜ pH ಬದಲಾಗಬಹುದು.",
+      "safety": "This is a visual model. Do not taste samples or mix chemicals or household cleaners. No chemical handling is needed.|ಇದು ದೃಶ್ಯ ಮಾದರಿ ಮಾತ್ರ. ಮಾದರಿಗಳನ್ನು ರುಚಿ ನೋಡಬೇಡಿ ಅಥವಾ ರಾಸಾಯನಿಕಗಳು/ಮನೆಯ ಸ್ವಚ್ಛತಾ ದ್ರವಗಳನ್ನು ಮಿಶ್ರಣ ಮಾಡಬೇಡಿ. ಯಾವುದೇ ರಾಸಾಯನಿಕ ನಿರ್ವಹಣೆ ಅಗತ್ಯವಿಲ್ಲ.",
+      "conclusion": "The recorded examples show the model’s acidity classification. A real liquid’s pH should be measured with appropriate supervised equipment.|ದಾಖಲಿಸಿದ ಉದಾಹರಣೆಗಳು ಮಾದರಿಯ ಆಮ್ಲೀಯತೆ ವರ್ಗೀಕರಣವನ್ನು ತೋರಿಸುತ್ತವೆ. ನೈಜ ದ್ರವದ pH ಅನ್ನು ಸೂಕ್ತ ಮೇಲ್ವಿಚಾರಣೆಯ ಉಪಕರಣದಿಂದ ಅಳೆಯಬೇಕು.",
+      "canvasAlt": "Illustrative beaker and indicator color for the selected pH model|ಆಯ್ದ pH ಮಾದರಿಗೆ ಉದಾಹರಣೆಯ ಬೀಕರ್ ಮತ್ತು ಸೂಚಕ ಬಣ್ಣ",
+      "sample": {
+        "acidic": "Acidic example · pH 4.0|ಆಮ್ಲೀಯ ಉದಾಹರಣೆ · pH 4.0",
+        "weakAcid": "Weakly acidic example · pH 6.0|ಸ್ವಲ್ಪ ಆಮ್ಲೀಯ ಉದಾಹರಣೆ · pH 6.0",
+        "neutral": "Neutral example · pH 7.0|ತಟಸ್ಥ ಉದಾಹರಣೆ · pH 7.0",
+        "weakBase": "Weakly basic example · pH 8.0|ಸ್ವಲ್ಪ ಪ್ರತ್ಯಾಮ್ಲೀಯ ಉದಾಹರಣೆ · pH 8.0",
+        "basic": "Basic example · pH 9.0|ಪ್ರತ್ಯಾಮ್ಲೀಯ ಉದಾಹರಣೆ · pH 9.0"
+      },
+      "equipment": {
+        "beaker": "Illustrated beaker|ಚಿತ್ರಿತ ಬೀಕರ್",
+        "indicator": "Indicator colour model|ಸೂಚಕ ಬಣ್ಣ ಮಾದರಿ"
+      }
+    },
+    "cell": {
+      "title": "Microscope & Cell Explorer|ಸೂಕ್ಷ್ಮದರ್ಶಕ ಮತ್ತು ಜೀವಕೋಶ ಅನ್ವೇಷಕ",
+      "objective": "Compare a simplified plant-cell or animal-cell view and calculate total microscope magnification.|ಸರಳೀಕೃತ ಸಸ್ಯ ಅಥವಾ ಪ್ರಾಣಿ ಜೀವಕೋಶದ ದೃಶ್ಯವನ್ನು ಹೋಲಿಸಿ, ಸೂಕ್ಷ್ಮದರ್ಶಕದ ಒಟ್ಟು ವರ್ಧನೆಯನ್ನು ಲೆಕ್ಕಿಸಿ.",
+      "principle": "Total magnification is the eyepiece magnification multiplied by the objective magnification. The canvas drawing is a conceptual illustration, not an image captured through a microscope.|ಒಟ್ಟು ವರ್ಧನೆ ಎಂದರೆ ನೇತ್ರ ಮಸೂರದ ವರ್ಧನೆಯನ್ನು ವಸ್ತು ಮಸೂರದ ವರ್ಧನೆಯಿಂದ ಗುಣಿಸಿದ ಮೊತ್ತ. ಕ್ಯಾನ್ವಾಸ್ ಚಿತ್ರವು ಪರಿಕಲ್ಪನಾ ಚಿತ್ರಣ ಮಾತ್ರ; ಸೂಕ್ಷ್ಮದರ್ಶಕದಲ್ಲಿ ಸೆರೆಹಿಡಿದ ಚಿತ್ರವಲ್ಲ.",
+      "assumption": "A fixed 10× eyepiece is assumed. Cell drawings are schematic and do not represent real specimen scale or microscope observations.|ಸ್ಥಿರ 10× ನೇತ್ರ ಮಸೂರವನ್ನು ಊಹಿಸಲಾಗಿದೆ. ಜೀವಕೋಶದ ಚಿತ್ರಗಳು ರೂಪರೇಖಾತ್ಮಕವಾಗಿವೆ; ನೈಜ ಮಾದರಿಯ ಗಾತ್ರ ಅಥವಾ ಸೂಕ್ಷ್ಮದರ್ಶಕ ವೀಕ್ಷಣೆಗಳನ್ನು ತೋರಿಸುವುದಿಲ್ಲ.",
+      "safety": "Use prepared slides only in real supervised work. Do not collect or prepare human cheek samples for this digital model.|ನೈಜ ಮೇಲ್ವಿಚಾರಿತ ಕೆಲಸದಲ್ಲಿ ಸಿದ್ಧಪಡಿಸಿದ ಸ್ಲೈಡ್‌ಗಳನ್ನು ಮಾತ್ರ ಬಳಸಿ. ಈ ಡಿಜಿಟಲ್ ಮಾದರಿಗಾಗಿ ಮಾನವ ಕೆನ್ನೆಯ ಮಾದರಿಗಳನ್ನು ಸಂಗ್ರಹಿಸಬೇಡಿ ಅಥವಾ ಸಿದ್ಧಪಡಿಸಬೇಡಿ.",
+      "conclusion": "Changing the objective changes the calculated total magnification. The illustrated structures are simplified examples, not complete cell diagrams.|ವಸ್ತು ಮಸೂರವನ್ನು ಬದಲಿಸಿದಾಗ ಲೆಕ್ಕಿಸಿದ ಒಟ್ಟು ವರ್ಧನೆ ಬದಲಾಗುತ್ತದೆ. ಚಿತ್ರಿತ ರಚನೆಗಳು ಸರಳ ಉದಾಹರಣೆಗಳು ಮಾತ್ರ; ಸಂಪೂರ್ಣ ಜೀವಕೋಶ ಚಿತ್ರಗಳಲ್ಲ.",
+      "canvasAlt": "Schematic microscope field showing a plant or animal cell model|ಸಸ್ಯ ಅಥವಾ ಪ್ರಾಣಿ ಜೀವಕೋಶದ ಮಾದರಿಯನ್ನು ತೋರಿಸುವ ರೂಪರೇಖಾತ್ಮಕ ಸೂಕ್ಷ್ಮದರ್ಶಕ ದೃಶ್ಯ",
+      "equipment": {
+        "microscope": "Compound microscope model|ಸಂಯುಕ್ತ ಸೂಕ್ಷ್ಮದರ್ಶಕ ಮಾದರಿ",
+        "slide": "Prepared slide illustration|ಸಿದ್ಧ ಸ್ಲೈಡ್ ಚಿತ್ರಣ"
+      }
+    }
+  },
+  "quiz": {
+    "ohm": {
+      "question": "If voltage doubles while resistance stays constant, what happens to current in this model?|ಪ್ರತಿರೋಧ ಸ್ಥಿರವಾಗಿರುವಾಗ ವಿಭವಾಂತರ ದ್ವಿಗುಣವಾದರೆ ಈ ಮಾದರಿಯಲ್ಲಿ ಪ್ರವಾಹಕ್ಕೆ ಏನಾಗುತ್ತದೆ?",
+      "half": "It becomes half|ಅದು ಅರ್ಧವಾಗುತ್ತದೆ",
+      "double": "It doubles|ಅದು ದ್ವಿಗುಣವಾಗುತ್ತದೆ",
+      "same": "It stays the same|ಅದು ಬದಲಾಗದೆ ಇರುತ್ತದೆ",
+      "explanation": "From I = V / R, doubling V while R is unchanged doubles I.|I = V / R ಪ್ರಕಾರ, R ಬದಲಾಗದೆ V ದ್ವಿಗುಣವಾದರೆ I ಕೂಡ ದ್ವಿಗುಣವಾಗುತ್ತದೆ."
+    },
+    "ph": {
+      "question": "In the introductory pH model, a pH value below 7 is classified as…|ಪರಿಚಯಾತ್ಮಕ pH ಮಾದರಿಯಲ್ಲಿ, 7 ಕ್ಕಿಂತ ಕಡಿಮೆ pH ಮೌಲ್ಯವನ್ನು ಹೀಗೆ ವರ್ಗೀಕರಿಸಲಾಗುತ್ತದೆ…",
+      "acid": "Acidic|ಆಮ್ಲೀಯ",
+      "neutral": "Neutral|ತಟಸ್ಥ",
+      "base": "Basic|ಪ್ರತ್ಯಾಮ್ಲೀಯ",
+      "explanation": "The introductory scale classifies values below 7 as acidic, 7 as neutral, and above 7 as basic.|ಪರಿಚಯಾತ್ಮಕ ಮಾಪಕದಲ್ಲಿ 7 ಕ್ಕಿಂತ ಕಡಿಮೆ ಮೌಲ್ಯಗಳು ಆಮ್ಲೀಯ, 7 ತಟಸ್ಥ ಮತ್ತು 7 ಕ್ಕಿಂತ ಹೆಚ್ಚಿನವು ಪ್ರತ್ಯಾಮ್ಲೀಯ."
+    },
+    "microscope": {
+      "question": "How is total microscope magnification calculated?|ಸೂಕ್ಷ್ಮದರ್ಶಕದ ಒಟ್ಟು ವರ್ಧನೆಯನ್ನು ಹೇಗೆ ಲೆಕ್ಕಿಸುತ್ತಾರೆ?",
+      "add": "Eyepiece + objective|ನೇತ್ರ ಮಸೂರ + ವಸ್ತು ಮಸೂರ",
+      "multiply": "Eyepiece × objective|ನೇತ್ರ ಮಸೂರ × ವಸ್ತು ಮಸೂರ",
+      "subtract": "Eyepiece − objective|ನೇತ್ರ ಮಸೂರ − ವಸ್ತು ಮಸೂರ",
+      "explanation": "Multiply eyepiece magnification by objective magnification. For example, 10× and 40× give 400×.|ನೇತ್ರ ಮಸೂರದ ವರ್ಧನೆಯನ್ನು ವಸ್ತು ಮಸೂರದ ವರ್ಧನೆಯಿಂದ ಗುಣಿಸಿ. ಉದಾಹರಣೆಗೆ, 10× ಮತ್ತು 40× ಎಂದರೆ 400×."
+    }
+  },
+  "plan": {
+    "motion": "Motion & Speed|ಚಲನೆ ಮತ್ತು ವೇಗ",
+    "friction": "Force & Friction|ಬಲ ಮತ್ತು ಘರ್ಷಣೆ",
+    "gravity": "Gravity & Falling Objects|ಗುರುತ್ವಾಕರ್ಷಣೆ ಮತ್ತು ಬೀಳುವ ವಸ್ತುಗಳು",
+    "reflection": "Reflection of Light|ಬೆಳಕಿನ ಪ್ರತಿಫಲನ",
+    "refraction": "Refraction of Light|ಬೆಳಕಿನ ವಕ್ರೀಭವನ",
+    "series": "Series & Parallel Circuits|ಸರಣಿ ಮತ್ತು ಸಮಾಂತರ ಮಂಡಲಗಳು",
+    "magnetism": "Magnetism|ಕಾಂತತ್ವ",
+    "sound": "Sound Waves|ಧ್ವನಿ ಅಲೆಗಳು",
+    "density": "Density & Buoyancy|ಸಾಂದ್ರತೆ ಮತ್ತು ತೇಲುವಿಕೆ",
+    "indicators": "Indicator Colour Changes|ಸೂಚಕದ ಬಣ್ಣ ಬದಲಾವಣೆಗಳು",
+    "solubility": "Solutions & Solubility|ದ್ರಾವಣಗಳು ಮತ್ತು ಕರಗುವಿಕೆ",
+    "dissolving": "Temperature & Dissolving Rate|ತಾಪಮಾನ ಮತ್ತು ಕರಗುವ ವೇಗ",
+    "changes": "Physical & Chemical Changes|ಭೌತಿಕ ಮತ್ತು ರಾಸಾಯನಿಕ ಬದಲಾವಣೆಗಳು",
+    "atoms": "Atoms & Molecules|ಪರಮಾಣುಗಳು ಮತ್ತು ಅಣುಗಳು",
+    "equations": "Balancing Chemical Equations|ರಾಸಾಯನಿಕ ಸಮೀಕರಣಗಳ ಸಮತೋಲನ",
+    "separation": "Separation of Mixtures|ಮಿಶ್ರಣಗಳ ಬೇರ್ಪಡಿಕೆ",
+    "respiratory": "Respiratory System|ಉಸಿರಾಟ ವ್ಯವಸ್ಥೆ",
+    "photosynthesis": "Photosynthesis|ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ",
+    "heart": "Heart & Circulation|ಹೃದಯ ಮತ್ತು ರಕ್ತಸಂಚಾರ",
+    "genetics": "Genetics & Punnett Square|ವಂಶವಾಹಿ ಮತ್ತು ಪುನೆಟ್ ಚೌಕ",
+    "foodweb": "Ecosystem & Food Web|ಪರಿಸರ ವ್ಯವಸ್ಥೆ ಮತ್ತು ಆಹಾರ ಜಾಲ",
+    "osmosis": "Osmosis & Diffusion|ಆಸ್ಮೋಸಿಸ್ ಮತ್ತು ವಿಸರಣ",
+    "solar": "Solar System Explorer|ಸೌರಮಂಡಲ ಅನ್ವೇಷಕ",
+    "seasons": "Day, Night & Seasons|ಹಗಲು, ರಾತ್ರಿ ಮತ್ತು ಋತುಗಳು",
+    "eclipses": "Solar & Lunar Eclipses|ಸೂರ್ಯ ಮತ್ತು ಚಂದ್ರಗ್ರಹಣಗಳು",
+    "layers": "Earth Layers|ಭೂಮಿಯ ಪದರಗಳು",
+    "earthquake": "Earthquake Simulator|ಭೂಕಂಪ ಸಿಮ್ಯುಲೇಟರ್",
+    "volcano": "Volcano Simulator|ಜ್ವಾಲಾಮುಖಿ ಸಿಮ್ಯುಲೇಟರ್",
+    "water": "Water Cycle|ಜಲಚಕ್ರ",
+    "weather": "Weather & Climate|ಹವಾಮಾನ ಮತ್ತು ದೀರ್ಘಕಾಲದ ವಾತಾವರಣ",
+    "moon": "Moon Phases|ಚಂದ್ರನ ಹಂತಗಳು",
+    "stars": "Stars, Galaxies & Satellites|ನಕ್ಷತ್ರಗಳು, ಆಕಾಶಗಂಗೆಗಳು ಮತ್ತು ಉಪಗ್ರಹಗಳು",
+    "gaslaws": "Gas Laws (Boyle and Charles)|ಅನಿಲ ನಿಯಮಗಳು (ಬಾಯ್ಲ್ ಮತ್ತು ಚಾರ್ಲ್ಸ್)",
+    "microscope": "Microscope Simulator|ಸೂಕ್ಷ್ಮದರ್ಶಕ ಸಿಮ್ಯುಲೇಟರ್",
+    "periodic": "Periodic Table Explorer|ಆವರ್ತಕ ಕೋಷ್ಟಕ ಅನ್ವೇಷಕ"
+  },
+  "section": {
+    "equipment": "Science Equipment|ವಿಜ್ಞಾನ ಉಪಕರಣಗಳು",
+    "scientists": "Scientists Directory|ವಿಜ್ಞಾನಿಗಳ ಡೈರೆಕ್ಟರಿ",
+    "library": "Science Knowledge Library|ವಿಜ್ಞಾನ ಜ್ಞಾನ ಗ್ರಂಥಾಲಯ",
+    "videos": "Science Videos|ವಿಜ್ಞಾನ ವೀಡಿಯೊಗಳು",
+    "documents": "Documents & Worksheets|ದಾಖಲೆಗಳು ಮತ್ತು ಕಾರ್ಯಪತ್ರಗಳು",
+    "quiz": "Science Quiz|ವಿಜ್ಞಾನ ರಸಪ್ರಶ್ನೆ",
+    "projects": "Science Projects & Activities|ವಿಜ್ಞಾನ ಯೋಜನೆಗಳು ಮತ್ತು ಚಟುವಟಿಕೆಗಳು",
+    "news": "Science News|ವಿಜ್ಞಾನ ಸುದ್ದಿ",
+    "tutor": "AI Science Tutor|AI ವಿಜ್ಞಾನ ಬೋಧಕ",
+    "community": "Science Community (local drafts)|ವಿಜ್ಞಾನ ಸಮುದಾಯ (ಸ್ಥಳೀಯ ಕರಡುಗಳು)",
+    "careers": "Career Guidance|ವೃತ್ತಿ ಮಾರ್ಗದರ್ಶನ"
+  },
+  "meta": {
+    "title": "InstaLab — Explore Science by Doing|InstaLab — ಪ್ರಯೋಗಗಳ ಮೂಲಕ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ",
+    "description": "Explore science by doing with simple bilingual interactive models and trusted learning links.|ಸರಳ ದ್ವಿಭಾಷಾ ಸಂವಾದಾತ್ಮಕ ಮಾದರಿಗಳು ಮತ್ತು ವಿಶ್ವಾಸಾರ್ಹ ಕಲಿಕಾ ಲಿಂಕ್‌ಗಳ ಮೂಲಕ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ."
+  }
+}
