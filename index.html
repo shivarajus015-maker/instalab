@@ -3,294 +3,454 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InstaLab | Explore Science by Doing</title>
+  <title>InstaLab | Virtual Science Lab</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Dedicated Lab Layout Styles */
+    .lab-nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 0.6rem 1.2rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .experiment-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .exp-part {
+      margin-bottom: 1.5rem;
+    }
+    .exp-part h4 {
+      font-size: 1.05rem;
+      color: var(--primary-hover);
+      margin-bottom: 0.4rem;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 0.25rem;
+    }
+    .exp-equipment-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+    .eq-tag {
+      background: #f1f5f9;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      border: 1px solid #e2e8f0;
+    }
+    .formula-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
+      padding: 0.75rem 1rem;
+      font-family: monospace;
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+    .safety-alert {
+      background: #fff7ed;
+      border-left: 4px solid #ea580c;
+      padding: 0.75rem 1rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-size: 0.9rem;
+      color: #9a3412;
+    }
+    .quiz-mini {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-top: 1rem;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Block 1: Header (Logo, Tagline, Navigation, Single Language Selector, Mobile Hamburger) -->
+  <!-- Header -->
   <header class="site-header">
     <div class="header-inner container">
       <div class="brand">
         <a href="index.html">
           <img src="instalab-logo.png" alt="InstaLab Logo" class="logo-img" onerror="this.style.display='none'">
           <div>
-            <span class="brand-title" id="brandTitle">InstaLab</span>
-            <p class="brand-tagline" id="brandTagline">ಪ್ರಯೋಗಗಳ ಮೂಲಕ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ / Explore Science by Doing</p>
+            <span class="brand-title">InstaLab</span>
+            <p class="brand-tagline">ಪ್ರಯೋಗಗಳ ಮೂಲಕ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ / Explore Science by Doing</p>
           </div>
         </a>
       </div>
 
-      <nav class="main-nav" id="primaryNav" aria-label="Main Navigation">
-        <a href="#try-it-today" class="nav-link" id="navLab">ವರ್ಚುವಲ್ ಲ್ಯಾಬ್</a>
-        <a href="#equipment" class="nav-link disabled" tabindex="-1"><span id="navEquip">ಉಪಕರಣಗಳು</span> <span class="badge-soon">Soon</span></a>
-        <a href="#scientists" class="nav-link disabled" tabindex="-1"><span id="navSci">ವಿಜ್ಞಾನಿಗಳು</span> <span class="badge-soon">Soon</span></a>
-        <a href="#library" class="nav-link disabled" tabindex="-1"><span id="navLib">ಜ್ಞಾನ ಭಂಡಾರ</span> <span class="badge-soon">Soon</span></a>
-        <a href="#resources" class="nav-link" id="navDocs">ಕಾರ್ಯಹಾಳೆಗಳು</a>
-        <a href="#quiz-preview" class="nav-link" id="navQuiz">ರಸಪ್ರಶ್ನೆ</a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Home / ಮುಖಪುಟ</a>
+        <a href="lab.html" class="nav-link" style="color:var(--primary); font-weight:700;">Virtual Lab</a>
+        <a href="index.html#resources" class="nav-link">Worksheets</a>
+        <a href="index.html#quiz-preview" class="nav-link">Quiz</a>
       </nav>
 
       <div class="header-controls">
-        <label for="langSelector" class="sr-only">ಭಾಷೆ ಆಯ್ಕೆ / Language</label>
         <select id="langSelector" class="lang-select">
           <option value="both" selected>ಕನ್ನಡ + English (Both)</option>
           <option value="kn">ಕನ್ನಡ (Kannada)</option>
           <option value="en">English</option>
         </select>
-        <button class="hamburger-btn" id="hamburgerBtn" aria-expanded="false" aria-label="Toggle navigation">☰</button>
       </div>
     </div>
   </header>
 
-  <main>
-    <!-- Block 2: Hero Section -->
-    <section class="hero-block container">
-      <div class="hero-text">
-        <h2 class="hero-title" id="heroTitle">Explore, Experiment, and Understand Science!</h2>
-        <p class="hero-desc" id="heroDesc">Interactive science simulations, physical principles, and open hands-on learning resources.</p>
-        <div class="hero-actions">
-          <a href="#categories" class="btn btn-primary" id="btnExplore">Explore InstaLab</a>
-          <a href="#try-it-today" class="btn btn-secondary" id="btnOpenLab">Open Virtual Lab</a>
-          <a href="#resources" class="btn btn-outline" id="btnStartLearning">Start Learning</a>
+  <main class="container">
+    <section style="margin-top:2rem;">
+      <h1 style="font-size:2.2rem; margin-bottom:0.4rem;">🔬 ವರ್ಚುವಲ್ ವಿಜ್ಞಾನ ಪ್ರಯೋಗಾಲಯ / Virtual Science Lab</h1>
+      <p style="color:var(--text-muted); font-size:1.05rem;">
+        Complete standard experiment pages (12 core components) with mathematical modeling, live observation tables, and data plotting.
+      </p>
+
+      <!-- Subject Tabs -->
+      <div class="lab-nav-tabs">
+        <button class="tab-btn active" data-subject="all">All Subjects / ಎಲ್ಲವೂ</button>
+        <button class="tab-btn" data-subject="physics">Physics / ಭೌತಶಾಸ್ತ್ರ</button>
+        <button class="tab-btn" data-subject="chemistry">Chemistry / ರಸಾಯನಶಾಸ್ತ್ರ</button>
+        <button class="tab-btn" data-subject="biology">Biology / ಜೀವಶಾಸ್ತ್ರ</button>
+        <button class="tab-btn" data-subject="earth">Earth & Space / ಭೂ ಮತ್ತು ಬಾಹ್ಯಾಕಾಶ</button>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- EXPERIMENT 1: PHYSICS - Simple Electric Circuit (Ohm's Law)   -->
+    <!-- ============================================================== -->
+    <article class="experiment-card" data-cat="physics" id="exp-circuits">
+      <!-- 1. Title -->
+      <div class="exp-part">
+        <span class="cat-icon-tag">PHYSICS LAB • EXPERIMENT 01</span>
+        <h2 style="font-size:1.6rem; margin-top:0.25rem;">ಸರಳ ವಿದ್ಯುತ್ ಮಂಡಲ ಮತ್ತು ಓಮ್‌ನ ನಿಯಮ / Simple Electric Circuit & Ohm's Law</h2>
+      </div>
+
+      <!-- 2. Learning Objective -->
+      <div class="exp-part">
+        <h4>1. ಕಲಿಕಾ ಉದ್ದೇಶ / Learning Objective</h4>
+        <p>ವಿದ್ಯುತ್ ವಿಭವಾಂತರ (V), ವಿದ್ಯುತ್ ಪ್ರವಾಹ (I) ಮತ್ತು ರೋಧ (R) ನಡುವಿನ ಸಂಬಂಧವನ್ನು ಪರಿಶೀಲಿಸುವುದು ಮತ್ತು ಬಲ್ಬ್‌ನ ಪ್ರಕಾಶಮಾನತೆಯ ಮೇಲೆ ಅವುಗಳ ಪ್ರಭಾವವನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು.</p>
+        <p style="color:var(--text-muted); font-size:0.95rem;">To verify the empirical relationship between voltage (V), electric current (I), and resistance (R), and observe bulb illumination power.</p>
+      </div>
+
+      <!-- 3. Scientific Principle -->
+      <div class="exp-part">
+        <h4>2. ವೈಜ್ಞಾನಿಕ ತತ್ವ / Scientific Principle</h4>
+        <p><strong>ಓಮ್‌ನ ನಿಯಮ (Ohm's Law):</strong> ಸ್ಥಿರ ತಾಪಮಾನದಲ್ಲಿ, ವಾಹಕದ ಮೂಲಕ ಹರಿಯುವ ವಿದ್ಯುತ್ ಪ್ರವಾಹವು ಅದರ ಎರಡು ತುದಿಗಳ ನಡುವಿನ ವಿಭವಾಂತರಕ್ಕೆ ನೇರ ಅನುಪಾತದಲ್ಲಿರುತ್ತದೆ ಮತ್ತು ರೋಧಕ್ಕೆ ವಿಲೋಮ ಅನುಪಾತದಲ್ಲಿರುತ್ತದೆ ($I = \frac{V}{R}$). ಬಲ್ಬ್ ಹೊರಸೂಸುವ ವಿದ್ಯುತ್ ಸಾಮರ್ಥ್ಯವು $P = V \times I = I^2 R$ ಆಗಿದೆ.</p>
+        <p style="color:var(--text-muted); font-size:0.95rem;">At constant temperature, electrical current passing through a conductor is directly proportional to voltage and inversely proportional to resistance. Electrical power consumed is $P = V \cdot I$.</p>
+      </div>
+
+      <!-- 4. Equipment -->
+      <div class="exp-part">
+        <h4>3. ಅಗತ್ಯ ಉಪಕರಣಗಳು / Equipment</h4>
+        <div class="exp-equipment-list">
+          <span class="eq-tag">DC Power Source (ಬ್ಯಾಟರಿ 1V - 24V)</span>
+          <span class="eq-tag">Variable Resistor / Rheostat (ರೋಧಕ 5Ω - 100Ω)</span>
+          <span class="eq-tag">Incandescent Filament Bulb (ಬಲ್ಬ್)</span>
+          <span class="eq-tag">Digital Ammeter (ಅಮ್ಮೀಟರ್)</span>
+          <span class="eq-tag">Digital Voltmeter (ವೋಲ್ಟ್‌ಮೀಟರ್)</span>
+          <span class="eq-tag">Connecting Wires (ವಾಹಕ ತಂತಿಗಳು)</span>
         </div>
       </div>
-      <div class="hero-illustration" aria-hidden="true">
-        <svg viewBox="0 0 200 200" class="hero-svg">
-          <circle cx="100" cy="100" r="70" stroke="#0284c7" stroke-width="2.5" fill="#f0f9ff"/>
-          <ellipse cx="100" cy="100" rx="90" ry="25" stroke="#059669" stroke-width="2" fill="none" transform="rotate(35 100 100)"/>
-          <ellipse cx="100" cy="100" rx="90" ry="25" stroke="#d97706" stroke-width="2" fill="none" transform="rotate(-35 100 100)"/>
-          <circle cx="100" cy="100" r="12" fill="#0284c7"/>
-          <circle cx="165" cy="75" r="5" fill="#059669"/>
-          <circle cx="35" cy="125" r="5" fill="#d97706"/>
-        </svg>
-      </div>
-    </section>
 
-    <!-- Block 3: Search Bar -->
-    <section class="search-block container">
-      <div class="search-input-group">
-        <input type="text" id="globalSearch" class="search-input" placeholder="Search topics, simulations, scientists, quizzes...">
-        <button id="clearSearchBtn" class="btn-clear">ಅಳಿಸು / Clear</button>
-      </div>
-      <div id="searchResults" class="search-results-box hidden" aria-live="polite"></div>
-    </section>
-
-    <!-- Block 4: Four Category Cards -->
-    <section id="categories" class="categories-block container">
-      <div class="cat-grid">
-        <article class="cat-card">
-          <span class="cat-icon-tag">PHYSICS</span>
-          <h3 id="catPhysicsTitle">ಭೌತಶಾಸ್ತ್ರ / Physics</h3>
-          <p id="catPhysicsDesc">Mechanics, optics, electricity, magnetism, and wave phenomena.</p>
-          <a href="#try-it-today" class="cat-link">ಅನ್ವೇಷಿಸಿ / Explore →</a>
-        </article>
-        <article class="cat-card">
-          <span class="cat-icon-tag">CHEMISTRY</span>
-          <h3 id="catChemTitle">ರಸಾಯನಶಾಸ್ತ್ರ / Chemistry</h3>
-          <p id="catChemDesc">Acids, bases, chemical reactions, and molecular structures.</p>
-          <a href="#try-it-today" class="cat-link">ಅನ್ವೇಷಿಸಿ / Explore →</a>
-        </article>
-        <article class="cat-card">
-          <span class="cat-icon-tag">BIOLOGY</span>
-          <h3 id="catBioTitle">ಜೀವಶಾಸ್ತ್ರ / Biology</h3>
-          <p id="catBioDesc">Cell biology, microscopy, human systems, and genetics.</p>
-          <a href="#try-it-today" class="cat-link">ಅನ್ವೇಷಿಸಿ / Explore →</a>
-        </article>
-        <article class="cat-card">
-          <span class="cat-icon-tag">EARTH & SPACE</span>
-          <h3 id="catEarthTitle">ಭೂ ಮತ್ತು ಬಾಹ್ಯಾಕಾಶ / Earth Science & Space</h3>
-          <p id="catEarthDesc">Solar system dynamics, eclipses, earth layers, and the water cycle.</p>
-          <a href="#try-it-today" class="cat-link">ಅನ್ವೇಷಿಸಿ / Explore →</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- Block 5: "Try It Today" (3 Priority Working Simulations) -->
-    <section id="try-it-today" class="try-today-block container">
-      <h2 class="block-title" id="tryTodayTitle">Try It Today</h2>
-      <p class="block-sub" id="tryTodaySub">Functional interactive simulations with live controls, observation recording, and data plotting.</p>
-
-      <div class="sim-container">
-        <!-- 1. Motion & Speed -->
-        <article class="sim-workbench" id="sim-motion-box">
-          <header class="sim-workbench-header">
-            <h3>1. ಚಲನೆ ಮತ್ತು ವೇಗ / Motion and Speed</h3>
-            <span class="sim-formula-badge">v = d / t ; s = ut + ½at²</span>
-            <p class="sim-assumption"><strong>ಮಾದರಿ ಊಹೆ / Model Assumption:</strong> Ideal frictionless linear surface, zero aerodynamic drag, constant velocity.</p>
-          </header>
-          <div class="sim-stage">
-            <div class="canvas-panel">
-              <canvas id="motionCanvas" width="360" height="120" role="img" aria-label="Cart moving along a linear track"></canvas>
-            </div>
-            <div class="controls-panel">
-              <div class="ctrl-group">
-                <label for="motionSpeedSlider">ವೇಗ / Velocity (m/s): <span id="motionSpeedVal">10.0</span></label>
-                <input type="range" id="motionSpeedSlider" min="2" max="25" step="0.5" value="10">
-              </div>
-              <div class="btn-group-sim">
-                <button id="motionStartBtn" class="btn-sm btn-primary">Start</button>
-                <button id="motionPauseBtn" class="btn-sm btn-outline">Pause</button>
-                <button id="motionResetBtn" class="btn-sm btn-outline">Reset</button>
-                <button id="motionRecordBtn" class="btn-sm btn-secondary">Record Data Row</button>
-              </div>
-              <p class="sim-readouts">ಕಾಲ / Time: <strong id="motionTimeVal">0.00</strong> s | ದೂರ / Distance: <strong id="motionDistVal">0.00</strong> m</p>
-            </div>
-          </div>
-          <div class="sim-data-grid">
-            <div class="data-table-wrapper">
-              <table class="data-table" id="motionTable">
-                <thead>
-                  <tr><th>Trial</th><th>Speed (m/s)</th><th>Time (s)</th><th>Distance (m)</th></tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </div>
-            <div class="graph-panel">
-              <canvas id="motionGraphCanvas" width="280" height="130" role="img" aria-label="Distance vs Time graph plotted from recorded trials"></canvas>
-            </div>
-          </div>
-        </article>
-
-        <!-- 2. Reflection of Light -->
-        <article class="sim-workbench" id="sim-reflection-box">
-          <header class="sim-workbench-header">
-            <h3>2. ಬೆಳಕಿನ ಪ್ರತಿಫಲನ / Reflection of Light</h3>
-            <span class="sim-formula-badge">∠i = ∠r</span>
-            <p class="sim-assumption"><strong>ಮಾದರಿ ಊಹೆ / Model Assumption:</strong> Optically flat ideal specular plane mirror in a uniform homogeneous medium.</p>
-          </header>
-          <div class="sim-stage">
-            <div class="canvas-panel">
-              <canvas id="reflectionCanvas" width="360" height="120" role="img" aria-label="Light ray reflection at a plane mirror boundary"></canvas>
-            </div>
-            <div class="controls-panel">
-              <div class="ctrl-group">
-                <label for="angleSlider">ಪತನ ಕೋನ / Angle of Incidence (∠i): <span id="angleDisp">45</span>°</label>
-                <input type="range" id="angleSlider" min="5" max="85" value="45">
-              </div>
-              <div class="btn-group-sim">
-                <button id="reflectionRecordBtn" class="btn-sm btn-secondary">Record Data Row</button>
-              </div>
-              <p class="sim-readouts">ಪ್ರತಿಫಲನ ಕೋನ / Angle of Reflection (∠r): <strong><span id="angleReflectDisp">45</span>°</strong></p>
-            </div>
-          </div>
-          <div class="sim-data-grid">
-            <div class="data-table-wrapper">
-              <table class="data-table" id="reflectionTable">
-                <thead>
-                  <tr><th>Trial</th><th>Incidence ∠i (°)</th><th>Reflection ∠r (°)</th></tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </div>
-            <div class="graph-panel">
-              <canvas id="reflectionGraphCanvas" width="280" height="130" role="img" aria-label="Angle of Reflection vs Incidence graph plotted from recorded trials"></canvas>
-            </div>
-          </div>
-        </article>
-
-        <!-- 3. Density & Buoyancy -->
-        <article class="sim-workbench" id="sim-buoyancy-box">
-          <header class="sim-workbench-header">
-            <h3>3. ಸಾಂದ್ರತೆ ಮತ್ತು ತೇಲುವಿಕೆ / Density and Buoyancy</h3>
-            <span class="sim-formula-badge">ρ = m / V</span>
-            <p class="sim-assumption"><strong>ಮಾದರಿ ಊಹೆ / Model Assumption:</strong> Pure liquid water at 4°C (density = 1.00 g/cm³); rigid incompressible block.</p>
-          </header>
-          <div class="sim-stage">
-            <div class="canvas-panel">
-              <canvas id="buoyancyCanvas" width="360" height="120" role="img" aria-label="Block floating or sinking in water cylinder"></canvas>
-            </div>
-            <div class="controls-panel">
-              <div class="ctrl-group">
-                <label for="buoyancyMassSlider">ದ್ರವ್ಯರಾಶಿ / Mass (g): <span id="buoyancyMassDisp">60</span> g (ಸ್ಥಿರ ಗಾತ್ರ / Volume: 100 cm³)</label>
-                <input type="range" id="buoyancyMassSlider" min="15" max="180" value="60">
-              </div>
-              <div class="btn-group-sim">
-                <button id="buoyancyRecordBtn" class="btn-sm btn-secondary">Record Data Row</button>
-              </div>
-              <p class="sim-readouts">ಸಾಂದ್ರತೆ / Density: <strong id="calcDensityDisp">0.60</strong> g/cm³ (<span id="buoyancyStatusDisp">Floats</span>)</p>
-            </div>
-          </div>
-          <div class="sim-data-grid">
-            <div class="data-table-wrapper">
-              <table class="data-table" id="buoyancyTable">
-                <thead>
-                  <tr><th>Trial</th><th>Mass (g)</th><th>Volume (cm³)</th><th>Density (g/cm³)</th></tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </div>
-            <div class="graph-panel">
-              <canvas id="buoyancyGraphCanvas" width="280" height="130" role="img" aria-label="Density vs Mass graph plotted from recorded trials"></canvas>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Block 6: "Did You Know?" Fact -->
-    <section class="fact-block container">
-      <div class="fact-card">
-        <h3 id="didYouKnowHeading">Did You Know? / ನಿಮಗೆ ತಿಳಿದಿದೆಯೇ?</h3>
-        <p id="factContentText">ಸೂರ್ಯನ ಬೆಳಕು ಭೂಮಿಯನ್ನು ತಲುಪಲು ಸುಮಾರು 8 ನಿಮಿಷ ಮತ್ತು 20 ಸೆಕೆಂಡುಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ (ಸರಾಸರಿ ದೂರ 149.6 ದಶಲಕ್ಷ ಕಿ.ಮೀ).</p>
-        <cite id="factSourceText">— Source: NASA Science Solar System Exploration</cite>
-      </div>
-    </section>
-
-    <!-- Block 7: Learning Resources (No Textbooks) -->
-    <section id="resources" class="resources-block container">
-      <h2 class="block-title" id="resTitle">Learning Resources Preview</h2>
-      <p class="block-sub">ಪರಿಶೀಲಿಸಿದ ಉಲ್ಲೇಖ ಹಾಳೆಗಳು ಮತ್ತು ಸುರಕ್ಷತಾ ಮಾರ್ಗದರ್ಶಿಗಳು (No Textbooks)</p>
-      <div class="resources-grid" id="resourcesPreviewGrid"></div>
-    </section>
-
-    <!-- Block 8: Quiz Preview -->
-    <section id="quiz-preview" class="quiz-preview-block container">
-      <h2 class="block-title" id="quizTitle">Daily Science Challenge</h2>
-      <div class="quiz-card">
-        <h3 id="quizQuestion">Loading question...</h3>
-        <div class="quiz-options" id="quizOptions"></div>
-        <button id="quizSubmitBtn" class="btn btn-primary">ಉತ್ತರ ಸಲ್ಲಿಸಿ / Submit Answer</button>
-        <div id="quizFeedback" class="quiz-feedback hidden"></div>
-      </div>
-    </section>
-
-    <!-- Block 9 & 11: About & Dynamic Counters -->
-    <section class="about-counts-block container">
-      <div class="about-box">
-        <h3 id="aboutTitle">About InstaLab</h3>
-        <p id="aboutText">InstaLab is an open scientific learning platform designed to make practical science accessible in Kannada and English.</p>
-        <p class="footer-disclaimer-text" style="margin-top:0.5rem;">Drafts and test progress stay entirely on this browser and device.</p>
-      </div>
-      <div class="stat-counters">
-        <div class="stat-item">
-          <span class="stat-num" id="statSimCount">0</span>
-          <span class="stat-label">ವರ್ಚುವಲ್ ಲ್ಯಾಬ್<br>Simulations</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-num" id="statSciCount">0</span>
-          <span class="stat-label">ವಿಜ್ಞಾನಿಗಳು<br>Scientists</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-num" id="statQuizCount">0</span>
-          <span class="stat-label">ರಸಪ್ರಶ್ನೆಗಳು<br>Quiz Questions</span>
+      <!-- 5. Interactive Simulation Canvas -->
+      <div class="exp-part">
+        <h4>4. ಸಂವಾದಾತ್ಮಕ ಸಿಮ್ಯುಲೇಶನ್ / Interactive Simulation</h4>
+        <div class="canvas-panel" style="background:#090d16; padding:1.25rem;">
+          <canvas id="circuitCanvas" width="480" height="180" role="img" aria-label="Interactive electric circuit diagram with battery, resistor, ammeter, and glowing bulb"></canvas>
         </div>
       </div>
-    </section>
+
+      <!-- 6. Controls & Live Readings -->
+      <div class="exp-part">
+        <h4>5. ನಿಯಂತ್ರಣಗಳು ಮತ್ತು ಲೈವ್ ರೀಡಿಂಗ್ಸ್ / Controls & Live Readings</h4>
+        <div class="controls-panel" style="max-width:550px;">
+          <div class="ctrl-group">
+            <label for="circuitVoltage">ವಿದ್ಯುತ್ ವಿಭವಾಂತರ / Voltage (V): <strong id="voltageVal">6.0</strong> V</label>
+            <input type="range" id="circuitVoltage" min="1" max="24" step="0.5" value="6">
+          </div>
+          <div class="ctrl-group">
+            <label for="circuitResistance">ರೋಧ / Resistance (R): <strong id="resistanceVal">10.0</strong> Ω</label>
+            <input type="range" id="circuitResistance" min="2" max="50" step="1" value="10">
+          </div>
+          <div class="btn-group-sim" style="margin-top:0.5rem;">
+            <button id="circuitRecordBtn" class="btn btn-secondary btn-sm">Record Data Row (ವೀಕ್ಷಣೆ ದಾಖಲಿಸಿ)</button>
+            <button id="circuitResetBtn" class="btn btn-outline btn-sm">Reset Circuit</button>
+          </div>
+          <p class="sim-readouts" style="font-size:1rem; margin-top:0.75rem;">
+            ಪ್ರವಾಹ / Current (I): <strong id="currentVal" style="color:var(--primary);">0.60 A</strong> | 
+            ಸಾಮರ್ಥ್ಯ / Power (P): <strong id="powerVal" style="color:#d97706;">3.60 W</strong>
+          </p>
+        </div>
+      </div>
+
+      <!-- 7. Formula with SI Units -->
+      <div class="exp-part">
+        <h4>6. ಸೂತ್ರ ಮತ್ತು ಏಕಮಾನಗಳು / Formula & SI Units</h4>
+        <div class="formula-box">
+          $I = \frac{V}{R}$ &nbsp; | &nbsp; Current: Amperes (A), Voltage: Volts (V), Resistance: Ohms (Ω)<br>
+          $P = V \times I = I^2 R$ &nbsp; | &nbsp; Power: Watts (W), Energy: Joules (J)
+        </div>
+        <p class="sim-assumption"><strong>ಮಾದರಿ ಊಹೆ / Model Assumption:</strong> Ideal copper connecting wires with zero internal resistance; constant temperature coefficient; ideal linear ohmic resistor.</p>
+      </div>
+
+      <!-- 8. Observation Table & 9. Data-Generated Graph -->
+      <div class="exp-part">
+        <h4>7 & 8. ವೀಕ್ಷಣಾ ಕೋಷ್ಟಕ ಮತ್ತು ಗ್ರಾಫ್ / Observation Table & Empirical Graph</h4>
+        <div class="sim-data-grid">
+          <div class="data-table-wrapper">
+            <table class="data-table" id="circuitTable">
+              <thead>
+                <tr>
+                  <th>Trial</th>
+                  <th>Voltage V (Volts)</th>
+                  <th>Resistance R (Ohms)</th>
+                  <th>Current I (Amperes)</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="graph-panel">
+            <canvas id="circuitGraphCanvas" width="280" height="140" role="img" aria-label="Current vs Voltage plotted strictly from recorded data points"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. Scientific Conclusion -->
+      <div class="exp-part">
+        <h4>9. ತೀರ್ಮಾನ / Conclusion</h4>
+        <p>ವಿದ್ಯುತ್ ವಿಭವಾಂತರ ಹೆಚ್ಚಾದಂತೆ, ಮಂಡಲದಲ್ಲಿ ಹರಿಯುವ ಪ್ರವಾಹ ಮತ್ತು ಬಲ್ಬ್‌ನ ಪ್ರಕಾಶಮಾನತೆಯು ನೇರವಾಗಿ ಹೆಚ್ಚಾಗುತ್ತದೆ ($I \propto V$). ರೋಧ ಹೆಚ್ಚಾದಂತೆ ಪ್ರವಾಹ ಕಡಿಮೆಯಾಗುತ್ತದೆ ($I \propto \frac{1}{R}$).</p>
+        <p style="color:var(--text-muted); font-size:0.95rem;">Current increases linearly with voltage ($I \propto V$) and decreases inversely with resistance ($I \propto 1/R$), confirming Ohm's fundamental electrical law.</p>
+      </div>
+
+      <!-- 11. Safety Note -->
+      <div class="exp-part">
+        <h4>10. ಸುರಕ್ಷತಾ ನಿಯಮ / Safety Note</h4>
+        <div class="safety-alert">
+          <strong>⚠️ ಪ್ರಯೋಗಾಲಯ ಸುರಕ್ಷತೆ / Lab Safety:</strong> ಎಂದಿಗೂ ಮುಖ್ಯ ವಿದ್ಯುತ್ (AC 220V) ಸಾಕೆಟ್‌ಗಳಿಗೆ ನೇರವಾಗಿ ಸಂಪರ್ಕಿಸಬೇಡಿ. ಯಾವಾಗಲೂ ಕಡಿಮೆ ವೋಲ್ಟೇಜ್‌ನ ಡಿಸಿ ಬ್ಯಾಟರಿಗಳನ್ನು (1.5V - 9V) ಬಳಸಿ. ಶಾರ್ಟ್ ಸರ್ಕ್ಯೂಟ್ ಉಂಟಾಗದಂತೆ ತಂತಿಗಳನ್ನು ಸರಿಯಾಗಿ ಜೋಡಿಸಿ.
+          <br><em>Never connect directly to wall AC mains sockets. Always work with low-voltage DC batteries under instructor supervision.</em>
+        </div>
+      </div>
+
+      <!-- 12. Short Quiz -->
+      <div class="exp-part">
+        <h4>11. ಪರಿಕಲ್ಪನಾ ಪರೀಕ್ಷೆ / Concept Quiz</h4>
+        <div class="quiz-mini">
+          <p><strong>ಪ್ರಶ್ನೆ / Question:</strong> If voltage is doubled from 6V to 12V while resistance stays constant at 10Ω, what happens to current?</p>
+          <div style="margin:0.75rem 0; display:flex; flex-direction:column; gap:0.4rem;">
+            <label><input type="radio" name="circuitQ" value="half"> It decreases to 0.30 A (ಅರ್ಧವಾಗುತ್ತದೆ)</label>
+            <label><input type="radio" name="circuitQ" value="double"> It doubles to 1.20 A (ಇಮ್ಮಡಿಯಾಗುತ್ತದೆ)</label>
+            <label><input type="radio" name="circuitQ" value="same"> It remains 0.60 A (ಬದಲಾಗುವುದಿಲ್ಲ)</label>
+          </div>
+          <button class="btn btn-primary btn-sm" id="circuitQuizCheck">Check Answer / ಪರಿಶೀಲಿಸಿ</button>
+          <p id="circuitQuizFeedback" class="quiz-feedback hidden" style="margin-top:0.5rem;"></p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============================================================== -->
+    <!-- EXPERIMENT 2: CHEMISTRY - pH Scale & Indicators                -->
+    <!-- ============================================================== -->
+    <article class="experiment-card" data-cat="chemistry" id="exp-ph">
+      <div class="exp-part">
+        <span class="cat-icon-tag" style="color:#059669;">CHEMISTRY LAB • EXPERIMENT 02</span>
+        <h2 style="font-size:1.6rem; margin-top:0.25rem;">ಆಮ್ಲಗಳು, ಪ್ರತ್ಯಾಮ್ಲಗಳು ಮತ್ತು pH ಮಾಪಕ / Acids, Bases & pH Scale</h2>
+      </div>
+
+      <div class="exp-part">
+        <h4>1. ಕಲಿಕಾ ಉದ್ದೇಶ / Learning Objective</h4>
+        <p>ವಿವಿಧ ದೈನಂದಿನ ದ್ರಾವಣಗಳ (ಲಿಂಬೆ ರಸ, ಹಾಲು, ನೀರು, ಸೋಪಿನ ನೀರು) ಆಮ್ಲೀಯತೆ ಮತ್ತು ಪ್ರತ್ಯಾಮ್ಲೀಯತೆಯನ್ನು pH ಮಾಪಕ (0–14) ಮತ್ತು ಸಾರ್ವತ್ರಿಕ ಸೂಚಕದ ಬಣ್ಣ ಬದಲಾವಣೆಯ ಮೂಲಕ ಗುರುತಿಸುವುದು.</p>
+        <p style="color:var(--text-muted); font-size:0.95rem;">To determine the acidity, neutrality, or alkalinity of domestic solutions using the pH scale (0–14) and visual indicator color changes.</p>
+      </div>
+
+      <div class="exp-part">
+        <h4>2. ವೈಜ್ಞಾನಿಕ ತತ್ವ / Scientific Principle</h4>
+        <p><strong>pH ಮಾಪಕ:</strong> ಜಲೀಯ ದ್ರಾವಣದಲ್ಲಿನ ಹೈಡ್ರೋಜನ್ ಅಯಾನುಗಳ ಸಾಂದ್ರತೆಯನ್ನು [$H^+$] ಅಳೆಯುವ ಮಾಪನವೇ pH ($pH = -\log_{10}[H^+]$). pH < 7 ಆಗಿದ್ದರೆ ಆಮ್ಲೀಯ (ಆರೆಂಜ್/ಕೆಂಪು ಬಣ್ಣ), pH = 7 ತಟಸ್ಥ (ಹಸಿರು), pH > 7 ಆಗಿದ್ದರೆ ಪ್ರತ್ಯಾಮ್ಲೀಯ (ನೀಲಿ/ನೇರಳೆ ಬಣ್ಣ).</p>
+      </div>
+
+      <div class="exp-part">
+        <h4>3. ಅಗತ್ಯ ಉಪಕರಣಗಳು / Equipment</h4>
+        <div class="exp-equipment-list">
+          <span class="eq-tag">Borosilicate Glass Beakers (ಬೀಕರ್‌ಗಳು)</span>
+          <span class="eq-tag">Universal Indicator Solution (ಸಾರ್ವತ್ರಿಕ ಸೂಚಕ)</span>
+          <span class="eq-tag">Calibrated Digital pH Probe</span>
+          <span class="eq-tag">Safe Test Liquids (Lemon Juice, Milk, Water, Baking Soda, Soap)</span>
+        </div>
+      </div>
+
+      <div class="exp-part">
+        <h4>4. ಸಂವಾದಾತ್ಮಕ ಸಿಮ್ಯುಲೇಶನ್ / Interactive Simulation</h4>
+        <div class="canvas-panel" style="background:#0f172a; padding:1.25rem;">
+          <canvas id="phCanvas" width="480" height="180" role="img" aria-label="Beaker showing liquid changing color based on pH value and litmus strip test"></canvas>
+        </div>
+      </div>
+
+      <div class="exp-part">
+        <h4>5. ನಿಯಂತ್ರಣಗಳು ಮತ್ತು ಲೈವ್ ರೀಡಿಂಗ್ಸ್ / Controls & Live Readings</h4>
+        <div class="controls-panel" style="max-width:550px;">
+          <div class="ctrl-group">
+            <label for="substanceSelect">ಪರೀಕ್ಷಾ ದ್ರಾವಣ ಆಯ್ಕೆಮಾಡಿ / Select Test Substance:</label>
+            <select id="substanceSelect" style="width:100%; padding:0.5rem; border-radius:4px; border:1px solid var(--border);">
+              <option value="2.2" data-name-kn="ಲಿಂಬೆ ರಸ" data-name-en="Lemon Juice">ಲಿಂಬೆ ರಸ / Lemon Juice (Citric acid)</option>
+              <option value="3.0" data-name-kn="ವಿನೆಗರ್" data-name-en="Vinegar">ವಿನೆಗರ್ / Vinegar (Acetic acid)</option>
+              <option value="6.6" data-name-kn="ಹಾಲು" data-name-en="Fresh Milk">ಹಾಲು / Fresh Milk (Lactic acid)</option>
+              <option value="7.0" data-name-kn="ಶುದ್ಧ ನೀರು" data-name-en="Pure Neutral Water" selected>ಶುದ್ಧ ನೀರು / Pure Distilled Water (Neutral)</option>
+              <option value="8.5" data-name-kn="ಅಡುಗೆ ಸೋಡಾ" data-name-en="Baking Soda Solution">ಅಡುಗೆ ಸೋಡಾ / Baking Soda (Sodium bicarbonate)</option>
+              <option value="10.0" data-name-kn="ಸೋಪಿನ ದ್ರಾವಣ" data-name-en="Soap Solution">ಸೋಪಿನ ದ್ರಾವಣ / Soap Solution (Mild base)</option>
+            </select>
+          </div>
+          <div class="btn-group-sim" style="margin-top:0.5rem;">
+            <button id="phRecordBtn" class="btn btn-secondary btn-sm">Record Observation Row (ದಾಖಲಿಸಿ)</button>
+          </div>
+          <p class="sim-readouts" style="font-size:1rem; margin-top:0.75rem;">
+            pH ಮೌಲ್ಯ / pH Value: <strong id="phDisplayVal" style="color:#0284c7;">7.0</strong> | 
+            ಸ್ವಭಾವ / Nature: <strong id="phNatureVal" style="color:#059669;">ತಟಸ್ಥ / Neutral</strong>
+          </p>
+        </div>
+      </div>
+
+      <div class="exp-part">
+        <h4>6. ಸೂತ್ರ ಮತ್ತು ಏಕಮಾನಗಳು / Formula & SI Units</h4>
+        <div class="formula-box">
+          $\text{pH} = -\log_{10}[\text{H}^+] \quad | \quad [\text{H}^+][\text{OH}^-] = 1.0 \times 10^{-14} \text{ mol}^2/\text{L}^2 \text{ at } 25^\circ\text{C}$
+        </div>
+        <p class="sim-assumption"><strong>ಮಾದರಿ ಊಹೆ / Model Assumption:</strong> Dilute aqueous solutions at 25°C standard atmospheric equilibrium; complete dissolution.</p>
+      </div>
+
+      <div class="exp-part">
+        <h4>7 & 8. ವೀಕ್ಷಣಾ ಕೋಷ್ಟಕ ಮತ್ತು ಗ್ರಾಫ್ / Observation Table & Empirical Graph</h4>
+        <div class="sim-data-grid">
+          <div class="data-table-wrapper">
+            <table class="data-table" id="phTable">
+              <thead>
+                <tr>
+                  <th>Trial</th>
+                  <th>Substance (ದ್ರಾವಣ)</th>
+                  <th>Observed pH</th>
+                  <th>Classification</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="graph-panel">
+            <canvas id="phGraphCanvas" width="280" height="140" role="img" aria-label="pH value comparison plotted from recorded substances"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-part">
+        <h4>9. ತೀರ್ಮಾನ / Conclusion</h4>
+        <p>ದ್ರಾವಣದ pH ಮೌಲ್ಯ 7 ಕ್ಕಿಂತ ಕಡಿಮೆಯಿದ್ದರೆ ಹೈಡ್ರೋಜನ್ ಅಯಾನುಗಳ ಸಾಂದ್ರತೆ ಹೆಚ್ಚಾಗಿದ್ದು ಆಮ್ಲವಾಗಿರುತ್ತದೆ. 7 ಕ್ಕಿಂತ ಹೆಚ್ಚಿದ್ದರೆ ಹೈಡ್ರಾಕ್ಸೈಡ್ ಅಯಾನುಗಳ ಸಾಂದ್ರತೆ ಹೆಚ್ಚಾಗಿದ್ದು ಪ್ರತ್ಯಾಮ್ಲವಾಗಿರುತ್ತದೆ.</p>
+      </div>
+
+      <div class="exp-part">
+        <h4>10. ಸುರಕ್ಷತಾ ನಿಯಮ / Safety Note</h4>
+        <div class="safety-alert">
+          <strong>⚠️ ರಾಸಾಯನಿಕ ಸುರಕ್ಷತೆ / Chemical Safety:</strong> ಪ್ರಯೋಗಾಲಯದಲ್ಲಿ ಯಾವುದೇ ರಾಸಾಯನಿಕಗಳನ್ನು ಎಂದಿಗೂ ಬಾಯಿಯಿಂದ ರುಚಿ ನೋಡಬೇಡಿ ಅಥವಾ ಮೂಗಿನಿಂದ ನೇರವಾಗಿ ಆಘ್ರಾಣಿಸಬೇಡಿ. ಮನೆ ಬಳಕೆಯ ಸ್ವಚ್ಛತಾ ದ್ರವಗಳನ್ನು ಪರಸ್ಪರ ಎಂದಿಗೂ ಮಿಶ್ರಣ ಮಾಡಬೇಡಿ.
+          <br><em>Never taste or inhale chemicals. Never mix household cleaners together (e.g. bleach and ammonia produces toxic fumes).</em>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============================================================== -->
+    <!-- EXPERIMENT 3: BIOLOGY - Microscope Simulator & Cell Explorer   -->
+    <!-- ============================================================== -->
+    <article class="experiment-card" data-cat="biology" id="exp-cell">
+      <div class="exp-part">
+        <span class="cat-icon-tag" style="color:#7c3aed;">BIOLOGY LAB • EXPERIMENT 03</span>
+        <h2 style="font-size:1.6rem; margin-top:0.25rem;">ಸಂಯುಕ್ತ ಸೂಕ್ಷ್ಮದರ್ಶಕ ಮತ್ತು ಜೀವಕೋಶ ಪರಿಶೋಧಕ / Microscope & Cell Explorer</h2>
+      </div>
+
+      <div class="exp-part">
+        <h4>1. ಕಲಿಕಾ ಉದ್ದೇಶ / Learning Objective</h4>
+        <p>ಸಂಯುಕ್ತ ಸೂಕ್ಷ್ಮದರ್ಶಕದ ವರ್ಧನ ಸಾಮರ್ಥ್ಯವನ್ನು ಲೆಕ್ಕಿಸುವುದು ಮತ್ತು ಸಸ್ಯ ಜೀವಕೋಶ (ಈರುಳ್ಳಿ ಪೊರೆ) ಹಾಗೂ ಪ್ರಾಣಿ ಜೀವಕೋಶದ (ಕೆನ್ನೆ ಕೋಶ) ಪ್ರಮುಖ ಕಣದಂಗಗಳನ್ನು ಪರಿಶೀಲಿಸುವುದು.</p>
+      </div>
+
+      <div class="exp-part">
+        <h4>2. ವೈಜ್ಞಾನಿಕ ತತ್ವ / Scientific Principle</h4>
+        <p><strong>ಒಟ್ಟು ವರ್ಧನೆ (Total Magnification):</strong> ನೇತ್ರ ಮಸೂರದ (Eyepiece) ಸಾಮರ್ಥ್ಯ ಮತ್ತು ವಸ್ತು ಮಸೂರದ (Objective Lens) ಸಾಮರ್ಥ್ಯದ ಗುಣಲಬ್ಧವಾಗಿದೆ ($\text{Total Magnification} = M_{\text{ocular}} \times M_{\text{objective}}$). ಸಸ್ಯ ಜೀವಕೋಶವು ಕೋಶಭಿತ್ತಿ ಮತ್ತು ಹರಿತ್ಕಣಗಳನ್ನು ಹೊಂದಿದ್ದರೆ, ಪ್ರಾಣಿ ಜೀವಕೋಶವು ಕೋಶಪೊರೆಯನ್ನು ಮಾತ್ರ ಹೊಂದಿರುತ್ತದೆ.</p>
+      </div>
+
+      <div class="exp-part">
+        <h4>3. ಸಂವಾದಾತ್ಮಕ ಸಿಮ್ಯುಲೇಶನ್ / Interactive Simulation</h4>
+        <div class="canvas-panel" style="background:#020617; padding:1.25rem;">
+          <canvas id="cellCanvas" width="480" height="180" role="img" aria-label="Microscope circular optical field showing plant onion peel cells or cheek animal cells"></canvas>
+        </div>
+      </div>
+
+      <div class="exp-part">
+        <h4>4. ನಿಯಂತ್ರಣಗಳು / Controls</h4>
+        <div class="controls-panel" style="max-width:550px;">
+          <div class="ctrl-group">
+            <label>ಮಾದರಿ ಆಯ್ಕೆ / Select Specimen Slide:</label>
+            <select id="specimenType" style="width:100%; padding:0.5rem; border-radius:4px; border:1px solid var(--border);">
+              <option value="plant">ಸಸ್ಯ ಜೀವಕೋಶ (ಈರುಳ್ಳಿ ಪೊರೆ / Onion Epidermal Cell)</option>
+              <option value="animal">ಪ್ರಾಣಿ ಜೀವಕೋಶ (ಮಾನವನ ಕೆನ್ನೆ ಕೋಶ / Human Cheek Cell)</option>
+            </select>
+          </div>
+          <div class="ctrl-group" style="margin-top:0.5rem;">
+            <label for="objectivePower">ವಸ್ತು ಮಸೂರ / Objective Lens Magnification: <strong id="objVal">10x</strong></label>
+            <select id="objectivePower" style="width:100%; padding:0.5rem; border-radius:4px; border:1px solid var(--border);">
+              <option value="4">4x (Scanning Objective)</option>
+              <option value="10" selected>10x (Low Power)</option>
+              <option value="40">40x (High Power)</option>
+            </select>
+          </div>
+          <p class="sim-readouts" style="font-size:1rem; margin-top:0.75rem;">
+            ನೇತ್ರ ಮಸೂರ / Eyepiece: <strong>10x</strong> | 
+            ಒಟ್ಟು ವರ್ಧನೆ / Total Magnification: <strong id="totalMagVal" style="color:#7c3aed;">100x</strong>
+          </p>
+          <div class="btn-group-sim" style="margin-top:0.5rem;">
+            <button id="cellRecordBtn" class="btn btn-secondary btn-sm">Record Specimen Observation (ದಾಖಲಿಸಿ)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-part">
+        <h4>5. ವೀಕ್ಷಣಾ ಕೋಷ್ಟಕ / Observation Table</h4>
+        <div class="data-table-wrapper">
+          <table class="data-table" id="cellTable">
+            <thead>
+              <tr>
+                <th>Trial</th>
+                <th>Specimen (ಮಾದರಿ)</th>
+                <th>Objective Lens</th>
+                <th>Total Magnification</th>
+                <th>Key Visible Structures</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </article>
   </main>
 
-  <!-- Block 10: Footer -->
   <footer class="site-footer">
     <div class="container">
-      <nav class="footer-links">
-        <a href="#try-it-today">ವರ್ಚುವಲ್ ಲ್ಯಾಬ್</a>
-        <a href="#resources">ಕಾರ್ಯಹಾಳೆಗಳು</a>
-        <a href="#quiz-preview">ರಸಪ್ರಶ್ನೆ</a>
-      </nav>
-      <p>&copy; InstaLab. Open Science Education Initiative.</p>
-      <p class="footer-disclaimer-text" id="footerDisclaimer">Simulations use simplified theoretical models and do not replace physical laboratory experiments. Always perform physical science experiments under certified adult supervision.</p>
+      <p>&copy; InstaLab. Open Science Education Platform.</p>
+      <p class="footer-disclaimer-text">All simulations use simplified pedagogical models. Supervised laboratory training is essential for practical science mastery.</p>
     </div>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="lab.js"></script>
 </body>
 </html>
