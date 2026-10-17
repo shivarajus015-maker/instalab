@@ -1,68 +1,296 @@
 <!DOCTYPE html>
-<html lang="en" data-lang-mode="both">
+<html lang="kn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0f766e">
-  <title>InstaLab (ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್) — Explore Science by Doing</title>
-  <meta name="description" content="InstaLab: a bilingual Kannada and English interactive science learning platform. Textbook-free, hands-on science learning.">
-  <link rel="icon" type="image/png" href="./instalab-logo.png">
-  <link rel="stylesheet" href="./styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InstaLab | Explore Science by Doing</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content / ಮುಖ್ಯ ವಿಷಯಕ್ಕೆ ಹೋಗಿ</a>
+
+  <!-- Block 1: Header (Logo, Tagline, Navigation, Single Language Selector, Mobile Hamburger) -->
   <header class="site-header">
-    <div class="container header-inner">
-      <a href="#home" class="brand-link" data-nav="home" aria-label="InstaLab home">
-        <img src="./instalab-logo.png" alt="" class="brand-logo" width="48" height="48" onerror="this.hidden=true">
-        <span class="brand-text"><strong class="brand-title">InstaLab <span class="kn-inline">ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್</span></strong><span class="brand-tagline">Explore Science by Doing • ಮಾಡುವ ಮೂಲಕ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ</span></span>
-      </a>
+    <div class="header-inner container">
+      <div class="brand">
+        <a href="index.html">
+          <img src="instalab-logo.png" alt="InstaLab Logo" class="logo-img" onerror="this.style.display='none'">
+          <div>
+            <span class="brand-title" id="brandTitle">InstaLab</span>
+            <p class="brand-tagline" id="brandTagline">ಪ್ರಯೋಗಗಳ ಮೂಲಕ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ / Explore Science by Doing</p>
+          </div>
+        </a>
+      </div>
+
+      <nav class="main-nav" id="primaryNav" aria-label="Main Navigation">
+        <a href="#try-it-today" class="nav-link" id="navLab">ವರ್ಚುವಲ್ ಲ್ಯಾಬ್</a>
+        <a href="#equipment" class="nav-link disabled" tabindex="-1"><span id="navEquip">ಉಪಕರಣಗಳು</span> <span class="badge-soon">Soon</span></a>
+        <a href="#scientists" class="nav-link disabled" tabindex="-1"><span id="navSci">ವಿಜ್ಞಾನಿಗಳು</span> <span class="badge-soon">Soon</span></a>
+        <a href="#library" class="nav-link disabled" tabindex="-1"><span id="navLib">ಜ್ಞಾನ ಭಂಡಾರ</span> <span class="badge-soon">Soon</span></a>
+        <a href="#resources" class="nav-link" id="navDocs">ಕಾರ್ಯಹಾಳೆಗಳು</a>
+        <a href="#quiz-preview" class="nav-link" id="navQuiz">ರಸಪ್ರಶ್ನೆ</a>
+      </nav>
+
       <div class="header-controls">
-        <label class="sr-only" for="global-lang-select">Language mode</label>
-        <select id="global-lang-select" class="lang-select">
-          <option value="both">ಕನ್ನಡ + English (Both)</option><option value="kn">ಕನ್ನಡ ಮಾತ್ರ (Kannada)</option><option value="en">English Only</option>
+        <label for="langSelector" class="sr-only">ಭಾಷೆ ಆಯ್ಕೆ / Language</label>
+        <select id="langSelector" class="lang-select">
+          <option value="both" selected>ಕನ್ನಡ + English (Both)</option>
+          <option value="kn">ಕನ್ನಡ (Kannada)</option>
+          <option value="en">English</option>
         </select>
-        <button type="button" id="mobile-menu-btn" class="hamburger-btn" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-expanded="false" aria-label="Toggle navigation">☰</button>
       </div>
     </div>
-    <nav id="primary-nav" class="primary-nav" aria-label="Main sections"><div class="container nav-scroll"><ul id="nav-list" class="nav-list">
-      <li><button class="nav-btn active" data-nav="home">1. Home</button></li>
-      <li><button class="nav-btn" data-nav="lab">2. Virtual Lab</button></li>
-      <li><button class="nav-btn" data-nav="equipment">3. Equipment</button></li>
-      <li><button class="nav-btn" data-nav="scientists">4. Scientists</button></li>
-      <li><button class="nav-btn" data-nav="library">5. Knowledge Library</button></li>
-      <li><button class="nav-btn" data-nav="videos">6. Videos</button></li>
-      <li><button class="nav-btn" data-nav="documents">7. Worksheets</button></li>
-      <li><button class="nav-btn" data-nav="quiz">8. Quiz</button></li>
-      <li><button class="nav-btn" data-nav="projects">9. Projects</button></li>
-      <li><button class="nav-btn" data-nav="news">10. Science News</button></li>
-      <li><button class="nav-btn" data-nav="tutor">11. Science Tutor</button></li>
-      <li><button class="nav-btn" data-nav="community">12. Community</button></li>
-      <li><button class="nav-btn" data-nav="careers">13. Careers</button></li>
-    </ul></div></nav>
   </header>
-  <div class="storage-banner"><div class="container storage-banner-inner"><span id="storage-notice-text">🔒 Progress and drafts are saved locally in this browser. No textbooks are hosted here.</span><button id="reset-all-storage-btn" class="btn btn-danger-outline" type="button">Clear browser data</button></div></div>
-  <main id="main-content" class="container main-content" tabindex="-1">
-    <section id="section-home" class="page-section active" aria-labelledby="home-heading"></section>
-    <section id="section-lab" class="page-section" aria-labelledby="lab-heading" hidden></section>
-    <section id="section-equipment" class="page-section" aria-labelledby="equipment-heading" hidden></section>
-    <section id="section-scientists" class="page-section" aria-labelledby="scientists-heading" hidden></section>
-    <section id="section-library" class="page-section" aria-labelledby="library-heading" hidden></section>
-    <section id="section-videos" class="page-section" aria-labelledby="videos-heading" hidden></section>
-    <section id="section-documents" class="page-section" aria-labelledby="documents-heading" hidden></section>
-    <section id="section-quiz" class="page-section" aria-labelledby="quiz-heading" hidden></section>
-    <section id="section-projects" class="page-section" aria-labelledby="projects-heading" hidden></section>
-    <section id="section-news" class="page-section" aria-labelledby="news-heading" hidden></section>
-    <section id="section-tutor" class="page-section" aria-labelledby="tutor-heading" hidden></section>
-    <section id="section-community" class="page-section" aria-labelledby="community-heading" hidden></section>
-    <section id="section-careers" class="page-section" aria-labelledby="careers-heading" hidden></section>
+
+  <main>
+    <!-- Block 2: Hero Section -->
+    <section class="hero-block container">
+      <div class="hero-text">
+        <h2 class="hero-title" id="heroTitle">Explore, Experiment, and Understand Science!</h2>
+        <p class="hero-desc" id="heroDesc">Interactive science simulations, physical principles, and open hands-on learning resources.</p>
+        <div class="hero-actions">
+          <a href="#categories" class="btn btn-primary" id="btnExplore">Explore InstaLab</a>
+          <a href="#try-it-today" class="btn btn-secondary" id="btnOpenLab">Open Virtual Lab</a>
+          <a href="#resources" class="btn btn-outline" id="btnStartLearning">Start Learning</a>
+        </div>
+      </div>
+      <div class="hero-illustration" aria-hidden="true">
+        <svg viewBox="0 0 200 200" class="hero-svg">
+          <circle cx="100" cy="100" r="70" stroke="#0284c7" stroke-width="2.5" fill="#f0f9ff"/>
+          <ellipse cx="100" cy="100" rx="90" ry="25" stroke="#059669" stroke-width="2" fill="none" transform="rotate(35 100 100)"/>
+          <ellipse cx="100" cy="100" rx="90" ry="25" stroke="#d97706" stroke-width="2" fill="none" transform="rotate(-35 100 100)"/>
+          <circle cx="100" cy="100" r="12" fill="#0284c7"/>
+          <circle cx="165" cy="75" r="5" fill="#059669"/>
+          <circle cx="35" cy="125" r="5" fill="#d97706"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Block 3: Search Bar -->
+    <section class="search-block container">
+      <div class="search-input-group">
+        <input type="text" id="globalSearch" class="search-input" placeholder="Search topics, simulations, scientists, quizzes...">
+        <button id="clearSearchBtn" class="btn-clear">ಅಳಿಸು / Clear</button>
+      </div>
+      <div id="searchResults" class="search-results-box hidden" aria-live="polite"></div>
+    </section>
+
+    <!-- Block 4: Four Category Cards -->
+    <section id="categories" class="categories-block container">
+      <div class="cat-grid">
+        <article class="cat-card">
+          <span class="cat-icon-tag">PHYSICS</span>
+          <h3 id="catPhysicsTitle">ಭೌತಶಾಸ್ತ್ರ / Physics</h3>
+          <p id="catPhysicsDesc">Mechanics, optics, electricity, magnetism, and wave phenomena.</p>
+          <a href="#try-it-today" class="cat-link">ಅನ್ವೇಷಿಸಿ / Explore →</a>
+        </article>
+        <article class="cat-card">
+          <span class="cat-icon-tag">CHEMISTRY</span>
+          <h3 id="catChemTitle">ರಸಾಯನಶಾಸ್ತ್ರ / Chemistry</h3>
+          <p id="catChemDesc">Acids, bases, chemical reactions, and molecular structures.</p>
+          <a href="#try-it-today" class="cat-link">ಅನ್ವೇಷಿಸಿ / Explore →</a>
+        </article>
+        <article class="cat-card">
+          <span class="cat-icon-tag">BIOLOGY</span>
+          <h3 id="catBioTitle">ಜೀವಶಾಸ್ತ್ರ / Biology</h3>
+          <p id="catBioDesc">Cell biology, microscopy, human systems, and genetics.</p>
+          <a href="#try-it-today" class="cat-link">ಅನ್ವೇಷಿಸಿ / Explore →</a>
+        </article>
+        <article class="cat-card">
+          <span class="cat-icon-tag">EARTH & SPACE</span>
+          <h3 id="catEarthTitle">ಭೂ ಮತ್ತು ಬಾಹ್ಯಾಕಾಶ / Earth Science & Space</h3>
+          <p id="catEarthDesc">Solar system dynamics, eclipses, earth layers, and the water cycle.</p>
+          <a href="#try-it-today" class="cat-link">ಅನ್ವೇಷಿಸಿ / Explore →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Block 5: "Try It Today" (3 Priority Working Simulations) -->
+    <section id="try-it-today" class="try-today-block container">
+      <h2 class="block-title" id="tryTodayTitle">Try It Today</h2>
+      <p class="block-sub" id="tryTodaySub">Functional interactive simulations with live controls, observation recording, and data plotting.</p>
+
+      <div class="sim-container">
+        <!-- 1. Motion & Speed -->
+        <article class="sim-workbench" id="sim-motion-box">
+          <header class="sim-workbench-header">
+            <h3>1. ಚಲನೆ ಮತ್ತು ವೇಗ / Motion and Speed</h3>
+            <span class="sim-formula-badge">v = d / t ; s = ut + ½at²</span>
+            <p class="sim-assumption"><strong>ಮಾದರಿ ಊಹೆ / Model Assumption:</strong> Ideal frictionless linear surface, zero aerodynamic drag, constant velocity.</p>
+          </header>
+          <div class="sim-stage">
+            <div class="canvas-panel">
+              <canvas id="motionCanvas" width="360" height="120" role="img" aria-label="Cart moving along a linear track"></canvas>
+            </div>
+            <div class="controls-panel">
+              <div class="ctrl-group">
+                <label for="motionSpeedSlider">ವೇಗ / Velocity (m/s): <span id="motionSpeedVal">10.0</span></label>
+                <input type="range" id="motionSpeedSlider" min="2" max="25" step="0.5" value="10">
+              </div>
+              <div class="btn-group-sim">
+                <button id="motionStartBtn" class="btn-sm btn-primary">Start</button>
+                <button id="motionPauseBtn" class="btn-sm btn-outline">Pause</button>
+                <button id="motionResetBtn" class="btn-sm btn-outline">Reset</button>
+                <button id="motionRecordBtn" class="btn-sm btn-secondary">Record Data Row</button>
+              </div>
+              <p class="sim-readouts">ಕಾಲ / Time: <strong id="motionTimeVal">0.00</strong> s | ದೂರ / Distance: <strong id="motionDistVal">0.00</strong> m</p>
+            </div>
+          </div>
+          <div class="sim-data-grid">
+            <div class="data-table-wrapper">
+              <table class="data-table" id="motionTable">
+                <thead>
+                  <tr><th>Trial</th><th>Speed (m/s)</th><th>Time (s)</th><th>Distance (m)</th></tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="graph-panel">
+              <canvas id="motionGraphCanvas" width="280" height="130" role="img" aria-label="Distance vs Time graph plotted from recorded trials"></canvas>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Reflection of Light -->
+        <article class="sim-workbench" id="sim-reflection-box">
+          <header class="sim-workbench-header">
+            <h3>2. ಬೆಳಕಿನ ಪ್ರತಿಫಲನ / Reflection of Light</h3>
+            <span class="sim-formula-badge">∠i = ∠r</span>
+            <p class="sim-assumption"><strong>ಮಾದರಿ ಊಹೆ / Model Assumption:</strong> Optically flat ideal specular plane mirror in a uniform homogeneous medium.</p>
+          </header>
+          <div class="sim-stage">
+            <div class="canvas-panel">
+              <canvas id="reflectionCanvas" width="360" height="120" role="img" aria-label="Light ray reflection at a plane mirror boundary"></canvas>
+            </div>
+            <div class="controls-panel">
+              <div class="ctrl-group">
+                <label for="angleSlider">ಪತನ ಕೋನ / Angle of Incidence (∠i): <span id="angleDisp">45</span>°</label>
+                <input type="range" id="angleSlider" min="5" max="85" value="45">
+              </div>
+              <div class="btn-group-sim">
+                <button id="reflectionRecordBtn" class="btn-sm btn-secondary">Record Data Row</button>
+              </div>
+              <p class="sim-readouts">ಪ್ರತಿಫಲನ ಕೋನ / Angle of Reflection (∠r): <strong><span id="angleReflectDisp">45</span>°</strong></p>
+            </div>
+          </div>
+          <div class="sim-data-grid">
+            <div class="data-table-wrapper">
+              <table class="data-table" id="reflectionTable">
+                <thead>
+                  <tr><th>Trial</th><th>Incidence ∠i (°)</th><th>Reflection ∠r (°)</th></tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="graph-panel">
+              <canvas id="reflectionGraphCanvas" width="280" height="130" role="img" aria-label="Angle of Reflection vs Incidence graph plotted from recorded trials"></canvas>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Density & Buoyancy -->
+        <article class="sim-workbench" id="sim-buoyancy-box">
+          <header class="sim-workbench-header">
+            <h3>3. ಸಾಂದ್ರತೆ ಮತ್ತು ತೇಲುವಿಕೆ / Density and Buoyancy</h3>
+            <span class="sim-formula-badge">ρ = m / V</span>
+            <p class="sim-assumption"><strong>ಮಾದರಿ ಊಹೆ / Model Assumption:</strong> Pure liquid water at 4°C (density = 1.00 g/cm³); rigid incompressible block.</p>
+          </header>
+          <div class="sim-stage">
+            <div class="canvas-panel">
+              <canvas id="buoyancyCanvas" width="360" height="120" role="img" aria-label="Block floating or sinking in water cylinder"></canvas>
+            </div>
+            <div class="controls-panel">
+              <div class="ctrl-group">
+                <label for="buoyancyMassSlider">ದ್ರವ್ಯರಾಶಿ / Mass (g): <span id="buoyancyMassDisp">60</span> g (ಸ್ಥಿರ ಗಾತ್ರ / Volume: 100 cm³)</label>
+                <input type="range" id="buoyancyMassSlider" min="15" max="180" value="60">
+              </div>
+              <div class="btn-group-sim">
+                <button id="buoyancyRecordBtn" class="btn-sm btn-secondary">Record Data Row</button>
+              </div>
+              <p class="sim-readouts">ಸಾಂದ್ರತೆ / Density: <strong id="calcDensityDisp">0.60</strong> g/cm³ (<span id="buoyancyStatusDisp">Floats</span>)</p>
+            </div>
+          </div>
+          <div class="sim-data-grid">
+            <div class="data-table-wrapper">
+              <table class="data-table" id="buoyancyTable">
+                <thead>
+                  <tr><th>Trial</th><th>Mass (g)</th><th>Volume (cm³)</th><th>Density (g/cm³)</th></tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="graph-panel">
+              <canvas id="buoyancyGraphCanvas" width="280" height="130" role="img" aria-label="Density vs Mass graph plotted from recorded trials"></canvas>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Block 6: "Did You Know?" Fact -->
+    <section class="fact-block container">
+      <div class="fact-card">
+        <h3 id="didYouKnowHeading">Did You Know? / ನಿಮಗೆ ತಿಳಿದಿದೆಯೇ?</h3>
+        <p id="factContentText">ಸೂರ್ಯನ ಬೆಳಕು ಭೂಮಿಯನ್ನು ತಲುಪಲು ಸುಮಾರು 8 ನಿಮಿಷ ಮತ್ತು 20 ಸೆಕೆಂಡುಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ (ಸರಾಸರಿ ದೂರ 149.6 ದಶಲಕ್ಷ ಕಿ.ಮೀ).</p>
+        <cite id="factSourceText">— Source: NASA Science Solar System Exploration</cite>
+      </div>
+    </section>
+
+    <!-- Block 7: Learning Resources (No Textbooks) -->
+    <section id="resources" class="resources-block container">
+      <h2 class="block-title" id="resTitle">Learning Resources Preview</h2>
+      <p class="block-sub">ಪರಿಶೀಲಿಸಿದ ಉಲ್ಲೇಖ ಹಾಳೆಗಳು ಮತ್ತು ಸುರಕ್ಷತಾ ಮಾರ್ಗದರ್ಶಿಗಳು (No Textbooks)</p>
+      <div class="resources-grid" id="resourcesPreviewGrid"></div>
+    </section>
+
+    <!-- Block 8: Quiz Preview -->
+    <section id="quiz-preview" class="quiz-preview-block container">
+      <h2 class="block-title" id="quizTitle">Daily Science Challenge</h2>
+      <div class="quiz-card">
+        <h3 id="quizQuestion">Loading question...</h3>
+        <div class="quiz-options" id="quizOptions"></div>
+        <button id="quizSubmitBtn" class="btn btn-primary">ಉತ್ತರ ಸಲ್ಲಿಸಿ / Submit Answer</button>
+        <div id="quizFeedback" class="quiz-feedback hidden"></div>
+      </div>
+    </section>
+
+    <!-- Block 9 & 11: About & Dynamic Counters -->
+    <section class="about-counts-block container">
+      <div class="about-box">
+        <h3 id="aboutTitle">About InstaLab</h3>
+        <p id="aboutText">InstaLab is an open scientific learning platform designed to make practical science accessible in Kannada and English.</p>
+        <p class="footer-disclaimer-text" style="margin-top:0.5rem;">Drafts and test progress stay entirely on this browser and device.</p>
+      </div>
+      <div class="stat-counters">
+        <div class="stat-item">
+          <span class="stat-num" id="statSimCount">0</span>
+          <span class="stat-label">ವರ್ಚುವಲ್ ಲ್ಯಾಬ್<br>Simulations</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" id="statSciCount">0</span>
+          <span class="stat-label">ವಿಜ್ಞಾನಿಗಳು<br>Scientists</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" id="statQuizCount">0</span>
+          <span class="stat-label">ರಸಪ್ರಶ್ನೆಗಳು<br>Quiz Questions</span>
+        </div>
+      </div>
+    </section>
   </main>
-  <div id="detail-modal-backdrop" class="modal-backdrop" hidden><div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-header"><h2 id="modal-title">Details</h2><button id="modal-close-btn" class="modal-close-btn" aria-label="Close details" type="button">✕</button></div><div id="modal-body" class="modal-body"></div></div></div>
-  <footer class="site-footer"><div class="container footer-grid">
-    <div><h3>InstaLab (ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್)</h3><p>Virtual models are simplified and do not replace supervised laboratory work. This project contains no textbooks.</p><p><a href="https://github.com/shivarajus015-maker/instalab" target="_blank" rel="noopener noreferrer">GitHub repository</a></p></div>
-    <div><h3>13 sections</h3><p>Home · Virtual Lab · Equipment · Scientists · Knowledge Library · Videos · Worksheets · Quiz · Projects · News · Tutor · Community · Careers</p></div>
-    <div><h3>Safety first</h3><p>Never mix household chemicals. Never look directly at the Sun. Use only low-voltage batteries with adult supervision. No mains electricity.</p></div>
-  </div><div class="container footer-bottom">© 2026 InstaLab — Open, honest, hands-on science learning.</div></footer>
-  <script src="./app.js"></script>
+
+  <!-- Block 10: Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <nav class="footer-links">
+        <a href="#try-it-today">ವರ್ಚುವಲ್ ಲ್ಯಾಬ್</a>
+        <a href="#resources">ಕಾರ್ಯಹಾಳೆಗಳು</a>
+        <a href="#quiz-preview">ರಸಪ್ರಶ್ನೆ</a>
+      </nav>
+      <p>&copy; InstaLab. Open Science Education Initiative.</p>
+      <p class="footer-disclaimer-text" id="footerDisclaimer">Simulations use simplified theoretical models and do not replace physical laboratory experiments. Always perform physical science experiments under certified adult supervision.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
