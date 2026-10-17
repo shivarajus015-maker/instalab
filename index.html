@@ -1,28 +1,68 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-lang-mode="both">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#102a43">
-  <meta name="description" content="InstaLab — explore science through interactive experiments, quizzes, projects and learning resources in Kannada and English.">
-  <title>InstaLab — Interactive Science Learning</title>
-  <link rel="icon" type="image/png" href="instalab-logo.png">
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f766e">
+  <title>InstaLab (ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್) — Explore Science by Doing</title>
+  <meta name="description" content="InstaLab: a bilingual Kannada and English interactive science learning platform. Textbook-free, hands-on science learning.">
+  <link rel="icon" type="image/png" href="./instalab-logo.png">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header"><a class="brand" href="#home" aria-label="InstaLab home"><img src="instalab-logo.png" alt="" width="44" height="44"><span>Insta<span class="brand-accent">Lab</span><small data-i18n="tagline">Discover · Experiment · Understand</small></span></a>
-<div class="header-actions"><button id="languageToggle" class="button button-outline" type="button" aria-label="Switch language">ಕನ್ನಡ</button><a class="button button-primary" href="#virtual-lab" data-i18n="tryLab">Try a Lab</a></div></header>
-<nav class="main-nav" aria-label="Main navigation"><a href="#explorer" data-i18n="navExplore">Explore</a><a href="#virtual-lab" data-i18n="navLab">Virtual Lab</a><a href="#quiz" data-i18n="navQuiz">Quiz</a><a href="#projects" data-i18n="navProjects">Projects</a><a href="#scientists" data-i18n="navScientists">Scientists</a><a href="#observations" data-i18n="navObserve">Observations</a></nav>
-<main id="main">
-<section id="home" class="hero"><div class="hero-copy"><p class="eyebrow" data-i18n="eyebrow">SCIENCE, MADE INTERACTIVE</p><h1 data-i18n="heroTitle">Ask questions.<br><span>Test ideas.</span> Discover.</h1><p class="hero-description" data-i18n="heroText">Explore science concepts with simple simulations, quick quizzes and project ideas. Learn at your own pace in Kannada or English.</p><div class="hero-actions"><a class="button button-primary" href="#explorer" data-i18n="exploreResources">Explore resources</a><a class="button button-outline" href="#virtual-lab" data-i18n="startExperiment">Start an experiment</a></div><div class="hero-note"><span class="status-dot"></span><span data-i18n="prototypeNote">Interactive learning prototype · works in your browser</span></div></div><div class="hero-visual" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="planet">⚛</div><div class="float-card card-top">🔬 <span data-i18n="curiosity">Curiosity</span></div><div class="float-card card-bottom">📈 <span data-i18n="evidence">Evidence</span></div></div></section>
-<section class="stats-grid" aria-label="Platform highlights"><article><span class="stat-icon">🧪</span><strong data-i18n="statLab">Try & observe</strong><span data-i18n="statLabSub">Change variables safely</span></article><article><span class="stat-icon">🧠</span><strong data-i18n="statQuiz">Check understanding</strong><span data-i18n="statQuizSub">Practice with feedback</span></article><article><span class="stat-icon">🌱</span><strong data-i18n="statProject">Make something</strong><span data-i18n="statProjectSub">Build science projects</span></article><article><span class="stat-icon">🌐</span><strong data-i18n="statLang">Two languages</strong><span data-i18n="statLangSub">Kannada and English UI</span></article></section>
-<section id="explorer" class="section"><div class="section-heading"><div><p class="eyebrow" data-i18n="learnHub">LEARNING HUB</p><h2 data-i18n="exploreTitle">Explore science</h2><p data-i18n="exploreSub">Find a starting point, then ask what you can observe or test.</p></div></div><div class="filter-bar"><label class="search-box"><span aria-hidden="true">⌕</span><input id="resourceSearch" type="search" placeholder="Search topics, experiments…" data-i18n-placeholder="searchPlaceholder" aria-label="Search learning resources"></label><label class="filter-label"><span data-i18n="subject">Subject</span><select id="subjectFilter" aria-label="Filter by subject"><option value="all" data-i18n="allSubjects">All subjects</option><option value="physics">Physics</option><option value="chemistry">Chemistry</option><option value="biology">Biology</option><option value="space">Space</option><option value="environment">Environment</option></select></label></div><div id="resourceGrid" class="resource-grid" aria-live="polite"></div><p id="emptyResults" class="empty-state" hidden data-i18n="noResults">No matching resources. Try another search.</p></section>
-<section id="virtual-lab" class="section section-tinted"><div class="section-heading"><div><p class="eyebrow" data-i18n="handsOn">HANDS-ON LEARNING</p><h2 data-i18n="labTitle">Virtual lab: speed and motion</h2><p data-i18n="labSub">Change distance or time and observe how average speed changes.</p></div><span class="section-chip">🧪 <span data-i18n="sampleSimulation">Sample simulation</span></span></div><div class="lab-layout"><div class="lab-controls panel"><div class="control-heading"><h3 data-i18n="setVariables">Set your variables</h3><button id="resetLab" class="text-button" type="button" data-i18n="reset">Reset</button></div><label class="range-control"><span><span data-i18n="distance">Distance</span><output id="distanceValue">100</output> m</span><input id="distanceInput" type="range" min="10" max="500" value="100" step="10"><span class="range-ends"><span>10 m</span><span>500 m</span></span></label><label class="range-control"><span><span data-i18n="time">Time</span><output id="timeValue">20</output> s</span><input id="timeInput" type="range" min="5" max="100" value="20" step="5"><span class="range-ends"><span>5 s</span><span>100 s</span></span></label><div class="lab-question"><strong data-i18n="thinkQuestion">Think about it</strong><p data-i18n="thinkText">If the distance stays the same but the time increases, what happens to speed?</p></div></div><div class="result-panel"><span class="result-label" data-i18n="averageSpeed">AVERAGE SPEED</span><div class="result-number"><span id="speedValue">5.00</span><small>m/s</small></div><div class="meter-track"><div id="speedMeter" class="meter-fill"></div></div><p id="labExplanation" class="result-explanation" aria-live="polite">100 m ÷ 20 s = 5 m/s. Speed is distance divided by time.</p><div class="formula">speed = distance ÷ time</div></div></div></section>
-<section id="quiz" class="section"><div class="section-heading"><div><p class="eyebrow" data-i18n="quickCheck">QUICK CHECK</p><h2 data-i18n="quizTitle">Test your understanding</h2><p data-i18n="quizSub">Answer a few questions and learn from the feedback.</p></div></div><div class="quiz-panel panel"><div class="quiz-topline"><span id="quizProgress">Question 1 of 5</span><span class="quiz-pill" data-i18n="practiceMode">Practice mode</span></div><div class="progress-track"><div id="quizProgressBar" class="progress-fill"></div></div><h3 id="quizQuestion">Loading question…</h3><div id="quizOptions" class="quiz-options"></div><p id="quizFeedback" class="quiz-feedback" aria-live="polite"></p><div class="quiz-footer"><span id="quizScore">Score: 0</span><button id="nextQuestion" class="button button-primary" type="button" disabled data-i18n="nextQuestion">Next question →</button></div></div></section>
-<section id="projects" class="section section-tinted"><div class="section-heading"><div><p class="eyebrow" data-i18n="learnByDoing">LEARN BY DOING</p><h2 data-i18n="projectsTitle">Science project ideas</h2><p data-i18n="projectsSub">Plan a fair test, record evidence, and explain your conclusion.</p></div></div><div id="projectGrid" class="project-grid"></div><p class="safety-note">⚠️ <span data-i18n="safetyNote">For physical experiments, follow teacher/guardian guidance and use appropriate safety precautions.</span></p></section>
-<section id="scientists" class="section"><div class="section-heading"><div><p class="eyebrow" data-i18n="peopleScience">PEOPLE BEHIND DISCOVERY</p><h2 data-i18n="scientistsTitle">Scientists who changed how we see the world</h2><p data-i18n="scientistsSub">Short introductions to inspire further reading.</p></div></div><div id="scientistGrid" class="scientist-grid"></div></section>
-<section id="observations" class="section section-tinted"><div class="section-heading"><div><p class="eyebrow" data-i18n="scientificMethod">SCIENTIFIC METHOD</p><h2 data-i18n="observationsTitle">My observation notebook</h2><p data-i18n="observationsSub">Add sample measurements, visualise them and export your data.</p></div></div><div class="notebook-layout"><form id="observationForm" class="panel observation-form"><h3 data-i18n="addObservation">Add an observation</h3><label><span data-i18n="observationLabel">Observation / label</span><input id="observationName" required maxlength="60" placeholder="e.g. Trial 1"></label><label><span data-i18n="measurementLabel">Measurement (number)</span><input id="observationValue" type="number" required step="any" placeholder="e.g. 12.5"></label><button class="button button-primary" type="submit" data-i18n="addToNotebook">Add to notebook</button><button class="button button-outline" id="downloadCsv" type="button" data-i18n="downloadCsv">Download CSV</button></form><div class="panel chart-panel"><div class="chart-header"><h3 data-i18n="yourData">Your data</h3><button id="clearObservations" class="text-button" type="button" data-i18n="clearAll">Clear all</button></div><div id="observationChart" class="observation-chart" role="img" aria-label="Bar chart of recorded observations"><p class="chart-placeholder" data-i18n="chartPlaceholder">Add at least one observation to build your chart.</p></div><div id="observationList" class="observation-list"></div></div></div></section>
-<section class="section external-section"><div><p class="eyebrow" data-i18n="goDeeper">GO DEEPER</p><h2 data-i18n="externalTitle">Continue learning</h2><p data-i18n="externalSub">Explore established learning platforms. External sites have their own content, access rules and privacy policies.</p></div><div class="external-links"><a href="https://phet.colorado.edu/" target="_blank" rel="noopener noreferrer"><span>⚗️</span><strong>PhET Interactive Simulations</strong><small data-i18n="phetDesc">Interactive science and maths simulations</small><span aria-hidden="true">↗</span></a><a href="https://www.khanacademy.org/science" target="_blank" rel="noopener noreferrer"><span>📚</span><strong>Khan Academy</strong><small data-i18n="khanDesc">Science lessons and practice</small><span aria-hidden="true">↗</span></a><a href="https://science.nasa.gov/" target="_blank" rel="noopener noreferrer"><span>🚀</span><strong>NASA Science</strong><small data-i18n="nasaDesc">Space, Earth and mission discoveries</small><span aria-hidden="true">↗</span></a></div></section>
-</main><footer class="site-footer"><a class="footer-brand" href="#home">InstaLab</a><p data-i18n="footerText">A learning prototype built to make science more explorable.</p><p class="footer-small">© InstaLab · <span data-i18n="educationalPrototype">Educational prototype — verify curriculum and scientific content before formal classroom use.</span></p></footer>
-</body></html>
+  <a href="#main-content" class="skip-link">Skip to main content / ಮುಖ್ಯ ವಿಷಯಕ್ಕೆ ಹೋಗಿ</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand-link" data-nav="home" aria-label="InstaLab home">
+        <img src="./instalab-logo.png" alt="" class="brand-logo" width="48" height="48" onerror="this.hidden=true">
+        <span class="brand-text"><strong class="brand-title">InstaLab <span class="kn-inline">ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್</span></strong><span class="brand-tagline">Explore Science by Doing • ಮಾಡುವ ಮೂಲಕ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ</span></span>
+      </a>
+      <div class="header-controls">
+        <label class="sr-only" for="global-lang-select">Language mode</label>
+        <select id="global-lang-select" class="lang-select">
+          <option value="both">ಕನ್ನಡ + English (Both)</option><option value="kn">ಕನ್ನಡ ಮಾತ್ರ (Kannada)</option><option value="en">English Only</option>
+        </select>
+        <button type="button" id="mobile-menu-btn" class="hamburger-btn" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <nav id="primary-nav" class="primary-nav" aria-label="Main sections"><div class="container nav-scroll"><ul id="nav-list" class="nav-list">
+      <li><button class="nav-btn active" data-nav="home">1. Home</button></li>
+      <li><button class="nav-btn" data-nav="lab">2. Virtual Lab</button></li>
+      <li><button class="nav-btn" data-nav="equipment">3. Equipment</button></li>
+      <li><button class="nav-btn" data-nav="scientists">4. Scientists</button></li>
+      <li><button class="nav-btn" data-nav="library">5. Knowledge Library</button></li>
+      <li><button class="nav-btn" data-nav="videos">6. Videos</button></li>
+      <li><button class="nav-btn" data-nav="documents">7. Worksheets</button></li>
+      <li><button class="nav-btn" data-nav="quiz">8. Quiz</button></li>
+      <li><button class="nav-btn" data-nav="projects">9. Projects</button></li>
+      <li><button class="nav-btn" data-nav="news">10. Science News</button></li>
+      <li><button class="nav-btn" data-nav="tutor">11. Science Tutor</button></li>
+      <li><button class="nav-btn" data-nav="community">12. Community</button></li>
+      <li><button class="nav-btn" data-nav="careers">13. Careers</button></li>
+    </ul></div></nav>
+  </header>
+  <div class="storage-banner"><div class="container storage-banner-inner"><span id="storage-notice-text">🔒 Progress and drafts are saved locally in this browser. No textbooks are hosted here.</span><button id="reset-all-storage-btn" class="btn btn-danger-outline" type="button">Clear browser data</button></div></div>
+  <main id="main-content" class="container main-content" tabindex="-1">
+    <section id="section-home" class="page-section active" aria-labelledby="home-heading"></section>
+    <section id="section-lab" class="page-section" aria-labelledby="lab-heading" hidden></section>
+    <section id="section-equipment" class="page-section" aria-labelledby="equipment-heading" hidden></section>
+    <section id="section-scientists" class="page-section" aria-labelledby="scientists-heading" hidden></section>
+    <section id="section-library" class="page-section" aria-labelledby="library-heading" hidden></section>
+    <section id="section-videos" class="page-section" aria-labelledby="videos-heading" hidden></section>
+    <section id="section-documents" class="page-section" aria-labelledby="documents-heading" hidden></section>
+    <section id="section-quiz" class="page-section" aria-labelledby="quiz-heading" hidden></section>
+    <section id="section-projects" class="page-section" aria-labelledby="projects-heading" hidden></section>
+    <section id="section-news" class="page-section" aria-labelledby="news-heading" hidden></section>
+    <section id="section-tutor" class="page-section" aria-labelledby="tutor-heading" hidden></section>
+    <section id="section-community" class="page-section" aria-labelledby="community-heading" hidden></section>
+    <section id="section-careers" class="page-section" aria-labelledby="careers-heading" hidden></section>
+  </main>
+  <div id="detail-modal-backdrop" class="modal-backdrop" hidden><div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-header"><h2 id="modal-title">Details</h2><button id="modal-close-btn" class="modal-close-btn" aria-label="Close details" type="button">✕</button></div><div id="modal-body" class="modal-body"></div></div></div>
+  <footer class="site-footer"><div class="container footer-grid">
+    <div><h3>InstaLab (ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್)</h3><p>Virtual models are simplified and do not replace supervised laboratory work. This project contains no textbooks.</p><p><a href="https://github.com/shivarajus015-maker/instalab" target="_blank" rel="noopener noreferrer">GitHub repository</a></p></div>
+    <div><h3>13 sections</h3><p>Home · Virtual Lab · Equipment · Scientists · Knowledge Library · Videos · Worksheets · Quiz · Projects · News · Tutor · Community · Careers</p></div>
+    <div><h3>Safety first</h3><p>Never mix household chemicals. Never look directly at the Sun. Use only low-voltage batteries with adult supervision. No mains electricity.</p></div>
+  </div><div class="container footer-bottom">© 2026 InstaLab — Open, honest, hands-on science learning.</div></footer>
+  <script src="./app.js"></script>
+</body>
+</html>
