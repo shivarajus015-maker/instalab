@@ -1,82 +1,28 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="InstaLab: bilingual interactive science learning in Kannada and English.">
-<title>InstaLab | Interactive Science Learning</title>
-<link rel="stylesheet" href="styles.css">
-<script defer src="app.js"></script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102a43">
+  <meta name="description" content="InstaLab — explore science through interactive experiments, quizzes, projects and learning resources in Kannada and English.">
+  <title>InstaLab — Interactive Science Learning</title>
+  <link rel="icon" type="image/png" href="instalab-logo.png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
 </head>
 <body>
-<header class="top">
-  <a class="brand" href="#home"><span class="logo">✚</span><span>InstaLab <small>ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್</small></span></a>
-  <div class="tools">
-    <label class="sr-only" for="language">Language</label>
-    <select id="language" aria-label="Choose language">
-      <option value="both">ಕನ್ನಡ + English</option><option value="kn">ಕನ್ನಡ</option><option value="en">English</option>
-    </select>
-    <button id="themeBtn" type="button">☀ / ☾</button>
-  </div>
-</header>
-<nav aria-label="Main navigation">
-  <a href="#home" data-en="Home" data-kn="ಮುಖಪುಟ">Home</a>
-  <a href="#lab" data-en="Virtual Lab" data-kn="ವರ್ಚುವಲ್ ಪ್ರಯೋಗಾಲಯ">Virtual Lab</a>
-  <a href="#explore" data-en="Explore" data-kn="ಅನ್ವೇಷಿಸಿ">Explore</a>
-  <a href="#quiz" data-en="Quiz" data-kn="ಪ್ರಶ್ನೋತ್ತರ">Quiz</a>
-  <a href="#about" data-en="About" data-kn="ನಮ್ಮ ಬಗ್ಗೆ">About</a>
-</nav>
-<main id="home">
-<section class="hero">
-  <div class="hero-copy">
-    <p class="eyebrow" data-en="LEARN • EXPERIMENT • DISCOVER" data-kn="ಕಲಿಯಿರಿ • ಪ್ರಯೋಗಿಸಿ • ಕಂಡುಹಿಡಿಯಿರಿ">LEARN • EXPERIMENT • DISCOVER</p>
-    <h1 data-en="Science you can explore." data-kn="ನೀವೇ ಅನ್ವೇಷಿಸಬಹುದಾದ ವಿಜ್ಞಾನ.">Science you can explore.</h1>
-    <p data-en="Try interactive simulations, learn science concepts, and explore in Kannada or English." data-kn="ಸಂವಾದಾತ್ಮಕ ಸಿಮ್ಯುಲೇಷನ್‌ಗಳನ್ನು ಪ್ರಯತ್ನಿಸಿ, ವಿಜ್ಞಾನ ಕಲ್ಪನೆಗಳನ್ನು ತಿಳಿಯಿರಿ; ಕನ್ನಡ ಅಥವಾ ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ಕಲಿಯಿರಿ.">Try interactive simulations, learn science concepts, and explore in Kannada or English.</p>
-    <a class="primary" href="#lab" data-en="Start experimenting →" data-kn="ಪ್ರಯೋಗ ಪ್ರಾರಂಭಿಸಿ →">Start experimenting →</a>
-  </div>
-  <div class="hero-art" aria-hidden="true"><div class="orbit">⚛</div><span class="atom a1">＋</span><span class="atom a2">◉</span><span class="atom a3">✦</span></div>
-</section>
-<section class="section" id="lab">
-  <div class="section-head"><div><p class="eyebrow" data-en="HANDS-ON SCIENCE" data-kn="ಪ್ರಾಯೋಗಿಕ ವಿಜ್ಞಾನ">HANDS-ON SCIENCE</p><h2 data-en="Virtual Science Lab" data-kn="ವರ್ಚುವಲ್ ವಿಜ್ಞಾನ ಪ್ರಯೋಗಾಲಯ">Virtual Science Lab</h2></div><p data-en="Change the controls and observe what happens." data-kn="ನಿಯಂತ್ರಣಗಳನ್ನು ಬದಲಿಸಿ ಫಲಿತಾಂಶ ಗಮನಿಸಿ.">Change the controls and observe what happens.</p></div>
-  <div class="lab-grid">
-    <article class="card sim"><h3 data-en="Temperature Lab" data-kn="ತಾಪಮಾನ ಪ್ರಯೋಗ">Temperature Lab</h3><p data-en="Explore how heating and cooling change temperature." data-kn="ಬಿಸಿ ಮತ್ತು ತಂಪು ತಾಪಮಾನವನ್ನು ಹೇಗೆ ಬದಲಿಸುತ್ತವೆ ಎಂದು ತಿಳಿಯಿರಿ.">Explore how heating and cooling change temperature.</p>
-      <div class="thermo"><div id="mercury"></div></div><strong id="tempRead">25°C</strong>
-      <label for="tempRange" data-en="Temperature" data-kn="ತಾಪಮಾನ">Temperature</label><input id="tempRange" type="range" min="-10" max="100" value="25">
-      <p id="tempExplain" class="result">Room temperature.</p>
-    </article>
-    <article class="card sim"><h3 data-en="Electric Circuit" data-kn="ವಿದ್ಯುತ್ ವಲಯ">Electric Circuit</h3><p data-en="Switch the circuit on and off." data-kn="ವಿದ್ಯುತ್ ವಲಯವನ್ನು ಆನ್ ಅಥವಾ ಆಫ್ ಮಾಡಿ.">Switch the circuit on and off.</p>
-      <div class="circuit"><span class="wire"></span><span id="bulb" class="bulb">💡</span><span class="battery">🔋</span></div>
-      <button id="switchBtn" class="primary" type="button" aria-pressed="false">Switch ON / ಆನ್ ಮಾಡಿ</button><p id="circuitState" class="result">Circuit is open.</p>
-    </article>
-    <article class="card sim"><h3 data-en="States of Matter" data-kn="ಪದಾರ್ಥದ ಸ್ಥಿತಿಗಳು">States of Matter</h3><p data-en="Change heat and watch particle movement." data-kn="ಉಷ್ಣತೆಯನ್ನು ಬದಲಿಸಿ ಕಣಗಳ ಚಲನೆಯನ್ನು ಗಮನಿಸಿ.">Change heat and watch particle movement.</p>
-      <div id="particles" class="particles" aria-label="Particle model"></div><label for="heatRange" data-en="Heat level" data-kn="ಉಷ್ಣತೆಯ ಮಟ್ಟ">Heat level</label><input id="heatRange" type="range" min="1" max="3" value="1">
-      <p id="matterState" class="result">Solid: particles are close together.</p>
-    </article>
-    <article class="card sim"><h3 data-en="Plant Growth" data-kn="ಸಸ್ಯದ ಬೆಳವಣಿಗೆ">Plant Growth</h3><p data-en="Adjust light and water to compare growth conditions." data-kn="ಬೆಳಕು ಮತ್ತು ನೀರನ್ನು ಬದಲಿಸಿ ಬೆಳವಣಿಗೆಯ ಸ್ಥಿತಿಗಳನ್ನು ಹೋಲಿಸಿ.">Adjust light and water to compare growth conditions.</p>
-      <div id="plant" class="plant">🌱</div><label for="lightRange" data-en="Light" data-kn="ಬೆಳಕು">Light</label><input id="lightRange" type="range" min="0" max="100" value="65">
-      <label for="waterRange" data-en="Water" data-kn="ನೀರು">Water</label><input id="waterRange" type="range" min="0" max="100" value="55"><p id="plantState" class="result">Balanced conditions help growth.</p>
-    </article>
-  </div>
-</section>
-<section class="section" id="explore">
-  <div class="section-head"><div><p class="eyebrow" data-en="SCIENCE EXPLORER" data-kn="ವಿಜ್ಞಾನ ಅನ್ವೇಷಣೆ">SCIENCE EXPLORER</p><h2 data-en="Explore a topic" data-kn="ವಿಷಯ ಅನ್ವೇಷಿಸಿ">Explore a topic</h2></div></div>
-  <input id="topicSearch" class="search" type="search" placeholder="Search science topics / ವಿಜ್ಞಾನ ವಿಷಯ ಹುಡುಕಿ" aria-label="Search science topics">
-  <div class="topic-grid" id="topicGrid">
-    <article class="card topic" data-search="physics force motion energy ಭೌತಶಾಸ್ತ್ರ ಬಲ ಚಲನೆ ಶಕ್ತಿ"><span>🪐</span><h3 data-en="Physics" data-kn="ಭೌತಶಾಸ್ತ್ರ">Physics</h3><p data-en="Motion, forces, energy, light and electricity." data-kn="ಚಲನೆ, ಬಲ, ಶಕ್ತಿ, ಬೆಳಕು ಮತ್ತು ವಿದ್ಯುತ್.">Motion, forces, energy, light and electricity.</p><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=physics+experiments+for+students">Videos ↗</a></article>
-    <article class="card topic" data-search="chemistry matter acids bases reactions ರಸಾಯನಶಾಸ್ತ್ರ"><span>🧪</span><h3 data-en="Chemistry" data-kn="ರಸಾಯನಶಾಸ್ತ್ರ">Chemistry</h3><p data-en="Matter, mixtures, acids, bases and reactions." data-kn="ಪದಾರ್ಥ, ಮಿಶ್ರಣಗಳು, ಆಮ್ಲಗಳು, ಕ್ಷಾರಗಳು ಮತ್ತು ಕ್ರಿಯೆಗಳು.">Matter, mixtures, acids, bases and reactions.</p><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=safe+chemistry+experiments+for+students">Videos ↗</a></article>
-    <article class="card topic" data-search="biology plants cells human body ಜೀವಶಾಸ್ತ್ರ"><span>🌿</span><h3 data-en="Biology" data-kn="ಜೀವಶಾಸ್ತ್ರ">Biology</h3><p data-en="Plants, cells, ecosystems and the human body." data-kn="ಸಸ್ಯಗಳು, ಕೋಶಗಳು, ಪರಿಸರ ವ್ಯವಸ್ಥೆಗಳು ಮತ್ತು ಮಾನವ ದೇಹ.">Plants, cells, ecosystems and the human body.</p><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=biology+animations+for+students">Videos ↗</a></article>
-    <article class="card topic" data-search="earth space astronomy planets ಭೂಮಿ ಬಾಹ್ಯಾಕಾಶ"><span>🌎</span><h3 data-en="Earth & Space" data-kn="ಭೂಮಿ ಮತ್ತು ಬಾಹ್ಯಾಕಾಶ">Earth & Space</h3><p data-en="Weather, planets, stars and our changing Earth." data-kn="ಹವಾಮಾನ, ಗ್ರಹಗಳು, ನಕ್ಷತ್ರಗಳು ಮತ್ತು ಬದಲಾಗುವ ಭೂಮಿ.">Weather, planets, stars and our changing Earth.</p><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=earth+space+science+animations">Videos ↗</a></article>
-  </div>
-</section>
-<section class="section" id="quiz">
-  <div class="section-head"><div><p class="eyebrow" data-en="CHECK YOUR KNOWLEDGE" data-kn="ನಿಮ್ಮ ಜ್ಞಾನ ಪರೀಕ್ಷಿಸಿ">CHECK YOUR KNOWLEDGE</p><h2 data-en="Quick science quiz" data-kn="ತ್ವರಿತ ವಿಜ್ಞಾನ ಪ್ರಶ್ನೋತ್ತರ">Quick science quiz</h2></div></div>
-  <div class="card quiz"><p id="question">Which gas do plants absorb during photosynthesis?</p><div id="answers" class="answers"></div><p id="quizFeedback" class="result" aria-live="polite"></p><button id="nextQuestion" class="primary" type="button">Next question / ಮುಂದಿನ ಪ್ರಶ್ನೆ</button><p id="score" class="muted">Score: 0</p></div>
-</section>
-<section class="section about" id="about">
-  <p class="eyebrow" data-en="ABOUT INSTALAB" data-kn="ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್ ಬಗ್ಗೆ">ABOUT INSTALAB</p><h2 data-en="Science is for everyone." data-kn="ವಿಜ್ಞಾನ ಎಲ್ಲರಿಗೂ.">Science is for everyone.</h2>
-  <p data-en="InstaLab is a learning project for curious students, teachers, and lifelong learners. Explore, ask questions, and learn safely." data-kn="ಇನ್‌ಸ್ಟಾಲ್ಯಾಬ್ ಕುತೂಹಲವುಳ್ಳ ವಿದ್ಯಾರ್ಥಿಗಳು, ಶಿಕ್ಷಕರು ಮತ್ತು ಕಲಿಯುವವರಿಗಾಗಿ. ಅನ್ವೇಷಿಸಿ, ಪ್ರಶ್ನೆ ಕೇಳಿ, ಸುರಕ್ಷಿತವಾಗಿ ಕಲಿಯಿರಿ.">InstaLab is a learning project for curious students, teachers, and lifelong learners. Explore, ask questions, and learn safely.</p>
-  <a class="social" href="https://www.instagram.com/shivaraju_learner?mdxt=aXBoaXpmYzFhZmdo" target="_blank" rel="noopener">📸 Follow on Instagram: @shivaraju_learner ↗</a>
-</section>
-</main>
-<footer><span>© <span id="year"></span> InstaLab</span><a href="https://www.instagram.com/shivaraju_learner?mdxt=aXBoaXpmYzFhZmdo" target="_blank" rel="noopener">Instagram @shivaraju_learner</a><span data-en="Learn safely. Keep exploring." data-kn="ಸುರಕ್ಷಿತವಾಗಿ ಕಲಿಯಿರಿ. ಅನ್ವೇಷಿಸುತ್ತಿರಿ.">Learn safely. Keep exploring.</span></footer>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><a class="brand" href="#home" aria-label="InstaLab home"><img src="instalab-logo.png" alt="" width="44" height="44"><span>Insta<span class="brand-accent">Lab</span><small data-i18n="tagline">Discover · Experiment · Understand</small></span></a>
+<div class="header-actions"><button id="languageToggle" class="button button-outline" type="button" aria-label="Switch language">ಕನ್ನಡ</button><a class="button button-primary" href="#virtual-lab" data-i18n="tryLab">Try a Lab</a></div></header>
+<nav class="main-nav" aria-label="Main navigation"><a href="#explorer" data-i18n="navExplore">Explore</a><a href="#virtual-lab" data-i18n="navLab">Virtual Lab</a><a href="#quiz" data-i18n="navQuiz">Quiz</a><a href="#projects" data-i18n="navProjects">Projects</a><a href="#scientists" data-i18n="navScientists">Scientists</a><a href="#observations" data-i18n="navObserve">Observations</a></nav>
+<main id="main">
+<section id="home" class="hero"><div class="hero-copy"><p class="eyebrow" data-i18n="eyebrow">SCIENCE, MADE INTERACTIVE</p><h1 data-i18n="heroTitle">Ask questions.<br><span>Test ideas.</span> Discover.</h1><p class="hero-description" data-i18n="heroText">Explore science concepts with simple simulations, quick quizzes and project ideas. Learn at your own pace in Kannada or English.</p><div class="hero-actions"><a class="button button-primary" href="#explorer" data-i18n="exploreResources">Explore resources</a><a class="button button-outline" href="#virtual-lab" data-i18n="startExperiment">Start an experiment</a></div><div class="hero-note"><span class="status-dot"></span><span data-i18n="prototypeNote">Interactive learning prototype · works in your browser</span></div></div><div class="hero-visual" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="planet">⚛</div><div class="float-card card-top">🔬 <span data-i18n="curiosity">Curiosity</span></div><div class="float-card card-bottom">📈 <span data-i18n="evidence">Evidence</span></div></div></section>
+<section class="stats-grid" aria-label="Platform highlights"><article><span class="stat-icon">🧪</span><strong data-i18n="statLab">Try & observe</strong><span data-i18n="statLabSub">Change variables safely</span></article><article><span class="stat-icon">🧠</span><strong data-i18n="statQuiz">Check understanding</strong><span data-i18n="statQuizSub">Practice with feedback</span></article><article><span class="stat-icon">🌱</span><strong data-i18n="statProject">Make something</strong><span data-i18n="statProjectSub">Build science projects</span></article><article><span class="stat-icon">🌐</span><strong data-i18n="statLang">Two languages</strong><span data-i18n="statLangSub">Kannada and English UI</span></article></section>
+<section id="explorer" class="section"><div class="section-heading"><div><p class="eyebrow" data-i18n="learnHub">LEARNING HUB</p><h2 data-i18n="exploreTitle">Explore science</h2><p data-i18n="exploreSub">Find a starting point, then ask what you can observe or test.</p></div></div><div class="filter-bar"><label class="search-box"><span aria-hidden="true">⌕</span><input id="resourceSearch" type="search" placeholder="Search topics, experiments…" data-i18n-placeholder="searchPlaceholder" aria-label="Search learning resources"></label><label class="filter-label"><span data-i18n="subject">Subject</span><select id="subjectFilter" aria-label="Filter by subject"><option value="all" data-i18n="allSubjects">All subjects</option><option value="physics">Physics</option><option value="chemistry">Chemistry</option><option value="biology">Biology</option><option value="space">Space</option><option value="environment">Environment</option></select></label></div><div id="resourceGrid" class="resource-grid" aria-live="polite"></div><p id="emptyResults" class="empty-state" hidden data-i18n="noResults">No matching resources. Try another search.</p></section>
+<section id="virtual-lab" class="section section-tinted"><div class="section-heading"><div><p class="eyebrow" data-i18n="handsOn">HANDS-ON LEARNING</p><h2 data-i18n="labTitle">Virtual lab: speed and motion</h2><p data-i18n="labSub">Change distance or time and observe how average speed changes.</p></div><span class="section-chip">🧪 <span data-i18n="sampleSimulation">Sample simulation</span></span></div><div class="lab-layout"><div class="lab-controls panel"><div class="control-heading"><h3 data-i18n="setVariables">Set your variables</h3><button id="resetLab" class="text-button" type="button" data-i18n="reset">Reset</button></div><label class="range-control"><span><span data-i18n="distance">Distance</span><output id="distanceValue">100</output> m</span><input id="distanceInput" type="range" min="10" max="500" value="100" step="10"><span class="range-ends"><span>10 m</span><span>500 m</span></span></label><label class="range-control"><span><span data-i18n="time">Time</span><output id="timeValue">20</output> s</span><input id="timeInput" type="range" min="5" max="100" value="20" step="5"><span class="range-ends"><span>5 s</span><span>100 s</span></span></label><div class="lab-question"><strong data-i18n="thinkQuestion">Think about it</strong><p data-i18n="thinkText">If the distance stays the same but the time increases, what happens to speed?</p></div></div><div class="result-panel"><span class="result-label" data-i18n="averageSpeed">AVERAGE SPEED</span><div class="result-number"><span id="speedValue">5.00</span><small>m/s</small></div><div class="meter-track"><div id="speedMeter" class="meter-fill"></div></div><p id="labExplanation" class="result-explanation" aria-live="polite">100 m ÷ 20 s = 5 m/s. Speed is distance divided by time.</p><div class="formula">speed = distance ÷ time</div></div></div></section>
+<section id="quiz" class="section"><div class="section-heading"><div><p class="eyebrow" data-i18n="quickCheck">QUICK CHECK</p><h2 data-i18n="quizTitle">Test your understanding</h2><p data-i18n="quizSub">Answer a few questions and learn from the feedback.</p></div></div><div class="quiz-panel panel"><div class="quiz-topline"><span id="quizProgress">Question 1 of 5</span><span class="quiz-pill" data-i18n="practiceMode">Practice mode</span></div><div class="progress-track"><div id="quizProgressBar" class="progress-fill"></div></div><h3 id="quizQuestion">Loading question…</h3><div id="quizOptions" class="quiz-options"></div><p id="quizFeedback" class="quiz-feedback" aria-live="polite"></p><div class="quiz-footer"><span id="quizScore">Score: 0</span><button id="nextQuestion" class="button button-primary" type="button" disabled data-i18n="nextQuestion">Next question →</button></div></div></section>
+<section id="projects" class="section section-tinted"><div class="section-heading"><div><p class="eyebrow" data-i18n="learnByDoing">LEARN BY DOING</p><h2 data-i18n="projectsTitle">Science project ideas</h2><p data-i18n="projectsSub">Plan a fair test, record evidence, and explain your conclusion.</p></div></div><div id="projectGrid" class="project-grid"></div><p class="safety-note">⚠️ <span data-i18n="safetyNote">For physical experiments, follow teacher/guardian guidance and use appropriate safety precautions.</span></p></section>
+<section id="scientists" class="section"><div class="section-heading"><div><p class="eyebrow" data-i18n="peopleScience">PEOPLE BEHIND DISCOVERY</p><h2 data-i18n="scientistsTitle">Scientists who changed how we see the world</h2><p data-i18n="scientistsSub">Short introductions to inspire further reading.</p></div></div><div id="scientistGrid" class="scientist-grid"></div></section>
+<section id="observations" class="section section-tinted"><div class="section-heading"><div><p class="eyebrow" data-i18n="scientificMethod">SCIENTIFIC METHOD</p><h2 data-i18n="observationsTitle">My observation notebook</h2><p data-i18n="observationsSub">Add sample measurements, visualise them and export your data.</p></div></div><div class="notebook-layout"><form id="observationForm" class="panel observation-form"><h3 data-i18n="addObservation">Add an observation</h3><label><span data-i18n="observationLabel">Observation / label</span><input id="observationName" required maxlength="60" placeholder="e.g. Trial 1"></label><label><span data-i18n="measurementLabel">Measurement (number)</span><input id="observationValue" type="number" required step="any" placeholder="e.g. 12.5"></label><button class="button button-primary" type="submit" data-i18n="addToNotebook">Add to notebook</button><button class="button button-outline" id="downloadCsv" type="button" data-i18n="downloadCsv">Download CSV</button></form><div class="panel chart-panel"><div class="chart-header"><h3 data-i18n="yourData">Your data</h3><button id="clearObservations" class="text-button" type="button" data-i18n="clearAll">Clear all</button></div><div id="observationChart" class="observation-chart" role="img" aria-label="Bar chart of recorded observations"><p class="chart-placeholder" data-i18n="chartPlaceholder">Add at least one observation to build your chart.</p></div><div id="observationList" class="observation-list"></div></div></div></section>
+<section class="section external-section"><div><p class="eyebrow" data-i18n="goDeeper">GO DEEPER</p><h2 data-i18n="externalTitle">Continue learning</h2><p data-i18n="externalSub">Explore established learning platforms. External sites have their own content, access rules and privacy policies.</p></div><div class="external-links"><a href="https://phet.colorado.edu/" target="_blank" rel="noopener noreferrer"><span>⚗️</span><strong>PhET Interactive Simulations</strong><small data-i18n="phetDesc">Interactive science and maths simulations</small><span aria-hidden="true">↗</span></a><a href="https://www.khanacademy.org/science" target="_blank" rel="noopener noreferrer"><span>📚</span><strong>Khan Academy</strong><small data-i18n="khanDesc">Science lessons and practice</small><span aria-hidden="true">↗</span></a><a href="https://science.nasa.gov/" target="_blank" rel="noopener noreferrer"><span>🚀</span><strong>NASA Science</strong><small data-i18n="nasaDesc">Space, Earth and mission discoveries</small><span aria-hidden="true">↗</span></a></div></section>
+</main><footer class="site-footer"><a class="footer-brand" href="#home">InstaLab</a><p data-i18n="footerText">A learning prototype built to make science more explorable.</p><p class="footer-small">© InstaLab · <span data-i18n="educationalPrototype">Educational prototype — verify curriculum and scientific content before formal classroom use.</span></p></footer>
 </body></html>
