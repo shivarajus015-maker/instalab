@@ -1,255 +1,439 @@
-/* InstaLab — app.js
- * Static vanilla JS. No frameworks. Relative paths only.
- * Honesty: only real data is shown; counts are derived from DATA, never typed.
- * Language switching re-renders text nodes only; simulation state lives in window.simState.
- */
-'use strict';
+// lab.js - Virtual Science Lab Controller
+document.addEventListener("DOMContentLoaded", () => {
+  // Tab filtering
+  const tabs = document.querySelectorAll(".tab-btn");
+  const cards = document.querySelectorAll(".experiment-card");
 
-/* ============================================================
- * 1. LANGUAGE DICTIONARY  (single source of truth)
- * ============================================================ */
-const LANG = {
-  en: {
-    skipLink: "Skip to content",
-    tagline: "Explore Science by Doing",
-    navHome: "Home", navLab: "Virtual Lab", navEquipment: "Equipment",
-    navScientists: "Scientists", navLibrary: "Knowledge Library",
-    navQuiz: "Quiz", navProjects: "Projects",
-    heroTitle: "Explore, Experiment, and Understand Science!",
-    heroTitleKn: "ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ, ಪ್ರಯೋಗಿಸಿ ಮತ್ತು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ!",
-    heroDesc: "Interactive simulations, verified knowledge, and hands-on projects for curious learners.",
-    btnExplore: "Explore InstaLab", btnLab: "Open Virtual Lab", btnLearn: "Start Learning",
-    searchLabel: "Search", searchPlaceholder: "Search topics, simulations, scientists…",
-    categoriesTitle: "Explore by Category",
-    tryTitle: "Try It Today",
-    factTitle: "Did You Know?",
-    quizPreviewTitle: "Quiz Preview",
-    countsTitle: "InstaLab at a Glance",
-    countsNote: "Counts are read directly from the data files below — never typed by hand.",
-    aboutTitle: "About InstaLab",
-    aboutText: "InstaLab is a free science learning platform for Kannada and English learners. It offers interactive simulations, verified facts, quizzes and safe hands-on projects. All simulations use simplified models and are not real laboratory data.",
-    labTitle: "Virtual Science Lab",
-    simNotice: "All simulations use simplified models for learning. They are not real laboratory data.",
-    equipmentTitle: "Science Equipment",
-    equipmentIntro: "Explore lab equipment. Detailed guides and virtual instruments are being added.",
-    scientistsTitle: "Scientists Directory",
-    libraryTitle: "Science Knowledge Library",
-    libraryIntro: "Topic guides with definitions, examples, formulae and knowledge checks. Detailed content is being added.",
-    quizTitle: "Science Quiz",
-    projectsTitle: "Science Projects & Hands-on Activities",
-    projectsIntro: "Safe, guided projects. Adult supervision where noted. Detailed project pages are being added.",
-    footerNote: "Simulations use simplified models for learning and are not real lab data.",
-    localNote: "Progress is saved on this browser and device only.",
-    clearData: "Clear all local data",
-    comingSoon: "Coming soon",
-    planned: "Planned",
-    ready: "Ready",
-    noResults: "No results found.",
-    counts_sim: "Working simulations",
-    counts_sci: "Scientists",
-    counts_quiz: "Quiz questions",
-    counts_eq: "Equipment items",
-    physics: "Physics", chemistry: "Chemistry", biology: "Biology", earth: "Earth & Space",
-    physicsDesc: "Motion, forces, light, electricity and more.",
-    chemistryDesc: "Atoms, reactions, pH and separation methods.",
-    biologyDesc: "Cells, body systems, genetics and ecosystems.",
-    earthDesc: "Planets, seasons, eclipses and Earth's layers.",
-    start: "Start", pause: "Pause", resume: "Resume", reset: "Reset", help: "Help",
-    record: "Record reading", clearTable: "Clear table", back: "Back to lab",
-    objective: "Learning objective", principle: "Scientific principle",
-    equipmentUsed: "Equipment", simulation: "Interactive simulation",
-    controls: "Controls & live readings", formula: "Formula",
-    observation: "Observation table", graph: "Graph (from recorded data)",
-    conclusion: "Conclusion", safety: "Safety note", quizShort: "Short quiz",
-    assumptions: "Model assumptions",
-    noRecords: "No readings recorded yet. Adjust the sliders and press Record.",
-    recordAdded: "Reading recorded.",
-    clearConfirm: "Clear ALL local data (progress, drafts, quiz history)? This cannot be undone.",
-    cleared: "Local data cleared.",
-    resetConfirm: "Reset simulation to start values?",
-    noSims: "No simulations available yet.",
-    quizIntro: "Answer the questions below. Your best score is stored on this browser only.",
-    submit: "Submit answers", nextQ: "Next", question: "Question",
-    correct: "Correct", incorrect: "Incorrect", explanation: "Explanation",
-    score: "Score", clearHistory: "Clear quiz history",
-    eqComing: "Equipment library is being built. Check back soon.",
-    sciComing: "Detailed scientist profiles are being added. Marie Curie is available now.",
-    libComing: "Knowledge library topics are being written.",
-    projComing: "Project guides are being written."
-  },
-  kn: {
-    skipLink: "ವಿಷಯಕ್ಕೆ ಹೋಗಿ",
-    tagline: "ಮಾಡುವ ಮೂಲಕ ವಿಜ್ಞಾನವನ್ನು ಅನ್ವೇಷಿಸಿ",
-    navHome: "ಮುಖಪುಟ", navLab: "ವರ್ಚುವಲ್ ಪ್ರಯೋಗಾಲಯ", navEquipment: "ಉಪಕರಣಗಳು",
-    navScientists: "ವಿಜ್ಞಾನಿಗಳು", navLibrary: "ಜ್ಞಾನ ಗ್ರಂಥಾಲಯ",
-    navQuiz: "ರಸಪ್ರಶ್ನೆ", navProjects: "ಯೋಜನೆಗಳು",
-    heroTitle: "ಅನ್ವೇಷಿಸಿ, ಪ್ರಯೋಗಿಸಿ ಮತ್ತು ವಿಜ್ಞಾನವನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ!",
-    heroTitleKn: "ಅನ್ವೇಷಿಸಿ, ಪ್ರಯೋಗಿಸಿ ಮತ್ತು ವಿಜ್ಞಾನವನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ!",
-    heroDesc: "ಕುತೂಹಲಿ ಕಲಿಯುವವರಿಗೆ ಸಂವಾದಾತ್ಮಕ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು, ಪರಿಶೀಲಿಸಿದ ಜ್ಞಾನ ಮತ್ತು ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಗಳು.",
-    btnExplore: "InstaLab ಅನ್ವೇಷಿಸಿ", btnLab: "ಪ್ರಯೋಗಾಲಯ ತೆರೆಯಿರಿ", btnLearn: "ಕಲಿಯಲು ಪ್ರಾರಂಭಿಸಿ",
-    searchLabel: "ಹುಡುಕಿ", searchPlaceholder: "ವಿಷಯಗಳು, ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು, ವಿಜ್ಞಾನಿಗಳನ್ನು ಹುಡುಕಿ…",
-    categoriesTitle: "ವರ್ಗದ ಮೂಲಕ ಅನ್ವೇಷಿಸಿ",
-    tryTitle: "ಇಂದು ಪ್ರಯತ್ನಿಸಿ",
-    factTitle: "ನಿಮಗೆ ಗೊತ್ತೇ?",
-    quizPreviewTitle: "ರಸಪ್ರಶ್ನೆ ಮುನ್ನೋಟ",
-    countsTitle: "ಒಂದು ನೋಟದಲ್ಲಿ InstaLab",
-    countsNote: "ಎಣಿಕೆಗಳನ್ನು ಡೇಟಾ ಫೈಲ್‌ಗಳಿಂದ ನೇರವಾಗಿ ಓದಲಾಗುತ್ತದೆ — ಕೈಯಿಂದ ಟೈಪ್ ಮಾಡಿಲ್ಲ.",
-    aboutTitle: "InstaLab ಬಗ್ಗೆ",
-    aboutText: "InstaLab ಕನ್ನಡ ಮತ್ತು ಇಂಗ್ಲಿಷ್ ಕಲಿಯುವವರಿಗೆ ಉಚಿತ ವಿಜ್ಞಾನ ಕಲಿಕಾ ವೇದಿಕೆ. ಇದು ಸಂವಾದಾತ್ಮಕ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು, ಪರಿಶೀಲಿಸಿದ ಸಂಗತಿಗಳು, ರಸಪ್ರಶ್ನೆಗಳು ಮತ್ತು ಸುರಕ್ಷಿತ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಗಳನ್ನು ನೀಡುತ್ತದೆ. ಎಲ್ಲಾ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು ಸರಳೀಕೃತ ಮಾದರಿಗಳನ್ನು ಬಳಸುತ್ತವೆ ಮತ್ತು ನಿಜವಾದ ಪ್ರಯೋಗಾಲಯ ಡೇಟಾ ಅಲ್ಲ.",
-    labTitle: "ವರ್ಚುವಲ್ ವಿಜ್ಞಾನ ಪ್ರಯೋಗಾಲಯ",
-    simNotice: "ಎಲ್ಲಾ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು ಕಲಿಕೆಗಾಗಿ ಸರಳೀಕೃತ ಮಾದರಿಗಳನ್ನು ಬಳಸುತ್ತವೆ. ಅವು ನಿಜವಾದ ಪ್ರಯೋಗಾಲಯ ಡೇಟಾ ಅಲ್ಲ.",
-    equipmentTitle: "ವಿಜ್ಞಾನ ಉಪಕರಣಗಳು",
-    equipmentIntro: "ಪ್ರಯೋಗಾಲಯ ಉಪಕರಣಗಳನ್ನು ಅನ್ವೇಷಿಸಿ. ವಿವರವಾದ ಮಾರ್ಗದರ್ಶಿಗಳು ಸೇರಿಸಲಾಗುತ್ತಿದೆ.",
-    scientistsTitle: "ವಿಜ್ಞಾನಿಗಳ ಕೋಶ",
-    libraryTitle: "ವಿಜ್ಞಾನ ಜ್ಞಾನ ಗ್ರಂಥಾಲಯ",
-    libraryIntro: "ವ್ಯಾಖ್ಯಾನಗಳು, ಉದಾಹರಣೆಗಳು, ಸೂತ್ರಗಳು ಮತ್ತು ಜ್ಞಾನ ಪರೀಕ್ಷೆಗಳೊಂದಿಗೆ ವಿಷಯ ಮಾರ್ಗದರ್ಶಿಗಳು. ವಿವರವಾದ ವಿಷಯ ಸೇರಿಸಲಾಗುತ್ತಿದೆ.",
-    quizTitle: "ವಿಜ್ಞಾನ ರಸಪ್ರಶ್ನೆ",
-    projectsTitle: "ವಿಜ್ಞಾನ ಯೋಜನೆಗಳು ಮತ್ತು ಪ್ರಾಯೋಗಿಕ ಚಟುವಟಿಕೆಗಳು",
-    projectsIntro: "ಸುರಕ್ಷಿತ ಮಾರ್ಗದರ್ಶಿ ಯೋಜನೆಗಳು. ಅಗತ್ಯವಿದ್ದಲ್ಲಿ ವಯಸ್ಕರ ಮೇಲ್ವಿಚಾರಣೆ. ವಿವರವಾದ ಯೋಜನೆ ಪುಟಗಳು ಸೇರಿಸಲಾಗುತ್ತಿದೆ.",
-    footerNote: "ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು ಕಲಿಕೆಗಾಗಿ ಸರಳೀಕೃತ ಮಾದರಿಗಳನ್ನು ಬಳಸುತ್ತವೆ ಮತ್ತು ನಿಜವಾದ ಪ್ರಯೋಗಾಲಯ ಡೇಟಾ ಅಲ್ಲ.",
-    localNote: "ಪ್ರಗತಿಯನ್ನು ಈ ಬ್ರೌಸರ್ ಮತ್ತು ಸಾಧನದಲ್ಲಿ ಮಾತ್ರ ಉಳಿಸಲಾಗುತ್ತದೆ.",
-    clearData: "ಎಲ್ಲಾ ಸ್ಥಳೀಯ ಡೇಟಾ ಅಳಿಸಿ",
-    comingSoon: "ಶೀಘ್ರದಲ್ಲೇ",
-    planned: "ಯೋಜಿತ",
-    ready: "ಸಿದ್ಧ",
-    noResults: "ಫಲಿತಾಂಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ.",
-    counts_sim: "ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತಿರುವ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು",
-    counts_sci: "ವಿಜ್ಞಾನಿಗಳು",
-    counts_quiz: "ರಸಪ್ರಶ್ನೆ ಪ್ರಶ್ನೆಗಳು",
-    counts_eq: "ಉಪಕರಣ ವಸ್ತುಗಳು",
-    physics: "ಭೌತಶಾಸ್ತ್ರ", chemistry: "ರಸಾಯನಶಾಸ್ತ್ರ", biology: "ಜೀವಶಾಸ್ತ್ರ",
-    earth: "ಭೂಮಿ ಮತ್ತು ಬಾಹ್ಯಾಕಾಶ",
-    physicsDesc: "ಚಲನೆ, ಬಲಗಳು, ಬೆಳಕು, ವಿದ್ಯುತ್ ಮತ್ತು ಇನ್ನಷ್ಟು.",
-    chemistryDesc: "ಪರಮಾಣುಗಳು, ಪ್ರತಿಕ್ರಿಯೆಗಳು, pH ಮತ್ತು ಬೇರ್ಪಡಿಸುವ ವಿಧಾನಗಳು.",
-    biologyDesc: "ಜೀವಕೋಶಗಳು, ದೇಹ ವ್ಯವಸ್ಥೆಗಳು, ಆನುವಂಶಿಕತೆ ಮತ್ತು ಪರಿಸರ ವ್ಯವಸ್ಥೆಗಳು.",
-    earthDesc: "ಗ್ರಹಗಳು, ಋತುಗಳು, ಗ್ರಹಣಗಳು ಮತ್ತು ಭೂಮಿಯ ಪದರಗಳು.",
-    start: "ಪ್ರಾರಂಭ", pause: "ವಿರಾಮ", resume: "ಮುಂದುವರಿಸಿ", reset: "ಮರುಹೊಂದಿಸಿ", help: "ಸಹಾಯ",
-    record: "ಓದುವಿಕೆ ದಾಖಲಿಸಿ", clearTable: "ಕೋಷ್ಟಕ ಅಳಿಸಿ", back: "ಪ್ರಯೋಗಾಲಯಕ್ಕೆ ಹಿಂತಿರುಗಿ",
-    objective: "ಕಲಿಕಾ ಉದ್ದೇಶ", principle: "ವೈಜ್ಞಾನಿಕ ತತ್ವ",
-    equipmentUsed: "ಉಪಕರಣಗಳು", simulation: "ಸಂವಾದಾತ್ಮಕ ಸಿಮ್ಯುಲೇಶನ್",
-    controls: "ನಿಯಂತ್ರಣಗಳು ಮತ್ತು ನೇರ ಓದುವಿಕೆಗಳು", formula: "ಸೂತ್ರ",
-    observation: "ವೀಕ್ಷಣಾ ಕೋಷ್ಟಕ", graph: "ಗ್ರಾಫ್ (ದಾಖಲಾದ ಡೇಟಾದಿಂದ)",
-    conclusion: "ತೀರ್ಮಾನ", safety: "ಸುರಕ್ಷತಾ ಸೂಚನೆ", quizShort: "ಸಣ್ಣ ರಸಪ್ರಶ್ನೆ",
-    assumptions: "ಮಾದರಿ ಊಹೆಗಳು",
-    noRecords: "ಇನ್ನೂ ಯಾವುದೇ ಓದುವಿಕೆ ದಾಖಲಾಗಿಲ್ಲ. ಸ್ಲೈಡರ್‌ಗಳನ್ನು ಸರಿಹೊಂದಿಸಿ ಮತ್ತು ದಾಖಲಿಸಿ ಒತ್ತಿರಿ.",
-    recordAdded: "ಓದುವಿಕೆ ದಾಖಲಾಗಿದೆ.",
-    clearConfirm: "ಎಲ್ಲಾ ಸ್ಥಳೀಯ ಡೇಟಾ ಅಳಿಸುವುದೇ (ಪ್ರಗತಿ, ಕರಡುಗಳು, ರಸಪ್ರಶ್ನೆ ಇತಿಹಾಸ)? ಇದನ್ನು ರದ್ದುಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.",
-    cleared: "ಸ್ಥಳೀಯ ಡೇಟಾ ಅಳಿಸಲಾಗಿದೆ.",
-    resetConfirm: "ಸಿಮ್ಯುಲೇಶನ್ ಅನ್ನು ಪ್ರಾರಂಭ ಮೌಲ್ಯಗಳಿಗೆ ಮರುಹೊಂದಿಸುವುದೇ?",
-    noSims: "ಇನ್ನೂ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳಿಲ್ಲ.",
-    quizIntro: "ಕೆಳಗಿನ ಪ್ರಶ್ನೆಗಳಿಗೆ ಉತ್ತರಿಸಿ. ನಿಮ್ಮ ಅತ್ಯುತ್ತಮ ಅಂಕವನ್ನು ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಸಂಗ್ರಹಿಸಲಾಗುತ್ತದೆ.",
-    submit: "ಉತ್ತರಗಳನ್ನು ಸಲ್ಲಿಸಿ", nextQ: "ಮುಂದೆ", question: "ಪ್ರಶ್ನೆ",
-    correct: "ಸರಿ", incorrect: "ತಪ್ಪು", explanation: "ವಿವರಣೆ",
-    score: "ಅಂಕ", clearHistory: "ರಸಪ್ರಶ್ನೆ ಇತಿಹಾಸ ಅಳಿಸಿ",
-    eqComing: "ಉಪಕರಣ ಗ್ರಂಥಾಲಯವನ್ನು ನಿರ್ಮಿಸಲಾಗುತ್ತಿದೆ. ಶೀಘ್ರದಲ್ಲೇ ಪರಿಶೀಲಿಸಿ.",
-    sciComing: "ವಿವರವಾದ ವಿಜ್ಞಾನಿ ಪ್ರೊಫೈಲ್‌ಗಳನ್ನು ಸೇರಿಸಲಾಗುತ್ತಿದೆ. ಮೇರಿ ಕ್ಯೂರಿ ಈಗ ಲಭ್ಯವಿದೆ.",
-    libComing: "ಜ್ಞಾನ ಗ್ರಂಥಾಲಯದ ವಿಷಯಗಳನ್ನು ಬರೆಯಲಾಗುತ್ತಿದೆ.",
-    projComing: "ಯೋಜನೆ ಮಾರ್ಗದರ್ಶಿಗಳನ್ನು ಬರೆಯಲಾಗುತ್ತಿದೆ."
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      const subj = tab.getAttribute("data-subject");
+
+      cards.forEach(card => {
+        if (subj === "all" || card.getAttribute("data-cat") === subj) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  });
+
+  initCircuitExperiment();
+  initPHExperiment();
+  initCellExperiment();
+});
+
+// ==============================================================
+// 1. EXPERIMENT 1: Simple Electric Circuit (Ohm's Law)
+// ==============================================================
+function initCircuitExperiment() {
+  const canvas = document.getElementById("circuitCanvas");
+  const ctx = canvas.getContext("2d");
+  const vSlider = document.getElementById("circuitVoltage");
+  const rSlider = document.getElementById("circuitResistance");
+  const vVal = document.getElementById("voltageVal");
+  const rVal = document.getElementById("resistanceVal");
+  const iVal = document.getElementById("currentVal");
+  const pVal = document.getElementById("powerVal");
+  const recordBtn = document.getElementById("circuitRecordBtn");
+  const resetBtn = document.getElementById("circuitResetBtn");
+  const tbody = document.querySelector("#circuitTable tbody");
+
+  const records = [];
+
+  function calculateAndDraw() {
+    const V = parseFloat(vSlider.value);
+    const R = parseFloat(rSlider.value);
+    const I = V / R; // Amperes
+    const P = V * I; // Watts
+
+    vVal.textContent = V.toFixed(1);
+    rVal.textContent = R.toFixed(1);
+    iVal.textContent = I.toFixed(2) + " A";
+    pVal.textContent = P.toFixed(2) + " W";
+
+    // Draw Circuit Animation
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Circuit Loop
+    ctx.strokeStyle = "#38bdf8";
+    ctx.lineWidth = 4;
+    ctx.strokeRect(60, 30, 360, 120);
+
+    // Battery (Left side)
+    ctx.fillStyle = "#0f172a";
+    ctx.fillRect(52, 70, 16, 40);
+    ctx.fillStyle = "#ef4444";
+    ctx.fillRect(54, 72, 12, 16); // + pole
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 10px sans-serif";
+    ctx.fillText("+", 57, 84);
+    ctx.fillText(`${V}V`, 25, 95);
+
+    // Resistor (Top wire)
+    ctx.fillStyle = "#f59e0b";
+    ctx.fillRect(200, 22, 60, 16);
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 10px sans-serif";
+    ctx.fillText(`${R}Ω`, 218, 34);
+
+    // Ammeter (Bottom wire)
+    ctx.fillStyle = "#0284c7";
+    ctx.beginPath();
+    ctx.arc(230, 150, 16, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 11px sans-serif";
+    ctx.fillText("A", 225, 154);
+
+    // Light Bulb (Right side)
+    const brightness = Math.min(1.0, P / 20); // Glow intensity
+    const glowRadius = 14 + brightness * 20;
+
+    // Outer Glow
+    const gradient = ctx.createRadialGradient(420, 90, 5, 420, 90, glowRadius);
+    gradient.addColorStop(0, `rgba(250, 204, 21, ${0.4 + brightness * 0.6})`);
+    gradient.addColorStop(1, "rgba(250, 204, 21, 0)");
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(420, 90, glowRadius, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Bulb glass
+    ctx.fillStyle = "#fef08a";
+    ctx.beginPath();
+    ctx.arc(420, 90, 12, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#ca8a04";
+    ctx.lineWidth = 2;
+    ctx.stroke();
   }
-};
 
-let currentLang = 'en';
-window.simState = window.simState || {};
+  vSlider.addEventListener("input", calculateAndDraw);
+  rSlider.addEventListener("input", calculateAndDraw);
 
-function t(key) { return (LANG[currentLang] && LANG[currentLang][key]) || LANG.en[key] || key; }
+  recordBtn.addEventListener("click", () => {
+    const trial = records.length + 1;
+    const V = parseFloat(vSlider.value).toFixed(1);
+    const R = parseFloat(rSlider.value).toFixed(1);
+    const I = (V / R).toFixed(2);
 
-/* ============================================================
- * 2. SAFE STORAGE
- * ============================================================ */
-const Storage = {
-  available: (() => { try { localStorage.setItem('__t','1'); localStorage.removeItem('__t'); return true; } catch (e) { return false; } })(),
-  get(k, fb) { if (!this.available) return fb; try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fb; } catch (e) { return fb; } },
-  set(k, v) { if (!this.available) return false; try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } },
-  remove(k) { if (this.available) localStorage.removeItem(k); }
-};
+    records.push({ trial, V: parseFloat(V), I: parseFloat(I) });
 
-/* ============================================================
- * 3. DATA  (honest: only verified facts; counts derived from here)
- * ============================================================ */
-const DATA = {
-  categories: [
-    { id: 'physics', i18n: 'physics', descI18n: 'physicsDesc', icon: '⚛' },
-    { id: 'chemistry', i18n: 'chemistry', descI18n: 'chemistryDesc', icon: '🧪' },
-    { id: 'biology', i18n: 'biology', descI18n: 'biologyDesc', icon: '🌱' },
-    { id: 'earth', i18n: 'earth', descI18n: 'earthDesc', icon: '🌍' }
-  ],
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${trial}</td><td>${V}</td><td>${R}</td><td>${I}</td>`;
+    tbody.appendChild(tr);
 
-  simulations: [
-    {
-      id: 'motion-speed', titleEn: 'Motion and Speed', titleKn: 'ಚಲನೆ ಮತ್ತು ವೇಗ',
-      subject: 'physics', status: 'ready',
-      objective: 'Understand how distance, speed and time relate under constant acceleration.',
-      principle: 'An object moving with constant acceleration covers distance s = u·t + ½·a·t². Its speed at time t is v = u + a·t.',
-      equipment: ['Stopwatch', 'Measuring tape'],
-      formula: 'v = u + a·t   |   s = u·t + ½·a·t²',
-      assumptions: 'Constant acceleration, no air resistance, straight-line motion.',
-      safety: 'Simplified model. No physical experiment performed.',
-      conclusion: 'Speed grows linearly with time; distance grows with the square of time.',
-      inputs: [
-        { id: 'u', label: 'Initial speed u (m/s)', min: 0, max: 20, step: 0.1, value: 0 },
-        { id: 'a', label: 'Acceleration a (m/s²)', min: -5, max: 10, step: 0.1, value: 2 },
-        { id: 't', label: 'Time t (s)', min: 0, max: 20, step: 0.1, value: 5 }
-      ],
-      compute: (v) => {
-        const speed = v.u + v.a * v.t;
-        const dist = v.u * v.t + 0.5 * v.a * v.t * v.t;
-        return { speed: speed.toFixed(2) + ' m/s', distance: dist.toFixed(2) + ' m' };
-      },
-      graphX: (v) => v.t, graphY: (v) => v.u * v.t + 0.5 * v.a * v.t * v.t
-    },
-    {
-      id: 'force-friction', titleEn: 'Force and Friction', titleKn: 'ಬಲ ಮತ್ತು ಘರ್ಷಣೆ',
-      subject: 'physics', status: 'ready',
-      objective: 'Explore how applied force, mass and friction interact on a flat surface.',
-      principle: "Newton's second law: F = m·a. Friction force Ff = μ·N. On a flat surface N ≈ m·g.",
-      equipment: ['Spring balance', 'Weights'],
-      formula: 'F = m·a   |   Ff = μ·N   |   N = m·g',
-      assumptions: 'Flat surface, g = 9.8 m/s², kinetic friction constant.',
-      safety: 'Simplified model. No physical experiment performed.',
-      conclusion: 'The object accelerates only when applied force exceeds friction.',
-      inputs: [
-        { id: 'm', label: 'Mass m (kg)', min: 0.5, max: 20, step: 0.5, value: 5 },
-        { id: 'mu', label: 'Friction coefficient μ', min: 0, max: 1, step: 0.05, value: 0.3 },
-        { id: 'F', label: 'Applied force F (N)', min: 0, max: 200, step: 1, value: 30 }
-      ],
-      compute: (v) => {
-        const g = 9.8;
-        const N = v.m * g;
-        const Ff = v.mu * N;
-        const net = v.F - Ff;
-        const acc = v.m > 0 ? net / v.m : 0;
-        return { normal: N.toFixed(1) + ' N', friction: Ff.toFixed(1) + ' N', net: net.toFixed(1) + ' N', acceleration: acc.toFixed(2) + ' m/s²' };
-      },
-      graphX: (v) => v.F, graphY: (v) => (v.F - v.mu * v.m * 9.8) / (v.m || 1)
-    },
-    {
-      id: 'electric-circuit', titleEn: 'Simple Electric Circuit', titleKn: 'ಸರಳ ವಿದ್ಯುತ್ ಮಂಡಲ',
-      subject: 'physics', status: 'ready',
-      objective: "Apply Ohm's law to find current in a simple series circuit.",
-      principle: "Ohm's law: V = I·R. Current is voltage divided by resistance.",
-      equipment: ['Battery', 'Resistor', 'Ammeter'],
-      formula: 'V = I·R   →   I = V / R',
-      assumptions: 'Ideal battery (no internal resistance), constant resistance, steady state.',
-      safety: 'Simplified model. Real electrical work requires supervision.',
-      conclusion: 'Current increases linearly with voltage and decreases with resistance.',
-      inputs: [
-        { id: 'V', label: 'Voltage V (V)', min: 0.5, max: 24, step: 0.5, value: 9 },
-        { id: 'R', label: 'Resistance R (Ω)', min: 1, max: 1000, step: 1, value: 100 }
-      ],
-      compute: (v) => {
-        const I = v.R > 0 ? v.V / v.R : 0;
-        const P = v.V * I;
-        return { current: I.toFixed(3) + ' A', power: P.toFixed(2) + ' W' };
-      },
-      graphX: (v) => v.R, graphY: (v) => v.V / (v.R || 1)
-    },
-    {
-      id: 'density-buoyancy', titleEn: 'Density and Buoyancy', titleKn: 'ಸಾಂದ್ರತೆ ಮತ್ತು ತೇಲುವಿಕೆ',
-      subject: 'physics', status: 'ready',
-      objective: "Calculate density and compare with water's to predict floating.",
-      principle: "Density ρ = m / V. An object floats if its density is less than water's (≈ 1000 kg/m³ ≈ 1 g/cm³).",
-      equipment: ['Measuring cylinder', 'Balance'],
-      formula: 'ρ = m / V',
-      assumptions: 'Uniform object, water density = 1 g/cm³, no surface-tension effects.',
-      safety: 'Simplified model.',
-      conclusion: 'Objects denser than water
+    plotLabGraph("circuitGraphCanvas", records.map(r => ({ x: r.V, y: r.I })), "Voltage V (V)", "Current I (A)");
+  });
+
+  resetBtn.addEventListener("click", () => {
+    vSlider.value = 6;
+    rSlider.value = 10;
+    calculateAndDraw();
+  });
+
+  // Quiz
+  document.getElementById("circuitQuizCheck").addEventListener("click", () => {
+    const sel = document.querySelector('input[name="circuitQ"]:checked');
+    const fb = document.getElementById("circuitQuizFeedback");
+    if (!sel) return;
+    if (sel.value === "double") {
+      fb.className = "quiz-feedback success";
+      fb.textContent = "✓ ಸರಿ (Correct)! Ohm's Law states I = V / R. Doubling V while R remains constant doubles the current (12V / 10Ω = 1.20 A).";
+    } else {
+      fb.className = "quiz-feedback error";
+      fb.textContent = "✗ ತಪ್ಪಾಗಿದೆ (Incorrect). Since I = V / R, doubling voltage directly doubles the current.";
+    }
+    fb.classList.remove("hidden");
+  });
+
+  calculateAndDraw();
+}
+
+// ==============================================================
+// 2. EXPERIMENT 2: pH Scale and Indicators
+// ==============================================================
+function initPHExperiment() {
+  const select = document.getElementById("substanceSelect");
+  const canvas = document.getElementById("phCanvas");
+  const ctx = canvas.getContext("2d");
+  const phDisp = document.getElementById("phDisplayVal");
+  const natureDisp = document.getElementById("phNatureVal");
+  const recordBtn = document.getElementById("phRecordBtn");
+  const tbody = document.querySelector("#phTable tbody");
+
+  const records = [];
+
+  function getPHColor(ph) {
+    if (ph <= 2) return "#dc2626"; // Deep Red (Strong Acid)
+    if (ph <= 4) return "#f97316"; // Orange (Acid)
+    if (ph <= 6) return "#facc15"; // Yellow (Weak Acid)
+    if (ph === 7) return "#22c55e"; // Green (Neutral)
+    if (ph <= 9) return "#06b6d4"; // Cyan (Weak Base)
+    if (ph <= 11) return "#3b82f6"; // Blue (Base)
+    return "#7c3aed"; // Violet (Strong Base)
+  }
+
+  function renderPH() {
+    const ph = parseFloat(select.value);
+    const opt = select.options[select.selectedIndex];
+    const nameKn = opt.getAttribute("data-name-kn");
+    const nameEn = opt.getAttribute("data-name-en");
+
+    phDisp.textContent = ph.toFixed(1);
+
+    let nature = "";
+    if (ph < 7) {
+      nature = `ಆಮ್ಲೀಯ / Acidic (${ph < 3 ? 'ಪ್ರಬಲ / Strong' : 'ದುರ್ಬಲ / Weak'})`;
+      natureDisp.style.color = "#ea580c";
+    } else if (ph === 7) {
+      nature = "ತಟಸ್ಥ / Neutral";
+      natureDisp.style.color = "#16a34a";
+    } else {
+      nature = `ಪ್ರತ್ಯಾಮ್ಲೀಯ / Basic (${ph > 11 ? 'ಪ್ರಬಲ / Strong' : 'ದುರ್ಬಲ / Weak'})`;
+      natureDisp.style.color = "#0284c7";
+    }
+    natureDisp.textContent = nature;
+
+    // Draw Beaker & Liquid
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const color = getPHColor(ph);
+
+    // Beaker Outline
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(170, 40, 140, 110);
+
+    // Liquid Fill
+    ctx.fillStyle = color;
+    ctx.globalAlpha = 0.65;
+    ctx.fillRect(173, 75, 134, 72);
+    ctx.globalAlpha = 1.0;
+
+    // Litmus Paper Strip dipped
+    ctx.fillStyle = color;
+    ctx.fillRect(230, 20, 20, 90);
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.strokeRect(230, 20, 20, 90);
+
+    // Label on Beaker
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 13px sans-serif";
+    ctx.fillText(`pH: ${ph.toFixed(1)}`, 218, 120);
+  }
+
+  select.addEventListener("change", renderPH);
+
+  recordBtn.addEventListener("click", () => {
+    const trial = records.length + 1;
+    const ph = parseFloat(select.value);
+    const opt = select.options[select.selectedIndex];
+    const subName = `${opt.getAttribute("data-name-kn")} (${opt.getAttribute("data-name-en")})`;
+    const nature = ph < 7 ? "Acidic" : (ph === 7 ? "Neutral" : "Basic");
+
+    records.push({ trial, name: opt.getAttribute("data-name-en"), ph });
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${trial}</td><td>${subName}</td><td>${ph.toFixed(1)}</td><td>${nature}</td>`;
+    tbody.appendChild(tr);
+
+    plotLabBarChart("phGraphCanvas", records);
+  });
+
+  renderPH();
+}
+
+// ==============================================================
+// 3. EXPERIMENT 3: Microscope & Cell Explorer
+// ==============================================================
+function initCellExperiment() {
+  const typeSelect = document.getElementById("specimenType");
+  const objSelect = document.getElementById("objectivePower");
+  const objVal = document.getElementById("objVal");
+  const totalMagVal = document.getElementById("totalMagVal");
+  const canvas = document.getElementById("cellCanvas");
+  const ctx = canvas.getContext("2d");
+  const recordBtn = document.getElementById("cellRecordBtn");
+  const tbody = document.querySelector("#cellTable tbody");
+
+  let trial = 0;
+
+  function renderCells() {
+    const type = typeSelect.value;
+    const obj = parseInt(objSelect.value, 10);
+    const total = 10 * obj; // 10x eyepiece
+
+    objVal.textContent = `${obj}x`;
+    totalMagVal.textContent = `${total}x`;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const midX = canvas.width / 2;
+    const midY = canvas.height / 2;
+    const radius = 75;
+
+    // Dark outer stage
+    ctx.fillStyle = "#020617";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Circular Microscope Viewport
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(midX, midY, radius, 0, Math.PI * 2);
+    ctx.clip();
+
+    ctx.fillStyle = type === "plant" ? "#ecfdf5" : "#fdf2f8";
+    ctx.fillRect(midX - radius, midY - radius, radius * 2, radius * 2);
+
+    if (type === "plant") {
+      // Plant Brick-like Cell Walls
+      ctx.strokeStyle = "#059669";
+      ctx.lineWidth = obj === 4 ? 1 : (obj === 10 ? 2 : 3);
+      const stepX = obj === 4 ? 20 : (obj === 10 ? 40 : 80);
+      const stepY = obj === 4 ? 15 : (obj === 10 ? 25 : 50);
+
+      for (let x = midX - radius; x < midX + radius; x += stepX) {
+        for (let y = midY - radius; y < midY + radius; y += stepY) {
+          ctx.strokeRect(x, y, stepX, stepY);
+          // Nucleus
+          ctx.fillStyle = "#047857";
+          ctx.beginPath();
+          ctx.arc(x + stepX * 0.7, y + stepY * 0.5, obj === 40 ? 6 : 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    } else {
+      // Animal Irregular Cheek Cells
+      ctx.strokeStyle = "#db2777";
+      ctx.fillStyle = "rgba(244, 114, 182, 0.25)";
+      ctx.lineWidth = 2;
+
+      const count = obj === 4 ? 8 : (obj === 10 ? 4 : 1);
+      for (let i = 0; i < count; i++) {
+        const cx = midX + (i % 2 === 0 ? -25 : 25) * (i * 0.5);
+        const cy = midY + (i > 1 ? 20 : -20);
+        const r = obj === 40 ? 45 : 22;
+
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, r, r * 0.75, Math.PI / 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Dark Nucleus
+        ctx.fillStyle = "#be185d";
+        ctx.beginPath();
+        ctx.arc(cx, cy, obj === 40 ? 7 : 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    ctx.restore();
+
+    // Viewport rim
+    ctx.strokeStyle = "#475569";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.arc(midX, midY, radius, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
+  typeSelect.addEventListener("change", renderCells);
+  objSelect.addEventListener("change", renderCells);
+
+  recordBtn.addEventListener("click", () => {
+    trial++;
+    const spec = typeSelect.value === "plant" ? "Onion Peel (ಸಸ್ಯ ಕೋಶ)" : "Cheek Cells (ಪ್ರಾಣಿ ಕೋಶ)";
+    const obj = `${objSelect.value}x`;
+    const tot = `${parseInt(objSelect.value, 10) * 10}x`;
+    const struct = typeSelect.value === "plant" ? "Cell wall, Large central vacuole, Nucleus" : "Cell membrane, Cytoplasm, Distinct nucleus";
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${trial}</td><td>${spec}</td><td>${obj}</td><td>${tot}</td><td>${struct}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  renderCells();
+}
+
+// ==============================================================
+// Generic Plotters (strictly for recorded empirical data points)
+// ==============================================================
+function plotLabGraph(canvasId, points, xLabel, yLabel) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas || points.length === 0) return;
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const pad = 35;
+  const w = canvas.width - pad * 2;
+  const h = canvas.height - pad * 2;
+
+  // Axes
+  ctx.strokeStyle = "#94a3b8";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(pad, pad);
+  ctx.lineTo(pad, canvas.height - pad);
+  ctx.lineTo(canvas.width - pad, canvas.height - pad);
+  ctx.stroke();
+
+  ctx.fillStyle = "#64748b";
+  ctx.font = "9px sans-serif";
+  ctx.fillText(xLabel, canvas.width - pad - 45, canvas.height - 8);
+  ctx.fillText(yLabel, 5, pad - 12);
+
+  const maxX = Math.max(...points.map(p => p.x), 1);
+  const maxY = Math.max(...points.map(p => p.y), 1);
+
+  ctx.strokeStyle = "#0284c7";
+  ctx.fillStyle = "#0284c7";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  points.forEach((pt, i) => {
+    const px = pad + (pt.x / maxX) * w;
+    const py = (canvas.height - pad) - (pt.y / maxY) * h;
+    if (i === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  });
+  ctx.stroke();
+
+  points.forEach(pt => {
+    const px = pad + (pt.x / maxX) * w;
+    const py = (canvas.height - pad) - (pt.y / maxY) * h;
+    ctx.beginPath();
+    ctx.arc(px, py, 3, 0, Math.PI * 2);
+    ctx.fill();
+  });
+}
+
+function plotLabBarChart(canvasId, items) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas || items.length === 0) return;
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const pad = 30;
+  const barWidth = Math.max(12, (canvas.width - pad * 2) / (items.length * 1.5));
+  const maxPH = 14;
+
+  ctx.strokeStyle = "#94a3b8";
+  ctx.beginPath();
+  ctx.moveTo(pad, canvas.height - pad);
+  ctx.lineTo(canvas.width - pad, canvas.height - pad);
+  ctx.stroke();
+
+  items.forEach((item, idx) => {
+    const barH = (item.ph / maxPH) * (canvas.height - pad * 2);
+    const x = pad + idx * (barWidth + 12) + 5;
+    const y = canvas.height - pad - barH;
+
+    ctx.fillStyle = item.ph < 7 ? "#f97316" : (item.ph === 7 ? "#22c55e" : "#0284c7");
+    ctx.fillRect(x, y, barWidth, barH);
+
+    ctx.fillStyle = "#0f172a";
+    ctx.font = "9px sans-serif";
+    ctx.fillText(`${item.ph}`, x, y - 4);
+  });
+}
